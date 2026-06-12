@@ -1,0 +1,32 @@
+{
+  "selector": null,
+  "price_at_mapping": null,
+  "precise_selector": null,
+  "dom_hits": [],
+  "api_endpoints": [],
+  "intercepted_api": [],
+  "ws_messages": [],
+  "candidate_tested": [
+    "[class*='last-price']",
+    "[class*='lastPrice']",
+    "[class*='LastPrice']",
+    "[class*='current-price']",
+    "[class*='currentPrice']",
+    "[class*='CurrentPrice']",
+    "[class*='trade-price']",
+    "[class*='tradePrice']",
+    "[class*='market-price']",
+    "[data-field='lastPrice']",
+    "[data-field='last']",
+    "[data-field='tradePrice']",
+    ".price-value",
+    ".price",
+    "span.price",
+    "div.price",
+    ".last-price",
+    ".trade-price",
+    ".ag-cell-value"
+  ],
+  "mapped_at": "2026-06-03T10:05:11.825608",
+  "symbol": "1010"
+}

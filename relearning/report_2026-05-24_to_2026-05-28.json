@@ -1,0 +1,56 @@
+{
+  "week": "2026-05-24_to_2026-05-28",
+  "generated": "2026-05-30T22:10:24.215060",
+  "summary": {
+    "actual_trades": 0,
+    "actual_total_pnl": 0
+  },
+  "approaches": [
+    {
+      "name": "Approach 1: Old Strategy (v3.2)",
+      "description": "Single premarket screen, no cycling, static targets",
+      "trades": [],
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "max_drawdown": 0
+    },
+    {
+      "name": "Approach 2: New Strategy (v4.0)",
+      "description": "4 screens, unlimited cycling, regime-aware, upgrade/switch",
+      "trades": [],
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "max_drawdown": 0
+    },
+    {
+      "name": "Approach 3: Optimized (v4.0 + Fixes)",
+      "description": "v4.0 with recommended improvements applied",
+      "trades": [],
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "max_drawdown": 0,
+      "fixes_applied": [
+        "Widened entry zones by 0.5%",
+        "Lowered score threshold by 5 points"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "issue": "Low trade count \u2014 entry signals not firing",
+      "fix": "Widen entry zones or lower score threshold"
+    },
+    {
+      "priority": "MEDIUM",
+      "issue": "Win rate below 50%",
+      "fix": "Tighten momentum filter or increase position sizing"
+    }
+  ]
+}

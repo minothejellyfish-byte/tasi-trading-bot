@@ -1,0 +1,117 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-24T03:34:42.631639",
+  "results": {
+    "v3.2": {
+      "name": "v3.2 (Previous System)",
+      "num_picks": 3,
+      "hit_trades": 2,
+      "missed_trades": 1,
+      "total_pnl": 0.86,
+      "win_rate": 50.0,
+      "avg_pnl": 0.43,
+      "avg_win": 2.0,
+      "avg_loss": -1.14,
+      "missed_opportunity": -1.44,
+      "trades": [
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-17",
+          "entry_price": 26.57,
+          "open_price": 26.32,
+          "close_price": 25.94,
+          "pnl_pct": 0,
+          "chase_pnl": -1.44,
+          "score": 85.3,
+          "entry_hit": false,
+          "note": "Gapped up: entry 26.57, open 26.32"
+        },
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-20",
+          "entry_price": 27.41,
+          "exit_price": 28.84,
+          "pnl_pct": 2.0,
+          "score": 114.5,
+          "entry_hit": true
+        },
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-21",
+          "entry_price": 29.05,
+          "exit_price": 28.72,
+          "pnl_pct": -1.14,
+          "score": 109.5,
+          "entry_hit": true
+        }
+      ]
+    },
+    "v4.0": {
+      "name": "v4.0 (Current System)",
+      "num_picks": 1,
+      "hit_trades": 1,
+      "missed_trades": 0,
+      "total_pnl": 9.43,
+      "win_rate": 100.0,
+      "avg_pnl": 9.43,
+      "avg_win": 9.43,
+      "avg_loss": 0,
+      "missed_opportunity": 0,
+      "trades": [
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-20",
+          "entry_price": 27.41,
+          "exit_price": 28.84,
+          "pnl_pct": 9.43,
+          "score": 114.5,
+          "entry_hit": true
+        }
+      ]
+    },
+    "v4.0+": {
+      "name": "v4.0+ (Optimized)",
+      "num_picks": 3,
+      "hit_trades": 2,
+      "missed_trades": 1,
+      "total_pnl": 8.25,
+      "win_rate": 50.0,
+      "avg_pnl": 4.12,
+      "avg_win": 9.39,
+      "avg_loss": -1.14,
+      "missed_opportunity": -1.44,
+      "trades": [
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-17",
+          "entry_price": 26.56,
+          "open_price": 26.32,
+          "close_price": 25.94,
+          "pnl_pct": 0,
+          "chase_pnl": -1.44,
+          "score": 85.3,
+          "entry_hit": false,
+          "note": "Gapped up: entry 26.56, open 26.32"
+        },
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-20",
+          "entry_price": 27.41,
+          "exit_price": 28.84,
+          "pnl_pct": 9.39,
+          "score": 114.5,
+          "entry_hit": true
+        },
+        {
+          "symbol": "2050.SR",
+          "date": "2026-05-21",
+          "entry_price": 29.05,
+          "exit_price": 28.72,
+          "pnl_pct": -1.14,
+          "score": 109.5,
+          "entry_hit": true
+        }
+      ]
+    }
+  }
+}

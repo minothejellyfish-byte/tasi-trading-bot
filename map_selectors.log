@@ -1,0 +1,3118 @@
+2026-05-17 10:05:01,623 [DEBUG] Using selector: EpollSelector
+2026-05-17 10:05:01,623 [DEBUG] Using selector: EpollSelector
+2026-05-17 10:05:01,623 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-17 10:05:01,623 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-17 10:05:01,625 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 10:05:01,625 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 10:05:01,987 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 10:05:01,987 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 10:05:01,988 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 10:05:01,988 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 10:05:02,577 [INFO] Open tabs: ['chrome://new-tab-page/', 'chrome://new-tab-page/', 'https://onboarding.derayah.com/#/signin', 'https://derayah.tickerchart.net/app/en']
+2026-05-17 10:05:02,577 [INFO] Open tabs: ['chrome://new-tab-page/', 'chrome://new-tab-page/', 'https://onboarding.derayah.com/#/signin', 'https://derayah.tickerchart.net/app/en']
+2026-05-17 10:05:02,577 [INFO] Found Derayah tab: https://onboarding.derayah.com/#/signin
+2026-05-17 10:05:02,577 [INFO] Found Derayah tab: https://onboarding.derayah.com/#/signin
+2026-05-17 10:05:02,578 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-17 10:05:02,578 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-17 10:05:04,562 [INFO] Waiting 2s for page to settle…
+2026-05-17 10:05:04,562 [INFO] Waiting 2s for page to settle…
+2026-05-17 10:05:06,577 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-17 10:05:06,577 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-17 10:05:08,983 [INFO] DOM scan found 0 price-like leaf elements:
+2026-05-17 10:05:08,983 [INFO] DOM scan found 0 price-like leaf elements:
+2026-05-17 10:05:08,983 [INFO] === Testing candidate CSS selectors ===
+2026-05-17 10:05:08,983 [INFO] === Testing candidate CSS selectors ===
+2026-05-17 10:05:10,996 [INFO] === Page text (first 3000 chars) ===
+2026-05-17 10:05:10,996 [INFO] === Page text (first 3000 chars) ===
+2026-05-17 10:05:11,000 [INFO] Trade in
+Saudi and MENA
+markets
+AR
+Login to Derayah Platform
+
+Enter your credentials to access your account and pick up right where you left off.
+
+User Name or User Number
+Password
+Send activation code via
+SMS
+Email
+Login
+Forgot Password ?
+Or Sign Up
+Need help?
+Terms of Service
+&
+Privacy Policy
+
+Licensed by the Capital Market Authority 08109 - 27
+2026-05-17 10:05:11,000 [INFO] Trade in
+Saudi and MENA
+markets
+AR
+Login to Derayah Platform
+
+Enter your credentials to access your account and pick up right where you left off.
+
+User Name or User Number
+Password
+Send activation code via
+SMS
+Email
+Login
+Forgot Password ?
+Or Sign Up
+Need help?
+Terms of Service
+&
+Privacy Policy
+
+Licensed by the Capital Market Authority 08109 - 27
+2026-05-17 10:05:11,000 [INFO] === API responses with price hints (0 found) ===
+2026-05-17 10:05:11,000 [INFO] === API responses with price hints (0 found) ===
+2026-05-17 10:05:11,000 [INFO] === WebSocket price frames (0 found) ===
+2026-05-17 10:05:11,000 [INFO] === WebSocket price frames (0 found) ===
+2026-05-17 10:05:11,000 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-17 10:05:11,000 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/js/chunk-vendors.6d179861.js
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/js/chunk-vendors.6d179861.js
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/js/app.634853b1.js
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/js/app.634853b1.js
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/css/app.c31b207e.css
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/css/app.c31b207e.css
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/fonts/Inter-Regular.34ba43c9.woff2
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/fonts/Inter-Regular.34ba43c9.woff2
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/fonts/Inter-Medium.ea234620.woff2
+2026-05-17 10:05:11,005 [INFO]   https://onboarding.derayah.com/fonts/Inter-Medium.ea234620.woff2
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/fonts/Inter-SemiBold.95439fb4.woff2
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/fonts/Inter-SemiBold.95439fb4.woff2
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/Home/GetEnvironmentVariables
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/Home/GetEnvironmentVariables
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/css/SignInView.5fbd959a.css
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/css/SignInView.5fbd959a.css
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/js/SignInView.9b16f142.js
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/js/SignInView.9b16f142.js
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/img/Illustration.c1619360.png
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/img/Illustration.c1619360.png
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/img/ar.a6725574.svg
+2026-05-17 10:05:11,006 [INFO]   https://onboarding.derayah.com/img/ar.a6725574.svg
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=
+2026-05-17 10:05:11,006 [INFO]   https://px.ads.linkedin.com/attribution_trigger?pid=7158028&time=1779001504823&url=https%3A%2F%2Fonboarding.derayah.com%2F%23%2Fsignin&tm=gt
+2026-05-17 10:05:11,006 [INFO]   https://px.ads.linkedin.com/attribution_trigger?pid=7158028&time=1779001504823&url=https%3A%2F%2Fonboarding.derayah.com%2F%23%2Fsignin&tm=gt
+2026-05-17 10:05:11,006 [INFO]   https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=7158028&time=1779001504823&li_adsId=97f88f64-66cc-48e2-afd7-2f61e9d166b9&url=https%3A%2F%
+2026-05-17 10:05:11,006 [INFO]   https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=7158028&time=1779001504823&li_adsId=97f88f64-66cc-48e2-afd7-2f61e9d166b9&url=https%3A%2F%
+2026-05-17 10:05:11,006 [INFO]   https://connect.facebook.net/signals/config/533913528992011?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d3
+2026-05-17 10:05:11,006 [INFO]   https://connect.facebook.net/signals/config/533913528992011?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d3
+2026-05-17 10:05:11,006 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1779001504960&cv=11&fst=1779001504960&bg=ffffff&guid=ON
+2026-05-17 10:05:11,006 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1779001504960&cv=11&fst=1779001504960&bg=ffffff&guid=ON
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1779001504960&cv=11&fst=1779001504960&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1779001504960&cv=11&fst=1779001504960&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-05-17 10:05:11,006 [INFO]   https://www.googleadservices.com/pagead/conversion/16665603478/?random=1779001505011&cv=11&fst=1779001505011&fmt=7&bg=ffffff&guid=ON&async=1
+2026-05-17 10:05:11,006 [INFO]   https://www.googleadservices.com/pagead/conversion/16665603478/?random=1779001505011&cv=11&fst=1779001505011&fmt=7&bg=ffffff&guid=ON&async=1
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=10&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=10&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.
+2026-05-17 10:05:11,006 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-05-17 10:05:11,006 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-05-17 10:05:11,006 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-05-17 10:05:11,006 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-05-17 10:05:11,006 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-05-17 10:05:11,006 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-05-17 10:05:11,006 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-05-17 10:05:11,006 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-05-17 10:05:11,006 [INFO]   https://connect.facebook.net/signals/config/898757993089536?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d3
+2026-05-17 10:05:11,006 [INFO]   https://connect.facebook.net/signals/config/898757993089536?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d3
+2026-05-17 10:05:11,006 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,006 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,006 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,006 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,006 [INFO]   https://ad.doubleclick.net/activity;src=16337514;type=signu0;cat=signu0;rcb=1;ord=6375391986295;npa=0;auiddc=954104892.1778768025;uaa=x86;ua
+2026-05-17 10:05:11,006 [INFO]   https://ad.doubleclick.net/activity;src=16337514;type=signu0;cat=signu0;rcb=1;ord=6375391986295;npa=0;auiddc=954104892.1778768025;uaa=x86;ua
+2026-05-17 10:05:11,006 [INFO]   https://16337514.fls.doubleclick.net/activityi;src=16337514;type=signu0;cat=signu0;rcb=1;ord=6375391986295;npa=0;auiddc=954104892.1778768025
+2026-05-17 10:05:11,006 [INFO]   https://16337514.fls.doubleclick.net/activityi;src=16337514;type=signu0;cat=signu0;rcb=1;ord=6375391986295;npa=0;auiddc=954104892.1778768025
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=1&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.g
+2026-05-17 10:05:11,006 [INFO]   https://www.google.com/ccm/collect?rcb=1&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.g
+2026-05-17 10:05:11,006 [INFO]   https://ad.doubleclick.net/activity;src=15617346;type=cntww0;cat=deray002;rcb=6;ord=6687080939578;npa=0;auiddc=954104892.1778768025;uaa=x86;
+2026-05-17 10:05:11,006 [INFO]   https://ad.doubleclick.net/activity;src=15617346;type=cntww0;cat=deray002;rcb=6;ord=6687080939578;npa=0;auiddc=954104892.1778768025;uaa=x86;
+2026-05-17 10:05:11,007 [INFO]   https://15617346.fls.doubleclick.net/activityi;src=15617346;type=cntww0;cat=deray002;rcb=6;ord=6687080939578;npa=0;auiddc=954104892.17787680
+2026-05-17 10:05:11,007 [INFO]   https://15617346.fls.doubleclick.net/activityi;src=15617346;type=cntww0;cat=deray002;rcb=6;ord=6687080939578;npa=0;auiddc=954104892.17787680
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/ccm/collect?rcb=6&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.g
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/ccm/collect?rcb=6&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.g
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1779001508655&cv=11&fst=1779001508655&bg=ffffff&guid=ON
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1779001508655&cv=11&fst=1779001508655&bg=ffffff&guid=ON
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1779001508655&cv=11&fst=1779001508655&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1779001508655&cv=11&fst=1779001508655&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-05-17 10:05:11,007 [INFO]   https://www.googleadservices.com/pagead/conversion/17414917547/?random=1779001508707&cv=11&fst=1779001508707&fmt=7&bg=ffffff&guid=ON&async=1
+2026-05-17 10:05:11,007 [INFO]   https://www.googleadservices.com/pagead/conversion/17414917547/?random=1779001508707&cv=11&fst=1779001508707&fmt=7&bg=ffffff&guid=ON&async=1
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/ccm/collect?rcb=15&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/ccm/collect?rcb=15&frm=0&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboarding.derayah.com%2F&scrsrc=www.
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=816105142&cv=11&fst=1779001505011&fmt=8&bg=ffffff&guid=
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=816105142&cv=11&fst=1779001505011&fmt=8&bg=ffffff&guid=
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1779001504960&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1779001504960&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1779001504960&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1779001504960&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-05-17 10:05:11,007 [INFO]   https://tr.snapchat.com/p?pid=6d601e7f-dfd9-4142-88f6-e06be994fe9f&ev=PAGE_VIEW&intg=gtm&cdid=1779001875538_17790024083593&pids=6d601e7f-dfd
+2026-05-17 10:05:11,007 [INFO]   https://tr.snapchat.com/p?pid=6d601e7f-dfd9-4142-88f6-e06be994fe9f&ev=PAGE_VIEW&intg=gtm&cdid=1779001875538_17790024083593&pids=6d601e7f-dfd
+2026-05-17 10:05:11,007 [INFO]   https://tr.snapchat.com/p?pid=07f74ae4-6b5b-45da-9497-4a9a8953b074&ev=PAGE_VIEW&intg=gtm&pids=07f74ae4-6b5b-45da-9497-4a9a8953b074&u_c1=5bd6
+2026-05-17 10:05:11,007 [INFO]   https://tr.snapchat.com/p?pid=07f74ae4-6b5b-45da-9497-4a9a8953b074&ev=PAGE_VIEW&intg=gtm&pids=07f74ae4-6b5b-45da-9497-4a9a8953b074&u_c1=5bd6
+2026-05-17 10:05:11,007 [INFO]   https://connect.facebook.net/signals/config/1358668865560909?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d
+2026-05-17 10:05:11,007 [INFO]   https://connect.facebook.net/signals/config/1358668865560909?v=2.9.319&r=stable&domain=onboarding.derayah.com&hme=7441a59ee5070e08bd0157a62d
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1779001508655&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1779001508655&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1779001508655&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-05-17 10:05:11,007 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1779001508655&cv=11&fst=1779001200000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1223862541&cv=11&fst=1779001508707&fmt=8&bg=ffffff&guid
+2026-05-17 10:05:11,007 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1223862541&cv=11&fst=1779001508707&fmt=8&bg=ffffff&guid
+2026-05-17 10:05:11,007 [INFO]   https://www.googleadservices.com/pagead/conversion/1009880546/?random=1779001509842&cv=11&fst=1779001509842&fmt=7&bg=ffffff&guid=ON&async=1&
+2026-05-17 10:05:11,007 [INFO]   https://www.googleadservices.com/pagead/conversion/1009880546/?random=1779001509842&cv=11&fst=1779001509842&fmt=7&bg=ffffff&guid=ON&async=1&
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&
+2026-05-17 10:05:11,007 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&
+2026-05-17 10:05:11,008 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=
+2026-05-17 10:05:11,008 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=
+2026-05-17 10:05:11,008 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1009880546/?random=1727678710&cv=11&fst=1779001509842&fmt=8&bg=ffffff&guid=
+2026-05-17 10:05:11,008 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1009880546/?random=1727678710&cv=11&fst=1779001509842&fmt=8&bg=ffffff&guid=
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session-manager.4fa26852.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session-manager.4fa26852.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/197.daeb3ece.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/197.daeb3ece.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/827.0c82a80f.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/827.0c82a80f.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/page_view_event-aggregate.ba584009.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/page_view_event-aggregate.ba584009.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/page_view_timing-aggregate.a10f1641.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/page_view_timing-aggregate.a10f1641.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/metrics-aggregate.fa3693ea.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/metrics-aggregate.fa3693ea.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/jserrors-aggregate.4564022b.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/jserrors-aggregate.4564022b.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/spa-aggregate.c54cccb5.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/spa-aggregate.c54cccb5.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/ajax-aggregate.17e6d56c.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/ajax-aggregate.17e6d56c.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session_trace-aggregate.838d2279.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session_trace-aggregate.838d2279.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session_replay-aggregate.83fcb369.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/session_replay-aggregate.83fcb369.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/logging-aggregate.bf56775c.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/logging-aggregate.bf56775c.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/generic_events-aggregate.723e7ef4.js
+2026-05-17 10:05:11,008 [INFO]   https://onboarding.derayah.com/js/generic_events-aggregate.723e7ef4.js
+2026-05-17 10:05:11,008 [INFO]   https://bam.eu01.nr-data.net/1/NRJS-f352653b19343f7c0c3?a=538758046&sa=1&v=1.296.0&t=Unnamed%20Transaction&rst=6973&ck=0&s=0a9c43bc72c1f2d8&
+2026-05-17 10:05:11,008 [INFO]   https://bam.eu01.nr-data.net/1/NRJS-f352653b19343f7c0c3?a=538758046&sa=1&v=1.296.0&t=Unnamed%20Transaction&rst=6973&ck=0&s=0a9c43bc72c1f2d8&
+2026-05-17 10:05:11,008 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-17 10:05:11,008 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-17 10:05:11,008 [INFO] ⚠️ No selector auto-confirmed for 1010
+Market may be closed or prices not on screen.
+
+DOM price-like elements:
+  (none)
+
+API hints:
+  (none)
+
+Full log: /home/mino/tasi-exec/map_selectors.log
+Re-run at 10:05 once prices are live.
+2026-05-17 10:05:11,008 [INFO] ⚠️ No selector auto-confirmed for 1010
+Market may be closed or prices not on screen.
+
+DOM price-like elements:
+  (none)
+
+API hints:
+  (none)
+
+Full log: /home/mino/tasi-exec/map_selectors.log
+Re-run at 10:05 once prices are live.
+2026-05-17 10:05:11,009 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 10:05:11,009 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 10:05:11,366 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 10:05:11,366 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 10:05:11,366 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 10:05:11,366 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 10:05:11,381 [INFO] === Selector mapper done ===
+2026-05-17 10:05:11,381 [INFO] === Selector mapper done ===
+2026-05-17 13:59:57,265 [DEBUG] Using selector: EpollSelector
+2026-05-17 13:59:57,265 [INFO] === Derayah selector mapper started (symbol=2050) ===
+2026-05-17 13:59:57,267 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 13:59:57,610 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 13:59:57,611 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 13:59:58,382 [INFO] Open tabs: ['chrome://new-tab-page/', 'https://derayah.tickerchart.net/app/en', 'chrome://new-tab-page/', 'https://newonline.derayah.com/#/layout/trading']
+2026-05-17 13:59:58,382 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/trading
+2026-05-17 13:59:58,383 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=2050
+2026-05-17 13:59:58,470 [INFO] Waiting 2s for page to settle…
+2026-05-17 14:00:00,472 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-17 14:00:00,513 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-17 14:00:00,513 [INFO]   val=   1001.00  tag=SPAN    pos=(610,231)  class=  id=
+2026-05-17 14:00:00,513 [INFO]   val=     100 %  tag=H6      pos=(498,501)  class=badge-ratio  id=
+2026-05-17 14:00:00,514 [INFO]   val=1001.00 SAR  tag=H5      pos=(837,397)  class=val mb-2  id=totalCashAccount
+2026-05-17 14:00:00,514 [INFO]   val=   1001.00  tag=SPAN    pos=(609,894)  class=ag-cell-value  id=
+2026-05-17 14:00:00,514 [INFO]   val=   1001.00  tag=LABEL   pos=(392,962)  class=val  id=
+2026-05-17 14:00:00,514 [INFO] === Testing candidate CSS selectors ===
+2026-05-17 14:00:00,760 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-17 14:00:00,782 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-17 14:00:00,809 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-17 14:00:00,815 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-17 14:00:00,821 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1001.0
+2026-05-17 14:01:57,922 [DEBUG] Using selector: EpollSelector
+2026-05-17 14:01:57,922 [INFO] === Derayah selector mapper started (symbol=2050) ===
+2026-05-17 14:01:57,923 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 14:01:58,282 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 14:01:58,283 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 14:01:58,963 [INFO] Open tabs: ['chrome://new-tab-page/', 'https://derayah.tickerchart.net/app/en', 'chrome://new-tab-page/', 'https://newonline.derayah.com/#/layout/dashboard?symbol=2050']
+2026-05-17 14:01:58,963 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard?symbol=2050
+2026-05-17 14:01:58,965 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=2050
+2026-05-17 14:01:59,063 [INFO] Waiting 2s for page to settle…
+2026-05-17 14:02:01,066 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-17 14:02:01,103 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-17 14:02:01,103 [INFO]   val=   1001.00  tag=SPAN    pos=(610,231)  class=  id=
+2026-05-17 14:02:01,104 [INFO]   val=     100 %  tag=H6      pos=(498,501)  class=badge-ratio  id=
+2026-05-17 14:02:01,104 [INFO]   val=1001.00 SAR  tag=H5      pos=(837,397)  class=val mb-2  id=totalCashAccount
+2026-05-17 14:02:01,104 [INFO]   val=   1001.00  tag=SPAN    pos=(609,894)  class=ag-cell-value  id=
+2026-05-17 14:02:01,104 [INFO]   val=   1001.00  tag=LABEL   pos=(392,962)  class=val  id=
+2026-05-17 14:02:01,104 [INFO] === Testing candidate CSS selectors ===
+2026-05-17 14:02:01,397 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-17 14:02:01,417 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-17 14:02:01,451 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-17 14:02:01,458 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-17 14:02:01,464 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1001.0
+2026-05-17 14:02:01,464 [INFO] === Page text (first 3000 chars) ===
+2026-05-17 14:02:01,468 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Sun May 17 2026 | 01:48 PM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,001.00SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,001.00 SAR
+
+Grand Total
+
+Money Transfer
+1,001.00 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,001.00
+Total Value
+1,001.00
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-17 14:02:01,468 [INFO] === API responses with price hints (0 found) ===
+2026-05-17 14:02:01,468 [INFO] === WebSocket price frames (0 found) ===
+2026-05-17 14:02:01,468 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-17 14:02:01,472 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&i
+2026-05-17 14:02:01,472 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-05-17 14:02:01,472 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&
+2026-05-17 14:02:01,472 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-05-17 14:02:01,473 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-17 14:02:01,473 [INFO] ✅ Selector mapped for 2050
+Selector: .ag-cell-value
+Price at mapping: 1001.0
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-17 14:02:01,474 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-17 14:02:01,843 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 403 100
+2026-05-17 14:02:01,844 [ERROR] tg_send failed: 403 Client Error: Forbidden for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-17 14:02:01,862 [INFO] === Selector mapper done ===
+2026-05-18 10:05:02,082 [DEBUG] Using selector: EpollSelector
+2026-05-18 10:05:02,082 [DEBUG] Using selector: EpollSelector
+2026-05-18 10:05:02,083 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-18 10:05:02,083 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-18 10:05:02,085 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-18 10:05:02,085 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-18 10:05:02,451 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 410
+2026-05-18 10:05:02,451 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 410
+2026-05-18 10:05:07,125 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: Timeout 4000ms exceeded.
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18800
+  - <ws connecting> ws://127.0.0.1:18800/devtools/browser/8b40819e-bc51-4f73-8ee4-536da4d68ab2
+  - <ws connected> ws://127.0.0.1:18800/devtools/browser/8b40819e-bc51-4f73-8ee4-536da4d68ab2
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-18 10:05:07,125 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: Timeout 4000ms exceeded.
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18800
+  - <ws connecting> ws://127.0.0.1:18800/devtools/browser/8b40819e-bc51-4f73-8ee4-536da4d68ab2
+  - <ws connected> ws://127.0.0.1:18800/devtools/browser/8b40819e-bc51-4f73-8ee4-536da4d68ab2
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-18 10:05:07,132 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-18 10:05:07,132 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-18 10:05:07,441 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 400 127
+2026-05-18 10:05:07,441 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 400 127
+2026-05-18 10:05:07,442 [ERROR] tg_send failed: 400 Client Error: Bad Request for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-18 10:05:07,442 [ERROR] tg_send failed: 400 Client Error: Bad Request for url: https://api.telegram.org/bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage
+2026-05-19 10:05:01,257 [DEBUG] Using selector: EpollSelector
+2026-05-19 10:05:01,257 [DEBUG] Using selector: EpollSelector
+2026-05-19 10:05:01,258 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-19 10:05:01,258 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-19 10:05:01,262 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-19 10:05:01,262 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-19 10:05:01,760 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 365
+2026-05-19 10:05:01,760 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 365
+2026-05-19 10:05:02,137 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-19 10:05:02,137 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-19 10:05:02,138 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-19 10:05:02,138 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-19 10:05:02,530 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 587
+2026-05-19 10:05:02,530 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 587
+2026-05-20 10:05:01,778 [DEBUG] Using selector: EpollSelector
+2026-05-20 10:05:01,778 [DEBUG] Using selector: EpollSelector
+2026-05-20 10:05:01,780 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-20 10:05:01,780 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-20 10:05:01,783 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-20 10:05:01,783 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-20 10:05:02,158 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-20 10:05:02,158 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-20 10:05:02,644 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/dashboard', 'https://derayah.tickerchart.net/app/en']
+2026-05-20 10:05:02,644 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/dashboard', 'https://derayah.tickerchart.net/app/en']
+2026-05-20 10:05:02,644 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-05-20 10:05:02,644 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-05-20 10:05:02,647 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-20 10:05:02,647 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-20 10:05:02,670 [INFO] Waiting 2s for page to settle…
+2026-05-20 10:05:02,670 [INFO] Waiting 2s for page to settle…
+2026-05-20 10:05:04,673 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-20 10:05:04,673 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-20 10:05:04,721 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-20 10:05:04,721 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-20 10:05:04,722 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-20 10:05:04,722 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-20 10:05:04,722 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-20 10:05:04,722 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-20 10:05:04,722 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-20 10:05:04,722 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-20 10:05:04,722 [INFO]   val=   1000.66  tag=SPAN    pos=(620,894)  class=ag-cell-value  id=
+2026-05-20 10:05:04,722 [INFO]   val=   1000.66  tag=SPAN    pos=(620,894)  class=ag-cell-value  id=
+2026-05-20 10:05:04,723 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-20 10:05:04,723 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-20 10:05:04,723 [INFO] === Testing candidate CSS selectors ===
+2026-05-20 10:05:04,723 [INFO] === Testing candidate CSS selectors ===
+2026-05-20 10:05:05,107 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-20 10:05:05,107 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-20 10:05:05,146 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-20 10:05:05,146 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-20 10:05:05,193 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-20 10:05:05,193 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-20 10:05:05,201 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-20 10:05:05,201 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-20 10:05:05,211 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-20 10:05:05,211 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-20 10:05:05,211 [INFO] === Page text (first 3000 chars) ===
+2026-05-20 10:05:05,211 [INFO] === Page text (first 3000 chars) ===
+2026-05-20 10:05:05,214 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Wed May 20 2026 | 05:46 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-20 10:05:05,214 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Wed May 20 2026 | 05:46 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-20 10:05:05,214 [INFO] === API responses with price hints (0 found) ===
+2026-05-20 10:05:05,214 [INFO] === API responses with price hints (0 found) ===
+2026-05-20 10:05:05,214 [INFO] === WebSocket price frames (0 found) ===
+2026-05-20 10:05:05,214 [INFO] === WebSocket price frames (0 found) ===
+2026-05-20 10:05:05,214 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-20 10:05:05,214 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779260703378&sw=1366&sh=
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779260703378&sw=1366&sh=
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779260703395&sw=1366&sh
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779260703395&sw=1366&sh
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-05-20 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-05-20 10:05:05,218 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-20 10:05:05,218 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-20 10:05:05,218 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-20 10:05:05,218 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-20 10:05:05,218 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-20 10:05:05,218 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-20 10:05:05,606 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-20 10:05:05,606 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-20 10:05:05,617 [INFO] === Selector mapper done ===
+2026-05-20 10:05:05,617 [INFO] === Selector mapper done ===
+2026-05-21 10:05:01,943 [DEBUG] Using selector: EpollSelector
+2026-05-21 10:05:01,943 [DEBUG] Using selector: EpollSelector
+2026-05-21 10:05:01,944 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-21 10:05:01,944 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-21 10:05:01,948 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-21 10:05:01,948 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-21 10:05:02,350 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-21 10:05:02,350 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-21 10:05:02,916 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/trading-portfolio', 'https://derayah.tickerchart.net/app/en']
+2026-05-21 10:05:02,916 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/trading-portfolio', 'https://derayah.tickerchart.net/app/en']
+2026-05-21 10:05:02,916 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/trading-portfolio
+2026-05-21 10:05:02,916 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/trading-portfolio
+2026-05-21 10:05:02,919 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-21 10:05:02,919 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-21 10:05:02,932 [INFO] Waiting 2s for page to settle…
+2026-05-21 10:05:02,932 [INFO] Waiting 2s for page to settle…
+2026-05-21 10:05:04,936 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-21 10:05:04,936 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-21 10:05:04,966 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-21 10:05:04,966 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-21 10:05:04,966 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-21 10:05:04,966 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-21 10:05:04,966 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-21 10:05:04,966 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=SPAN    pos=(620,894)  class=ag-cell-value  id=
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=SPAN    pos=(620,894)  class=ag-cell-value  id=
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-21 10:05:04,966 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-21 10:05:04,967 [INFO] === Testing candidate CSS selectors ===
+2026-05-21 10:05:04,967 [INFO] === Testing candidate CSS selectors ===
+2026-05-21 10:05:05,263 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-21 10:05:05,263 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-21 10:05:05,285 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-21 10:05:05,285 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-21 10:05:05,310 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-21 10:05:05,310 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-21 10:05:05,315 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-21 10:05:05,315 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-21 10:05:05,321 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-21 10:05:05,321 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-21 10:05:05,321 [INFO] === Page text (first 3000 chars) ===
+2026-05-21 10:05:05,321 [INFO] === Page text (first 3000 chars) ===
+2026-05-21 10:05:05,324 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Wed May 20 2026 | 05:46 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-21 10:05:05,324 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Wed May 20 2026 | 05:46 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-21 10:05:05,324 [INFO] === API responses with price hints (0 found) ===
+2026-05-21 10:05:05,324 [INFO] === API responses with price hints (0 found) ===
+2026-05-21 10:05:05,324 [INFO] === WebSocket price frames (0 found) ===
+2026-05-21 10:05:05,324 [INFO] === WebSocket price frames (0 found) ===
+2026-05-21 10:05:05,324 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-21 10:05:05,324 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779347104270&sw=1366&sh=
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779347104270&sw=1366&sh=
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779347104285&sw=1366&sh
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1779347104285&sw=1366&sh
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-05-21 10:05:05,328 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-05-21 10:05:05,328 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-21 10:05:05,328 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-21 10:05:05,328 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-21 10:05:05,328 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-21 10:05:05,329 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-21 10:05:05,329 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-21 10:05:05,724 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-21 10:05:05,724 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-21 10:05:05,737 [INFO] === Selector mapper done ===
+2026-05-21 10:05:05,737 [INFO] === Selector mapper done ===
+2026-05-24 10:05:02,113 [DEBUG] Using selector: EpollSelector
+2026-05-24 10:05:02,113 [DEBUG] Using selector: EpollSelector
+2026-05-24 10:05:02,115 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-24 10:05:02,115 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-24 10:05:02,118 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-24 10:05:02,118 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-24 10:05:02,467 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-24 10:05:02,467 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-24 10:05:02,917 [INFO] Open tabs: ['https://derayah.tickerchart.net/app/en', 'https://newonline.derayah.com/#/layout/dashboard']
+2026-05-24 10:05:02,917 [INFO] Open tabs: ['https://derayah.tickerchart.net/app/en', 'https://newonline.derayah.com/#/layout/dashboard']
+2026-05-24 10:05:02,917 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-05-24 10:05:02,917 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-05-24 10:05:02,921 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-24 10:05:02,921 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-05-24 10:05:02,937 [INFO] Waiting 2s for page to settle…
+2026-05-24 10:05:02,937 [INFO] Waiting 2s for page to settle…
+2026-05-24 10:05:04,944 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-24 10:05:04,944 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-05-24 10:05:04,974 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-24 10:05:04,974 [INFO] DOM scan found 5 price-like leaf elements:
+2026-05-24 10:05:04,974 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-24 10:05:04,974 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-05-24 10:05:04,974 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-24 10:05:04,974 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-05-24 10:05:04,974 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-24 10:05:04,974 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-05-24 10:05:04,975 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-05-24 10:05:04,975 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-05-24 10:05:04,975 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-24 10:05:04,975 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-05-24 10:05:04,975 [INFO] === Testing candidate CSS selectors ===
+2026-05-24 10:05:04,975 [INFO] === Testing candidate CSS selectors ===
+2026-05-24 10:05:05,148 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-24 10:05:05,148 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-05-24 10:05:05,170 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-24 10:05:05,170 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-05-24 10:05:05,198 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-24 10:05:05,198 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-05-24 10:05:05,203 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-24 10:05:05,203 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-05-24 10:05:05,210 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-24 10:05:05,210 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-05-24 10:05:05,210 [INFO] === Page text (first 3000 chars) ===
+2026-05-24 10:05:05,210 [INFO] === Page text (first 3000 chars) ===
+2026-05-24 10:05:05,213 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Sun May 24 2026 | 05:08 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-24 10:05:05,213 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Sun May 24 2026 | 05:08 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-05-24 10:05:05,214 [INFO] === API responses with price hints (0 found) ===
+2026-05-24 10:05:05,214 [INFO] === API responses with price hints (0 found) ===
+2026-05-24 10:05:05,214 [INFO] === WebSocket price frames (0 found) ===
+2026-05-24 10:05:05,214 [INFO] === WebSocket price frames (0 found) ===
+2026-05-24 10:05:05,214 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-24 10:05:05,214 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-05-24 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-05-24 10:05:05,217 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-05-24 10:05:05,218 [INFO]   https://api.derayah.com/apispark/Account/RedirectToHighRiskWaiver
+2026-05-24 10:05:05,218 [INFO]   https://api.derayah.com/apispark/Account/RedirectToHighRiskWaiver
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&i
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&i
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-05-24 10:05:05,218 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-05-24 10:05:05,218 [INFO]   https://api.derayah.com/apispark/Account/NavigationPermissions
+2026-05-24 10:05:05,218 [INFO]   https://api.derayah.com/apispark/Account/NavigationPermissions
+2026-05-24 10:05:05,219 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-24 10:05:05,219 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-05-24 10:05:05,219 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-24 10:05:05,219 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-05-24 10:05:05,220 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-24 10:05:05,220 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-24 10:05:05,609 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-24 10:05:05,609 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-05-24 10:05:05,623 [INFO] === Selector mapper done ===
+2026-05-24 10:05:05,623 [INFO] === Selector mapper done ===
+2026-05-25 10:05:01,472 [DEBUG] Using selector: EpollSelector
+2026-05-25 10:05:01,472 [DEBUG] Using selector: EpollSelector
+2026-05-25 10:05:01,472 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-25 10:05:01,472 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-25 10:05:01,475 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-25 10:05:01,475 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-25 10:05:02,130 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-25 10:05:02,130 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-25 10:05:02,514 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-25 10:05:02,514 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-25 10:05:02,515 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-25 10:05:02,515 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-25 10:05:02,888 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-25 10:05:02,888 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-26 10:05:01,884 [DEBUG] Using selector: EpollSelector
+2026-05-26 10:05:01,884 [DEBUG] Using selector: EpollSelector
+2026-05-26 10:05:01,884 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-26 10:05:01,884 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-26 10:05:01,887 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-26 10:05:01,887 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-26 10:05:02,436 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-26 10:05:02,436 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-26 10:05:02,808 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-26 10:05:02,808 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-26 10:05:02,809 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-26 10:05:02,809 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-26 10:05:03,154 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-26 10:05:03,154 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-27 10:05:01,966 [DEBUG] Using selector: EpollSelector
+2026-05-27 10:05:01,966 [DEBUG] Using selector: EpollSelector
+2026-05-27 10:05:01,966 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-27 10:05:01,966 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-27 10:05:01,969 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-27 10:05:01,969 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-27 10:05:02,332 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-27 10:05:02,332 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-27 10:05:02,715 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-27 10:05:02,715 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-27 10:05:02,715 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-27 10:05:02,715 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-27 10:05:03,080 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-27 10:05:03,080 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-28 10:05:01,797 [DEBUG] Using selector: EpollSelector
+2026-05-28 10:05:01,797 [DEBUG] Using selector: EpollSelector
+2026-05-28 10:05:01,797 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-28 10:05:01,797 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-28 10:05:01,800 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-28 10:05:01,800 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-28 10:05:02,330 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-28 10:05:02,330 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-28 10:05:02,718 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-28 10:05:02,718 [ERROR] ❌ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:18801
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:18801
+
+Is Chromium running? Check: ps aux | grep chromium
+2026-05-28 10:05:02,718 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-28 10:05:02,718 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-28 10:05:03,105 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-28 10:05:03,105 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 588
+2026-05-31 10:05:01,435 [DEBUG] Using selector: EpollSelector
+2026-05-31 10:05:01,435 [DEBUG] Using selector: EpollSelector
+2026-05-31 10:05:01,436 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-31 10:05:01,436 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-05-31 10:05:01,441 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-31 10:05:01,441 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-31 10:05:11,775 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-31 10:05:11,775 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-05-31 10:05:12,241 [INFO] Open tabs: ['https://derayah.tickerchart.net/app/ar']
+2026-05-31 10:05:12,241 [INFO] Open tabs: ['https://derayah.tickerchart.net/app/ar']
+2026-05-31 10:05:12,241 [ERROR] ❌ No Derayah tab found. Open https://newonline.derayah.com and log in first.
+2026-05-31 10:05:12,241 [ERROR] ❌ No Derayah tab found. Open https://newonline.derayah.com and log in first.
+2026-05-31 10:05:12,243 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-31 10:05:12,243 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-05-31 10:05:12,675 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 395
+2026-05-31 10:05:12,675 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 395
+2026-06-01 10:05:01,931 [DEBUG] Using selector: EpollSelector
+2026-06-01 10:05:01,931 [DEBUG] Using selector: EpollSelector
+2026-06-01 10:05:01,932 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-01 10:05:01,932 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-01 10:05:01,937 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-01 10:05:01,937 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-01 10:05:02,340 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-06-01 10:05:02,340 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-06-01 10:05:02,980 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/trading-portfolio', 'about:blank', 'https://derayah.tickerchart.net/app/en']
+2026-06-01 10:05:02,980 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/trading-portfolio', 'about:blank', 'https://derayah.tickerchart.net/app/en']
+2026-06-01 10:05:02,980 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/trading-portfolio
+2026-06-01 10:05:02,980 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/trading-portfolio
+2026-06-01 10:05:02,982 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-01 10:05:02,982 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-01 10:05:03,035 [INFO] Waiting 2s for page to settle…
+2026-06-01 10:05:03,035 [INFO] Waiting 2s for page to settle…
+2026-06-01 10:05:05,048 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-01 10:05:05,048 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-01 10:05:05,089 [INFO] DOM scan found 5 price-like leaf elements:
+2026-06-01 10:05:05,089 [INFO] DOM scan found 5 price-like leaf elements:
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-06-01 10:05:05,090 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-06-01 10:05:05,090 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-06-01 10:05:05,090 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-06-01 10:05:05,090 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-06-01 10:05:05,090 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-06-01 10:05:05,090 [INFO] === Testing candidate CSS selectors ===
+2026-06-01 10:05:05,090 [INFO] === Testing candidate CSS selectors ===
+2026-06-01 10:05:05,314 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-06-01 10:05:05,314 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-06-01 10:05:05,380 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-06-01 10:05:05,380 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-06-01 10:05:05,433 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-06-01 10:05:05,433 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-06-01 10:05:05,443 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-06-01 10:05:05,443 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-06-01 10:05:05,451 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-06-01 10:05:05,451 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-06-01 10:05:05,451 [INFO] === Page text (first 3000 chars) ===
+2026-06-01 10:05:05,451 [INFO] === Page text (first 3000 chars) ===
+2026-06-01 10:05:05,454 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Mon Jun 01 2026 | 06:43 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-06-01 10:05:05,454 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Mon Jun 01 2026 | 06:43 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-06-01 10:05:05,455 [INFO] === API responses with price hints (0 found) ===
+2026-06-01 10:05:05,455 [INFO] === API responses with price hints (0 found) ===
+2026-06-01 10:05:05,455 [INFO] === WebSocket price frames (0 found) ===
+2026-06-01 10:05:05,455 [INFO] === WebSocket price frames (0 found) ===
+2026-06-01 10:05:05,455 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-01 10:05:05,455 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&i
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&i
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=ht
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=https%3A%2F%2Fonboarding.derayah.com&
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-06-01 10:05:05,458 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=h
+2026-06-01 10:05:05,458 [INFO]   https://api.derayah.com/apispark/Account/BrokerageCustomerInfo
+2026-06-01 10:05:05,458 [INFO]   https://api.derayah.com/apispark/Account/BrokerageCustomerInfo
+2026-06-01 10:05:05,458 [INFO]   https://api.derayah.com/apispark/Account/RedirectToHighRiskWaiver
+2026-06-01 10:05:05,458 [INFO]   https://api.derayah.com/apispark/Account/RedirectToHighRiskWaiver
+2026-06-01 10:05:05,459 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-01 10:05:05,459 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-01 10:05:05,459 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-06-01 10:05:05,459 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-06-01 10:05:05,460 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-01 10:05:05,460 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-01 10:05:05,846 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-06-01 10:05:05,846 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-06-01 10:05:05,863 [INFO] === Selector mapper done ===
+2026-06-01 10:05:05,863 [INFO] === Selector mapper done ===
+2026-06-02 10:05:01,919 [DEBUG] Using selector: EpollSelector
+2026-06-02 10:05:01,919 [DEBUG] Using selector: EpollSelector
+2026-06-02 10:05:01,919 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-02 10:05:01,919 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-02 10:05:01,923 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-02 10:05:01,923 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-02 10:05:12,314 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-06-02 10:05:12,314 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 366
+2026-06-02 10:05:12,743 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/dashboard']
+2026-06-02 10:05:12,743 [INFO] Open tabs: ['https://newonline.derayah.com/#/layout/dashboard']
+2026-06-02 10:05:12,743 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-06-02 10:05:12,743 [INFO] Found Derayah tab: https://newonline.derayah.com/#/layout/dashboard
+2026-06-02 10:05:12,744 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-02 10:05:12,744 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-02 10:05:12,758 [INFO] Waiting 2s for page to settle…
+2026-06-02 10:05:12,758 [INFO] Waiting 2s for page to settle…
+2026-06-02 10:05:14,762 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-02 10:05:14,762 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-02 10:05:14,800 [INFO] DOM scan found 5 price-like leaf elements:
+2026-06-02 10:05:14,800 [INFO] DOM scan found 5 price-like leaf elements:
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=SPAN    pos=(607,231)  class=  id=
+2026-06-02 10:05:14,801 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-06-02 10:05:14,801 [INFO]   val=     100 %  tag=H6      pos=(592,501)  class=badge-ratio  id=
+2026-06-02 10:05:14,801 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-06-02 10:05:14,801 [INFO]   val=1000.66 SAR  tag=H5      pos=(1047,412)  class=val mb-2  id=totalCashAccount
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=SPAN    pos=(654,894)  class=ag-cell-value  id=
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-06-02 10:05:14,801 [INFO]   val=   1000.66  tag=LABEL   pos=(421,962)  class=val  id=
+2026-06-02 10:05:14,801 [INFO] === Testing candidate CSS selectors ===
+2026-06-02 10:05:14,801 [INFO] === Testing candidate CSS selectors ===
+2026-06-02 10:05:15,265 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-06-02 10:05:15,265 [DEBUG]   ✗        selector='.price'                                            text=''
+2026-06-02 10:05:15,305 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-06-02 10:05:15,305 [DEBUG]   ✗        selector='div.price'                                         text=''
+2026-06-02 10:05:15,350 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-06-02 10:05:15,350 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='001LOC-SAR TDWL'
+2026-06-02 10:05:15,360 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-06-02 10:05:15,360 [DEBUG]   ✗        selector='.ag-cell-value'                                    text='SAR'
+2026-06-02 10:05:15,370 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-06-02 10:05:15,370 [INFO]   ✅ MATCH  selector='.ag-cell-value'                                    price=1000.66
+2026-06-02 10:05:15,371 [INFO] === Page text (first 3000 chars) ===
+2026-06-02 10:05:15,371 [INFO] === Page text (first 3000 chars) ===
+2026-06-02 10:05:15,376 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Tue Jun 02 2026 | 07:40 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-06-02 10:05:15,376 [INFO] A
+ABDULRAHMAN MOHAMMEDALAMIN S ASHANQEETI
+
+ashanqeeti.a@gmail.com
+
+Complete View
+Trade
+Trading Portfolio
+Advanced Trading
+Derayah Trade
+Funds
+Funds Portfolio
+Funds List
+Margin
+New Margin Request
+Request List
+Derayah Global
+New Request
+Transfer
+Money Transfer
+Beneficiaries
+Financial Derivatives
+New Option Request
+New Future Request
+Request List
+Activate Nomu
+New Request
+Request List
+IPO
+Main Market
+Nomu Market
+Corporate Sukuk
+Fund
+Dependents
+Request List
+Tradable Rights
+Subscriptions & Services
+Subscribe
+My Subscriptions
+Reports
+Trade Reports
+Transfer History
+Fund Order History
+Tradable Rights Subscriptions Report
+Cash Statement
+Tadawal
+Register
+More Info
+Derayah Smart
+New Request
+Other Services
+Advanced Trading
+Derayah Trade
+Derayah Insight
+Real Prices
+Logout
+Quick Order
+No Results Found
+0
+English
+
+Hello ABDULRAHMAN ASHANQEETI
+
+Last Login :
+Tue Jun 02 2026 | 07:40 AM
+
+Complete View
+Choose Portfolio
+
+All portfolios
+
+Main
+2063853
+2063853
+Grand Total
+1,000.66SAR
+Main
+2063853
+Portfolio
+04802710170
+IBAN
+SA4530100675020638530013
+Live prices data
+
+You can customize the display and add your own analysis to the chart
+
+Login To Derayah Trade
+Summary of all Portfolios
+Total Assets
+Portfolio Assets Summary
+
+Equities
+
+0 %
+
+Cash
+
+100 %
+
+Sukuk
+
+0 %
+
+Mutual Funds
+
+0 %
+1,000.66 SAR
+
+Grand Total
+
+Money Transfer
+1,000.66 SAR
+
+Total Cash
+
+0.00 SAR
+
+Securities Value
+
+0.00 SAR
+
+Total Fund
+
+0.00 SAR
+
+Total Sukuk
+
+0.00 SAR
+
+Total Option
+
+0.00 SAR
+
+Total Future
+
+Portfolio Assets
+Cash
+Equities
+Mutual Funds
+Sukuk
+Derayah Global
+Futures
+Options
+Cash Accounts
+Cash
+Ccy
+Current value
+001LOC-SAR TDWL
+SAR
+1,000.66
+Total Value
+1,000.66
+Saudi Riyal
+Settlements
+Settlement Date
+Total Sell
+Total Buy
+Settlement Amount
+No data available
+Performance & Gain
+Daily Profit / Loss
+Market
+TDWL
+Total Buy Count
+0.00
+Total Sell Count
+0.00
+Turnover
+0.00
+Profit / Loss
+0.00 %
+Trading Performance
+
+Total Gain / Loss: 0 %
+
+Choose year
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2026-06-02 10:05:15,376 [INFO] === API responses with price hints (0 found) ===
+2026-06-02 10:05:15,376 [INFO] === API responses with price hints (0 found) ===
+2026-06-02 10:05:15,376 [INFO] === WebSocket price frames (0 found) ===
+2026-06-02 10:05:15,376 [INFO] === WebSocket price frames (0 found) ===
+2026-06-02 10:05:15,376 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-02 10:05:15,376 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-02 10:05:15,381 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1780383913541&sw=1366&sh=
+2026-06-02 10:05:15,381 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1780383913541&sw=1366&sh=
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&i
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1780383913554&sw=1366&sh
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/tr/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&if=false&ts=1780383913554&sw=1366&sh
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-06-02 10:05:15,382 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=1358668865560909&ev=PageView&dl=https%3A%2F%2Fnewonline.derayah.com&rl=&
+2026-06-02 10:05:15,383 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-02 10:05:15,383 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-02 10:05:15,383 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-06-02 10:05:15,383 [INFO] ✅ Selector mapped for 1010
+Selector: .ag-cell-value
+Price at mapping: 1000.66
+DOM hits: 5 | API hits: 0 | WS: 0
+Saved → selector_map.json
+poller.py will use this selector automatically next restart.
+2026-06-02 10:05:15,385 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-02 10:05:15,385 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-02 10:05:15,811 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-06-02 10:05:15,811 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 547
+2026-06-02 10:05:15,834 [INFO] === Selector mapper done ===
+2026-06-02 10:05:15,834 [INFO] === Selector mapper done ===
+2026-06-03 10:05:01,779 [DEBUG] Using selector: EpollSelector
+2026-06-03 10:05:01,779 [DEBUG] Using selector: EpollSelector
+2026-06-03 10:05:01,780 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-03 10:05:01,780 [INFO] === Derayah selector mapper started (symbol=1010) ===
+2026-06-03 10:05:01,784 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-03 10:05:01,784 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-03 10:05:02,165 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 367
+2026-06-03 10:05:02,165 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 367
+2026-06-03 10:05:02,736 [INFO] Open tabs: ['https://onboarding.derayah.com/#/signin', 'https://derayah.tickerchart.net/app/en', 'https://derayah.tickerchart.net/app/en', 'about:blank']
+2026-06-03 10:05:02,736 [INFO] Open tabs: ['https://onboarding.derayah.com/#/signin', 'https://derayah.tickerchart.net/app/en', 'https://derayah.tickerchart.net/app/en', 'about:blank']
+2026-06-03 10:05:02,736 [INFO] Found Derayah tab: https://onboarding.derayah.com/#/signin
+2026-06-03 10:05:02,736 [INFO] Found Derayah tab: https://onboarding.derayah.com/#/signin
+2026-06-03 10:05:02,738 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-03 10:05:02,738 [INFO] Navigating to https://newonline.derayah.com/#/layout/market-watch?symbol=1010
+2026-06-03 10:05:06,218 [INFO] Waiting 2s for page to settle…
+2026-06-03 10:05:06,218 [INFO] Waiting 2s for page to settle…
+2026-06-03 10:05:08,223 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-03 10:05:08,223 [INFO] === DOM scan: all visible leaf elements with price-like values ===
+2026-06-03 10:05:10,678 [INFO] DOM scan found 0 price-like leaf elements:
+2026-06-03 10:05:10,678 [INFO] DOM scan found 0 price-like leaf elements:
+2026-06-03 10:05:10,678 [INFO] === Testing candidate CSS selectors ===
+2026-06-03 10:05:10,678 [INFO] === Testing candidate CSS selectors ===
+2026-06-03 10:05:11,813 [INFO] === Page text (first 3000 chars) ===
+2026-06-03 10:05:11,813 [INFO] === Page text (first 3000 chars) ===
+2026-06-03 10:05:11,816 [INFO] تداول في السوق
+السعودي وأسواق
+الشرق الأوسط
+EN
+تسجيل الدخول إلى منصة دراية
+
+.أدخل بياناتك للوصول إلى حسابك
+
+اسم المستخدم أو رقم الحساب
+كلمة المرور
+إرسال رمز التفعيل عبر
+الرسائل القصيرة
+البريد الإلكتروني
+تسجيل الدخول
+نسيت كلمة المرور ؟
+أو سجل
+تحتاج مساعدة؟
+شروط الخدمة
+و
+سياسة الخصوصية
+
+مرخص من قبل هيئة السوق المالية 27 – 08109
+2026-06-03 10:05:11,816 [INFO] تداول في السوق
+السعودي وأسواق
+الشرق الأوسط
+EN
+تسجيل الدخول إلى منصة دراية
+
+.أدخل بياناتك للوصول إلى حسابك
+
+اسم المستخدم أو رقم الحساب
+كلمة المرور
+إرسال رمز التفعيل عبر
+الرسائل القصيرة
+البريد الإلكتروني
+تسجيل الدخول
+نسيت كلمة المرور ؟
+أو سجل
+تحتاج مساعدة؟
+شروط الخدمة
+و
+سياسة الخصوصية
+
+مرخص من قبل هيئة السوق المالية 27 – 08109
+2026-06-03 10:05:11,816 [INFO] === API responses with price hints (0 found) ===
+2026-06-03 10:05:11,816 [INFO] === API responses with price hints (0 found) ===
+2026-06-03 10:05:11,816 [INFO] === WebSocket price frames (0 found) ===
+2026-06-03 10:05:11,816 [INFO] === WebSocket price frames (0 found) ===
+2026-06-03 10:05:11,816 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-03 10:05:11,816 [INFO] === Network resource URLs (Derayah APIs) ===
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/chunk-vendors.6d179861.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/chunk-vendors.6d179861.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/app.634853b1.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/app.634853b1.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/css/app.c31b207e.css
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/css/app.c31b207e.css
+2026-06-03 10:05:11,822 [INFO]   https://www.google.com/ccm/collect?rcb=6&frm=0&ae=g&auid=1186972964.1779588317&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboar
+2026-06-03 10:05:11,822 [INFO]   https://www.google.com/ccm/collect?rcb=6&frm=0&ae=g&auid=1186972964.1779588317&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2Fonboar
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/197.daeb3ece.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/197.daeb3ece.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/recorder.845f6870.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/recorder.845f6870.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/Home/GetEnvironmentVariables
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/Home/GetEnvironmentVariables
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/css/SignInView.5fbd959a.css
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/css/SignInView.5fbd959a.css
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/SignInView.9b16f142.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/js/SignInView.9b16f142.js
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/fonts/TheMixArabic-Plain.90f36ef2.otf
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/fonts/TheMixArabic-Plain.90f36ef2.otf
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/fonts/TheMixArabic-SemiBold.cabb84d0.otf
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/fonts/TheMixArabic-SemiBold.cabb84d0.otf
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/img/Illustration.c1619360.png
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/img/Illustration.c1619360.png
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/img/en.ed55c911.svg
+2026-06-03 10:05:11,822 [INFO]   https://onboarding.derayah.com/img/en.ed55c911.svg
+2026-06-03 10:05:11,822 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-06-03 10:05:11,822 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-06-03 10:05:11,823 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-06-03 10:05:11,823 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-06-03 10:05:11,823 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-06-03 10:05:11,823 [INFO]   https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261
+2026-06-03 10:05:11,823 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-06-03 10:05:11,823 [INFO]   https://t.co/1/i/adsct?bci=4&dv=Asia%2FRiyadh%26en-US%2Cen%26Google%20Inc.%26Linux%20x86_64%26255%261366%26768%264%2624%261366%26741%260%26n
+2026-06-03 10:05:11,823 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1780470309725&cv=11&fst=1780470309725&bg=ffffff&guid=ON
+2026-06-03 10:05:11,823 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1780470309725&cv=11&fst=1780470309725&bg=ffffff&guid=ON
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1780470309725&cv=11&fst=1780470309725&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1780470309725&cv=11&fst=1780470309725&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-06-03 10:05:11,823 [INFO]   https://www.googleadservices.com/pagead/conversion/16665603478/?random=1780470309769&cv=11&fst=1780470309769&fmt=7&bg=ffffff&guid=ON&async=1
+2026-06-03 10:05:11,823 [INFO]   https://www.googleadservices.com/pagead/conversion/16665603478/?random=1780470309769&cv=11&fst=1780470309769&fmt=7&bg=ffffff&guid=ON&async=1
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=9&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=9&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://connect.facebook.net/signals/config/533913528992011?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc34
+2026-06-03 10:05:11,823 [INFO]   https://connect.facebook.net/signals/config/533913528992011?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc34
+2026-06-03 10:05:11,823 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1780470309969&cv=11&fst=1780470309969&bg=ffffff&guid=ON
+2026-06-03 10:05:11,823 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1780470309969&cv=11&fst=1780470309969&bg=ffffff&guid=ON
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1780470309969&cv=11&fst=1780470309969&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1780470309969&cv=11&fst=1780470309969&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config
+2026-06-03 10:05:11,823 [INFO]   https://www.googleadservices.com/pagead/conversion/17414917547/?random=1780470310019&cv=11&fst=1780470310019&fmt=7&bg=ffffff&guid=ON&async=1
+2026-06-03 10:05:11,823 [INFO]   https://www.googleadservices.com/pagead/conversion/17414917547/?random=1780470310019&cv=11&fst=1780470310019&fmt=7&bg=ffffff&guid=ON&async=1
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=7&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=7&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://ad.doubleclick.net/activity;src=16337514;type=signu0;cat=signu0;rcb=1;ord=3634862321879;npa=0;auiddc=1186972964.1779588317;uaa=x86;u
+2026-06-03 10:05:11,823 [INFO]   https://ad.doubleclick.net/activity;src=16337514;type=signu0;cat=signu0;rcb=1;ord=3634862321879;npa=0;auiddc=1186972964.1779588317;uaa=x86;u
+2026-06-03 10:05:11,823 [INFO]   https://16337514.fls.doubleclick.net/activityi;src=16337514;type=signu0;cat=signu0;rcb=1;ord=3634862321879;npa=0;auiddc=1186972964.177958831
+2026-06-03 10:05:11,823 [INFO]   https://16337514.fls.doubleclick.net/activityi;src=16337514;type=signu0;cat=signu0;rcb=1;ord=3634862321879;npa=0;auiddc=1186972964.177958831
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=1&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://www.google.com/ccm/collect?rcb=1&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2F
+2026-06-03 10:05:11,823 [INFO]   https://ad.doubleclick.net/activity;src=15617346;type=cntww0;cat=deray002;rcb=10;ord=9195917584085;npa=0;auiddc=1186972964.1779588317;uaa=x8
+2026-06-03 10:05:11,823 [INFO]   https://ad.doubleclick.net/activity;src=15617346;type=cntww0;cat=deray002;rcb=10;ord=9195917584085;npa=0;auiddc=1186972964.1779588317;uaa=x8
+2026-06-03 10:05:11,824 [INFO]   https://15617346.fls.doubleclick.net/activityi;src=15617346;type=cntww0;cat=deray002;rcb=10;ord=9195917584085;npa=0;auiddc=1186972964.177958
+2026-06-03 10:05:11,824 [INFO]   https://15617346.fls.doubleclick.net/activityi;src=15617346;type=cntww0;cat=deray002;rcb=10;ord=9195917584085;npa=0;auiddc=1186972964.177958
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/ccm/collect?rcb=10&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/ccm/collect?rcb=10&frm=0&auid=1186972964.1779588317&dt=Derayah&en=page_view&dr=newonline.derayah.com&dl=https%3A%2F%2
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1780470310476&cv=11&fst=1780470310476&bg=ffffff&guid=ON
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=1780470310476&cv=11&fst=1780470310476&bg=ffffff&guid=ON
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1780470310476&cv=11&fst=1780470310476&fmt=8&bg=ffffff&guid=ON&async=1&en=form_start&
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/rmkt/collect/16665603478/?random=1780470310476&cv=11&fst=1780470310476&fmt=8&bg=ffffff&guid=ON&async=1&en=form_start&
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1780470310511&cv=11&fst=1780470310511&bg=ffffff&guid=ON
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1780470310511&cv=11&fst=1780470310511&bg=ffffff&guid=ON
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1780470310511&cv=11&fst=1780470310511&fmt=8&bg=ffffff&guid=ON&async=1&en=form_start&
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/rmkt/collect/17414917547/?random=1780470310511&cv=11&fst=1780470310511&fmt=8&bg=ffffff&guid=ON&async=1&en=form_start&
+2026-06-03 10:05:11,824 [INFO]   https://analytics.google.com/g/collect?v=2&tid=G-N3N2RJSDRV&gtm=45je6611v9217641030z89194035583za20gzb9194035583zd9194035583&_p=178047030568
+2026-06-03 10:05:11,824 [INFO]   https://analytics.google.com/g/collect?v=2&tid=G-N3N2RJSDRV&gtm=45je6611v9217641030z89194035583za20gzb9194035583zd9194035583&_p=178047030568
+2026-06-03 10:05:11,824 [INFO]   https://tr.snapchat.com/p?pid=6d601e7f-dfd9-4142-88f6-e06be994fe9f&ev=PAGE_VIEW&intg=gtm&cdid=1780471179716_17804709723983&pids=6d601e7f-dfd
+2026-06-03 10:05:11,824 [INFO]   https://tr.snapchat.com/p?pid=6d601e7f-dfd9-4142-88f6-e06be994fe9f&ev=PAGE_VIEW&intg=gtm&cdid=1780471179716_17804709723983&pids=6d601e7f-dfd
+2026-06-03 10:05:11,824 [INFO]   https://tr.snapchat.com/p?pid=07f74ae4-6b5b-45da-9497-4a9a8953b074&ev=PAGE_VIEW&intg=gtm&pids=07f74ae4-6b5b-45da-9497-4a9a8953b074&u_c1=4a93
+2026-06-03 10:05:11,824 [INFO]   https://tr.snapchat.com/p?pid=07f74ae4-6b5b-45da-9497-4a9a8953b074&ev=PAGE_VIEW&intg=gtm&pids=07f74ae4-6b5b-45da-9497-4a9a8953b074&u_c1=4a93
+2026-06-03 10:05:11,824 [INFO]   https://connect.facebook.net/signals/config/898757993089536?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc34
+2026-06-03 10:05:11,824 [INFO]   https://connect.facebook.net/signals/config/898757993089536?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc34
+2026-06-03 10:05:11,824 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-06-03 10:05:11,824 [INFO]   https://www.facebook.com/tr/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-06-03 10:05:11,824 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-06-03 10:05:11,824 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=533913528992011&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=73139883&cv=11&fst=1780470309769&fmt=8&bg=ffffff&guid=O
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16665603478/?random=73139883&cv=11&fst=1780470309769&fmt=8&bg=ffffff&guid=O
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1780470309725&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1780470309725&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1780470309725&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1780470309725&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1780470309969&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1780470309969&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.confi
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1780470309969&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-06-03 10:05:11,824 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1780470309969&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=gtag.co
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1335221170&cv=11&fst=1780470310019&fmt=8&bg=ffffff&guid
+2026-06-03 10:05:11,824 [INFO]   https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17414917547/?random=1335221170&cv=11&fst=1780470310019&fmt=8&bg=ffffff&guid
+2026-06-03 10:05:11,825 [INFO]   https://www.googleadservices.com/pagead/conversion/1009880546/?random=1780470311263&cv=11&fst=1780470311263&fmt=7&bg=ffffff&guid=ON&async=1&
+2026-06-03 10:05:11,825 [INFO]   https://www.googleadservices.com/pagead/conversion/1009880546/?random=1780470311263&cv=11&fst=1780470311263&fmt=7&bg=ffffff&guid=ON&async=1&
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1780470310476&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_start
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com/pagead/1p-user-list/16665603478/?random=1780470310476&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_start
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1780470310476&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_st
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com.sa/pagead/1p-user-list/16665603478/?random=1780470310476&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_st
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1780470310511&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_start
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com/pagead/1p-user-list/17414917547/?random=1780470310511&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_start
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1780470310511&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_st
+2026-06-03 10:05:11,825 [INFO]   https://www.google.com.sa/pagead/1p-user-list/17414917547/?random=1780470310511&cv=11&fst=1780470000000&bg=ffffff&guid=ON&async=1&en=form_st
+2026-06-03 10:05:11,825 [INFO]   https://connect.facebook.net/signals/config/1358668865560909?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc3
+2026-06-03 10:05:11,825 [INFO]   https://connect.facebook.net/signals/config/1358668865560909?v=2.9.331&r=stable&domain=onboarding.derayah.com&hme=e74ef087f6fde11ad272cfacc3
+2026-06-03 10:05:11,825 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-06-03 10:05:11,825 [INFO]   https://www.facebook.com/tr/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=https%3A%2F%2Fnewonline.derayah.com&i
+2026-06-03 10:05:11,825 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-06-03 10:05:11,825 [INFO]   https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=898757993089536&ev=PageView&dl=https%3A%2F%2Fonboarding.derayah.com&rl=h
+2026-06-03 10:05:11,825 [INFO]   https://www.google-analytics.com/g/collect?v=2&tid=G-8EJPSLZWCQ&gtm=45je6611v9192776810z89194035583za20gzb9194035583zd9194035583&_p=17804703
+2026-06-03 10:05:11,825 [INFO]   https://www.google-analytics.com/g/collect?v=2&tid=G-8EJPSLZWCQ&gtm=45je6611v9192776810z89194035583za20gzb9194035583zd9194035583&_p=17804703
+2026-06-03 10:05:11,825 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-03 10:05:11,825 [INFO] Saved selector map → /home/mino/tasi-exec/selector_map.json
+2026-06-03 10:05:11,825 [INFO] ⚠️ No selector auto-confirmed for 1010
+Market may be closed or prices not on screen.
+
+DOM price-like elements:
+  (none)
+
+API hints:
+  (none)
+
+Full log: /home/mino/tasi-exec/map_selectors.log
+Re-run at 10:05 once prices are live.
+2026-06-03 10:05:11,825 [INFO] ⚠️ No selector auto-confirmed for 1010
+Market may be closed or prices not on screen.
+
+DOM price-like elements:
+  (none)
+
+API hints:
+  (none)
+
+Full log: /home/mino/tasi-exec/map_selectors.log
+Re-run at 10:05 once prices are live.
+2026-06-03 10:05:11,827 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-03 10:05:11,827 [DEBUG] Starting new HTTPS connection (1): api.telegram.org:443
+2026-06-03 10:05:12,349 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 518
+2026-06-03 10:05:12,349 [DEBUG] https://api.telegram.org:443 "POST /bot8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU/sendMessage HTTP/1.1" 200 518
+2026-06-03 10:05:12,369 [INFO] === Selector mapper done ===
+2026-06-03 10:05:12,369 [INFO] === Selector mapper done ===

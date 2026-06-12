@@ -1,0 +1,19 @@
+{
+  "4325": {
+    "symbol": "4325",
+    "entry_price": 16.82,
+    "qty": 0,
+    "entry_time": "2026-06-11T14:06:44.925872+03:00",
+    "peak_price": 16.82,
+    "closed": true,
+    "price_source": "derayah-api",
+    "signal": "auto",
+    "order_id": "?",
+    "commission": 0.09,
+    "vat": 0.01,
+    "total_cost": 185.13,
+    "close_time": "2026-06-11T14:47:09.459309+03:00",
+    "sync_note": "closed_by_bookkeeper",
+    "close_price": 0
+  }
+}

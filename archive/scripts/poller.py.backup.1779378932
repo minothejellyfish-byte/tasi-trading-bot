@@ -1,0 +1,937 @@
+#!/usr/bin/env python3
+"""
+TASI Price Poller
+Monitors screener picks for VWAP reclaim / breakout entry signals and open
+positions for hard stop, trailing stop, and 14:45 hard-close alerts.
+Runs every 5 minutes. Self-exits after 15:30 Riyadh.
+Start via cron at 10:00 Sun-Thu.
+"""
+
+import asyncio
+import json
+import logging
+import os
+import sys
+import threading
+import time as time_mod
+from datetime import datetime, time
+from pathlib import Path
+
+# Market regime — loaded at startup, refreshed every 30 min intraday
+from market_regime import get_current_regime, classify_intraday
+
+import pytz
+import requests
+import yfinance as yf
+import pandas as pd
+from playwright.async_api import async_playwright
+
+# ─── Config ──────────────────────────────────────────────────────────────────
+
+BOT_TOKEN  = "8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU"
+CHAT_ID    = -5235925419         # TASI Execution group — all alerts go here
+EXEC_GROUP = -5235925419         # TASI Execution group — bot executes commands sent here
+RIYADH     = pytz.timezone("Asia/Riyadh")
+
+BASE_DIR       = "/home/mino/tasi-exec"
+PICKS_FILE     = f"{BASE_DIR}/picks.json"
+POSITIONS_FILE = f"{BASE_DIR}/positions.json"
+LOG_FILE       = f"{BASE_DIR}/poller.log"
+
+CDP_URL        = "http://127.0.0.1:18801"
+TC_URL         = "derayah.tickerchart.net"   # Derayah Trade tab (TickerChart — live)
+
+# WebSocket price cache — populated by background CDP listener thread.
+# Keys are base symbols (no .SR), values: {price, ts, change, pchange}
+_ws_price_cache: dict = {}
+_ws_listener_thread: threading.Thread | None = None
+
+FAST_INTERVAL   = 10           # seconds — position state watch (no network)
+SLOW_INTERVAL   = 300          # seconds — price fetch + entry signals (yfinance)
+WIN_PCT         = 2.0          # % gain that triggers cycle exit
+HARD_STOP_PCT   = 0.07
+TRAIL_TRIGGER   = 0.02         # trailing stop activates after +2%
+TRAIL_STOP_PCT  = 0.03         # trail at -3% from peak
+TIME_STOP_PCT   = 0.01         # time stop: exit if down >-1% after TIME_STOP_MINS
+TIME_STOP_MINS  = 30           # minutes before time stop kicks in
+HARD_CLOSE_TIME = time(14, 45)
+ENTRY_CUTOFF    = time(13, 30) # no new entries after this — too close to hard close
+MARKET_OPEN     = time(10, 0)
+MARKET_CLOSE    = time(15, 30)
+
+# ─── Logging ─────────────────────────────────────────────────────────────────
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    level=logging.INFO,
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler(),
+    ],
+)
+log = logging.getLogger(__name__)
+
+# ─── Telegram ────────────────────────────────────────────────────────────────
+
+def tg_send(text: str, chat_id: int = None, retries: int = 3):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    target = chat_id or CHAT_ID
+    for attempt in range(retries):
+        try:
+            r = requests.post(
+                url,
+                json={"chat_id": target, "text": text, "parse_mode": "HTML"},
+                timeout=10,
+            )
+            r.raise_for_status()
+            return
+        except Exception as e:
+            log.error(f"tg_send failed (attempt {attempt+1}/{retries}): {e}")
+            if attempt < retries - 1:
+                time.sleep(2)
+
+
+def auto_sell(symbol: str, qty, reason: str):
+    base = symbol.replace(".SR", "")
+    cmd  = f"SELL {base} {qty} MARKET"
+    log.info(f"auto_sell: {cmd} | {reason}")
+    tg_send(cmd, chat_id=EXEC_GROUP)
+    tg_send(f"🤖 <b>Selling {base}</b> {qty} shares — order sent\n{reason}\n<i>Confirmation incoming...</i>")
+
+
+def auto_buy(symbol: str, qty, cycle_n: int, max_cyc: int, price: float):
+    base = symbol.replace(".SR", "")
+    cmd  = f"BUY {base} {qty} MARKET"
+    log.info(f"auto_buy: {cmd} | cycle {cycle_n}/{max_cyc} @ ~{price:.2f}")
+    tg_send(cmd, chat_id=EXEC_GROUP)
+    tg_send(f"🔄 <b>Cycle {cycle_n}/{max_cyc} — Buying {base}</b> {qty} shares @ ~{price:.2f} — order sent\n<i>Confirmation incoming...</i>")
+
+# ─── State helpers ────────────────────────────────────────────────────────────
+
+# Fallback logic
+FALLBACK_TIME = time(10, 30)
+_fb_alerted: bool = False
+
+# Mid-session re-screening
+MIDSCREEN_TIME = time(11, 30)
+_midscreen_done: bool = False
+_midscreen_alerted: bool = False
+
+PICKS_FILE_1030 = f"{BASE_DIR}/picks_1030.json"
+PICKS_FILE_1200 = f"{BASE_DIR}/picks_1200.json"
+PICKS_FILE_1330 = f"{BASE_DIR}/picks_1330.json"
+
+
+def load_picks_file(filepath: str) -> list:
+    """Load picks from a single file if it's today's."""
+    if not os.path.exists(filepath):
+        return []
+    with open(filepath) as f:
+        data = json.load(f)
+    today = datetime.now(RIYADH).date().isoformat()
+    if data.get("date") != today:
+        return []
+    picks = data.get("picks", [])
+    result = []
+    for p in picks:
+        sym = p.get("symbol", "")
+        if sym:
+            result.append({
+                "symbol": sym,
+                "entry_high": p.get("entry_high", 0),
+                "entry_low": p.get("entry_low", 0),
+                "score": p.get("score", 0),
+                "tier": p.get("tier", "main"),
+                "pm_metrics": p.get("pm_metrics", {}),
+                "source": p.get("source", os.path.basename(filepath).replace(".json", "")),
+            })
+    return result
+
+
+def load_picks_all() -> list:
+    """Load all picks from all screen files (09:50, 10:30, 12:00, 13:30).
+    
+    Logic:
+    - Later screens OVERWRITE earlier screens for same symbol
+    - All picks are FULL SIZE (no fallback reduction)
+    - Sorted by: newest screen first, then by score/momentum within each screen
+    """
+    all_picks = {}  # symbol -> pick (later overwrites earlier)
+
+    # Load in chronological order so later screens overwrite
+    for filepath in [PICKS_FILE, PICKS_FILE_1030, PICKS_FILE_1200, PICKS_FILE_1330]:
+        picks = load_picks_file(filepath)
+        for p in picks:
+            sym = p["symbol"]
+            # Later screen overwrites earlier for same symbol
+            all_picks[sym] = p
+
+    # Group by source for priority ordering
+    premarket = []
+    screen1030 = []
+    screen1200 = []
+    screen1330 = []
+    
+    for p in all_picks.values():
+        src = p.get("source", "")
+        if src in ("picks", "premarket"):
+            premarket.append(p)
+        elif "1030" in src or "midscreen1" in src:
+            screen1030.append(p)
+        elif "1200" in src or "midscreen2" in src:
+            screen1200.append(p)
+        elif "1330" in src or "rescreen" in src:
+            screen1330.append(p)
+        else:
+            premarket.append(p)  # default
+
+    # Sort each group
+    premarket.sort(key=lambda x: x["score"], reverse=True)
+    screen1030.sort(key=lambda x: x.get("pm_metrics", {}).get("max_intraday", 0), reverse=True)
+    screen1200.sort(key=lambda x: x.get("pm_metrics", {}).get("max_intraday", 0), reverse=True)
+    screen1330.sort(key=lambda x: x.get("pm_metrics", {}).get("max_intraday", 0), reverse=True)
+
+    # Return: newest screens first (they have freshest momentum)
+    # Within each screen: best picks first
+    return screen1330 + screen1200 + screen1030 + premarket
+
+
+def load_picks() -> list:
+    """Primary picks only (#1-2) for backward compat."""
+    return load_picks_all()[:2]
+
+def load_positions() -> dict:
+    if not os.path.exists(POSITIONS_FILE):
+        return {}
+    with open(POSITIONS_FILE) as f:
+        return json.load(f)
+
+def save_positions(positions: dict):
+    with open(POSITIONS_FILE, "w") as f:
+        json.dump(positions, f, indent=2)
+
+# ─── WebSocket price listener ─────────────────────────────────────────────────
+
+async def _ws_listener_loop():
+    """
+    Runs forever in a background thread.
+    Connects to the TickerChart tab via CDP, enables Network domain, and
+    processes every webSocketFrameReceived event — extracting QO.{SYM}.TAD
+    frames and writing them to _ws_price_cache.
+    Auto-reconnects on tab loss or CDP drop.
+    """
+    while True:
+        pw = None
+        try:
+            pw = await async_playwright().start()
+            browser = await pw.chromium.connect_over_cdp(CDP_URL, timeout=4000)
+            ctx = browser.contexts[0]
+            pg = next((p for p in ctx.pages if TC_URL in p.url), None)
+            if not pg:
+                log.warning("WS listener: no TC tab — retrying in 30s")
+                await asyncio.sleep(30)
+                continue
+
+            cdp = await pg.context.new_cdp_session(pg)
+            await cdp.send("Network.enable")
+            log.info("WS listener: CDP Network enabled — streaming prices")
+
+            def on_frame(params):
+                payload = params.get("response", {}).get("payloadData", "")
+                if not payload:
+                    return
+                try:
+                    d = json.loads(payload)
+                    topic = d.get("topic", "")
+                    if topic.startswith("QO.") and topic.endswith(".TAD"):
+                        sym = topic[3:-4]
+                        raw = d.get("last") or d.get("lasttradeprice")
+                        approx = False
+                        if not raw:
+                            # Low-volume stocks rarely emit trade prices — fall
+                            # back to mid-price from orderbook updates instead.
+                            bid = d.get("bidprice")
+                            ask = d.get("askprice")
+                            if bid and ask:
+                                raw = (float(bid) + float(ask)) / 2
+                            elif bid:
+                                raw = float(bid)
+                            elif ask:
+                                raw = float(ask)
+                            if raw:
+                                approx = True
+                        if raw:
+                            entry = _ws_price_cache.get(sym, {})
+                            # Don't overwrite a real trade price with an approx one
+                            if not approx or not entry.get("real"):
+                                _ws_price_cache[sym] = {
+                                    "price":   float(raw),
+                                    "ts":      time_mod.time(),
+                                    "change":  float(d.get("change",  0) or 0),
+                                    "pchange": float(d.get("pchange", 0) or 0),
+                                    "real":    not approx,
+                                }
+                            
+                            # Log to daily price file for post-market analysis
+                            try:
+                                from ws_logger import log_price
+                                log_price(sym, float(raw), float(d.get("change", 0) or 0), float(d.get("pchange", 0) or 0), not approx)
+                            except Exception:
+                                pass
+                except Exception:
+                    pass
+
+            cdp.on("Network.webSocketFrameReceived", on_frame)
+
+            # Keep alive — break out if TC tab disappears
+            while True:
+                await asyncio.sleep(10)
+                try:
+                    if not any(TC_URL in p.url for p in browser.contexts[0].pages):
+                        log.warning("WS listener: TC tab gone — reconnecting")
+                        break
+                except Exception:
+                    break
+
+            try:
+                await cdp.detach()
+            except Exception:
+                pass
+
+        except Exception as e:
+            log.warning(f"WS listener error: {e} — retrying in 15s")
+            await asyncio.sleep(15)
+        finally:
+            if pw:
+                try:
+                    await pw.stop()
+                except Exception:
+                    pass
+
+
+def _start_ws_listener():
+    global _ws_listener_thread
+    if _ws_listener_thread and _ws_listener_thread.is_alive():
+        return
+
+    def _run():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(_ws_listener_loop())
+
+    _ws_listener_thread = threading.Thread(target=_run, daemon=True, name="ws-listener")
+    _ws_listener_thread.start()
+    log.info("WS price listener started")
+
+
+def _ws_price(symbol: str, max_age_s: float = 90.0) -> float | None:
+    """Return WS-cached price if younger than max_age_s, else None."""
+    base = symbol.replace(".SR", "")
+    entry = _ws_price_cache.get(base)
+    if not entry:
+        return None
+    age = time_mod.time() - entry["ts"]
+    if age > max_age_s:
+        log.debug(f"WS price {base}: stale ({age:.0f}s old)")
+        return None
+    return entry["price"]
+
+# ─── Market data ──────────────────────────────────────────────────────────────
+
+def fetch_data(symbol: str) -> tuple:
+    """
+    Returns (latest_price, df_5m) or (None, None) on failure.
+    Price priority: WS cache (real-time) → yfinance (15-min delay).
+    df_5m always from yfinance (needed for VWAP/volume candles).
+    """
+    try:
+        ticker_sym = symbol if "." in symbol else f"{symbol}.SR"
+        df = yf.Ticker(ticker_sym).history(period="1d", interval="5m")
+        # yfinance returns empty early in the session before intraday data lands —
+        # fall back to last 5 days so VWAP candles are always available.
+        if df.empty:
+            df = yf.Ticker(ticker_sym).history(period="5d", interval="5m")
+        if df.empty:
+            log.warning(f"fetch_data {symbol}: no data from yfinance")
+            return None, None
+
+        # 1. WS cache — real-time, zero network calls
+        price = _ws_price(symbol)
+        if price:
+            log.info(f"fetch_data {symbol}: WS price {price:.2f}")
+            return price, df
+
+        # 2. yfinance delayed
+        price = float(df["Close"].iloc[-1])
+        log.warning(f"fetch_data {symbol}: WS cache miss — using yfinance delayed {price:.2f}")
+        return price, df
+    except Exception as e:
+        log.warning(f"fetch_data {symbol}: {e}")
+        return None, None
+
+def calc_vwap(df: pd.DataFrame) -> float | None:
+    try:
+        df = df.copy()
+        df["tp"] = (df["High"] + df["Low"] + df["Close"]) / 3
+        cum_vol = df["Volume"].cumsum()
+        if cum_vol.iloc[-1] == 0:
+            return None
+        return float((df["tp"] * df["Volume"]).cumsum().iloc[-1] / cum_vol.iloc[-1])
+    except Exception:
+        return None
+
+def check_vwap_reclaim(df: pd.DataFrame, vwap: float) -> bool:
+    if len(df) < 2:
+        return False
+    prev_close = float(df["Close"].iloc[-2])
+    curr_close = float(df["Close"].iloc[-1])
+    avg_vol    = float(df["Volume"].mean())
+    curr_vol   = float(df["Volume"].iloc[-1])
+    return prev_close < vwap < curr_close and curr_vol > avg_vol * 0.8
+
+def check_breakout(df: pd.DataFrame) -> bool:
+    try:
+        # Require 6+ candles (30 min) — prevents gap-up opens from triggering at 10:00
+        if len(df) < 6:
+            return False
+        prior_high = float(df["High"].iloc[:-1].max())
+        curr_close = float(df["Close"].iloc[-1])
+        avg_vol    = float(df["Volume"].mean())
+        curr_vol   = float(df["Volume"].iloc[-1])
+        return curr_close > prior_high and curr_vol > avg_vol * 1.5
+    except Exception:
+        return False
+
+# ─── Core poll ────────────────────────────────────────────────────────────────
+
+_alerted: set = set()
+
+# Cycling state — reset at session start (module load)
+cycles_today: dict    = {}   # {symbol: int}  — completed cycles per symbol today
+consec_scratches: dict = {}  # {symbol: int}  — consecutive scratches per symbol
+_prev_positions: dict  = {}  # snapshot from last poll — used to detect open→closed transitions
+
+
+def _reset_symbol_alerts(symbol: str):
+    """Clear per-symbol alert keys so they can fire again on re-entry."""
+    for suffix in ("_hard_stop", "_trail", "_time_stop", "_vwap_exit", "_target",
+                   "_vwap_entry", "_breakout"):
+        _alerted.discard(symbol + suffix)
+        _alerted.discard(symbol.replace(".SR", "") + suffix)
+
+def fast_poll(regime: dict):
+    """
+    Runs every 10 seconds — pure file I/O, no network.
+    Detects position closes (sells) and fires cycle re-entry alerts immediately.
+    Also sends the 14:45 hard-close reminder.
+    """
+    global _prev_positions
+
+    r_params     = regime.get("params", {"max_cycles": 2, "position_pct": 0.40})
+    max_cycles   = r_params.get("max_cycles", 2)
+    regime_name  = regime.get("regime", "NEUTRAL")
+
+    now      = datetime.now(RIYADH)
+    now_time = now.time()
+
+    # 14:45 hard close — auto-sell everything still open
+    if now_time >= HARD_CLOSE_TIME and "hard_close" not in _alerted:
+        positions = load_positions()
+        open_syms = [s for s, p in positions.items() if not p.get("closed")]
+        if open_syms:
+            tg_send(f"⏰ <b>14:45 HARD CLOSE</b> — auto-selling {', '.join(open_syms)}")
+            for s in open_syms:
+                auto_sell(s, positions[s].get("qty", "?"), "⏰ 14:45 hard close — end of session")
+        else:
+            log.info("14:45 — no open positions")
+        _alerted.add("hard_close")
+
+    positions = load_positions()
+
+    for symbol, pos in positions.items():
+        prev       = _prev_positions.get(symbol, {})
+        was_closed = prev.get("closed", True)
+        is_closed  = pos.get("closed", False)
+
+        # ── Sell detected (open → closed) ─────────────────────────────────
+        if not was_closed and is_closed:
+            entry   = pos.get("entry_price", 0)
+            close_p = pos.get("close_price", 0)
+            qty     = pos.get("qty", "?")
+            pct     = (close_p - entry) / entry * 100 if entry else 0
+            done    = cycles_today.get(symbol, 0) + 1
+            cycles_today[symbol] = done
+
+            if pct >= WIN_PCT * 0.75:
+                consec_scratches[symbol] = 0
+                log.info(f"Sell detected (win): {symbol} exit={close_p:.2f} pct={pct:+.1f}% cycle={done}")
+                if done < max_cycles and now_time < time(14, 30):
+                    price_now, df_now = fetch_data(symbol)
+                    vwap_now   = calc_vwap(df_now) if df_now is not None else None
+                    above_vwap = bool(price_now and vwap_now and price_now > vwap_now)
+                    re_price   = price_now or close_p
+                    vwap_tag   = (
+                        f" | VWAP {vwap_now:.2f} ✅" if above_vwap
+                        else (f" | VWAP {vwap_now:.2f} ⚠️" if vwap_now else "")
+                    )
+                    log.info(f"Auto-cycling {symbol}: above_vwap={above_vwap} price={re_price:.2f}{vwap_tag}")
+                    _reset_symbol_alerts(symbol)
+                    auto_buy(symbol, qty, done + 1, max_cycles, re_price)
+                elif done >= max_cycles:
+                    tg_send(f"✅ {symbol}: {done}/{max_cycles} cycles done — max reached for {regime_name}.")
+            else:
+                consec_scratches[symbol] = consec_scratches.get(symbol, 0) + 1
+                log.info(f"Sell detected (scratch): {symbol} exit={close_p:.2f} pct={pct:+.1f}% scratch={consec_scratches[symbol]}")
+                if consec_scratches[symbol] >= 2:
+                    tg_send(f"⛔ {symbol}: 2 scratches in a row — cycling stopped for today")
+                    cycles_today[symbol] = 999
+
+        # ── New buy detected (closed → open) ──────────────────────────────
+        elif was_closed and not is_closed:
+            _reset_symbol_alerts(symbol)
+            log.info(f"Buy detected: {symbol} entry={pos.get('entry_price','?')}")
+
+    _prev_positions = {k: dict(v) for k, v in positions.items()}
+
+
+def slow_poll(regime: dict):
+    """
+    Runs every 5 minutes — fetches prices from yfinance/Derayah.
+    Monitors open positions for stop/trail/target alerts.
+    Scans picks for fresh entry signals.
+    """
+    r_params     = regime.get("params", {"max_cycles": 2, "position_pct": 0.40})
+    max_cycles   = r_params.get("max_cycles", 2)
+    position_pct = r_params.get("position_pct", 0.40)
+    regime_name  = regime.get("regime", "NEUTRAL")
+
+    now      = datetime.now(RIYADH)
+    now_time = now.time()
+
+    positions = load_positions()
+    updated   = False
+
+    for symbol, pos in positions.items():
+        if pos.get("closed"):
+            continue
+
+        price, df_pos = fetch_data(symbol)
+        if price is None:
+            continue
+
+        entry = pos.get("entry_price", 0)
+        peak  = pos.get("peak_price", entry)
+
+        if price > peak:
+            pos["peak_price"] = price
+            peak = price
+            updated = True
+
+        gain_pct       = (price - entry) / entry if entry else 0
+        peak_pct       = (peak - entry)  / entry if entry else 0
+        drop_from_peak = (peak - price)  / peak  if peak  else 0
+
+        mins_held  = 0
+        entry_time = pos.get("entry_time")
+        if entry_time:
+            try:
+                et = datetime.fromisoformat(entry_time)
+                if et.tzinfo is None:
+                    et = et.replace(tzinfo=RIYADH)
+                mins_held = (now - et).total_seconds() / 60
+            except Exception:
+                pass
+
+        key_stop      = f"{symbol}_hard_stop"
+        key_trail     = f"{symbol}_trail"
+        key_time_stop = f"{symbol}_time_stop"
+        key_vwap_exit = f"{symbol}_vwap_exit"
+        key_target    = f"{symbol}_target"
+
+        qty = pos.get("qty", "?")
+
+        if gain_pct <= -HARD_STOP_PCT and key_stop not in _alerted:
+            auto_sell(symbol, qty,
+                      f"🛑 Hard stop −7% | Entry: {entry:.2f} | Now: {price:.2f} ({gain_pct*100:.1f}%)")
+            _alerted.add(key_stop)
+            cycles_today[symbol] = 999
+            log.info(f"Hard stop: {symbol} {gain_pct*100:.1f}%")
+
+        elif gain_pct >= TRAIL_TRIGGER and key_target not in _alerted:
+            auto_sell(symbol, qty,
+                      f"🎯 Target +2% | Entry: {entry:.2f} | Now: {price:.2f} (+{gain_pct*100:.1f}%) — cycle re-entry alert follows")
+            _alerted.add(key_target)
+            log.info(f"Target +2%: {symbol} gain={gain_pct*100:.1f}%")
+
+        elif peak_pct >= TRAIL_TRIGGER and drop_from_peak >= TRAIL_STOP_PCT and key_trail not in _alerted:
+            auto_sell(symbol, qty,
+                      f"📉 Trailing stop | Peak: {peak:.2f} (+{peak_pct*100:.1f}%) | Now: {price:.2f} (−{drop_from_peak*100:.1f}% from peak)")
+            _alerted.add(key_trail)
+            log.info(f"Trail stop: {symbol} peak={peak:.2f} now={price:.2f}")
+
+        elif (mins_held >= TIME_STOP_MINS and gain_pct <= -TIME_STOP_PCT
+              and key_time_stop not in _alerted):
+            auto_sell(symbol, qty,
+                      f"⏱ Time stop | Held {int(mins_held)} min | Entry: {entry:.2f} | Now: {price:.2f} ({gain_pct*100:.1f}%)")
+            _alerted.add(key_time_stop)
+            log.info(f"Time stop: {symbol} held={int(mins_held)}min gain={gain_pct*100:.1f}%")
+
+        elif pos.get("signal") == "vwap_reclaim" and key_vwap_exit not in _alerted:
+            if df_pos is not None:
+                vwap_now = calc_vwap(df_pos)
+                if vwap_now and price < vwap_now and gain_pct < 0:
+                    auto_sell(symbol, qty,
+                              f"📉 VWAP re-break | Price {price:.2f} below VWAP {vwap_now:.2f} — signal gone")
+                    _alerted.add(key_vwap_exit)
+                    log.info(f"VWAP re-break: {symbol} price={price:.2f} vwap={vwap_now:.2f}")
+
+    if updated:
+        save_positions(positions)
+
+    # ── Fallback activation at 10:30 ──────────────────────────────────────────
+    global _fb_alerted
+    picks_all = load_picks_all()
+    if now_time >= FALLBACK_TIME and not _fb_alerted:
+        positions = load_positions()
+        has_open = any(not p.get("closed", True) for p in positions.values())
+        if not has_open and len(picks_all) > 2:
+            _fb_alerted = True
+            fb_symbols = [p["symbol"].replace(".SR", "") for p in picks_all[2:]]
+            tg_send(
+                f"🔄 <b>Fallback Activated</b> — Primary picks (#1-2) didn't trigger by 10:30\n"
+                f"Now monitoring fallback tier: {', '.join(fb_symbols)}\n"
+                f"Position size reduced to 25% for fallback picks"
+            )
+            log.info(f"Fallback activated: monitoring {fb_symbols} at 25% position size")
+            
+            # ── FIRST mid-session momentum screen at 10:30 ─────────────────────
+            # Run alongside fallback to catch fresh momentum stocks early
+            try:
+                from screener import check_premarket_momentum, load_sharia_universe
+                universe = load_sharia_universe()
+                new_picks = []
+                for ticker in universe[:50]:
+                    # Skip already picked stocks
+                    if any(p.get("symbol") == ticker for p in picks_all):
+                        continue
+                    pm = check_premarket_momentum(ticker)
+                    if pm and pm.get("passed"):
+                        new_picks.append({
+                            "symbol": ticker,
+                            "pm_metrics": pm,
+                            "source": "midscreen_1030"
+                        })
+                
+                if new_picks:
+                    new_picks.sort(key=lambda x: x["pm_metrics"]["max_intraday"], reverse=True)
+                    top_new = new_picks[:2]
+                    
+                    for p in top_new:
+                        sym = p["symbol"]
+                        try:
+                            ticker = yf.Ticker(sym)
+                            df = ticker.history(period="2d", interval="1d")
+                            if len(df) >= 2:
+                                prev_high = float(df["High"].iloc[-2])
+                                prev_low = float(df["Low"].iloc[-2])
+                                prev_close = float(df["Close"].iloc[-2])
+                                if prev_close >= prev_high * 0.99:
+                                    e_lo = round(prev_high * 0.995, 2)
+                                    e_hi = round(prev_close * 1.01, 2)
+                                else:
+                                    e_lo = round(prev_low * 0.998, 2)
+                                    e_hi = round(prev_high * 1.002, 2)
+                            else:
+                                e_lo = 0
+                                e_hi = 0
+                        except:
+                            e_lo = 0
+                            e_hi = 0
+                        
+                        picks_all.append({
+                            "symbol": sym,
+                            "entry_high": e_hi,
+                            "entry_low": e_lo,
+                            "score": 0,
+                            "pm_metrics": p["pm_metrics"],
+                            "tier": "midscreen"
+                        })
+                    
+                    with open(PICKS_FILE, "w") as f:
+                        json.dump({
+                            "date": datetime.now(RIYADH).date().isoformat(),
+                            "picks": picks_all
+                        }, f, indent=2)
+                    
+                    symbols_str = ", ".join([p["symbol"].replace(".SR", "") for p in top_new])
+                    tg_send(
+                        f"✅ <b>New Mid-Screen Picks Added (10:30)</b>\n"
+                        f"Found {len(top_new)} stocks with fresh momentum:\n"
+                        f"{symbols_str}\n"
+                        f"Monitoring alongside fallback picks"
+                    )
+                    log.info(f"Mid-screen 10:30 added {len(top_new)} picks: {symbols_str}")
+                else:
+                    tg_send("🔍 Mid-screen 10:30: No new momentum stocks found")
+                    log.info("Mid-screen 10:30: no new picks found")
+            except Exception as e:
+                log.error(f"Mid-screen 10:30 error: {e}")
+                tg_send(f"⚠️ Mid-screen 10:30 error: {e}")
+
+    # ── Mid-session re-screening at 11:30 ────────────────────────────────────
+    global _midscreen_done, _midscreen_alerted
+    if now_time >= MIDSCREEN_TIME and not _midscreen_done:
+        positions = load_positions()
+        has_open = any(not p.get("closed", True) for p in positions.values())
+        if not has_open:
+            _midscreen_done = True
+            if not _midscreen_alerted:
+                _midscreen_alerted = True
+                tg_send(
+                    f"🔍 <b>Mid-Session Re-Screening</b> — No positions by 11:30\n"
+                    f"Re-running momentum filter on full universe..."
+                )
+                log.info("Mid-session re-screening triggered — no positions by 11:30")
+            
+            try:
+                from screener import check_premarket_momentum, load_sharia_universe
+                universe = load_sharia_universe()
+                new_picks = []
+                for ticker in universe[:50]:  # Check top 50 for speed
+                    pm = check_premarket_momentum(ticker)
+                    if pm and pm.get("passed"):
+                        # Quick check: is this already in picks?
+                        if not any(p.get("symbol") == ticker for p in picks_all):
+                            new_picks.append({
+                                "symbol": ticker,
+                                "pm_metrics": pm,
+                                "source": "midscreen"
+                            })
+                
+                if new_picks:
+                    # Sort by velocity, take top 2
+                    new_picks.sort(key=lambda x: x["pm_metrics"]["velocity"], reverse=True)
+                    top_new = new_picks[:2]
+                    
+                    # Add to picks.json with proper entry zones
+                    for p in top_new:
+                        sym = p["symbol"]
+                        try:
+                            ticker = yf.Ticker(sym)
+                            df = ticker.history(period="2d", interval="1d")
+                            if len(df) >= 2:
+                                prev_high = float(df["High"].iloc[-2])
+                                prev_low = float(df["Low"].iloc[-2])
+                                prev_close = float(df["Close"].iloc[-2])
+                                # Use same zone logic as main screener
+                                if prev_close >= prev_high * 0.99:
+                                    e_lo = round(prev_high * 0.995, 2)
+                                    e_hi = round(prev_close * 1.01, 2)
+                                else:
+                                    e_lo = round(prev_low * 0.998, 2)
+                                    e_hi = round(prev_high * 1.002, 2)
+                            else:
+                                e_lo = 0
+                                e_hi = 0
+                        except:
+                            e_lo = 0
+                            e_hi = 0
+                        
+                        picks_all.append({
+                            "symbol": sym,
+                            "entry_high": e_hi,
+                            "entry_low": e_lo,
+                            "score": 0,
+                            "pm_metrics": p["pm_metrics"],
+                            "tier": "midscreen"
+                        })
+                    
+                    with open(PICKS_FILE, "w") as f:
+                        json.dump({
+                            "date": datetime.now(RIYADH).date().isoformat(),
+                            "picks": picks_all
+                        }, f, indent=2)
+                    
+                    symbols_str = ", ".join([p["symbol"].replace(".SR", "") for p in top_new])
+                    tg_send(
+                        f"✅ <b>New Picks Added</b>\n"
+                        f"Found {len(top_new)} stocks with fresh momentum:\n"
+                        f"{symbols_str}\n"
+                        f"Monitoring alongside existing picks"
+                    )
+                    log.info(f"Mid-screen added {len(top_new)} picks: {symbols_str}")
+                else:
+                    tg_send("🔍 Mid-session re-screen: No new momentum stocks found")
+                    log.info("Mid-screen: no new picks found")
+            except Exception as e:
+                log.error(f"Mid-screen error: {e}")
+                tg_send(f"⚠️ Mid-screen error: {e}")
+
+    # ── Entry signals for picks (primary + fallback after 10:30) ────────────────
+    active_picks = picks_all[:2]  # Always monitor primary
+    fb_position_pct = position_pct  # Full size for primary
+    is_fallback = False
+    if now_time >= FALLBACK_TIME and _fb_alerted:
+        active_picks = picks_all[2:]  # Fallback tier: #3-5
+        fb_position_pct = 0.25       # Reduced to 25% for fallback
+        is_fallback = True
+    if now_time >= MIDSCREEN_TIME and _midscreen_done:
+        # Also monitor mid-screen picks
+        active_picks.extend([p for p in picks_all if p.get("tier") == "midscreen"])
+
+    for pick in active_picks:
+        symbol = pick.get("symbol", "")
+        if not symbol:
+            continue
+        base = symbol.replace(".SR", "")
+        if base in positions and not positions[base].get("closed"):
+            continue
+        if cycles_today.get(base, 0) >= 999:
+            continue
+
+        price, df = fetch_data(symbol)
+        if price is None or df is None:
+            continue
+
+        e_hi = pick.get("entry_high", 0)
+        e_lo = pick.get("entry_low", 0)
+        # Fallback: if no zone set (legacy midscreen), use dynamic ±1%
+        if e_hi == 0 or e_lo == 0:
+            e_hi = round(price * 1.01, 2)
+            e_lo = round(price * 0.99, 2)
+        
+        # Skip only if gapped significantly above (>2% above zone top)
+        # Small gap-ups are valid momentum entries
+        if e_hi and price > e_hi * 1.02 and pick.get("tier") != "midscreen":
+            log.info(f"{base} skipped — gapped above entry zone ({price:.2f} > {e_hi:.2f} +2%)")
+            continue
+
+        # ── Gap-up entry signal ───────────────────────────────────────────────
+        # If price is within zone or slightly above (0-2%), check for immediate
+        # gap-up momentum entry (only at first poll after open)
+        key_gap = f"{base}_gap_entry"
+        if e_lo and e_hi and e_lo <= price <= e_hi * 1.02 and key_gap not in _alerted:
+            # Check if this is early in session (first 30 min) and momentum is positive
+            now_time = datetime.now(RIYADH).time()
+            if now_time <= time(10, 30):
+                # Quick momentum check: price > VWAP or positive change since open
+                day_open = df["Open"].iloc[0] if not df.empty else price
+                if price >= day_open * 0.998:  # Near or above open
+                    use_pct = fb_position_pct if is_fallback else position_pct
+                    tier = "FALLBACK" if is_fallback else "PRIMARY"
+                    tg_send(
+                        f"📈 <b>ENTRY — Gap-Up / In-Zone</b> {base}\n"
+                        f"Price: {price:.2f} | Entry zone: {e_lo}–{e_hi}\n"
+                        f"Day open: {day_open:.2f} | Currently {'in zone' if price <= e_hi else 'slight gap-up'}\n"
+                        f"Regime: {regime_name} | Size: {int(use_pct*100)}% | Max cycles: {max_cycles}\n"
+                        f"Tier: {tier}\n"
+                        f"→ <code>BUY {base} QTY @ {price:.2f}</code>"
+                    )
+                    _alerted.add(key_gap)
+                    log.info(f"Gap-up/in-zone entry: {base} price={price:.2f} zone={e_lo}-{e_hi} tier={tier}")
+
+        vwap      = calc_vwap(df)
+        key_vwap  = f"{base}_vwap_entry"
+        key_break = f"{base}_breakout"
+
+        if vwap and check_vwap_reclaim(df, vwap) and key_vwap not in _alerted:
+            e_lo = pick.get("entry_low",  round(price * 0.99, 2))
+            e_hi = pick.get("entry_high", round(price * 1.01, 2))
+            use_pct = fb_position_pct if is_fallback else position_pct
+            tier = "FALLBACK" if is_fallback else "PRIMARY"
+            tg_send(
+                f"📈 <b>ENTRY — VWAP Reclaim</b> {base}\n"
+                f"VWAP: {vwap:.2f} | Price: {price:.2f}\n"
+                f"Entry zone: {e_lo}–{e_hi}\n"
+                f"Regime: {regime_name} | Size: {int(use_pct*100)}% | Max cycles: {max_cycles}\n"
+                f"Tier: {tier}\n"
+                f"→ <code>BUY {base} QTY @ {e_hi}</code>"
+            )
+            _alerted.add(key_vwap)
+            log.info(f"VWAP reclaim: {base} vwap={vwap:.2f} price={price:.2f} tier={tier} size={int(use_pct*100)}%")
+
+        if check_breakout(df) and key_break not in _alerted:
+            use_pct = fb_position_pct if is_fallback else position_pct
+            tier = "FALLBACK" if is_fallback else "PRIMARY"
+            tg_send(
+                f"🚀 <b>ENTRY — Breakout</b> {base}\n"
+                f"Price: {price:.2f} (above prior high + volume surge)\n"
+                f"Regime: {regime_name} | Size: {int(use_pct*100)}% | Max cycles: {max_cycles}\n"
+                f"Tier: {tier}\n"
+                f"→ <code>BUY {base} QTY @ {price:.2f}</code>"
+            )
+            _alerted.add(key_break)
+            log.info(f"Breakout: {base} price={price:.2f} tier={tier} size={int(use_pct*100)}%")
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
+def main():
+    now_time = datetime.now(RIYADH).time()
+    if not (MARKET_OPEN <= now_time <= MARKET_CLOSE):
+        log.info(f"Outside market hours ({now_time}) — exiting.")
+        sys.exit(0)
+
+    log.info("Price poller started.")
+    tg_send(
+        f"🔍 Price poller live — fast watch every {FAST_INTERVAL}s, "
+        f"price scan every {SLOW_INTERVAL//60}min.\n"
+        f"Fallback logic: monitoring top 2 picks until 10:30, then top 5 at 25% if idle."
+    )
+
+    # Start background WS price listener (TickerChart CDP feed)
+    _start_ws_listener()
+    time_mod.sleep(3)   # brief warm-up so cache has initial prices
+
+    try:
+        regime = get_current_regime()
+    except Exception as e:
+        log.warning(f"Regime load failed: {e} — using NEUTRAL")
+        regime = {"regime": "NEUTRAL", "params": {"strategy": "B", "max_cycles": 2, "position_pct": 0.40}}
+
+    log.info(
+        f"Regime: {regime['regime']} | "
+        f"max_cycles={regime['params']['max_cycles']} | "
+        f"position_pct={regime['params']['position_pct']}"
+    )
+
+    last_slow        = 0.0   # epoch seconds of last slow poll
+    last_regime_chk  = 0.0
+
+    while True:
+        now_time = datetime.now(RIYADH).time()
+        if now_time > MARKET_CLOSE:
+            log.info("Market closed — poller exiting.")
+            tg_send("🔕 Price poller stopped (market closed).")
+            break
+
+        now_epoch = time_mod.time()
+
+        # ── Regime re-check every 30 minutes ─────────────────────────────────
+        if now_epoch - last_regime_chk >= 1800:
+            try:
+                regime = classify_intraday()
+                last_regime_chk = now_epoch
+                log.info(f"Regime updated: {regime['regime']}")
+            except Exception as e:
+                log.warning(f"Intraday regime re-check failed: {e}")
+
+        # ── Fast poll — every 10s, no network ────────────────────────────────
+        try:
+            fast_poll(regime)
+        except Exception as e:
+            log.error(f"fast_poll error: {e}")
+
+        # ── Slow poll — every 5 min, yfinance ────────────────────────────────
+        if now_epoch - last_slow >= SLOW_INTERVAL:
+            try:
+                slow_poll(regime)
+                last_slow = now_epoch
+                log.info("Slow poll done.")
+            except Exception as e:
+                log.error(f"slow_poll error: {e}")
+
+        time_mod.sleep(FAST_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()

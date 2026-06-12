@@ -1,0 +1,477 @@
+#!/usr/bin/env python3
+"""
+Derayah Session Manager
+=======================
+
+Manages the 3-phase session lifecycle:
+1. LOGIN     - Capture tokens from browser
+2. MAINTAIN  - Refresh tokens every ~50 min
+3. RECOVERY  - Handle failures, notify user
+
+Usage:
+    from derayah_session_manager import SessionManager
+    sm = SessionManager()
+    
+    # Phase 1: Capture after manual login
+    sm.capture_tokens()  # Reads from browser, saves to file
+    
+    # Phase 2: Refresh (called by cron or /refresh command)
+    sm.refresh_session()  # Full refresh cycle
+    
+    # Check health
+    health = sm.check_health()
+    print(health)
+
+File: /home/mino/tasi-exec/derayah_session_manager.py
+# Migrated 2026-06-08 from workspace/ per TASI_SESSION_MIGRATION_PLAN_v4.2
+"""
+
+import asyncio
+import json
+import logging
+import time
+from datetime import datetime
+from pathlib import Path
+
+import requests
+import websocket
+
+# ─── Config ──────────────────────────────────────────────────────────────────
+
+TOKEN_FILE      = Path("/home/mino/tasi-exec/derayah_tokens.json")
+CDP_URL         = "http://127.0.0.1:18801"
+TOKEN_ENDPOINT  = "https://api.derayah.com/idspark/connect/token"
+SSO_ENDPOINT    = "https://api.derayah.com/apispark/trade/TickerChartUrl"
+CLIENT_ID       = "NewWebClient"
+CLIENT_SECRET   = "NewDerayahWeb2026"  # From Derayah JS bundle (VUE_APP_CLIENT_SECRET) — verified working 2026-06-10
+
+# Token lifetimes
+ACCESS_TTL      = 3600      # 60 minutes
+REFRESH_MARGIN  = 600       # Refresh 10 min before expiry
+
+log = logging.getLogger(__name__)
+
+
+# ─── Session Manager ─────────────────────────────────────────────────────────
+
+class SessionManager:
+    """Manages Derayah dashboard + TC tab session lifecycle."""
+
+    def __init__(self):
+        self.tokens = self._load_tokens()
+        self._last_refresh = 0
+
+    # ─── Token I/O ─────────────────────────────────────────────────────────────
+
+    def _load_tokens(self) -> dict:
+        """Load tokens from disk."""
+        if TOKEN_FILE.exists():
+            with open(TOKEN_FILE) as f:
+                return json.load(f)
+        return {}
+
+    def _save_tokens(self, data: dict) -> None:
+        """Save tokens to disk."""
+        with open(TOKEN_FILE, "w") as f:
+            json.dump(data, f, indent=2)
+        log.info(f"Tokens saved to {TOKEN_FILE}")
+
+    # ─── Phase 1: Capture ──────────────────────────────────────────────────────
+
+    def capture_tokens(self) -> dict:
+        """
+        Phase 1: Capture tokens from browser after manual login.
+        
+        Reads Derayah_accesstoken and Derayah_refreshtoken from
+        dashboard localStorage via CDP.
+        
+        Returns:
+            dict with captured tokens and metadata
+        """
+        log.info("Phase 1: Capturing tokens from browser...")
+        
+        tabs = self._cdp_list_tabs()
+        dash = self._find_dashboard_tab(tabs)
+        
+        if not dash:
+            raise RuntimeError("Dashboard tab not found - user must login first")
+        
+        ws_url = dash.get("webSocketDebuggerUrl")
+        
+        # Read tokens from dashboard localStorage
+        access = self._cdp_eval(ws_url, "localStorage.getItem('Derayah_accesstoken') || ''")
+        refresh = self._cdp_eval(ws_url, "localStorage.getItem('Derayah_refreshtoken') || ''")
+        
+        if not access or not refresh:
+            raise RuntimeError("Tokens not found in dashboard - is user logged in?")
+        
+        # Save
+        data = {
+            "Derayah_accesstoken": access,
+            "Derayah_refreshtoken": refresh,
+            "captured_at": datetime.now().isoformat(),
+            "source": "manual-login-capture"
+        }
+        self._save_tokens(data)
+        self.tokens = data
+        
+        # Also capture TC token if TC tab exists
+        tc = self._find_tc_tab(tabs)
+        if tc:
+            tc_token = self._cdp_eval(
+                tc.get("webSocketDebuggerUrl"),
+                'JSON.parse(localStorage.getItem("TC_DERAYAH") || "{}").token || ""'
+            )
+            if tc_token:
+                data["TC_DERAYAH"] = tc_token
+                self._save_tokens(data)
+                log.info(f"TC token captured ({len(tc_token)} chars)")
+        
+        log.info(f"✅ Tokens captured! Access token: {len(access)} chars")
+        return data
+
+    # ─── Phase 2: Refresh ──────────────────────────────────────────────────────
+
+    def refresh_session(self) -> dict:
+        """
+        Phase 2: Full token refresh cycle.
+        
+        1. Refresh Derayah tokens via OAuth API
+        2. Get fresh SSO URL
+        3. Navigate TC tab to SSO URL
+        4. Verify freshness
+        
+        Returns:
+            dict with new tokens and expiry info
+        """
+        log.info("Phase 2: Starting session refresh...")
+        
+        # Step 1: Refresh Derayah tokens
+        new_access, new_refresh, expires_in = self._refresh_derayah_tokens()
+        log.info(f"Step 1: New access token ({len(new_access)} chars, expires in {expires_in}s)")
+        
+        # Step 2: Get SSO URL
+        sso_url = self._get_sso_url(new_access)
+        log.info(f"Step 2: SSO URL acquired ({len(sso_url)} chars)")
+        
+        # Step 3: Navigate TC tab to SSO URL
+        self._navigate_tc_to_sso(sso_url)
+        log.info("Step 3: TC tab navigated to SSO URL")
+        
+        # Step 4: Inject into dashboard
+        self._inject_dashboard_tokens(new_access, new_refresh)
+        log.info("Step 4: Dashboard tokens injected")
+        
+        # Step 5: Verify
+        time.sleep(12)  # Wait for SSO redirect
+        tc_token = self._get_tc_token()
+        
+        if not tc_token:
+            raise RuntimeError("TC token not found after SSO navigation")
+        
+        # Check expiry
+        exp = self._decode_token_expiry(tc_token)
+        remaining = exp - time.time() if exp else 0
+        
+        # Save everything
+        data = {
+            "Derayah_accesstoken": new_access,
+            "Derayah_refreshtoken": new_refresh,
+            "sso_url": sso_url,
+            "TC_DERAYAH": tc_token,
+            "last_refreshed": datetime.now().isoformat(),
+            "expires_in": expires_in,
+            "tc_expiry": datetime.fromtimestamp(exp).isoformat() if exp else None,
+            "tc_remaining_min": round(remaining / 60, 1) if remaining else None
+        }
+        self._save_tokens(data)
+        self.tokens = data
+        self._last_refresh = time.time()
+        
+        log.info(f"✅ Session refreshed! TC token valid for {remaining/60:.1f} min")
+        return data
+
+    def _refresh_derayah_tokens(self) -> tuple:
+        """Call OAuth refresh endpoint. Returns (access, refresh, expires_in)."""
+        refresh_token = self.tokens.get("Derayah_refreshtoken", "")
+        
+        if not refresh_token:
+            raise RuntimeError("No refresh token available - need manual login")
+        
+        resp = requests.post(
+            TOKEN_ENDPOINT,
+            data={
+                "grant_type": "refresh_token",
+                "client_id": CLIENT_ID,
+                "client_secret": CLIENT_SECRET,
+                "refresh_token": refresh_token,
+            },
+            headers={
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Origin": "https://newonline.derayah.com",
+                "Referer": "https://newonline.derayah.com/",
+            },
+            timeout=15
+        )
+        
+        if resp.status_code != 200:
+            raise RuntimeError(f"Token refresh failed: {resp.status_code} - {resp.text[:200]}")
+        
+        result = resp.json()
+        return (
+            result.get("access_token", ""),
+            result.get("refresh_token", "") or refresh_token,  # May return same
+            result.get("expires_in", 0)
+        )
+
+    def _get_sso_url(self, access_token: str) -> str:
+        """Get fresh SSO URL using access token."""
+        resp = requests.get(
+            SSO_ENDPOINT,
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json",
+                "Origin": "https://newonline.derayah.com",
+                "Referer": "https://newonline.derayah.com/",
+            },
+            timeout=10
+        )
+        
+        if resp.status_code != 200:
+            raise RuntimeError(f"SSO URL fetch failed: {resp.status_code}")
+        
+        result = resp.json()
+        url = result.get("data", "")
+        if not url:
+            raise RuntimeError("No SSO URL in response")
+        
+        return url
+
+    def _navigate_tc_to_sso(self, sso_url: str) -> None:
+        """Navigate TC tab to SSO URL via CDP."""
+        tabs = self._cdp_list_tabs()
+        tc = self._find_tc_tab(tabs)
+        
+        if tc:
+            # Navigate existing TC tab
+            ws_url = tc.get("webSocketDebuggerUrl")
+            self._cdp_navigate(ws_url, sso_url)
+        else:
+            # Create new tab with SSO URL
+            self._cdp_new_tab(sso_url)
+
+    def _inject_dashboard_tokens(self, access: str, refresh: str) -> None:
+        """Inject tokens into dashboard localStorage."""
+        tabs = self._cdp_list_tabs()
+        dash = self._find_dashboard_tab(tabs)
+        
+        if not dash:
+            log.warning("Dashboard tab not found - skipping injection")
+            return
+        
+        ws_url = dash.get("webSocketDebuggerUrl")
+        
+        # Escape for JavaScript
+        access_esc = access.replace("'", "\\'")
+        refresh_esc = refresh.replace("'", "\\'")
+        
+        self._cdp_eval(ws_url, f"localStorage.setItem('Derayah_accesstoken', '{access_esc}')")
+        self._cdp_eval(ws_url, f"localStorage.setItem('Derayah_refreshtoken', '{refresh_esc}')")
+
+    # ─── Phase 3: Recovery ─────────────────────────────────────────────────────
+
+    def needs_refresh(self) -> bool:
+        """Check if session needs refresh (< 10 min remaining)."""
+        tc_token = self.tokens.get("TC_DERAYAH", "")
+        if not tc_token:
+            return True
+        
+        exp = self._decode_token_expiry(tc_token)
+        if not exp:
+            return True
+        
+        remaining = exp - time.time()
+        return remaining < REFRESH_MARGIN
+
+    def check_health(self) -> dict:
+        """Quick health check of all components."""
+        result = {
+            "timestamp": datetime.now().isoformat(),
+            "dashboard_tab": False,
+            "tc_tab": False,
+            "tc_token_valid": False,
+            "tc_token_expiry": None,
+            "tc_remaining_min": None,
+            "api_working": False,
+            "needs_refresh": False,
+        }
+        
+        # Check tabs
+        tabs = self._cdp_list_tabs()
+        result["dashboard_tab"] = bool(self._find_dashboard_tab(tabs))
+        tc = self._find_tc_tab(tabs)
+        result["tc_tab"] = bool(tc)
+        
+        # Check TC token
+        if tc:
+            tc_token = self._get_tc_token()
+            if tc_token:
+                result["tc_token_valid"] = True
+                exp = self._decode_token_expiry(tc_token)
+                if exp:
+                    result["tc_token_expiry"] = datetime.fromtimestamp(exp).isoformat()
+                    remaining = exp - time.time()
+                    result["tc_remaining_min"] = round(remaining / 60, 1)
+                    result["needs_refresh"] = remaining < REFRESH_MARGIN
+                
+                # Test API
+                result["api_working"] = self._test_api(tc_token)
+        
+        return result
+
+    # ─── CDP Helpers ───────────────────────────────────────────────────────────
+
+    def _cdp_list_tabs(self) -> list:
+        """List all CDP tabs."""
+        try:
+            resp = requests.get(f"{CDP_URL}/json/list", timeout=5)
+            return resp.json() if resp.status_code == 200 else []
+        except Exception as e:
+            log.error(f"CDP list failed: {e}")
+            return []
+
+    def _find_dashboard_tab(self, tabs: list) -> dict:
+        """Find Derayah dashboard tab."""
+        for t in tabs:
+            if "newonline.derayah.com" in t.get("url", ""):
+                return t
+        return None
+
+    def _find_tc_tab(self, tabs: list) -> dict:
+        """Find TickerChart tab."""
+        for t in tabs:
+            if "derayah.tickerchart.net" in t.get("url", ""):
+                return t
+        return None
+
+    def _cdp_eval(self, ws_url: str, expression: str) -> str:
+        """Evaluate JavaScript via CDP."""
+        try:
+            ws = websocket.create_connection(ws_url, timeout=10)
+            ws.send(json.dumps({
+                "id": 1,
+                "method": "Runtime.evaluate",
+                "params": {"expression": expression, "returnByValue": True}
+            }))
+            resp = json.loads(ws.recv())
+            ws.close()
+            return resp.get("result", {}).get("result", {}).get("value", "")
+        except Exception as e:
+            log.error(f"CDP eval failed: {e}")
+            return ""
+
+    def _cdp_navigate(self, ws_url: str, url: str) -> None:
+        """Navigate tab to URL via CDP."""
+        try:
+            ws = websocket.create_connection(ws_url, timeout=10)
+            ws.send(json.dumps({
+                "id": 1,
+                "method": "Page.navigate",
+                "params": {"url": url}
+            }))
+            ws.recv()
+            ws.close()
+        except Exception as e:
+            log.error(f"CDP navigate failed: {e}")
+
+    def _cdp_new_tab(self, url: str) -> dict:
+        """Create new tab via CDP."""
+        try:
+            resp = requests.put(f"{CDP_URL}/json/new", params={"url": url}, timeout=10)
+            return resp.json() if resp.status_code == 200 else {}
+        except Exception as e:
+            log.error(f"CDP new tab failed: {e}")
+            return {}
+
+    # ─── Token Helpers ─────────────────────────────────────────────────────────
+
+    def _get_tc_token(self) -> str:
+        """Get TC_DERAYAH token from TC tab."""
+        tabs = self._cdp_list_tabs()
+        tc = self._find_tc_tab(tabs)
+        
+        if not tc:
+            return ""
+        
+        return self._cdp_eval(
+            tc.get("webSocketDebuggerUrl"),
+            'JSON.parse(localStorage.getItem("TC_DERAYAH") || "{}").token || ""'
+        )
+
+    def _decode_token_expiry(self, token: str) -> float:
+        """Decode JWT expiry."""
+        try:
+            import base64
+            parts = token.split(".")
+            if len(parts) == 3:
+                pad = parts[1] + "=" * (-len(parts[1]) % 4)
+                payload = json.loads(base64.urlsafe_b64decode(pad.encode()))
+                return payload.get("exp", 0)
+        except Exception:
+            pass
+        return 0
+
+    def _test_api(self, token: str) -> bool:
+        """Test API with token."""
+        try:
+            headers = {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "Origin": "https://derayah.tickerchart.net",
+                "Referer": "https://derayah.tickerchart.net/",
+            }
+            resp = requests.get("https://api.derayah.com/trading/Portfolio/List", headers=headers, timeout=10)
+            return resp.status_code == 200
+        except Exception:
+            return False
+
+
+# ─── CLI ─────────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import sys
+    
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    
+    sm = SessionManager()
+    
+    if len(sys.argv) < 2:
+        print("Usage: python derayah_session_manager.py [capture|refresh|health]")
+        sys.exit(1)
+    
+    cmd = sys.argv[1]
+    
+    if cmd == "capture":
+        try:
+            result = sm.capture_tokens()
+            print(f"✅ Captured! Access: {len(result.get('Derayah_accesstoken', ''))} chars")
+            print(f"   Refresh: {len(result.get('Derayah_refreshtoken', ''))} chars")
+        except Exception as e:
+            print(f"❌ Capture failed: {e}")
+            sys.exit(1)
+    
+    elif cmd == "refresh":
+        try:
+            result = sm.refresh_session()
+            print(f"✅ Refreshed! TC token valid for {result.get('tc_remaining_min', 0)} min")
+        except Exception as e:
+            print(f"❌ Refresh failed: {e}")
+            sys.exit(1)
+    
+    elif cmd == "health":
+        health = sm.check_health()
+        print(json.dumps(health, indent=2))
+    
+    else:
+        print(f"Unknown command: {cmd}")
+        sys.exit(1)

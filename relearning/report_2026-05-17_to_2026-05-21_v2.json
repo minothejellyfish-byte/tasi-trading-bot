@@ -1,0 +1,29 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-24T00:56:36.324204",
+  "note": "Only May 21 has actual picks. May 17-20: screener not archiving.",
+  "actual_picks": 5,
+  "entries_hit": 0,
+  "approaches": {
+    "conservative": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "win_rate": 0
+    },
+    "aggressive": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "win_rate": 0
+    },
+    "optimized": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "win_rate": 0
+    }
+  },
+  "trades": {
+    "conservative": [],
+    "aggressive": [],
+    "optimized": []
+  }
+}

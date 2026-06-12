@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TASI v4.0 — Full Day Timeline</title>
+<style>
+  :root {
+    --pm: #0277bd; --mo: #ef6c00; --en: #2e7d32; --ex: #c62828;
+    --cy: #7b1fa2; --pu: #f9a825; --ms: #00695c; --rg: #c2185b;
+    --po: #424242; --bg: #f8f9fa; --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: #222;
+    padding: 20px;
+    min-width: 1400px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #1a237e;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    font-size: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--card);
+    border: 1px solid #ddd;
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* Timeline container */
+  .timeline-wrap {
+    position: relative;
+    padding: 40px 0 20px;
+    overflow-x: auto;
+  }
+  .timeline-line {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pm), var(--mo), var(--en), var(--cy), var(--ex), var(--po));
+    border-radius: 2px;
+  }
+
+  /* Time markers */
+  .time-markers {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 60px;
+    margin-bottom: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  /* Cards row */
+  .cards-row {
+    display: flex;
+    gap: 16px;
+    padding: 0 40px;
+    min-width: max-content;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px;
+    width: 220px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 4px solid;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-4px); }
+
+  .card-time {
+    font-size: 11px;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .card-steps {
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #444;
+  }
+  .card-steps li {
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .card-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #999;
+    font-size: 10px;
+  }
+
+  /* Color themes */
+  .card.pm { border-top-color: var(--pm); }
+  .card.pm .card-title { color: var(--pm); }
+  .card.mo { border-top-color: var(--mo); }
+  .card.mo .card-title { color: var(--mo); }
+  .card.en { border-top-color: var(--en); }
+  .card.en .card-title { color: var(--en); }
+  .card.ms { border-top-color: var(--ms); }
+  .card.ms .card-title { color: var(--ms); }
+  .card.cy { border-top-color: var(--cy); }
+  .card.cy .card-title { color: var(--cy); }
+  .card.pu { border-top-color: var(--pu); }
+  .card.pu .card-title { color: var(--pu); }
+  .card.ex { border-top-color: var(--ex); }
+  .card.ex .card-title { color: var(--ex); }
+  .card.rg { border-top-color: var(--rg); }
+  .card.rg .card-title { color: var(--rg); }
+  .card.po { border-top-color: var(--po); }
+  .card.po .card-title { color: var(--po); }
+
+  /* Arrow connectors */
+  .arrow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #bbb;
+  }
+
+  /* Continuous loop indicator */
+  .loop-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #e3f2fd;
+    color: #1565c0;
+    margin-top: 8px;
+    font-weight: bold;
+  }
+
+  /* Parallel row label */
+  .row-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    padding: 8px 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 11px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<h1>🪼 TASI v4.0 Trading System — Full Day Timeline</h1>
+<div class="subtitle">Sunday–Thursday | 09:50 – 15:35 | Auto-execution with regime-aware dynamic exits</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pm)"></div>Pre-Market</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--mo)"></div>Market Open</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--en)"></div>Entry</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ms)"></div>Mid-Screen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pu)"></div>Position Upgrade</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--cy)"></div>Cycle</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ex)"></div>Exit</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--rg)"></div>Regime</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--po)"></div>Post-Market</div>
+</div>
+
+<!-- Timeline line -->
+<div class="timeline-wrap">
+  <div class="timeline-line"></div>
+
+  <!-- Time markers -->
+  <div class="time-markers">
+    <span>09:50</span>
+    <span>10:00</span>
+    <span>10:30</span>
+    <span>11:00</span>
+    <span>12:00</span>
+    <span>13:00</span>
+    <span>13:30</span>
+    <span>14:00</span>
+    <span>14:30</span>
+    <span>14:45</span>
+    <span>15:35</span>
+  </div>
+
+  <!-- Row 1: Setup & Screens -->
+  <div class="row-label">📋 Setup & Screening</div>
+  <div class="cards-row">
+    <div class="card pm">
+      <div class="card-time">09:50</div>
+      <div class="card-title">🌅 Pre-Market Screen</div>
+      <ul class="card-steps">
+        <li>Load 398 Sharia stocks</li>
+        <li>Yesterday's momentum data</li>
+        <li>ATR/vol/range filters</li>
+        <li>Score top 20 stocks</li>
+        <li>Output picks.json</li>
+      </ul>
+    </div>
+
+    <div class="card mo">
+      <div class="card-time">10:00</div>
+      <div class="card-title">📈 Market Opens</div>
+      <ul class="card-steps">
+        <li>Poller starts monitoring</li>
+        <li>Load all 4 pick files</li>
+        <li>Dedup + global score sort</li>
+        <li>Monitor top 5 picks</li>
+        <li>WebSocket listener active</li>
+        <li>Bot PRICE: WebSocket #1</li>
+      </ul>
+    </div>
+
+    <div class="card ms">
+      <div class="card-time">10:30</div>
+      <div class="card-title">📊 Mid-Screen 1</div>
+      <ul class="card-steps">
+        <li>Read WS ticks 10:00–10:30</li>
+        <li>Build OHLC bars</li>
+        <li>Score by change%, range%</li>
+        <li>Output picks_1030.json</li>
+        <li>Overwrite premarket picks</li>
+      </ul>
+    </div>
+
+    <div class="card ms">
+      <div class="card-time">12:00</div>
+      <div class="card-title">📊 Mid-Screen 2</div>
+      <ul class="card-steps">
+        <li>Read WS ticks 11:00–12:00</li>
+        <li>Score intraday momentum</li>
+        <li>Output picks_1200.json</li>
+        <li>Full-size, overwrites</li>
+      </ul>
+    </div>
+
+    <div class="card ms">
+      <div class="card-time">13:30</div>
+      <div class="card-title">📊 Rescreen</div>
+      <ul class="card-steps">
+        <li>Read WS ticks 12:00–13:30</li>
+        <li>Score late-session momentum</li>
+        <li>Output picks_1330.json</li>
+        <li>Entry cutoff — no new buys</li>
+      </ul>
+    </div>
+
+    <div class="card po">
+      <div class="card-time">15:35</div>
+      <div class="card-title">🌙 Post-Market</div>
+      <ul class="card-steps">
+        <li>Scan all 398 stocks</li>
+        <li>Find missed opportunities</li>
+        <li>Generate HTML report</li>
+        <li>Email to Amin</li>
+        <li>Update learning.json</li>
+        <li>WebSocket price priority #1</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Row 2: Entry Logic -->
+  <div class="row-label" style="margin-top:24px">🎯 Entry Signals (Continuous)</div>
+  <div class="cards-row">
+    <div class="card en">
+      <div class="card-time">10:00–10:30</div>
+      <div class="card-title">🚀 Gap-Up Entry</div>
+      <ul class="card-steps">
+        <li>Price in entry zone</li>
+        <li>Slight gap-up OK (+2%)</li>
+        <li>Above VWAP</li>
+        <li>Max 3 positions</li>
+        <li>Regime-aware sizing</li>
+      </ul>
+      <div class="loop-badge">↻ Continuous</div>
+    </div>
+
+    <div class="card en">
+      <div class="card-time">After 10:30</div>
+      <div class="card-title">📊 Standard Entry</div>
+      <ul class="card-steps">
+        <li>VWAP reclaim + zone</li>
+        <li>Breakout + volume</li>
+        <li>Above entry zone low</li>
+        <li>Below entry zone high</li>
+        <li>Not in deep loss</li>
+      </ul>
+      <div class="loop-badge">↻ Continuous</div>
+    </div>
+
+    <div class="card en" style="width:180px">
+      <div class="card-time">Sizing</div>
+      <div class="card-title">📐 Position Sizing</div>
+      <ul class="card-steps">
+        <li>TREND: 35%/35%/25%</li>
+        <li>NEUTRAL: 30%/30%/30%</li>
+        <li>DEFENSIVE: 4×20%</li>
+        <li>Static at entry</li>
+      </ul>
+    </div>
+
+    <div class="card rg" style="width:180px">
+      <div class="card-time">Every 30 min</div>
+      <div class="card-title">📊 Regime Check</div>
+      <ul class="card-steps">
+        <li>TREND/NEUT/DEF</li>
+        <li>60-min confirmation</li>
+        <li>Updates exit targets</li>
+        <li>Entry sizing static</li>
+      </ul>
+      <div class="loop-badge">↻ Background</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Position Management -->
+  <div class="row-label" style="margin-top:24px">🔄 Position Management (Event-Driven)</div>
+  <div class="cards-row">
+    <div class="card pu">
+      <div class="card-time">10:30 / 12:00 / 13:30</div>
+      <div class="card-title">⬆️ Position Upgrade</div>
+      <ul class="card-steps">
+        <li>New screen arrives</li>
+        <li>Better pick available?</li>
+        <li>Score > current × threshold</li>
+        <li>P&L ≥ -2%?</li>
+        <li>→ SELL current, BUY new</li>
+      </ul>
+    </div>
+
+    <div class="card cy">
+      <div class="card-time">After Win</div>
+      <div class="card-title">🏆 Cycle Switch</div>
+      <ul class="card-steps">
+        <li>Target hit → SELL</li>
+        <li>Time < 14:30?</li>
+        <li>< 2 scratches?</li>
+        <li>Better pick? → SWITCH</li>
+        <li>Else check momentum</li>
+      </ul>
+    </div>
+
+    <div class="card cy">
+      <div class="card-time">After Win</div>
+      <div class="card-title">♻️ Cycle Recycle</div>
+      <ul class="card-steps">
+        <li>Same symbol rebuy</li>
+        <li>Momentum > 0?</li>
+        <li>VWAP + zone check</li>
+        <li>Unlimited cycles</li>
+        <li>Until 14:30 or 2 scratches</li>
+      </ul>
+    </div>
+
+    <div class="card ex">
+      <div class="card-time">Any Time</div>
+      <div class="card-title">🛑 Exit Signals</div>
+      <ul class="card-steps">
+        <li>Target hit → cycle</li>
+        <li>Hard stop → block cycle</li>
+        <li>Trailing stop → cycle</li>
+        <li>Time stop (30 min)</li>
+        <li>VWAP re-break</li>
+      </ul>
+      <div class="loop-badge">↻ Every tick</div>
+    </div>
+
+    <div class="card ex" style="border-top-color:#d84315">
+      <div class="card-time">14:45</div>
+      <div class="card-title" style="color:#d84315">⏰ HARD CLOSE</div>
+      <ul class="card-steps">
+        <li>Sell ALL positions</li>
+        <li>Clear all picks</li>
+        <li>Stop poller</li>
+        <li>End trading day</li>
+      </ul>
+    </div>
+  </div>
+
+<!-- Row 4: Bot Price Priority -->
+  <div class="row-label" style="margin-top:24px">🔧 Bot Price Priority (2026-06-04 Fix)</div>
+  <div class="cards-row">
+    <div class="card" style="width:200px; border-top-color:#1565c0">
+      <div class="card-time">Priority #1</div>
+      <div class="card-title" style="color:#1565c0">📡 WebSocket</div>
+      <ul class="card-steps">
+        <li>ws_prices_*.jsonl</li>
+        <li>Real-time live prices</li>
+        <li>Fastest source</li>
+        <li>Same as poller</li>
+      </ul>
+      <div class="loop-badge" style="background:#e8f5e9; color:#2e7d32">✅ ACTIVE</div>
+    </div>
+
+    <div class="card" style="width:200px; border-top-color:#ef6c00">
+      <div class="card-time">Priority #2</div>
+      <div class="card-title" style="color:#ef6c00">📊 TickerChart</div>
+      <ul class="card-steps">
+        <li>CDP scrape</li>
+        <li>Derayah Trade tab</li>
+        <li>Visible rows</li>
+        <li>Scroll map fallback</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width:200px; border-top-color:#7b1fa2">
+      <div class="card-time">Priority #3</div>
+      <div class="card-title" style="color:#7b1fa2">🏦 Derayah API</div>
+      <ul class="card-steps">
+        <li>REST API call</li>
+        <li>Requires login</li>
+        <li>Session token</li>
+        <li>~1-2 sec delay</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width:200px; border-top-color:#757575">
+      <div class="card-time">Priority #4</div>
+      <div class="card-title" style="color:#757575">📉 yfinance</div>
+      <ul class="card-steps">
+        <li>15-min delayed</li>
+        <li>Fallback only</li>
+        <li>Last resort</li>
+        <li>Not for live trading</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Row 5: Thresholds -->
+  <div class="row-label" style="margin-top:24px">⚙️ Regime-Aware Thresholds</div>
+  <div class="cards-row">
+    <div class="card" style="width:280px; border-top-color:var(--en)">
+      <div class="card-time">Position Upgrade Multipliers</div>
+      <div class="card-title" style="color:var(--en)">⬆️ Upgrade Thresholds</div>
+      <ul class="card-steps">
+        <li>TRENDING: 1.4× (40% better)</li>
+        <li>NEUTRAL: 1.3× (30% better)</li>
+        <li>DEFENSIVE: 1.2× (20% better)</li>
+        <li>Sell open → buy better pick</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width:280px; border-top-color:var(--cy)">
+      <div class="card-time">Cycle Switch Multipliers</div>
+      <div class="card-title" style="color:var(--cy)">🔀 Switch Thresholds</div>
+      <ul class="card-steps">
+        <li>TRENDING: 1.2× (20% better)</li>
+        <li>NEUTRAL: 1.15× (15% better)</li>
+        <li>DEFENSIVE: 1.1× (10% better)</li>
+        <li>Skip rebuy → buy better pick</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width:280px; border-top-color:var(--ex)">
+      <div class="card-time">Dynamic Exit Parameters</div>
+      <div class="card-title" style="color:var(--ex)">🎯 Exit Targets</div>
+      <ul class="card-steps">
+        <li>TRENDING: target 2.5%, stop 7%</li>
+        <li>NEUTRAL: target 2%, stop 5%</li>
+        <li>DEFENSIVE: target 1.5%, stop 4%</li>
+        <li>60-min regime confirmation</li>
+      </ul>
+    </div>
+
+    <div class="card" style="width:200px; border-top-color:var(--rg)">
+      <div class="card-time">Recycle Gate</div>
+      <div class="card-title" style="color:var(--rg)">🚪 Momentum Check</div>
+      <ul class="card-steps">
+        <li>change_pct > 0 required</li>
+        <li>If dead → skip recycle</li>
+        <li>Entry buys other picks</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  TASI v4.0 | Mino the Jellyfish 🪼 | Auto-generated | Last updated: 2026-06-04 | WebSocket Priority Fix Applied
+</div>
+
+</body>
+</html>

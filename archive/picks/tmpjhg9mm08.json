@@ -1,0 +1,16 @@
+{
+  "date": "2026-06-08",
+  "mode": "premarket",
+  "picks": [
+    {
+      "ticker": "2381.SR",
+      "entry_low": 87.86,
+      "entry_high": 91.1,
+      "stop_loss": 83.89,
+      "score": 117.7,
+      "rsi": 64.8,
+      "vol_ratio": 3.74,
+      "close": 90.2,
+      "trend_pct": 0.22,
+      "higher_lows": false,
+      "near_breakout": 

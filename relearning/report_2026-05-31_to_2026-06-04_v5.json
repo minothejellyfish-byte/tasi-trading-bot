@@ -1,0 +1,102 @@
+{
+  "week": "2026-05-31_to_2026-06-04",
+  "generated": "2026-06-06T00:52:46.637720",
+  "results": {
+    "v3.2": {
+      "name": "v3.2 (Previous System)",
+      "num_picks": 2,
+      "hit_trades": 1,
+      "missed_trades": 1,
+      "total_pnl": -0.13,
+      "win_rate": 0.0,
+      "avg_pnl": -0.13,
+      "avg_win": 0,
+      "avg_loss": -0.13,
+      "missed_opportunity": -1.84,
+      "trades": [
+        {
+          "symbol": "1303.SR",
+          "date": "2026-06-01",
+          "entry_price": 16.75,
+          "open_price": 16.31,
+          "close_price": 16.01,
+          "pnl_pct": 0,
+          "chase_pnl": -1.84,
+          "score": 101.5,
+          "entry_hit": false,
+          "note": "Gapped up: entry 16.75, open 16.31"
+        },
+        {
+          "symbol": "1202.SR",
+          "date": "2026-06-01",
+          "entry_price": 19.46,
+          "exit_price": 19.44,
+          "pnl_pct": -0.13,
+          "score": 83.7,
+          "entry_hit": true
+        }
+      ]
+    },
+    "v4.0": {
+      "name": "v4.0 (Current System)",
+      "num_picks": 1,
+      "hit_trades": 0,
+      "missed_trades": 1,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": -1.84,
+      "trades": [
+        {
+          "symbol": "1303.SR",
+          "date": "2026-06-01",
+          "entry_price": 16.75,
+          "open_price": 16.31,
+          "close_price": 16.01,
+          "pnl_pct": 0,
+          "chase_pnl": -1.84,
+          "score": 101.5,
+          "entry_hit": false,
+          "note": "Gapped up: entry 16.75, open 16.31"
+        }
+      ]
+    },
+    "v4.0+": {
+      "name": "v4.0+ (Optimized)",
+      "num_picks": 2,
+      "hit_trades": 1,
+      "missed_trades": 1,
+      "total_pnl": -0.15,
+      "win_rate": 0.0,
+      "avg_pnl": -0.15,
+      "avg_win": 0,
+      "avg_loss": -0.15,
+      "missed_opportunity": -1.84,
+      "trades": [
+        {
+          "symbol": "1303.SR",
+          "date": "2026-06-01",
+          "entry_price": 16.74,
+          "open_price": 16.31,
+          "close_price": 16.01,
+          "pnl_pct": 0,
+          "chase_pnl": -1.84,
+          "score": 101.5,
+          "entry_hit": false,
+          "note": "Gapped up: entry 16.74, open 16.31"
+        },
+        {
+          "symbol": "1202.SR",
+          "date": "2026-06-01",
+          "entry_price": 19.47,
+          "exit_price": 19.44,
+          "pnl_pct": -0.15,
+          "score": 83.7,
+          "entry_hit": true
+        }
+      ]
+    }
+  }
+}

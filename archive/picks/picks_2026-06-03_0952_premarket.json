@@ -1,0 +1,15 @@
+{
+  "date": "2026-06-03",
+  "mode": "premarket",
+  "picks": [
+    {
+      "ticker": "4190.SR",
+      "entry_low": 15.86,
+      "entry_high": 16.26,
+      "stop_loss": 14.97,
+      "score": 101.3,
+      "near_breakout": true,
+      "note": "Repaired from truncated file"
+    }
+  ]
+}

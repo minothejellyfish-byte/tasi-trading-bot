@@ -1,0 +1,1746 @@
+#!/usr/bin/env python3
+"""Derayah 24/7 session guardian — keeps browser up, tab open, session alive, and scrolls."""
+
+import asyncio
+import base64
+import json
+import os
+import shutil
+import sys
+import time
+import subprocess
+import datetime
+import requests
+import websocket
+from pathlib import Path
+
+CDP_BASE      = "http://127.0.0.1:18801"
+DERAYAH_DASH  = "https://newonline.derayah.com/#/layout/dashboard"
+DERAYAH_TRADE = "https://newonline.derayah.com/#/layout/trading-portfolio"
+TICKERCHART   = "https://derayah.tickerchart.net/app/en"
+# NOTE: New Derayah also uses: https://newonline.derayah.com/Home/RealPrices?...
+# The find_tickerchart_tab() function matches any URL containing "tickerchart"
+CHROME_USER_DATA = "/home/mino/.config/google-chrome/derayah"
+
+STATE_FILE = "/home/mino/tasi-exec/keepalive_state.json"
+LOG_FILE   = "/home/mino/tasi-exec/keepalive.log"
+TOKEN_FILE = "/home/mino/tasi-exec/derayah_token_live.json"
+
+# Token expiry warning threshold (seconds before expiry to warn)
+TOKEN_WARN_BEFORE_S = 120  # 2 minutes
+
+TRADING_DAYS      = {6, 0, 1, 2, 3}   # Mon=0 ... Sun=6
+TRADE_START_MIN   = 10 * 60            # 10:00
+TRADE_END_MIN     = 15 * 60 + 30       # 15:30
+MAX_PROMPTS_DAY   = 2
+SCROLL_INTERVAL_S = 5 * 60             # 5 minutes — prevent session expiry
+
+
+def now_riyadh():
+    import pytz
+    return datetime.datetime.now(pytz.timezone("Asia/Riyadh"))
+
+
+def today_str():
+    return now_riyadh().strftime("%Y-%m-%d")
+
+
+def is_trading_hours():
+    n = now_riyadh()
+    if n.weekday() not in TRADING_DAYS:
+        return False
+    t = n.hour * 60 + n.minute
+    return TRADE_START_MIN <= t <= TRADE_END_MIN
+
+
+def load_state():
+    if os.path.exists(STATE_FILE):
+        try:
+            with open(STATE_FILE) as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"date": "", "login_prompts_today": 0, "last_scroll_ts": 0, "last_page": "trading"}
+
+
+def save_state(s):
+    with open(STATE_FILE, "w") as f:
+        json.dump(s, f, indent=2)
+
+
+def _write_log(msg):
+    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line = f"[{ts}] {msg}\n"
+    with open(LOG_FILE, "a") as f:
+        f.write(line)
+    print(line, end="", file=sys.stderr)
+
+
+def notify(msg):
+    # Suppress notifications outside trading days (Fri=4, Sat=5)
+    if now_riyadh().weekday() in {4, 5}:
+        _write_log(f"NOTIFY (suppressed Fri/Sat): {msg}")
+        return
+    # 2026-05-24: Silenced chrome/login push notifications per Amin's request.
+    # Still logged to keepalive.log for diagnostics. Re-enable by restoring the
+    # `print(f"NOTIFY:{msg}")` line below.
+    _write_log(f"NOTIFY (silenced): {msg}")
+    # print(f"NOTIFY:{msg}")
+
+
+def log(msg):
+    _write_log(msg)
+
+
+def check_token_expiry():
+    """Check if stored token is about to expire and log a warning."""
+    try:
+        if not os.path.exists(TOKEN_FILE):
+            return
+        with open(TOKEN_FILE) as f:
+            data = json.load(f)
+        token = data.get("Derayah_accesstoken", "")
+        if not token:
+            return
+        # Decode JWT payload (no verification)
+        import base64
+        parts = token.split(".")
+        if len(parts) < 2:
+            return
+        payload_b64 = parts[1] + "=" * (-len(parts[1]) % 4)
+        payload = json.loads(base64.b64decode(payload_b64))
+        exp = payload.get("exp")
+        if not exp:
+            return
+        now = time.time()
+        remaining = exp - now
+        if remaining <= 0:
+            log(f"⚠️ TOKEN EXPIRED {abs(remaining):.0f}s ago — next check will trigger refresh")
+        elif remaining <= TOKEN_WARN_BEFORE_S:
+            log(f"⚠️ TOKEN EXPIRES in {remaining:.0f}s — next check will trigger refresh")
+    except Exception as e:
+        log(f"Token expiry check failed: {e}")
+
+
+def cdp_get(path):
+    try:
+        return requests.get(f"{CDP_BASE}{path}", timeout=5).json()
+    except Exception as e:
+        log(f"CDP GET {path}: {e}")
+        return None
+
+
+def cdp_ws(ws_url, method, params=None, timeout=10):
+    try:
+        ws = websocket.create_connection(
+            ws_url, timeout=timeout,
+            header={"Origin": "http://localhost"}
+        )
+        ws.send(json.dumps({"id": 1, "method": method, "params": params or {}}))
+        for _ in range(30):
+            r = json.loads(ws.recv())
+            if r.get("id") == 1:
+                ws.close()
+                return r.get("result", {})
+        ws.close()
+    except Exception as e:
+        log(f"CDP WS {method}: {e}")
+    return None
+
+
+PROFILE_DIR = Path("/home/mino/.config/google-chrome/derayah-live")
+DERAYAH_LOGIN = "https://onboarding.derayah.com/#/signin"
+
+
+def kill_chromium():
+    log("Killing Chromium...")
+    subprocess.run(["pkill", "-f", "chromium.*18801"], timeout=8)
+    time.sleep(3)
+
+
+def cleanup_orphan_renderers():
+    """Kill stale Chrome renderer processes that are not associated with any active CDP port.
+    These accumulate when browser cron attempts fail and leave orphaned processes behind."""
+    try:
+        result = subprocess.run(
+            ["pgrep", "-f", "chromium.*type=renderer"],
+            capture_output=True, text=True, timeout=5
+        )
+        pids = [int(p) for p in result.stdout.strip().split() if p]
+        if pids:
+            log(f"Cleanup: killing {len(pids)} orphaned Chrome renderer(s): {pids}")
+            for pid in pids:
+                try:
+                    subprocess.run(["kill", "-9", str(pid)], timeout=3)
+                except Exception:
+                    pass
+            time.sleep(1)
+    except Exception as e:
+        log(f"Cleanup warning: {e}")
+
+
+def clear_browser_cache():
+    cache_dirs = [
+        PROFILE_DIR / "Default" / "Cache",
+        PROFILE_DIR / "Default" / "Code Cache",
+        PROFILE_DIR / "Default" / "GPUCache",
+        PROFILE_DIR / "GrShaderCache",
+        PROFILE_DIR / "ShaderCache",
+    ]
+    for d in cache_dirs:
+        if d.exists():
+            try:
+                shutil.rmtree(str(d))
+                log(f"Cleared cache: {d.name}")
+            except Exception as e:
+                log(f"Cache clear failed {d.name}: {e}")
+
+
+def _ensure_crd_running():
+    """Ensure Chrome Remote Desktop host is running. If not, restart it using
+    the existing host config (no OAuth re-auth needed)."""
+    import psutil
+    # Check if CRD host process is already running
+    for proc in psutil.process_iter(["pid", "cmdline"]):
+        cmdline = proc.info.get("cmdline") or []
+        if any("chrome-remote-desktop-host" in s for s in cmdline):
+            log("CRD host already running")
+            return True
+
+    log("CRD host not running — attempting restart...")
+    host_config = Path("/home/mino/.config/chrome-remote-desktop")
+    config_file = host_config / "host.json"
+    
+    # Ensure host.json symlink exists (points to the real config)
+    real_config = host_config / "host#45d20b1d2cc2d52e74b3cbf1750a2e31.json"
+    if real_config.exists() and not config_file.exists():
+        try:
+            config_file.symlink_to(real_config)
+            log("Created host.json symlink")
+        except Exception as e:
+            log(f"Symlink failed: {e}")
+
+    crd_host = "/opt/google/chrome-remote-desktop/chrome-remote-desktop-host"
+    if not Path(crd_host).exists():
+        log("CRD host binary not found")
+        return False
+
+    env = os.environ.copy()
+    env["DISPLAY"] = ":0"
+    env["XAUTHORITY"] = "/home/mino/.Xauthority"
+    env["HOME"] = "/home/mino"
+
+    try:
+        proc = subprocess.Popen(
+            [crd_host, "--pin", "056187", "--name", "ocean"],
+            env=env,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            cwd=str(host_config),
+        )
+        time.sleep(3)
+        if proc.poll() is None:
+            log(f"CRD host restarted (pid={proc.pid})")
+            return True
+        else:
+            log("CRD host exited immediately")
+            return False
+    except Exception as e:
+        log(f"CRD restart failed: {e}")
+        return False
+
+
+def start_chromium(url=None):
+    # Check if Chromium is already running on port 18801
+    try:
+        import socket
+        s = socket.create_connection(("127.0.0.1", 18801), timeout=2)
+        s.close()
+        log("Chromium already running on port 18801 — navigating existing tab")
+        tabs = cdp_get("/json")
+        if tabs:
+            derayah_tab = find_derayah_tab(tabs)
+            if derayah_tab:
+                ws = derayah_tab.get("webSocketDebuggerUrl")
+                if ws:
+                    cdp_ws(ws, "Page.navigate", {"url": url or DERAYAH_LOGIN})
+                    time.sleep(4)
+                    log("Navigated existing tab to " + (url or DERAYAH_LOGIN))
+                    return
+        log("CDP responding but no Derayah tab — opening one")
+        open_derayah_tab(tabs or [])
+        return
+    except OSError:
+        log("No Chromium on port 18801 — starting fresh")
+    
+    # ── FIX: Remove stale SingletonLock before starting Chrome ──
+    # Chrome leaves this lock file behind when it crashes; without removal,
+    # new Chrome instances refuse to start and we get stuck in a recovery loop.
+    singleton_lock = PROFILE_DIR / "SingletonLock"
+    if singleton_lock.exists():
+        try:
+            singleton_lock.unlink()
+            log("Removed stale SingletonLock")
+        except Exception as e:
+            log(f"Could not remove SingletonLock: {e}")
+    
+    # ── FIX: Ensure CRD is running so remote access is available ──
+    _ensure_crd_running()
+    
+    # ── Start Chrome via the shell script (respects DISPLAY, proxy, etc.) ──
+    start_script = Path("/home/mino/tasi-exec/start-chrome.sh")
+    if start_script.exists():
+        log("Starting Chrome via start-chrome.sh")
+        subprocess.run(["bash", str(start_script)], timeout=30)
+    else:
+        log("start-chrome.sh not found — using direct launch")
+        env = os.environ.copy()
+        env["DISPLAY"] = ":0"
+        env["XAUTHORITY"] = "/home/mino/.Xauthority"
+        subprocess.Popen(
+            [
+                "google-chrome-stable",
+                f"--user-data-dir={PROFILE_DIR}",
+                "--no-sandbox",
+                "--disable-blink-features=AutomationControlled",
+                "--remote-debugging-port=18801",
+                "--proxy-server=socks5://localhost:1080",
+                "--window-size=1920,1080",
+                "--start-maximized",
+                "--disable-gpu",
+                "--disable-dev-shm-usage",
+                "--no-first-run",
+                "--no-default-browser-check",
+            ],
+            env=env,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    time.sleep(8)
+    
+    # Verify CDP is up
+    for attempt in range(10):
+        try:
+            import socket
+            s = socket.create_connection(("127.0.0.1", 18801), timeout=2)
+            s.close()
+            log("Chrome CDP ready on port 18801")
+            return
+        except OSError:
+            time.sleep(1)
+    log("WARNING: Chrome started but CDP not responding")
+
+
+def open_derayah_tab(tabs):
+    """Navigate a blank tab to Derayah, or create a new one."""
+    log("Opening Derayah tab...")
+    for t in tabs:
+        if t.get("type") == "page" and t.get("url", "").startswith(("chrome://newtab", "about:blank")):
+            ws = t.get("webSocketDebuggerUrl")
+            if ws:
+                cdp_ws(ws, "Page.navigate", {"url": DERAYAH_DASH})
+                time.sleep(4)
+                return
+    # No blank tab — create one via browser-level WS
+    ver = cdp_get("/json/version")
+    if ver and ver.get("webSocketDebuggerUrl"):
+        cdp_ws(ver["webSocketDebuggerUrl"], "Target.createTarget", {"url": DERAYAH_DASH})
+        time.sleep(4)
+
+
+def open_tickerchart_tab(tabs):
+    """Open TickerChart in a new tab."""
+    log("Opening TickerChart tab...")
+    
+    # Method 1: Try clicking the dashboard button
+    dash_tab = None
+    for t in tabs:
+        url = t.get("url", "")
+        if "newonline.derayah.com" in url and "dashboard" in url:
+            dash_tab = t
+            break
+    
+    if dash_tab:
+        ws = dash_tab.get("webSocketDebuggerUrl")
+        if ws:
+            try:
+                cdp_ws(ws, "Runtime.evaluate", {"expression": """
+                    (function() {
+                        var buttons = document.querySelectorAll('button, a, div[role="button"]');
+                        for (var i = 0; i < buttons.length; i++) {
+                            var text = (buttons[i].textContent || '').trim();
+                            if (text.toLowerCase().includes('login') && text.toLowerCase().includes('trade')) {
+                                buttons[i].click();
+                                return 'clicked';
+                            }
+                        }
+                        return 'not found';
+                    })()
+                """})
+                time.sleep(6)
+                return
+            except Exception as e:
+                log(f"Click failed: {e}")
+    
+    # Method 2: Create new tab directly (try new URL first, fallback to old)
+    log("Creating new tab for TickerChart...")
+    try:
+        import requests
+        # Try new RealPrices URL first
+        resp = requests.put(f"{CDP_BASE}/json/new", params={"url": "https://newonline.derayah.com/Home/RealPrices"}, timeout=10)
+        if resp.status_code == 200:
+            log("TickerChart tab created via CDP (new RealPrices URL)")
+            time.sleep(5)
+            return
+    except Exception as e:
+        log(f"CDP new tab (RealPrices) failed: {e}")
+    
+    # Fallback to old URL
+    try:
+        resp = requests.put(f"{CDP_BASE}/json/new", params={"url": TICKERCHART}, timeout=10)
+        if resp.status_code == 200:
+            log("TickerChart tab created via CDP (fallback old URL)")
+            time.sleep(5)
+            return
+    except Exception as e:
+        log(f"CDP new tab (old URL) failed: {e}")
+    
+        # Method 3: Use browser-level Target.createTarget (try new URL first)
+    ver = cdp_get("/json/version")
+    if ver and ver.get("webSocketDebuggerUrl"):
+        # Try new URL first
+        cdp_ws(ver["webSocketDebuggerUrl"], "Target.createTarget", {"url": "https://newonline.derayah.com/Home/RealPrices"})
+        time.sleep(4)
+        # Check if tab was created
+        tabs_check = cdp_get("/json") or []
+        if find_tickerchart_tab(tabs_check):
+            log("TickerChart created via Target.createTarget (new URL)")
+            return
+        # Fallback to old URL
+        cdp_ws(ver["webSocketDebuggerUrl"], "Target.createTarget", {"url": TICKERCHART})
+        time.sleep(4)
+
+
+def cleanup_extra_tabs(tabs):
+    """Close all tabs except dashboard and tickerchart. PRESERVE tickerchart tabs with active WebSockets."""
+    keep_urls = ["newonline.derayah.com", "tickerchart"]
+    closed = 0
+    for t in tabs:
+        url = t.get("url", "")
+        if t.get("type") != "page":
+            continue  # Skip non-page tabs
+        should_keep = any(k in url for k in keep_urls)
+        # PRESERVE tickerchart tabs that have recent WebSocket data
+        if "tickerchart" in url:
+            should_keep = True  # Always keep tickerchart tabs — let poller reconnect
+        if not should_keep and not url.startswith(("chrome://", "about:")):
+            tab_id = t.get("id")
+            if tab_id:
+                try:
+                    requests.post(f"{CDP_BASE}/json/close/{tab_id}", timeout=5)
+                    closed += 1
+                except Exception:
+                    pass
+    if closed:
+        log(f"Closed {closed} extra tab(s)")
+    return closed
+
+
+def find_derayah_tab(tabs):
+    for t in tabs:
+        url = t.get("url", "")
+        if "newonline.derayah.com" in url or "onboarding.derayah.com" in url:
+            return t
+    return None
+
+
+def find_tickerchart_tab(tabs):
+    """Find TickerChart tab — matches old derayah.tickerchart.net and new RealPrices URLs."""
+    for t in tabs:
+        url = t.get("url", "")
+        # Match both old and new TickerChart URLs
+        if "tickerchart" in url.lower() or "realprices" in url.lower() or "real-prices" in url.lower():
+            return t
+    return None
+
+
+def check_tunnel():
+    """Return True if SOCKS5 port 1080 is listening."""
+    import socket
+    try:
+        s = socket.create_connection(("127.0.0.1", 1080), timeout=3)
+        s.close()
+        return True
+    except OSError:
+        return False
+
+
+def restart_tunnel():
+    try:
+        subprocess.run(
+            ["systemctl", "--user", "restart", "socks-tunnel.service"],
+            timeout=10, check=True
+        )
+        time.sleep(5)
+        return check_tunnel()
+    except Exception as e:
+        log(f"Tunnel restart failed: {e}")
+        return False
+
+
+def _fetch_otp(otp_email, otp_pass, last_uid, timeout_s=90):
+    """Poll Gmail for a new Derayah OTP email. Returns code string or None."""
+    import imaplib, email as _em, re as _re
+    for _ in range(timeout_s // 5):
+        time.sleep(5)
+        try:
+            m = imaplib.IMAP4_SSL("imap.gmail.com")
+            m.login(otp_email, otp_pass)
+            m.select("inbox")
+            _, ids = m.search(None, '(FROM "derayah")')
+            new = [x for x in ids[0].split() if int(x) > last_uid]
+            if new:
+                _, data = m.fetch(new[-1], "(RFC822)")
+                msg = _em.message_from_bytes(data[0][1])
+                html = ""
+                for part in msg.walk():
+                    pl = part.get_payload(decode=True)
+                    if pl and part.get_content_type() == "text/html":
+                        html = pl.decode("utf-8", errors="ignore")
+                        break
+                codes = _re.findall(r'color:\s*#0000ee[^>]*>(\d{4,8})<', html)
+                if not codes:
+                    codes = _re.findall(r'font-size:\s*2\dpx[^>]*>(\d{4,8})<', html)
+                if codes:
+                    m.logout()
+                    return codes[0]
+            m.logout()
+        except Exception as e:
+            log(f"IMAP poll: {e}")
+    return None
+
+
+def _last_derayah_uid(otp_email, otp_pass):
+    import imaplib
+    try:
+        m = imaplib.IMAP4_SSL("imap.gmail.com")
+        m.login(otp_email, otp_pass)
+        m.select("inbox")
+        _, ids = m.search(None, '(FROM "derayah")')
+        uid = int(ids[0].split()[-1]) if ids[0].split() else 0
+        m.logout()
+        return uid
+    except Exception as e:
+        log(f"last_uid check: {e}"); return 0
+
+
+TOKEN_FILE  = "/home/mino/tasi-exec/derayah_token_live.json"
+TOKEN_URL   = "https://api.derayah.com/idspark/connect/token"
+CLIENT_ID   = "NewWebClient"
+CLIENT_SECRET = "NewDerayahWeb2026"
+
+
+def _refresh_token_api() -> tuple[str, str]:
+    """
+    Use stored refresh token to get a fresh access token via API (no browser, no reCAPTCHA).
+    Returns (access_token, refresh_token) or ("", "") on failure.
+    """
+    if not os.path.exists(TOKEN_FILE):
+        log("Token file missing — cannot refresh")
+        return "", ""
+    with open(TOKEN_FILE) as f:
+        data = json.load(f)
+    refresh_token = data.get("Derayah_refreshtoken", "")
+    if not refresh_token:
+        log("No refresh token stored")
+        return "", ""
+    try:
+        resp = requests.post(TOKEN_URL, data={
+            "grant_type":    "refresh_token",
+            "client_id":     CLIENT_ID,
+            "client_secret": CLIENT_SECRET,
+            "refresh_token": refresh_token,
+        }, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Origin":       "https://newonline.derayah.com",
+            "Referer":      "https://newonline.derayah.com/",
+            "User-Agent":   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/147.0.0.0 Safari/537.36",
+        }, timeout=15)
+        if resp.status_code == 200:
+            r = resp.json()
+            new_access  = r.get("access_token", "")
+            new_refresh = r.get("refresh_token", "")
+            if new_access:
+                # Also preserve captured_at timestamp
+                data["Derayah_accesstoken"]  = new_access
+                data["Derayah_refreshtoken"] = new_refresh or refresh_token
+                data["captured_at"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open(TOKEN_FILE, "w") as f:
+                    json.dump(data, f, indent=2)
+                log(f"Token refreshed via API (expires_in={r.get('expires_in')}s)")
+                return new_access, new_refresh or refresh_token
+        log(f"Token refresh API failed: {resp.status_code} {resp.text[:200]}")
+    except Exception as e:
+        log(f"Token refresh exception: {e}")
+    return "", ""
+
+
+def _auto_login_token_inject() -> tuple[bool, str]:
+    """
+    Fast auto-login: refresh token via API -> navigate existing browser tab -> inject into localStorage.
+    No reCAPTCHA, no OTP, completes in ~15 seconds.
+    PRESERVES existing Chromium window — does NOT start a new browser.
+    """
+    log("Auto-login via token injection...")
+    access_token, _ = _refresh_token_api()
+    if not access_token:
+        return False, "token refresh failed — refresh token may be expired"
+
+    with open(TOKEN_FILE) as f:
+        tok = json.load(f)
+    refresh_token = tok.get("Derayah_refreshtoken", "")
+
+    # PRESERVE existing browser — just navigate the Derayah tab to trading-portfolio
+    # If browser not running, this will start it (but we should never reach here if it is)
+    start_chromium(url=DERAYAH_TRADE)
+    time.sleep(10)
+
+    tabs = cdp_get("/json")
+    if not tabs:
+        return False, "browser didn't start"
+
+    tab = next((t for t in tabs if "derayah.com" in t.get("url", "") and t.get("type") == "page"), None)
+    if not tab:
+        return False, "no Derayah tab found"
+
+    ws = tab["webSocketDebuggerUrl"]
+
+    def evaluate(js):
+        return cdp_ws(ws, "Runtime.evaluate", {"expression": js, "returnByValue": True})
+
+    # Wait for page to load
+    for _ in range(15):
+        ready = cdp_ws(ws, "Runtime.evaluate", {
+            "expression": "document.readyState",
+            "returnByValue": True
+        })
+        state = (ready or {}).get("result", {}).get("value", "")
+        if state == "complete":
+            break
+        time.sleep(1)
+
+    # Inject tokens into localStorage
+    at_esc = access_token.replace("'", "\\'")
+    rt_esc = refresh_token.replace("'", "\\'")
+    evaluate(f"localStorage.setItem('Derayah_accesstoken', '{at_esc}')")
+    evaluate(f"localStorage.setItem('Derayah_refreshtoken', '{rt_esc}')")
+    log("Tokens injected into localStorage")
+
+    # Reload to let the Vue app pick up the new tokens
+    cdp_ws(ws, "Page.reload", {"ignoreCache": False})
+    time.sleep(8)
+
+    # Verify: check if we're still on signin or reached the app
+    tabs2 = cdp_get("/json") or []
+    tab2 = next((t for t in tabs2 if "derayah.com" in t.get("url", "") and t.get("type") == "page"), tab)
+    cur_url = tab2.get("url", "")
+    log(f"After token inject + reload: {cur_url}")
+
+    if "onboarding.derayah.com" in cur_url and "signin" in cur_url:
+        return False, "still on signin after token inject — refresh token expired"
+
+    log("Token inject login complete!")
+    return True, "ok"
+
+
+def _auto_login_cdp() -> tuple[bool, str]:
+    """
+    Auto-login using the real Chromium via CDP (no Playwright, no automation flags).
+    reCAPTCHA scores the real browser much better than any Playwright stealth approach.
+    PRESERVES existing browser window.
+    """
+    creds_file = "/home/mino/tasi-exec/derayah_creds.json"
+    if not os.path.exists(creds_file):
+        return False, "no creds file"
+    with open(creds_file) as f:
+        creds = json.load(f)
+    otp_email = creds.get("otp_email", "")
+    otp_pass  = creds.get("otp_app_password", "")
+
+    def evaluate(ws, js):
+        return cdp_ws(ws, "Runtime.evaluate", {"expression": js, "returnByValue": True})
+
+    def get_bool(ws, js):
+        r = evaluate(ws, js)
+        return bool(r and r.get("result", {}).get("value"))
+
+
+    log("Starting real Chromium for CDP-based login...")
+    # PRESERVE existing browser — navigate to login if needed
+    start_chromium(url=DERAYAH_LOGIN)
+    time.sleep(12)
+
+    tabs = cdp_get("/json")
+    if not tabs:
+        return False, "browser did not start"
+    login_tab = next((t for t in tabs if "onboarding.derayah.com" in t.get("url", "")), None)
+    if not login_tab:
+        return False, "no login tab found after start"
+    ws = login_tab["webSocketDebuggerUrl"]
+
+    # Wait for username field
+    for _ in range(25):
+        if get_bool(ws, "!!document.querySelector('input#username')"):
+            break
+        time.sleep(1)
+    else:
+        return False, "username field not found (timeout)"
+
+    # Fill credentials
+    fill_field(ws, "input#username", creds["national_id"])
+    time.sleep(0.4)
+    fill_field(ws, "input#password", creds["password"])
+    time.sleep(0.4)
+
+    # Select email OTP
+    for _ in range(12):
+        selected = get_bool(ws, """(function(){
+            const isEmail = t => /email/i.test(t) || t.includes('\\u0627\\u0644\\u0628\\u0631\\u064a\\u062f \\u0627\\u0644\\u0625\\u0644\\u0643\\u062a\\u0631\\u0648\\u0646\\u064a');
+            const lbl = Array.from(document.querySelectorAll('label'))
+                .find(l => isEmail(l.textContent.trim()) && l.getBoundingClientRect().width > 0);
+            if (lbl) { lbl.click(); return true; }
+            for (const inp of document.querySelectorAll('input[type=radio]')) {
+                const p = inp.closest('label') || inp.parentElement;
+                if (p && isEmail(p.textContent)) { p.click(); return true; }
+            }
+            return false;
+        })()""")
+        if selected:
+            log("  Email OTP selected via CDP")
+            break
+        time.sleep(1)
+    else:
+        log("  Email label not found — using default OTP channel")
+
+    # Wait for reCAPTCHA (up to 120s)
+    log("  Waiting for reCAPTCHA (up to 120s)...")
+    enabled = False
+    for i in range(120):
+        time.sleep(1)
+        enabled = get_bool(ws, """(function(){
+            const btns = Array.from(document.querySelectorAll('button[type="submit"]'));
+            const b = btns.find(b => b.textContent.trim().length > 2);
+            return b ? !b.disabled : false;
+        })()""")
+        if enabled:
+            log(f"  reCAPTCHA passed at {i+1}s!")
+            break
+        if (i + 1) % 15 == 0:
+            log(f"    {i+1}s btn=disabled")
+
+    last_uid = _last_derayah_uid(otp_email, otp_pass) if otp_email else 0
+
+    # Submit (real click if enabled, forced JS click if not)
+    evaluate(ws, """(function(){
+        const btns = Array.from(document.querySelectorAll('button[type="submit"]'));
+        const b = btns.find(b => b.textContent.trim().length > 2);
+        if (b) b.click();
+    })()""")
+    log(f"  Submitted (reCAPTCHA {'passed' if enabled else 'forced'}). Waiting 5s...")
+    time.sleep(5)
+
+    # Refresh tab state
+    tabs2 = cdp_get("/json") or []
+    login_tab2 = next((t for t in tabs2 if "derayah.com" in t.get("url", "")), login_tab)
+    ws = login_tab2.get("webSocketDebuggerUrl", ws)
+    cur_url = login_tab2.get("url", "")
+
+    on_otp = get_bool(ws, """(function(){
+        const sel = "input[type='number'],input[maxlength='4'],input[maxlength='5'],input[maxlength='6'],input[placeholder*='\\u0631\\u0645\\u0632']";
+        const inp = document.querySelector(sel);
+        return inp ? inp.getBoundingClientRect().width > 0 : false;
+    })()""")
+    log(f"  OTP input visible: {on_otp}, URL: {cur_url}")
+
+    if not on_otp and "onboarding.derayah.com" in cur_url:
+        return False, "submit failed — still on login page, no OTP screen"
+
+    if on_otp:
+        if not otp_email:
+            return False, "on OTP screen but no email creds"
+        log(f"  Polling {otp_email} for OTP code (90s)...")
+        code = _fetch_otp(otp_email, otp_pass, last_uid, 90)
+        if not code:
+            return False, "OTP email not received within 90s"
+        log(f"  OTP: {code} — entering...")
+        # Type OTP character-by-character into OTP input
+        evaluate(ws, f"""(function(){{
+            const sel = "input[type='number'],input[maxlength='4'],input[maxlength='5'],input[maxlength='6'],input[placeholder*='\\u0631\\u0645\\u0632']";
+            const inp = document.querySelector(sel);
+            if (!inp) return;
+            inp.focus();
+            const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set;
+            s.call(inp, '{code}');
+            inp.dispatchEvent(new Event('input', {{bubbles:true}}));
+            inp.dispatchEvent(new Event('change', {{bubbles:true}}));
+        }})()""")
+        time.sleep(0.5)
+        evaluate(ws, "(() => { const b = document.querySelector('button[type=\"submit\"]'); if(b) b.click(); })()")
+        time.sleep(6)
+        tabs3 = cdp_get("/json") or []
+        tab3 = next((t for t in tabs3 if "derayah.com" in t.get("url", "")), {})
+        cur_url2 = tab3.get("url", "")
+        ws = tab3.get("webSocketDebuggerUrl", ws)
+        log(f"  After OTP URL: {cur_url2}")
+        if "onboarding.derayah.com" in cur_url2:
+            return False, f"OTP {code} rejected — still on signin"
+
+    # Navigate to trading portfolio
+    cdp_ws(ws, "Page.navigate", {"url": "https://newonline.derayah.com/#/layout/trading-portfolio"})
+    time.sleep(5)
+    log("CDP login complete!")
+    return True, "ok"
+
+
+def _auto_login() -> tuple[bool, str]:
+    """
+    Full unattended login via stealth Playwright browser.
+    Launches a SEPARATE headless=False Chromium (real display, better reCAPTCHA score)
+    with navigator.webdriver=false, fills form, reads OTP from Gmail, enters it.
+    Retries up to 2 times if reCAPTCHA stays blocked.
+    """
+    creds_file = "/home/mino/tasi-exec/derayah_creds.json"
+    if not os.path.exists(creds_file):
+        return False, "no creds file"
+    with open(creds_file) as f:
+        creds = json.load(f)
+    otp_email = creds.get("otp_email", "")
+    otp_pass  = creds.get("otp_app_password", "")
+
+    async def _do():
+        from playwright.async_api import async_playwright
+        from playwright_stealth import Stealth
+
+        # Use the real derayah-profile for better reCAPTCHA score (cookies + browsing history)
+        log("Starting stealth browser for login (headless=False, real profile)...")
+        async with async_playwright() as pw:
+            ctx = await pw.chromium.launch_persistent_context(
+                user_data_dir=str(PROFILE_DIR),
+                headless=False,
+                executable_path="/usr/bin/google-chrome-stable",
+                env={"DISPLAY": ":0", "XAUTHORITY": "/home/mino/.Xauthority"},
+                args=[
+                    "--proxy-server=socks5://localhost:1080",
+                    "--no-sandbox",
+                    "--disable-blink-features=AutomationControlled",
+                    "--single-process",
+                    "--no-first-run", "--disable-sync", "--no-default-browser-check",
+                    "--remote-debugging-port=0",
+                    "--password-store=basic",
+                    "--disable-features=PasswordManager,AutofillServerCommunication",
+                ],
+                ignore_https_errors=True,
+                timeout=30000,
+            )
+            stealth = Stealth()
+            tab = ctx.pages[0] if ctx.pages else await ctx.new_page()
+            await stealth.apply_stealth_async(tab)
+
+            last_uid = 0
+            login_submitted = False
+
+            for attempt in range(2):
+                log(f"Login attempt {attempt+1}/2...")
+                await tab.goto("https://onboarding.derayah.com/#/signin",
+                               wait_until="domcontentloaded", timeout=15000)
+                await asyncio.sleep(3)
+
+                wd = await tab.evaluate("() => navigator.webdriver")
+                log(f"  navigator.webdriver = {wd}")
+
+                await tab.locator("input#username").wait_for(state="visible", timeout=8000)
+
+                async def fill_if_needed(sel, val):
+                    cur = await tab.evaluate(f"() => (document.querySelector('{sel}')||{{}}).value||''")
+                    if str(cur) == str(val):
+                        log(f"    {sel}: already filled"); return
+                    log(f"    {sel}: filling")
+                    el = tab.locator(sel)
+                    await el.click(click_count=3)
+                    await el.type(str(val), delay=60)
+                    await el.press("Tab")
+                    await asyncio.sleep(0.3)
+
+                await fill_if_needed("input#username", creds["national_id"])
+                await fill_if_needed("input#password", creds["password"])
+
+                # Log visible labels for debugging
+                labels_info = await tab.evaluate("""() =>
+                    Array.from(document.querySelectorAll('label'))
+                        .filter(l => l.getBoundingClientRect().width > 0)
+                        .map(l => l.textContent.trim().slice(0,30))
+                """)
+                log(f"  Visible labels: {labels_info}")
+
+                # Select Email OTP option
+                for click_attempt in range(15):
+                    await asyncio.sleep(1)
+                    clicked = await tab.evaluate("""() => {
+                        const isEmail = t => /email/i.test(t) || t.includes('البريد الإلكتروني');
+                        // Try label with text 'Email' or Arabic equivalent
+                        const lbl = Array.from(document.querySelectorAll('label'))
+                            .find(l => isEmail(l.textContent.trim()) && l.getBoundingClientRect().width > 0);
+                        if (lbl) { lbl.click(); return 'label:' + lbl.textContent.trim().slice(0,20); }
+                        // Try radio input parent containing Email
+                        for (const inp of document.querySelectorAll('input[type=radio]')) {
+                            const p = inp.closest('label') || inp.parentElement;
+                            if (p && isEmail(p.textContent)) { p.click(); return 'radio'; }
+                        }
+                        return false;
+                    }""")
+                    if clicked:
+                        log(f"  Email OTP selected (try {click_attempt+1}, via {clicked})")
+                        await asyncio.sleep(0.5)
+                        break
+                else:
+                    log("  Email label not found after 15s — using default OTP channel")
+
+                # Wait for reCAPTCHA — check the actual login button (skip 2-char lang toggles)
+                log("  Waiting for reCAPTCHA (up to 120s)...")
+                enabled = False
+                for i in range(120):
+                    await asyncio.sleep(1)
+                    btn_state = await tab.evaluate("""() => {
+                        const btns = Array.from(document.querySelectorAll('button[type="submit"]'));
+                        const login = btns.find(b => b.textContent.trim().length > 2);
+                        if (!login) return 'no-btn';
+                        return login.disabled ? 'disabled' : 'enabled';
+                    }""")
+                    if (i + 1) % 15 == 0 or btn_state == "enabled":
+                        log(f"    {i+1}s btn={btn_state}")
+                    if btn_state == "enabled":
+                        enabled = True; break
+
+                if not enabled and attempt < 1:
+                    log(f"  reCAPTCHA still blocked after 120s — reloading for retry 2/2...")
+                    continue
+
+                # Record last UID just before submitting
+                last_uid = _last_derayah_uid(otp_email, otp_pass) if otp_email else 0
+                log(f"  Last Derayah email UID: {last_uid}")
+
+                # JS click the actual login button (works even if disabled — forces Vue submit)
+                submit_result = await tab.evaluate("""() => {
+                    const btns = Array.from(document.querySelectorAll('button[type="submit"]'));
+                    const login = btns.find(b => b.textContent.trim().length > 2);
+                    if (!login) return 'no-btn';
+                    login.click();
+                    return 'clicked: ' + login.textContent.trim().slice(0, 20);
+                }""")
+                log(f"  Submit: {submit_result}")
+                await asyncio.sleep(4)
+                log(f"  Post-submit URL: {tab.url}")
+                login_submitted = True
+                break
+
+            if not login_submitted:
+                await ctx.close()
+                return False, "reCAPTCHA blocked all 2 attempts"
+
+            # Detect OTP screen: check for OTP input field visibility (not just URL)
+            await asyncio.sleep(2)
+            on_otp_screen = await tab.evaluate("""() => {
+                const otpSel = [
+                    "input[type='number']",
+                    "input[maxlength='4']", "input[maxlength='5']", "input[maxlength='6']",
+                    "input[placeholder*='code']", "input[placeholder*='OTP']",
+                    "input[placeholder*='activation']", "input[name*='otp']",
+                    "input[placeholder*='رمز']"
+                ].join(', ');
+                const inp = document.querySelector(otpSel);
+                return inp ? inp.getBoundingClientRect().width > 0 : false;
+            }""")
+            log(f"  OTP input visible: {on_otp_screen}, URL: {tab.url}")
+
+            if not on_otp_screen and "onboarding.derayah.com" in tab.url:
+                await ctx.close()
+                return False, "submit failed — still on login page, no OTP screen appeared"
+
+            if on_otp_screen:
+                if not otp_email:
+                    await ctx.close()
+                    return False, "on OTP screen but no email creds"
+                log(f"  OTP screen — polling {otp_email} for code (90s)...")
+                code = await asyncio.get_event_loop().run_in_executor(
+                    None, _fetch_otp, otp_email, otp_pass, last_uid, 90)
+                if not code:
+                    await ctx.close()
+                    return False, "OTP email not received within 90s"
+                log(f"  OTP: {code} — entering...")
+                otp_inp = tab.locator(
+                    "input[type='number'], input[type='text'][maxlength], "
+                    "input[placeholder*='code'], input[placeholder*='OTP'], "
+                    "input[placeholder*='activation'], input[name*='otp'], "
+                    "input[placeholder*='رمز']"
+                ).first
+                await otp_inp.wait_for(state="visible", timeout=10000)
+                await otp_inp.click()
+                await otp_inp.type(code, delay=80)
+                await asyncio.sleep(0.5)
+                await tab.evaluate("() => { const b = document.querySelector('button[type=\"submit\"]'); if(b) b.click(); }")
+                await asyncio.sleep(6)
+                log(f"  After OTP URL: {tab.url}")
+                if "onboarding.derayah.com" in tab.url:
+                    await ctx.close()
+                    return False, f"OTP {code} rejected — still on signin"
+
+            await tab.goto("https://newonline.derayah.com/#/layout/trading-portfolio",
+                           wait_until="domcontentloaded", timeout=15000)
+            await asyncio.sleep(3)
+            log("Login complete — closing stealth browser, restarting CDP browser")
+            await ctx.close()
+
+        time.sleep(2)
+        start_chromium(url="https://newonline.derayah.com/#/layout/trading-portfolio")
+        return True, "ok"
+
+    try:
+        return asyncio.run(_do())
+    except Exception as e:
+        return False, str(e)
+
+
+def fill_field(ws, sel, val):
+    escaped = val.replace("'", "\\'").replace("\\", "\\\\")
+    cdp_ws(ws, "Runtime.evaluate", {"expression": f"""(function(){{
+        const el = document.querySelector('{sel}');
+        if (!el) return;
+        el.focus();
+        const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set;
+        s.call(el, '{escaped}');
+        el.dispatchEvent(new Event('input', {{bubbles:true}}));
+        el.dispatchEvent(new Event('change', {{bubbles:true}}));
+    }})()"""})
+
+
+def _test_token_valid(token: str) -> bool:
+    """Test if TC_DERAYAH token is valid by making a lightweight API call."""
+    if not token:
+        return False
+    try:
+        # Try a lightweight API call that requires auth
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        r = requests.get(
+            "https://api.derayah.com/trading/api/portfolio/summary",
+            headers=headers,
+            timeout=10
+        )
+        return r.status_code == 200
+    except Exception:
+        return False
+
+
+def _check_ws_alive(max_age_s: float = 30.0) -> tuple[bool, float]:
+    """
+    Check if WebSocket price cache has recent data.
+    Returns (is_alive, seconds_since_last_update).
+    Reads _ws_price_cache from poller.py via simple file check.
+    """
+    import time as _time
+    try:
+        # Check ws_frames.json for recent entries
+        ws_frames = Path("/home/mino/tasi-exec/ws_frames.json")
+        if ws_frames.exists():
+            mtime = ws_frames.stat().st_mtime
+            age = _time.time() - mtime
+            if age < max_age_s:
+                return True, age
+        
+        # Fallback: check poller log for recent WS price
+        poller_log = Path("/home/mino/tasi-exec/poller.log")
+        if poller_log.exists():
+            mtime = poller_log.stat().st_mtime
+            age = _time.time() - mtime
+            # If poller is running and log is recent, assume WS is fine
+            if age < max_age_s * 2:  # 2x tolerance for log writes
+                return True, age
+        
+        return False, 999.0
+    except Exception as e:
+        log(f"WS health check error: {e}")
+        return False, 999.0
+
+
+def _recover_token_via_navigation() -> tuple[bool, str]:
+    """
+    Recover TickerChart by clicking "Real Prices" on Derayah dashboard,
+    and verifying WebSocket data flows. PRESERVES existing TickerChart tabs if possible.
+    """
+    log("WebSocket dead — recovering TickerChart via Derayah dashboard...")
+    
+    # 1. CHECK if existing TickerChart tab is still alive (don't close immediately)
+    tabs = cdp_get("/json") or []
+    tc_tab = find_tickerchart_tab(tabs)
+    if tc_tab:
+        tc_tab_id = tc_tab.get("id")
+        # Try to reactivate existing tab first (might just be inactive, not dead)
+        if tc_tab_id:
+            try:
+                requests.post(f"{CDP_BASE}/json/activate/{tc_tab_id}", timeout=5)
+                log("Reactivated existing TickerChart tab (preserved)")
+                time.sleep(3)
+                # Quick WS health check
+                alive, age = _check_ws_alive(max_age_s=15.0)
+                if alive:
+                    log(f"Existing TickerChart WebSocket alive ({age:.1f}s) — no need to recover")
+                    return True, "existing tab reactivated"
+                else:
+                    log(f"Existing tab WS stale ({age:.1f}s) — will open fresh tab")
+            except Exception as e:
+                log(f"Tab reactivation failed: {e}")
+        
+        # Only close if reactivation didn't work
+        try:
+            ws_url = tc_tab["webSocketDebuggerUrl"]
+            ws = websocket.create_connection(ws_url, timeout=5)
+            ws.send(json.dumps({"id": 1, "method": "Page.close"}))
+            ws.close()
+            log("Closed stale TickerChart tab (after reactivation failed)")
+        except Exception as e:
+            log(f"Failed to close TickerChart tab: {e}")
+    
+    # 2. Activate Derayah dashboard tab
+    tabs = cdp_get("/json") or []
+    dash_tab = find_derayah_tab(tabs)
+    if not dash_tab:
+        log("No Derayah dashboard tab found")
+        return False, "no derayah tab"
+    
+    dash_ws = dash_tab.get("webSocketDebuggerUrl")
+    if not dash_ws:
+        log("No WebSocket URL for Derayah tab")
+        return False, "no dash ws"
+    
+    # Navigate to dashboard (if not already there)
+    try:
+        cdp_ws(dash_ws, "Page.navigate", {"url": DERAYAH_DASH})
+        time.sleep(3)
+    except Exception as e:
+        log(f"Dashboard navigate: {e}")
+    
+    # 3. Click "Real Prices" button to open fresh TickerChart
+    try:
+        cdp_ws(dash_ws, "Runtime.evaluate", {
+            "expression": """
+                (function() {
+                    var links = document.querySelectorAll('a');
+                    for (var i = 0; i < links.length; i++) {
+                        var text = (links[i].textContent || '').trim();
+                        if (text.includes('Real Prices')) {
+                            links[i].click();
+                            return 'clicked Real Prices';
+                        }
+                    }
+                    return 'Real Prices button not found';
+                })()
+            """,
+            "returnByValue": True
+        })
+        log("Clicked 'Real Prices' on Derayah dashboard")
+        time.sleep(5)  # Wait for TickerChart to open
+    except Exception as e:
+        log(f"Real Prices click failed: {e}")
+    
+    # 4. Find and ACTIVATE the new TickerChart tab (with retries)
+    new_tc_tab = None
+    for attempt in range(5):  # Try 5 times over 10 seconds
+        tabs = cdp_get("/json") or []
+        new_tc_tab = find_tickerchart_tab(tabs)
+        if new_tc_tab:
+            break
+        log(f"Waiting for TickerChart tab to appear (attempt {attempt+1}/5)...")
+        time.sleep(2)
+    
+    if new_tc_tab:
+        new_tc_id = new_tc_tab.get("id")
+        if new_tc_id:
+            try:
+                requests.post(f"{CDP_BASE}/json/activate/{new_tc_id}", timeout=5)
+                log("Activated new TickerChart tab")
+            except Exception as e:
+                log(f"Tab activation: {e}")
+    else:
+        log("New TickerChart tab not found after Real Prices click")
+        return False, "tickerchart not found"
+    
+    # 5. Wait and verify WebSocket is receiving data
+    time.sleep(5)
+    alive, age = _check_ws_alive(max_age_s=30.0)
+    if alive:
+        log(f"WebSocket alive — last frame {age:.1f}s ago")
+        return True, "websocket alive"
+    else:
+        log("WebSocket still dead after recovery")
+        return False, "websocket still dead"
+
+
+def _recover_token_via_navigation_old() -> tuple[bool, str]:
+    """
+    OLD METHOD — kept as fallback.
+    Recover expired TickerChart token by closing stale tab and navigating
+    a blank tab to TickerChart. Browser shares session cookies with
+    Derayah dashboard → gets fresh token automatically.
+    """
+    log("Token expired — recovering via navigation to TickerChart (OLD METHOD)...")
+    
+    # 1. Find and close stale TickerChart tab
+    tabs = cdp_get("/json") or []
+    tc_tab = find_tickerchart_tab(tabs)
+    if tc_tab:
+        try:
+            ws_url = tc_tab["webSocketDebuggerUrl"]
+            ws = websocket.create_connection(ws_url, timeout=5)
+            ws.send(json.dumps({"id": 1, "method": "Page.close"}))
+            ws.close()
+            log("Closed stale TickerChart tab")
+            time.sleep(2)
+        except Exception as e:
+            log(f"Failed to close TickerChart tab: {e}")
+    
+    # 2. Find a blank tab to navigate
+    tabs = cdp_get("/json") or []
+    blank_tab = next((t for t in tabs if t.get("url") == "about:blank"), None)
+    
+    if not blank_tab:
+        log("No blank tab found — cannot recover token via navigation")
+        return False, "no blank tab available"
+    
+    # 3. Navigate blank tab to TickerChart
+    try:
+        ws_url = blank_tab["webSocketDebuggerUrl"]
+        ws = websocket.create_connection(ws_url, timeout=10)
+        ws.send(json.dumps({
+            "id": 1,
+            "method": "Page.navigate",
+            "params": {"url": "https://newonline.derayah.com/Home/RealPrices"}
+        }))
+        ws.recv()
+        ws.close()
+        log("Navigated blank tab to TickerChart")
+    except Exception as e:
+        log(f"Failed to navigate to TickerChart: {e}")
+        return False, f"navigation failed: {e}"
+    
+    # 4. Wait for page to load and extract fresh token
+    time.sleep(10)
+    
+    tabs = cdp_get("/json") or []
+    new_tc_tab = find_tickerchart_tab(tabs)
+    if not new_tc_tab:
+        log("TickerChart tab not found after navigation")
+        return False, "tickerchart tab not found after navigation"
+    
+    try:
+        ws_url = new_tc_tab["webSocketDebuggerUrl"]
+        ws = websocket.create_connection(ws_url, timeout=10)
+        ws.send(json.dumps({
+            "id": 1,
+            "method": "Runtime.evaluate",
+            "params": {
+                "expression": "localStorage.getItem('TC_DERAYAH')",
+                "returnByValue": True
+            }
+        }))
+        resp = ws.recv()
+        data = json.loads(resp)
+        new_token = data.get("result", {}).get("result", {}).get("value")
+        ws.close()
+        
+        if new_token and len(new_token) > 100:
+            # Save new token
+            try:
+                with open(TOKEN_FILE) as f:
+                    tok_data = json.load(f)
+            except:
+                tok_data = {}
+            tok_data["TC_DERAYAH"] = new_token
+            tok_data["last_updated"] = datetime.datetime.now().isoformat()
+            with open(TOKEN_FILE, "w") as f:
+                json.dump(tok_data, f)
+            log(f"Recovered fresh TC_DERAYAH token ({len(new_token)} chars)")
+            return True, "token recovered via navigation"
+        else:
+            log("No valid TC_DERAYAH token found after navigation")
+            return False, "no token found after navigation"
+    except Exception as e:
+        log(f"Failed to extract token after navigation: {e}")
+        return False, f"token extraction failed: {e}"
+
+
+def main():
+    # Clean up orphaned Chrome renderers before anything else
+    cleanup_orphan_renderers()
+
+    state = load_state()
+
+    # Reset daily counter on new day
+    today = today_str()
+    if state["date"] != today:
+        state["date"] = today
+        state["login_prompts_today"] = 0
+
+    # ── 0. Tunnel alive? ──
+    if not check_tunnel():
+        log("SOCKS5 tunnel down — restarting...")
+        if restart_tunnel():
+            log("Tunnel restarted OK")
+        else:
+            notify("SOCKS5 tunnel to Amin-PC is DOWN ⚠️ Could not restart. Check ocean.")
+
+    # ── 1. Browser up? ──
+    for attempt in range(20):
+        tabs = cdp_get("/json")
+        if tabs is not None:
+            break
+        time.sleep(0.5)
+    if tabs is None:
+        if not is_trading_hours():
+            # Outside market hours — browser doesn't need to be up
+            save_state(state)
+            return
+        start_chromium()
+        # Wait for CDP to be actually ready
+        for attempt in range(20):
+            time.sleep(0.5)
+            tabs = cdp_get("/json")
+            if tabs is not None:
+                break
+        else:
+            notify("Browser failed to start — check Ocean 🔴")
+            save_state(state)
+            return
+        open_derayah_tab(tabs)
+        log("Browser freshly started — Derayah login tab open")
+        if state["login_prompts_today"] < MAX_PROMPTS_DAY:
+            notify(
+                "Browser restarted — Derayah login tab is open.\n"
+                "Please log in via CRD (PIN 056187) or phone.\n"
+                "https://newonline.derayah.com"
+            )
+            state["login_prompts_today"] += 1
+        save_state(state)
+        return
+
+    # ── 2. Derayah tab open? ──
+    tab = find_derayah_tab(tabs)
+    if not tab:
+        open_derayah_tab(tabs)
+        time.sleep(4)
+        tabs = cdp_get("/json") or []
+        tab = find_derayah_tab(tabs)
+        if not tab:
+            log("Could not open Derayah tab")
+            save_state(state)
+            return
+
+    # ── 2a. Token expiry warning (non-blocking, just visibility) ──
+    check_token_expiry()
+
+    # ── 2b. Cleanup extra tabs ──
+    cleanup_extra_tabs(tabs)
+
+    # ── 2c. TickerChart tab open? ──
+    tc_tab = find_tickerchart_tab(tabs)
+    if not tc_tab:
+        log("TickerChart tab missing — opening...")
+        open_tickerchart_tab(tabs)
+        time.sleep(6)
+        tabs = cdp_get("/json") or []
+        tc_tab = find_tickerchart_tab(tabs)
+        if not tc_tab:
+            log("Could not open TickerChart tab")
+
+    # Re-get tabs after cleanup/opening
+    tabs = cdp_get("/json") or []
+    tab = find_derayah_tab(tabs)
+    tc_tab = find_tickerchart_tab(tabs)
+    
+    if not tab:
+        log("No Derayah tab available after setup")
+        save_state(state)
+        return
+
+    ws_url     = tab.get("webSocketDebuggerUrl")
+    cur_url    = tab.get("url", "")
+    logged_out = "onboarding.derayah.com" in cur_url and "signin" in cur_url
+
+    # ── 3. Session expired → try token inject first, then CDP, then Playwright ──
+    # CRITICAL: During trading hours, NEVER kill the browser — only navigate tabs.
+    # Killing Chromium destroys the visible window and breaks monitoring.
+    if logged_out:
+        log("Session expired — attempting auto-login (PRESERVING browser)...")
+        # DO NOT kill_chromium() or clear_browser_cache() — this destroys the visible window
+        # Fastest: refresh token via API, inject into localStorage (no reCAPTCHA)
+        ok, reason = _auto_login_token_inject()
+        if not ok:
+            log(f"Token inject failed ({reason}) — falling back to CDP browser login...")
+            ok, reason = _auto_login_cdp()
+        if not ok:
+            log(f"CDP login failed ({reason}) — falling back to Playwright stealth login...")
+            # Playwright login opens a SEPARATE browser window — warn user
+            log("WARNING: Playwright login will open a separate browser window")
+            ok, reason = _auto_login()
+        if ok:
+            log("Auto-login: success")
+            state["login_prompts_today"] = 0
+        else:
+            log(f"Auto-login failed: {reason}")
+            if state["login_prompts_today"] < MAX_PROMPTS_DAY:
+                notify(
+                    f"Derayah session expired — auto-login failed ({reason}).\n"
+                    "Please log in via CRD (PIN 056187).\n"
+                    "https://newonline.derayah.com"
+                )
+                state["login_prompts_today"] += 1
+        save_state(state)
+        return
+
+    # ── 3b. Check TickerChart health ──
+    # Token expiry doesn't always mean WebSocket is dead.
+    # During trading hours: Check WebSocket health first — only recover if WS is actually not receiving data.
+    # Outside trading hours: Just check tab exists and has token — don't check WS (no data flowing).
+    if tc_tab:
+        try:
+            tc_ws_url = tc_tab.get("webSocketDebuggerUrl")
+            if tc_ws_url:
+                ws = websocket.create_connection(tc_ws_url, timeout=5)
+                ws.send(json.dumps({
+                    "id": 1,
+                    "method": "Runtime.evaluate",
+                    "params": {
+                        "expression": "localStorage.getItem('TC_DERAYAH')",
+                        "returnByValue": True
+                    }
+                }))
+                resp = ws.recv()
+                data = json.loads(resp)
+                tc_token = data.get("result", {}).get("result", {}).get("value")
+                ws.close()
+                
+                if tc_token and len(tc_token) > 100:
+                    if is_trading_hours():
+                        # Trading hours: Check WebSocket health
+                        ws_alive, ws_age = _check_ws_alive(max_age_s=30.0)
+                        if ws_alive:
+                            log(f"TC_DERAYAH token exists and WebSocket is healthy ({ws_age:.1f}s ago) — skipping recovery")
+                        else:
+                            log(f"TC_DERAYAH token exists but WebSocket is stale ({ws_age:.1f}s ago) — attempting smart recovery")
+                            ok, reason = _recover_token_via_navigation()
+                            if ok:
+                                log("TickerChart recovered successfully via Derayah dashboard")
+                                # Re-get tabs after recovery
+                                tabs = cdp_get("/json") or []
+                                tc_tab = find_tickerchart_tab(tabs)
+                            else:
+                                log(f"Smart recovery failed: {reason} — falling back to old navigation")
+                                ok2, reason2 = _recover_token_via_navigation_old()
+                                if ok2:
+                                    tabs = cdp_get("/json") or []
+                                    tc_tab = find_tickerchart_tab(tabs)
+                                else:
+                                    log(f"Fallback recovery also failed: {reason2}")
+                    else:
+                        # Outside trading hours: Just verify token exists, don't check WS
+                        log("TC_DERAYAH token exists — outside trading hours, keeping tab alive (no WS check)")
+                else:
+                    # No token — need recovery regardless of trading hours
+                    log("No TC_DERAYAH token found in TickerChart — attempting navigation recovery")
+                    ok, reason = _recover_token_via_navigation()
+                    if ok:
+                        log("TickerChart recovered via navigation")
+                        tabs = cdp_get("/json") or []
+                        tc_tab = find_tickerchart_tab(tabs)
+                    else:
+                        log(f"Recovery failed: {reason}")
+        except Exception as e:
+            log(f"TickerChart token check error: {e}")
+
+    if not ws_url:
+        log("No WS URL for tab")
+        save_state(state)
+        return
+
+    # ── 4. Navigate to trading-portfolio only if NOT on TickerChart ──
+    # TickerChart tab must stay active for websocket data to flow
+    if "tickerchart" in cur_url:
+        log("On TickerChart — keeping it active for websocket")
+        state["last_page"] = "tickerchart"
+    elif cur_url != DERAYAH_TRADE and "trading-portfolio" not in cur_url:
+        log("Navigating to trading-portfolio")
+        cdp_ws(ws_url, "Page.navigate", {"url": DERAYAH_TRADE})
+        state["last_page"] = "trading"
+    else:
+        state["last_page"] = "trading"
+    time.sleep(4)  # wait for load before scrolling
+
+    # ── 5. Scroll every 5 min ──
+    # Use the ACTIVE tab's ws_url for scrolling
+    now_ts = int(time.time())
+    if now_ts - state["last_scroll_ts"] >= SCROLL_INTERVAL_S:
+        log("Keeping session alive...")
+        
+        # Refresh tab info to get current active tab
+        tabs = cdp_get("/json") or []
+        active_tab = None
+        for t in tabs:
+            if t.get("type") == "page" and not any(k in t.get("url","") for k in ["chrome://", "about:"]):
+                active_tab = t
+                break
+        
+        scroll_ws = active_tab.get("webSocketDebuggerUrl") if active_tab else ws_url
+        
+        # Gentle scroll only — no API calls that might crash renderer
+        try:
+            cdp_ws(scroll_ws, "Input.dispatchMouseEvent",
+                   {"type": "mouseWheel", "x": 760, "y": 400, "deltaX": 0, "deltaY": 300})
+            time.sleep(0.5)
+            cdp_ws(scroll_ws, "Input.dispatchMouseEvent",
+                   {"type": "mouseWheel", "x": 760, "y": 400, "deltaX": 0, "deltaY": -300})
+        except Exception as e:
+            log(f"Scroll failed: {e}")
+        
+        state["last_scroll_ts"] = now_ts
+
+    # ── 6. Keep TickerChart alive and ensure symbols are subscribed ──
+    tc_tab = find_tickerchart_tab(tabs)
+    if tc_tab:
+        tc_ws = tc_tab.get("webSocketDebuggerUrl")
+        if tc_ws:
+            # Bring TickerChart to front during trading hours to prevent WebSocket throttling
+            if is_trading_hours():
+                try:
+                    # Get TickerChart tab ID and activate it
+                    tc_tab_id = tc_tab.get("id")
+                    if tc_tab_id:
+                        requests.post(f"{CDP_BASE}/json/activate/{tc_tab_id}", timeout=5)
+                        log("Activated TickerChart tab (trading hours)")
+                        time.sleep(0.5)
+                except Exception as e:
+                    log(f"TickerChart activation: {e}")
+            
+            # Gentle scroll
+            try:
+                cdp_ws(tc_ws, "Input.dispatchMouseEvent",
+                       {"type": "mouseWheel", "x": 500, "y": 300, "deltaX": 0, "deltaY": 200})
+            except Exception as e:
+                log(f"TickerChart scroll: {e}")
+            
+            # Click on watchlist to subscribe symbols (every 2nd cycle to avoid over-clicking)
+            if now_ts % 600 < 60:  # Every ~10 minutes
+                log("Activating TickerChart watchlist symbols...")
+                try:
+                    # Try to click on first few symbols in watchlist
+                    cdp_ws(tc_ws, "Runtime.evaluate", {"expression": """
+                        (function() {
+                            // Try to find and click watchlist items
+                            var symbols = document.querySelectorAll('[class*="symbol"], [class*="watchlist"] tr, .stock-row, [data-symbol]');
+                            var clicked = 0;
+                            for (var i = 0; i < Math.min(5, symbols.length); i++) {
+                                if (symbols[i]) {
+                                    symbols[i].click();
+                                    clicked++;
+                                }
+                            }
+                            return 'clicked ' + clicked + ' symbols';
+                        })()
+                    """})
+                    time.sleep(1)
+                except Exception as e:
+                    log(f"TickerChart symbol click: {e}")
+                
+                # Search and add specific symbols to watchlist if not present
+                symbols_to_add = ["9406", "9407", "1321", "8120", "7205"]
+                log(f"Searching TickerChart symbols: {symbols_to_add}")
+                for sym in symbols_to_add:
+                    try:
+                        # Step 1: Click search icon
+                        cdp_ws(tc_ws, "Runtime.evaluate", {"expression": """
+                            (function() {
+                                var searchIcon = document.querySelector('div.search-icon');
+                                if (searchIcon) {
+                                    searchIcon.click();
+                                    return 'clicked search icon';
+                                }
+                                return 'search icon not found';
+                            })()
+                        """})
+                        time.sleep(0.5)
+                        
+                        # Step 2: Type symbol in search box (first input after search icon)
+                        js_expr = '(function() { var inputs = document.querySelectorAll("input[type=text]"); for (var i = 0; i < inputs.length; i++) { if (inputs[i].offsetParent !== null) { inputs[i].focus(); inputs[i].value = "' + sym + '"; inputs[i].dispatchEvent(new Event("input", {bubbles: true})); return "typed ' + sym + '"; } } return "no visible input"; })()'
+                        cdp_ws(tc_ws, "Runtime.evaluate", {"expression": js_expr})
+                        time.sleep(1.0)  # Wait for results
+                        
+                        # Step 3: Click "Add Company" menu item
+                        cdp_ws(tc_ws, "Runtime.evaluate", {"expression": """
+                            (function() {
+                                var addBtn = document.querySelector('li.menuitem.dropdown-submenu.add-company.icon');
+                                if (addBtn) {
+                                    addBtn.click();
+                                    return 'clicked add company';
+                                }
+                                return 'add button not found';
+                            })()
+                        """})
+                        time.sleep(0.5)
+                        
+                    except Exception as e:
+                        log(f"Symbol search {sym}: {e}")
+    else:
+        log("TickerChart tab missing — will open on next cycle")
+
+    # ── 7. Check WebSocket listener health ──
+    # Only alert during trading hours to avoid post-market noise
+    ws_blank_minutes = 0
+    if is_trading_hours():
+        # Verify poller is receiving price data (check poller.log for WS price entries)
+        try:
+            poller_log = "/home/mino/tasi-exec/poller.log"
+            if os.path.exists(poller_log):
+                # Check if poller.log has recent "WS price" entries
+                import subprocess
+                result = subprocess.run(
+                    ["grep", "WS price", poller_log],
+                    capture_output=True, text=True, timeout=5
+                )
+                if result.stdout:
+                    # Get timestamp of last WS price entry
+                    last_line = result.stdout.strip().split("\n")[-1]
+                    # Parse timestamp from log line like "2026-05-31 12:51:03,684 [INFO] fetch_data 7205.SR: WS price 12.61"
+                    try:
+                        ts_str = last_line[:19]  # "2026-05-31 12:51:03"
+                        last_ts = time.mktime(time.strptime(ts_str, "%Y-%m-%d %H:%M:%S"))
+                        mins_since_price = (now_ts - last_ts) / 60
+                        ws_blank_minutes = mins_since_price
+                        if mins_since_price > 10:
+                            notify(f"⚠️ WebSocket listener BLANK — no price data for {int(mins_since_price)} min. Check TickerChart.")
+                            log(f"ALERT: WebSocket listener blank for {int(mins_since_price)} minutes")
+                    except Exception as e:
+                        log(f"WS health parse error: {e}")
+                else:
+                    # No "WS price" entries found at all — WebSocket never connected
+                    ws_blank_minutes = 999
+                    log("ALERT: No WS price entries found in poller.log")
+            else:
+                log("Poller log not found for health check")
+        except Exception as e:
+            log(f"WS health check error: {e}")
+    else:
+        log("Outside trading hours — health check skipped")
+
+    # ── 7b. Auto-reconnect WebSocket if blank for 5+ minutes ──
+    ws_restarted = False
+    if ws_blank_minutes >= 5:
+        log(f"WebSocket blank for {ws_blank_minutes:.0f} min — triggering auto-reconnect...")
+        
+        # FIRST: Try restarting ws_probe.py (primary capture)
+        log("Step 1: Restarting ws_probe.py (primary WebSocket capture)...")
+        try:
+            # Kill any existing ws_probe process first
+            subprocess.run(["pkill", "-f", "ws_probe.py"], timeout=3, capture_output=True)
+            time.sleep(1)
+            # Start fresh ws_probe.py
+            probe_proc = subprocess.Popen(
+                ["python3", "/home/mino/tasi-exec/ws_probe.py", "30"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            log(f"ws_probe.py launched (pid={probe_proc.pid})")
+            time.sleep(8)  # Give it time to connect and start capturing
+            
+            # Check if ws_frames.log is updating
+            ws_frames = Path("/home/mino/tasi-exec/ws_frames_raw.log")
+            if ws_frames.exists():
+                mtime_before = ws_frames.stat().st_mtime
+                time.sleep(5)
+                mtime_after = ws_frames.stat().st_mtime
+                if mtime_after > mtime_before:
+                    log("✅ ws_probe.py is capturing fresh WebSocket data!")
+                    ws_restarted = True
+                else:
+                    log("⚠️ ws_probe.py started but no new data yet")
+            else:
+                log("ws_frames_raw.log not found — ws_probe may need more time")
+        except Exception as e:
+            log(f"ws_probe restart failed: {e}")
+        
+        # SECOND: If ws_probe didn't fix it, try tab-level recovery
+        if not ws_restarted:
+            log("Step 2: ws_probe restart didn't restore data — trying tab recovery...")
+            tc_tab = find_tickerchart_tab(tabs)
+            if tc_tab:
+                tc_ws = tc_tab.get("webSocketDebuggerUrl")
+                if tc_ws:
+                    try:
+                        # Method 1: Reload TickerChart page to force reconnect
+                        log("Reloading TickerChart tab...")
+                        cdp_ws(tc_ws, "Page.reload", {"ignoreCache": True})
+                        time.sleep(5)
+                        
+                        # Method 2: Navigate away and back (try new RealPrices URL)
+                        log("Navigating TickerChart to force reconnect...")
+                        cdp_ws(tc_ws, "Page.navigate", {"url": "https://newonline.derayah.com/Home/RealPrices"})
+                        time.sleep(6)
+                        
+                        # Method 3: Click on Derayah Trade button from dashboard
+                        dash_tab = find_derayah_tab(tabs)
+                        if dash_tab:
+                            dash_ws = dash_tab.get("webSocketDebuggerUrl")
+                            if dash_ws:
+                                cdp_ws(dash_ws, "Runtime.evaluate", {"expression": """
+                                    (function() {
+                                        var buttons = document.querySelectorAll('button, a, div[role="button"]');
+                                        for (var i = 0; i < buttons.length; i++) {
+                                            var text = (buttons[i].textContent || '').trim();
+                                            if (text.toLowerCase().includes('real') && text.toLowerCase().includes('price')) {
+                                                buttons[i].click();
+                                                return 'clicked real prices';
+                                            }
+                                        }
+                                        return 'not found';
+                                    })()
+                                """})
+                                time.sleep(6)
+                        
+                        log("WebSocket auto-reconnect attempted")
+                        
+                        # Method 4: Run ws_probe.py again (in case tab reload fixed the tab)
+                        log("Re-launching ws_probe.py after tab recovery...")
+                        try:
+                            subprocess.Popen(
+                                ["python3", "/home/mino/tasi-exec/ws_probe.py", "30"],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
+                            log("ws_probe.py relaunched after tab recovery")
+                        except Exception as e:
+                            log(f"ws_probe relaunch failed: {e}")
+                                
+                    except Exception as e:
+                        log(f"WebSocket auto-reconnect failed: {e}")
+            else:
+                log("No TickerChart tab found — cannot auto-reconnect WebSocket")
+
+    # ── 8. Final cleanup ──
+    tabs = cdp_get("/json") or []
+    cleanup_extra_tabs(tabs)
+
+    save_state(state)
+    log("OK")
+
+
+if __name__ == "__main__":
+    main()

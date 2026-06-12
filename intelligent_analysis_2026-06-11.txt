@@ -1,0 +1,127 @@
+📊 <b>TASI Intelligent Post-Market Analysis</b>
+📅 2026-06-11 | 18:55 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 SUMMARY</b>
+• Total unique picks: 14
+• Positions taken: 1
+• Picks not entered: 13
+
+<b>⬇️ Gapped Below Zone (2)</b>
+  ❌ 2250: score=45.6, zone=14.04-14.33
+     → Opened 0.1% below zone (14.02 < 14.04)
+     💡 Opened -0.1% below zone (14.02 < 14.04)
+     📊 Day's high was +3.0% above open — never reclaimed zone
+     🔧 Reclaim entry: if price returns to 14.04 within 30 min, enter
+  ❌ 4320: score=41.6, zone=14.38-14.69
+     → Opened 1.7% below zone (14.14 < 14.38)
+     💡 Opened -1.7% below zone (14.14 < 14.38)
+     📊 Day's high was +4.0% above open — never reclaimed zone
+     🔧 Reclaim entry: if price returns to 14.38 within 30 min, enter
+
+<b>🎯 In Zone (10)</b>
+  ❌ 6018: score=56.7, zone=6.86-7.03
+     → Opened in zone and traded through range 6.91–7.22
+     💡 In zone 6.86-7.03 but no entry triggered — Unknown
+     📊 Price spent 71% of day in zone, range was 4.5%
+     🔧 Check poller logs for BLOCKED:6018 entries
+  ❌ 7040: score=48.4, zone=89.82-92.57
+     → Opened in zone and traded through range 91.85–95.00
+     💡 In zone 89.82-92.57 but no entry triggered — Unknown
+     📊 Price spent 26% of day in zone, range was 3.4%
+     🔧 Check poller logs for BLOCKED:7040 entries
+  ❌ 1202: score=38.6, zone=17.92-18.47
+     → Opened in zone and traded through range 18.11–18.83
+     💡 In zone 17.92-18.47 but no entry triggered — Unknown
+     📊 Price spent 65% of day in zone, range was 3.9%
+     🔧 Check poller logs for BLOCKED:1202 entries
+  ❌ 8280: score=75.0, zone=10.61-10.92
+     → Opened in zone and traded through range 10.62–11.69
+     💡 In zone 10.61-10.92 but no entry triggered — Unknown
+     📊 Price spent 97% of day in zone, range was 10.0%
+     🔧 Check poller logs for BLOCKED:8280 entries
+  ❌ 4280: score=72.9, zone=13.18-13.98
+     → Opened in zone and traded through range 13.45–14.96
+     💡 In zone 13.18-13.98 but no entry triggered — Unknown
+     📊 Price spent 66% of day in zone, range was 10.9%
+     🔧 Check poller logs for BLOCKED:4280 entries
+  ❌ 1321: score=58.3, zone=203.29-212.42
+     → Opened in zone and traded through range 205.40–219.80
+     💡 In zone 203.29-212.42 but no entry triggered — Unknown
+     📊 Price spent 77% of day in zone, range was 7.0%
+     🔧 Check poller logs for BLOCKED:1321 entries
+  ❌ 8180: score=53.4, zone=11.11-11.42
+     → Opened in zone and traded through range 11.15–11.70
+     💡 In zone 11.11-11.42 but no entry triggered — Unknown
+     📊 Price spent 87% of day in zone, range was 4.9%
+     🔧 Check poller logs for BLOCKED:8180 entries
+  ❌ 8240: score=49.1, zone=18.58-19.26
+     → Opened in zone and traded through range 18.61–19.81
+     💡 In zone 18.58-19.26 but no entry triggered — Unknown
+     📊 Price spent 96% of day in zone, range was 6.4%
+     🔧 Check poller logs for BLOCKED:8240 entries
+  ❌ 4050: score=47.9, zone=49.82-51.45
+     → Opened in zone and traded through range 49.58–51.40
+     💡 In zone 49.82-51.45 but no entry triggered — Unknown
+     📊 Price spent 97% of day in zone, range was 3.6%
+     🔧 Check poller logs for BLOCKED:4050 entries
+  ❌ 1322: score=43.7, zone=70.51-73.60
+     → Opened in zone and traded through range 70.70–74.20
+     💡 In zone 70.51-73.60 but no entry triggered — Unknown
+     📊 Price spent 94% of day in zone, range was 5.0%
+     🔧 Check poller logs for BLOCKED:1322 entries
+
+<b>✅ Stayed In Zone (1)</b>
+  ❌ 4146: score=38.7, zone=15.39-17.26
+     → Entirely within zone 16.25–16.80
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💼 TRADE PERFORMANCE</b>
+
+<b>4325</b> ⚪ BREAKEVEN -1.9%
+  Entry:  16.82 × 0 shares = 0.00 SAR @ 14:06
+  Peak:   16.87 (+0.3%) @ 13:23 ← Day high
+  Best:   16.82 (+0.0%) @ 14:16 ← While held
+  Sell:   16.50 (-1.9%) @ 14:47 ← Actual
+  Total:  +0.00 SAR
+  Gap:   1.9% left while holding
+  Duration: 14:47
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🧠 ANALYSIS & REASONING</b>
+
+<b>📊 Market Assessment:</b>
+  • 14 picks generated across all screens
+  • 1 positions taken (0 wins, 1 losses)
+  • 13 opportunities missed
+  • Average day range: 2.13 SAR
+
+<b>🎯 Entry Analysis:</b>
+  • 11 in-zone picks missed due to capacity constraints
+    → System had 1/12 positions open
+    → Suggestion: increase max_positions or implement rotation
+
+<b>💼 Exit Analysis:</b>
+  • 4325: ❌ LOSS -1.9% — sold 0.32 SAR below entry
+    → Could have sold 16.87 (+2.2% higher) during hold
+<b>📈 Overall Assessment:</b>
+  • Net result: -0.13 SAR (loss on the day)
+  • Under-traded: only 1 positions with 14 signals
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 RECOMMENDATIONS</b>
+
+<b>🔴 CRITICAL:</b>
+1. Gap-down recovery: 2 picks opened below zone — add 'reclaim entry' when price returns to zone
+2. Signal block: 11 in-zone picks not entered despite capacity — review VWAP/volume filter sensitivity
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Intelligent Analysis by Mino 🪼</i>

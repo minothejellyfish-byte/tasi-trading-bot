@@ -1,0 +1,5 @@
+#!/bin/bash
+# Quick alias to consult TASI coding assistant
+# Usage: coder "issue description" [file_path]
+
+python3 /home/mino/tasi-exec/consult_coder.py "$@"

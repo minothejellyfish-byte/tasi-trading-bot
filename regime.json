@@ -1,0 +1,24 @@
+{
+  "regime": "NEUTRAL",
+  "params": {
+    "strategy": "B",
+    "max_positions": 3,
+    "position_pct": 0.3,
+    "alt_position_pct": 0.3,
+    "target_pct": 0.02,
+    "trail_trigger": 0.02,
+    "trail_stop": 0.03,
+    "hard_stop": 0.05,
+    "time_stop_mins": 30,
+    "time_stop_pct": 0.01
+  },
+  "score": 1,
+  "reason": "Score 1: TASI momentum +0.97% above SMA5 (+2) | Yesterday 0.09% C-to-C (flat, 0) | 5d return +1.69% (strong trend bonus, +1) | Oil -3.57% 2-day (-1) | TASI below SMA10 (29.2 < 29.2, -1)",
+  "tasi_momentum": 0.97,
+  "tasi_yesterday": 0.086,
+  "tasi_5d_return": 1.692,
+  "oil_2d": -3.574,
+  "tasi_above_sma10": false,
+  "classified_at": "2026-06-12T19:39:23.019373",
+  "source": "premarket"
+}

@@ -1,0 +1,272 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-24T03:25:32.832148",
+  "actual": {
+    "name": "Actual (What Happened)",
+    "description": "No trades executed this week",
+    "num_trades": 0,
+    "total_pnl": 0,
+    "win_rate": 0,
+    "avg_pnl": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "trades": []
+  },
+  "previous": {
+    "system": "v3.2",
+    "name": "v3.2 (Old System)",
+    "description": "Single premarket screen, no cycling, static targets (+2%/-7%)",
+    "num_trades": 5,
+    "hit_trades": 0,
+    "missed_trades": 5,
+    "total_pnl": 0,
+    "win_rate": 0,
+    "avg_pnl": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "missed_opportunity": 8.69,
+    "trades": [
+      {
+        "symbol": "4280.SR",
+        "date": "2026-05-21",
+        "entry_price": 10.63,
+        "open_price": 11.5,
+        "close_price": 12.35,
+        "pnl_pct": 0,
+        "chase_pnl": 7.39,
+        "score": 115.7,
+        "system": "v3.2",
+        "entry_hit": false,
+        "note": "Gapped up: entry 10.63, open 11.50"
+      },
+      {
+        "symbol": "4190.SR",
+        "date": "2026-05-21",
+        "entry_price": 15.55,
+        "open_price": 15.73,
+        "close_price": 15.73,
+        "pnl_pct": 0,
+        "chase_pnl": 0.0,
+        "score": 103.9,
+        "system": "v3.2",
+        "entry_hit": false,
+        "note": "Gapped up: entry 15.55, open 15.73"
+      },
+      {
+        "symbol": "2280.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.31,
+        "open_price": 44.8,
+        "close_price": 45.4,
+        "pnl_pct": 0,
+        "chase_pnl": 1.34,
+        "score": 93.3,
+        "system": "v3.2",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.31, open 44.80"
+      },
+      {
+        "symbol": "7010.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.53,
+        "open_price": 43.82,
+        "close_price": 43.9,
+        "pnl_pct": 0,
+        "chase_pnl": 0.18,
+        "score": 79.7,
+        "system": "v3.2",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.53, open 43.82"
+      },
+      {
+        "symbol": "2222.SR",
+        "date": "2026-05-21",
+        "entry_price": 27.88,
+        "open_price": 27.84,
+        "close_price": 27.78,
+        "pnl_pct": 0,
+        "chase_pnl": -0.22,
+        "score": 76.7,
+        "system": "v3.2",
+        "entry_hit": false,
+        "note": "Gapped up: entry 27.88, open 27.84"
+      }
+    ]
+  },
+  "current": {
+    "system": "v4.0",
+    "name": "v4.0 (Current)",
+    "description": "4-stage screening, unlimited cycling, regime-aware, upgrade/switch",
+    "num_trades": 5,
+    "hit_trades": 0,
+    "missed_trades": 5,
+    "total_pnl": 0,
+    "win_rate": 0,
+    "avg_pnl": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "missed_opportunity": 8.69,
+    "trades": [
+      {
+        "symbol": "4280.SR",
+        "date": "2026-05-21",
+        "entry_price": 10.63,
+        "open_price": 11.5,
+        "close_price": 12.35,
+        "pnl_pct": 0,
+        "chase_pnl": 7.39,
+        "score": 115.7,
+        "system": "v4.0",
+        "entry_hit": false,
+        "note": "Gapped up: entry 10.63, open 11.50"
+      },
+      {
+        "symbol": "4190.SR",
+        "date": "2026-05-21",
+        "entry_price": 15.55,
+        "open_price": 15.73,
+        "close_price": 15.73,
+        "pnl_pct": 0,
+        "chase_pnl": 0.0,
+        "score": 103.9,
+        "system": "v4.0",
+        "entry_hit": false,
+        "note": "Gapped up: entry 15.55, open 15.73"
+      },
+      {
+        "symbol": "2280.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.31,
+        "open_price": 44.8,
+        "close_price": 45.4,
+        "pnl_pct": 0,
+        "chase_pnl": 1.34,
+        "score": 93.3,
+        "system": "v4.0",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.31, open 44.80"
+      },
+      {
+        "symbol": "7010.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.53,
+        "open_price": 43.82,
+        "close_price": 43.9,
+        "pnl_pct": 0,
+        "chase_pnl": 0.18,
+        "score": 79.7,
+        "system": "v4.0",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.53, open 43.82"
+      },
+      {
+        "symbol": "2222.SR",
+        "date": "2026-05-21",
+        "entry_price": 27.88,
+        "open_price": 27.84,
+        "close_price": 27.78,
+        "pnl_pct": 0,
+        "chase_pnl": -0.22,
+        "score": 76.7,
+        "system": "v4.0",
+        "entry_hit": false,
+        "note": "Gapped up: entry 27.88, open 27.84"
+      }
+    ]
+  },
+  "optimized": {
+    "system": "v4.0+",
+    "name": "v4.0+ (Optimized)",
+    "description": "v4.0 with recommended fixes from analysis",
+    "num_trades": 5,
+    "hit_trades": 0,
+    "missed_trades": 5,
+    "total_pnl": 0,
+    "win_rate": 0,
+    "avg_pnl": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "missed_opportunity": 8.69,
+    "trades": [
+      {
+        "symbol": "4280.SR",
+        "date": "2026-05-21",
+        "entry_price": 10.63,
+        "open_price": 11.5,
+        "close_price": 12.35,
+        "pnl_pct": 0,
+        "chase_pnl": 7.39,
+        "score": 115.7,
+        "system": "v4.0+",
+        "entry_hit": false,
+        "note": "Gapped up: entry 10.63, open 11.50"
+      },
+      {
+        "symbol": "4190.SR",
+        "date": "2026-05-21",
+        "entry_price": 15.55,
+        "open_price": 15.73,
+        "close_price": 15.73,
+        "pnl_pct": 0,
+        "chase_pnl": 0.0,
+        "score": 103.9,
+        "system": "v4.0+",
+        "entry_hit": false,
+        "note": "Gapped up: entry 15.55, open 15.73"
+      },
+      {
+        "symbol": "2280.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.31,
+        "open_price": 44.8,
+        "close_price": 45.4,
+        "pnl_pct": 0,
+        "chase_pnl": 1.34,
+        "score": 93.3,
+        "system": "v4.0+",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.31, open 44.80"
+      },
+      {
+        "symbol": "7010.SR",
+        "date": "2026-05-21",
+        "entry_price": 43.53,
+        "open_price": 43.82,
+        "close_price": 43.9,
+        "pnl_pct": 0,
+        "chase_pnl": 0.18,
+        "score": 79.7,
+        "system": "v4.0+",
+        "entry_hit": false,
+        "note": "Gapped up: entry 43.53, open 43.82"
+      },
+      {
+        "symbol": "2222.SR",
+        "date": "2026-05-21",
+        "entry_price": 27.88,
+        "open_price": 27.84,
+        "close_price": 27.78,
+        "pnl_pct": 0,
+        "chase_pnl": -0.22,
+        "score": 76.7,
+        "system": "v4.0+",
+        "entry_hit": false,
+        "note": "Gapped up: entry 27.88, open 27.84"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "type": "execution_gap",
+      "message": "Simulated 5 trades but only 0 executed",
+      "action": "Review entry signal timing and execution"
+    },
+    {
+      "priority": "MEDIUM",
+      "type": "win_rate",
+      "message": "Win rate 0.0% below 50%",
+      "action": "Tighten screening criteria or review stop placement"
+    }
+  ]
+}

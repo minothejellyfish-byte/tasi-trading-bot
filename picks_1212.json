@@ -1,0 +1,20 @@
+{
+  "date": "2026-06-07",
+  "mode": "manual_midscreen",
+  "window": "12:12 manual",
+  "source": "yfinance_fallback",
+  "picks": [
+    {
+      "symbol": "1303.SR",
+      "entry_high": 16.25,
+      "entry_low": 15.74,
+      "score": 19.5,
+      "pm_metrics": {
+        "change_pct": 1.95,
+        "volume": 104786
+      },
+      "tier": "manual",
+      "source": "manual_midscreen"
+    }
+  ]
+}

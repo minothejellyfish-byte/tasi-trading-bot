@@ -1,0 +1,42 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-24T03:37:42.296440",
+  "results": {
+    "previous": {
+      "name": "Previous System (v3.2)",
+      "picks": 0,
+      "hit": 0,
+      "missed": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0
+    },
+    "current": {
+      "name": "Current System (v4.0)",
+      "picks": 0,
+      "hit": 0,
+      "missed": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0
+    },
+    "optimized": {
+      "name": "Optimized (v4.0+)",
+      "picks": 0,
+      "hit": 0,
+      "missed": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0
+    }
+  }
+}

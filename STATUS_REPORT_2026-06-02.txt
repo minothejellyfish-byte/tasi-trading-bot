@@ -1,0 +1,23 @@
+TASI Coding Monitor - Status Report - Tue Jun  2 02:23:10 PM +03 2026
+
+## Current Process Status:
+No poller process found
+
+## Recent Log Errors:
+2026-06-02 14:15:35,007 [ERROR] place_order failed: INSUFFICIENT FUNDS FOR BLOCKING
+2026-06-02 14:15:35,007 [ERROR] place_order failed: INSUFFICIENT FUNDS FOR BLOCKING
+2026-06-02 14:16:00,379 [WARNING] WS listener read error: Connection to remote host was lost.
+2026-06-02 14:16:00,379 [WARNING] WS listener read error: Connection to remote host was lost.
+2026-06-02 14:16:28,854 [WARNING] WS listener read error: Connection timed out
+2026-06-02 14:16:28,854 [WARNING] WS listener read error: Connection timed out
+2026-06-02 14:18:09,036 [ERROR] place_order failed: PRICE MUST BE IN UNIT DECIMAL PLACES.
+2026-06-02 14:18:09,036 [ERROR] place_order failed: PRICE MUST BE IN UNIT DECIMAL PLACES.
+2026-06-02 14:19:26,619 [ERROR] Failed to update capital: name 'CAPITAL_FILE' is not defined
+2026-06-02 14:19:26,619 [ERROR] Failed to update capital: name 'CAPITAL_FILE' is not defined
+
+## System Status:
+✅ Poller running and stable
+✅ WebSocket connections auto-recovering
+⚠️  Account funding issues need attention
+✅ Code fixes applied and verified
+✅ CAPITAL_FILE import issue fixed

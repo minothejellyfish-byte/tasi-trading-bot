@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  h2 { color: #333; }
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+  th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+  th { background-color: #4CAF50; color: white; font-weight: bold; }
+  td:first-child { text-align: left; font-weight: bold; background-color: #f9f9f9; }
+  .R { background-color: #81C784; font-weight: bold; }
+  .A { background-color: #64B5F6; font-weight: bold; }
+  .C { background-color: #FFF176; }
+  .I { background-color: #E0E0E0; }
+  .legend { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+  .phase1 { border-left: 4px solid #4CAF50; padding-left: 10px; margin: 10px 0; }
+  .phase2 { border-left: 4px solid #2196F3; padding-left: 10px; margin: 10px 0; }
+  .phase3 { border-left: 4px solid #FF9800; padding-left: 10px; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<h1>Derayah Session Management - RACI Matrix</h1>
+
+<div class="legend">
+  <strong>Legend:</strong>
+  <span class="R">R</span> = Responsible (does the work) |
+  <span class="A">A</span> = Accountable (owns result) |
+  <span class="C">C</span> = Consulted (provides input) |
+  <span class="I">I</span> = Informed (kept updated)
+</div>
+
+<table>
+  <tr>
+    <th>Activity / Executor</th>
+    <th>A A<br><small>(User)</small></th>
+    <th>Mino<br><small>(Bot)</small></th>
+    <th>Session Manager<br><small>(Script)</small></th>
+    <th>WS Keepalive<br><small>(Script)</small></th>
+    <th>Watchdog<br><small>(Script)</small></th>
+  </tr>
+
+  <tr class="phase1">
+    <td>1. Manual Login (Dashboard)<br><small>Enter credentials + OTP + click "Login to TC"</small></td>
+    <td class="A">R, A</td>
+    <td class="C">C</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase1">
+    <td>2. Capture Tokens from Browser<br><small>Read localStorage, save to derayah_tokens.json</small></td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="R">R</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase2">
+    <td>3. Token Refresh via API<br><small>Call OAuth refresh endpoint</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase2">
+    <td>4. Get SSO URL<br><small>Call TickerChartUrl API with new access token</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase2">
+    <td>5. Navigate TC Tab via CDP<br><small>Page.navigate to SSO URL, wait for redirect</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase2">
+    <td>6. Inject Dashboard Tokens<br><small>Update localStorage, reload dashboard</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase2">
+    <td>7. Verify Token Freshness<br><small>Check expiry, test API call</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr>
+    <td>8. Monitor WS Data Flow<br><small>Check CDP port, restart ws_probe if dead</small></td>
+    <td class="I">I</td>
+    <td class="C">C</td>
+    <td class="I">I</td>
+    <td class="A">R, A</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr>
+    <td>9. Log Events<br><small>Token refresh, session expiry, auth failures</small></td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+    <td class="A">R, A</td>
+  </tr>
+
+  <tr>
+    <td>10. Execute Trades<br><small>place_order(), get_positions()</small></td>
+    <td class="I">I</td>
+    <td class="A">R, A</td>
+    <td class="C">C</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr class="phase3">
+    <td>11. Handle Recovery (Phase 3)<br><small>Notify user, open login tab, wait for /Login</small></td>
+    <td class="A">R, A</td>
+    <td class="R">R</td>
+    <td class="R">R</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr>
+    <td>12. Telegram Commands<br><small>/Login (user), /SS (status check)</small></td>
+    <td class="R">R</td>
+    <td class="A">R, A</td>
+    <td class="R">R</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr>
+    <td>13. Trade Execution via bot.py<br><small>place_order(), auto_buy(), auto_sell()</small></td>
+    <td class="I">I</td>
+    <td class="A">R, A</td>
+    <td class="C">C</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+
+  <tr>
+    <td>14. Session Validation (Pre-Trade)<br><small>validate_session() blocks trades if no valid token</small></td>
+    <td class="I">I</td>
+    <td class="A">R, A</td>
+    <td class="R">R</td>
+    <td class="I">I</td>
+    <td class="I">I</td>
+  </tr>
+</table>
+
+<h2>Phases</h2>
+<div class="phase1">
+  <strong>Phase 1: LOGIN</strong> (Green) - Manual by user, capture by Mino
+</div>
+<div class="phase2">
+  <strong>Phase 2: MAINTAIN</strong> (Blue) - Automated by Session Manager
+</div>
+<div class="phase3">
+  <strong>Phase 3: RECOVERY</strong> (Orange) - Shared user + bot
+</div>
+
+<h2>Conflict Prevention Rules</h2>
+<ul>
+  <li><strong>Session Manager</strong> never executes trades</li>
+  <li><strong>bot.py</strong> validates session before every trade (Phase 3)</li>
+  <li><strong>bot.py</strong> is executor for trades (never manages tokens directly)</li>
+  <li><strong>Bot</strong> never manages tokens directly (requests from SM)</li>
+  <li><strong>WS Keepalive</strong> never touches auth</li>
+  <li><strong>Watchdog</strong> never takes action (logs only)</li>
+</ul>
+
+<p><em>Generated: 2026-06-08 23:30 | Status: Approved | v4.2 — bot.py executor added</em></p>
+
+</body>
+</html>

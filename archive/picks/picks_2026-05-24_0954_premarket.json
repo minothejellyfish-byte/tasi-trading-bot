@@ -1,0 +1,96 @@
+{
+  "date": "2026-05-24",
+  "mode": "premarket",
+  "picks": [
+    {
+      "symbol": "1150.SR",
+      "entry_low": 23.81,
+      "entry_high": 24.24,
+      "stop_loss": 22.32,
+      "score": 86.6,
+      "pm_metrics": {
+        "atr": 0.013,
+        "vol_ratio": 1.4,
+        "session_change": 1.01,
+        "max_intraday": 1.06,
+        "range_ratio": 1.22,
+        "passed": true,
+        "fail_reasons": [],
+        "mode": "premarket",
+        "date_checked": "2026-05-20"
+      }
+    },
+    {
+      "symbol": "1202.SR",
+      "entry_low": 18.76,
+      "entry_high": 19.19,
+      "stop_loss": 17.67,
+      "score": 77.6,
+      "pm_metrics": {
+        "atr": 0.048,
+        "vol_ratio": 0.6,
+        "session_change": 0.91,
+        "max_intraday": 1.45,
+        "range_ratio": 0.71,
+        "passed": true,
+        "fail_reasons": [],
+        "mode": "premarket",
+        "date_checked": "2026-05-20"
+      }
+    },
+    {
+      "symbol": "1180.SR",
+      "entry_low": 38.71,
+      "entry_high": 39.79,
+      "stop_loss": 36.64,
+      "score": 67.6,
+      "pm_metrics": {
+        "atr": 0.048,
+        "vol_ratio": 1.6,
+        "session_change": 0.36,
+        "max_intraday": 0.99,
+        "range_ratio": 0.93,
+        "passed": true,
+        "fail_reasons": [],
+        "mode": "premarket",
+        "date_checked": "2026-05-20"
+      }
+    },
+    {
+      "symbol": "1120.SR",
+      "entry_low": 66.32,
+      "entry_high": 67.48,
+      "stop_loss": 61.94,
+      "score": 57.0,
+      "pm_metrics": {
+        "atr": 0.06,
+        "vol_ratio": 0.8,
+        "session_change": 0.45,
+        "max_intraday": 0.67,
+        "range_ratio": 1.03,
+        "passed": true,
+        "fail_reasons": [],
+        "mode": "premarket",
+        "date_checked": "2026-05-20"
+      }
+    },
+    {
+      "symbol": "1050.SR",
+      "entry_low": 18.91,
+      "entry_high": 19.32,
+      "stop_loss": 17.79,
+      "score": 56.1,
+      "pm_metrics": {
+        "atr": 0.014,
+        "vol_ratio": 1.1,
+        "session_change": 0.0,
+        "max_intraday": 0.8,
+        "range_ratio": 0.77,
+        "passed": true,
+        "fail_reasons": [],
+        "mode": "premarket",
+        "date_checked": "2026-05-20"
+      }
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+📊 <b>TASI Intelligent Post-Market Analysis</b>
+📅 2026-06-04 | 15:44 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 SUMMARY</b>
+• Total unique picks: 10
+• Positions taken: 2
+• Picks not entered: 8
+
+<b>🚀 Gapped Above Zone (1)</b>
+  ❌ 4146: score=61.4, zone=14.45-15.04
+     → Opened +0.4% above zone (15.10 > 15.04)
+     💡 WHY: Gapped +0.4% above entry zone at open
+     🔧 FIX: Small gap — consider chase entry with 1% stop below entry
+
+<b>⬇️ Gapped Below Zone (2)</b>
+  ❌ 2180: score=48.3, zone=28.99-29.15
+     → Opened 0.2% below zone (28.94 < 28.99)
+     💡 WHY: Gapped -0.2% below zone at open
+     🔧 FIX: Wait for price to reclaim zone or enter at market if momentum strong
+  ❌ 2380: score=34.1, zone=15.80-15.95
+     → Opened 0.6% below zone (15.70 < 15.80)
+     💡 WHY: Gapped -0.6% below zone at open
+     🔧 FIX: Wait for price to reclaim zone or enter at market if momentum strong
+
+<b>🎯 In Zone (7)</b>
+  ❌ 4191: score=66.3, zone=40.22-41.38
+     → Opened in zone and traded through range 40.66–43.46
+     💡 WHY: In zone but max positions (2/2) reached
+     🔧 FIX: Consider increasing max positions to 3 OR better position rotation
+  ❌ 8310: score=54.7, zone=6.94-7.00
+     → Opened in zone and traded through range 6.74–7.35
+     💡 WHY: In zone but max positions (2/2) reached
+     🔧 FIX: Consider increasing max positions to 3 OR better position rotation
+  ❌ 4240: score=54.3, zone=12.65-13.12
+     → Opened in zone and traded through range 12.75–14.05
+     💡 WHY: In zone but max positions (2/2) reached
+     🔧 FIX: Consider increasing max positions to 3 OR better position rotation
+  ✅ 4280: score=70.0, zone=14.97-15.97
+     → Opened in zone and traded through range 13.84–15.30
+  ❌ 2050: score=53.9, zone=28.70-28.99
+     → Opened in zone and traded through range 28.66–29.80
+     💡 WHY: In zone but max positions (2/2) reached
+     🔧 FIX: Consider increasing max positions to 3 OR better position rotation
+  ❌ 2190: score=52.2, zone=35.01-36.23
+     → Opened in zone and traded through range 36.00–37.80
+     💡 WHY: In zone but max positions (2/2) reached
+     🔧 FIX: Consider increasing max positions to 3 OR better position rotation
+  ✅ 2110: score=51.5, zone=151.40-160.62
+     → Opened in zone and traded through range 151.20–159.70
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💼 TRADE PERFORMANCE</b>
+
+<b>4280</b>
+  Entry: 14.27 at 11:19
+  Peak: 14.37 (+0.7%)
+  Close: Open (+0.0%)
+  Duration: 12:40
+
+     ✅ Good exit: Peak was only -1.6% above sell
+
+<b>2110</b>
+  Entry: 156.30 at 12:05
+  Peak: 159.30 (+1.9%)
+  Close: Open (+0.0%)
+  Duration: 14:45
+
+     ⚠️ EXIT ANALYSIS: Sold at 157.20 but peaked at 159.30
+     → Missed +1.3% additional gain
+     → WHY: Likely trailing stop or time-based exit triggered early
+     → FIX: Consider wider trailing stop (3% vs 2%) or hold until 14:45 hard close
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 RECOMMENDATIONS</b>
+
+<b>🔴 CRITICAL:</b>
+1. Gap-up chase: 1 picks gapped <0.5% above zone — add chase entry with 1% stop below entry
+2. Gap-down recovery: 2 picks opened below zone — add 'reclaim entry' when price returns to zone
+3. Position capacity: 5 in-zone picks missed due to max positions (2/2) — increase to 3 OR add position rotation logic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Intelligent Analysis by Mino 🪼</i>

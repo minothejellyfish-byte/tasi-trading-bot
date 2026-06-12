@@ -1,0 +1,6 @@
+API error 401: UserPosition/ListPositions
+API error 401: UserPosition/ListPositions
+--- Test run at Thu Jun 11 02:26:58 PM +03 2026 ---
+quick_refresh done: available=794.46
+[2026-06-11T14:48:09.033307+03:00] Capital synced: grand_total=979.08, available=794.39, invested=0 (source: derayah-dashboard-quick)
+quick_refresh done: grand_total=979.08, available=794.39

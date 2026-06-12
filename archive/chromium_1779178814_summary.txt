@@ -1,0 +1,9 @@
+Log Summary: chromium.log
+Generated: 2026-06-02T04:00:31.224864
+Lines: 265
+Errors: 255
+Warnings: 0
+First entry: Opening in existing browser session.
+Last entry: [22550:22557:0519/112013.857225:ERROR:net/socket/s
+
+Key Events:

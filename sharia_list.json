@@ -1,0 +1,2275 @@
+{
+  "source": "Saudi Exchange Sharia-Compliant Securities",
+  "fetched": "2026-05-30T22:09:46.068504",
+  "total": 399,
+  "main_market_count": 270,
+  "stocks": [
+    {
+      "symbol": "1010",
+      "name": "RIBL",
+      "yahoo": "1010.SR"
+    },
+    {
+      "symbol": "1020",
+      "name": "BJAZ",
+      "yahoo": "1020.SR"
+    },
+    {
+      "symbol": "1030",
+      "name": "SAIB",
+      "yahoo": "1030.SR"
+    },
+    {
+      "symbol": "1050",
+      "name": "BSF",
+      "yahoo": "1050.SR"
+    },
+    {
+      "symbol": "1060",
+      "name": "SAB",
+      "yahoo": "1060.SR"
+    },
+    {
+      "symbol": "1080",
+      "name": "ANB",
+      "yahoo": "1080.SR"
+    },
+    {
+      "symbol": "1111",
+      "name": "TADAWUL GROUP",
+      "yahoo": "1111.SR"
+    },
+    {
+      "symbol": "1120",
+      "name": "ALRAJHI",
+      "yahoo": "1120.SR"
+    },
+    {
+      "symbol": "1140",
+      "name": "ALBILAD",
+      "yahoo": "1140.SR"
+    },
+    {
+      "symbol": "1150",
+      "name": "ALINMA",
+      "yahoo": "1150.SR"
+    },
+    {
+      "symbol": "1180",
+      "name": "SNB",
+      "yahoo": "1180.SR"
+    },
+    {
+      "symbol": "1182",
+      "name": "AMLAK",
+      "yahoo": "1182.SR"
+    },
+    {
+      "symbol": "1183",
+      "name": "SHL",
+      "yahoo": "1183.SR"
+    },
+    {
+      "symbol": "1201",
+      "name": "TAKWEEN",
+      "yahoo": "1201.SR"
+    },
+    {
+      "symbol": "1202",
+      "name": "MEPCO",
+      "yahoo": "1202.SR"
+    },
+    {
+      "symbol": "1210",
+      "name": "BCI",
+      "yahoo": "1210.SR"
+    },
+    {
+      "symbol": "1211",
+      "name": "MAADEN",
+      "yahoo": "1211.SR"
+    },
+    {
+      "symbol": "1212",
+      "name": "ASTRA INDUSTRIAL",
+      "yahoo": "1212.SR"
+    },
+    {
+      "symbol": "1213",
+      "name": "NASEEJ",
+      "yahoo": "1213.SR"
+    },
+    {
+      "symbol": "1214",
+      "name": "SHAKER",
+      "yahoo": "1214.SR"
+    },
+    {
+      "symbol": "1301",
+      "name": "ASLAK",
+      "yahoo": "1301.SR"
+    },
+    {
+      "symbol": "1302",
+      "name": "BAWAN",
+      "yahoo": "1302.SR"
+    },
+    {
+      "symbol": "1303",
+      "name": "EIC",
+      "yahoo": "1303.SR"
+    },
+    {
+      "symbol": "1304",
+      "name": "ALYAMAMAH STEEL",
+      "yahoo": "1304.SR"
+    },
+    {
+      "symbol": "1320",
+      "name": "SSP",
+      "yahoo": "1320.SR"
+    },
+    {
+      "symbol": "1321",
+      "name": "EAST PIPES",
+      "yahoo": "1321.SR"
+    },
+    {
+      "symbol": "1322",
+      "name": "AMAK",
+      "yahoo": "1322.SR"
+    },
+    {
+      "symbol": "1323",
+      "name": "UCIC",
+      "yahoo": "1323.SR"
+    },
+    {
+      "symbol": "1324",
+      "name": "SALEH ALRASHED",
+      "yahoo": "1324.SR"
+    },
+    {
+      "symbol": "1810",
+      "name": "SEERA",
+      "yahoo": "1810.SR"
+    },
+    {
+      "symbol": "1820",
+      "name": "BAAN",
+      "yahoo": "1820.SR"
+    },
+    {
+      "symbol": "1830",
+      "name": "LEEJAM SPORTS",
+      "yahoo": "1830.SR"
+    },
+    {
+      "symbol": "1831",
+      "name": "MAHARAH",
+      "yahoo": "1831.SR"
+    },
+    {
+      "symbol": "1832",
+      "name": "SADR",
+      "yahoo": "1832.SR"
+    },
+    {
+      "symbol": "1833",
+      "name": "ALMAWARID",
+      "yahoo": "1833.SR"
+    },
+    {
+      "symbol": "1834",
+      "name": "SMASCO",
+      "yahoo": "1834.SR"
+    },
+    {
+      "symbol": "1835",
+      "name": "TAMKEEN",
+      "yahoo": "1835.SR"
+    },
+    {
+      "symbol": "2001",
+      "name": "CHEMANOL",
+      "yahoo": "2001.SR"
+    },
+    {
+      "symbol": "2010",
+      "name": "SABIC",
+      "yahoo": "2010.SR"
+    },
+    {
+      "symbol": "2020",
+      "name": "SABIC AGRI-NUTRIENTS",
+      "yahoo": "2020.SR"
+    },
+    {
+      "symbol": "2030",
+      "name": "SARCO",
+      "yahoo": "2030.SR"
+    },
+    {
+      "symbol": "2040",
+      "name": "SAUDI CERAMICS",
+      "yahoo": "2040.SR"
+    },
+    {
+      "symbol": "2050",
+      "name": "SAVOLA GROUP",
+      "yahoo": "2050.SR"
+    },
+    {
+      "symbol": "2060",
+      "name": "TASNEE",
+      "yahoo": "2060.SR"
+    },
+    {
+      "symbol": "2070",
+      "name": "SPIMACO",
+      "yahoo": "2070.SR"
+    },
+    {
+      "symbol": "2080",
+      "name": "GASCO",
+      "yahoo": "2080.SR"
+    },
+    {
+      "symbol": "2081",
+      "name": "AWPT",
+      "yahoo": "2081.SR"
+    },
+    {
+      "symbol": "2082",
+      "name": "ACWA",
+      "yahoo": "2082.SR"
+    },
+    {
+      "symbol": "2083",
+      "name": "MARAFIQ",
+      "yahoo": "2083.SR"
+    },
+    {
+      "symbol": "2084",
+      "name": "MIAHONA",
+      "yahoo": "2084.SR"
+    },
+    {
+      "symbol": "2090",
+      "name": "NGC",
+      "yahoo": "2090.SR"
+    },
+    {
+      "symbol": "2100",
+      "name": "WAFRAH",
+      "yahoo": "2100.SR"
+    },
+    {
+      "symbol": "2110",
+      "name": "SAUDI CABLE",
+      "yahoo": "2110.SR"
+    },
+    {
+      "symbol": "2120",
+      "name": "SAIC",
+      "yahoo": "2120.SR"
+    },
+    {
+      "symbol": "2130",
+      "name": "SIDC",
+      "yahoo": "2130.SR"
+    },
+    {
+      "symbol": "2140",
+      "name": "AYYAN",
+      "yahoo": "2140.SR"
+    },
+    {
+      "symbol": "2150",
+      "name": "ZOUJAJ",
+      "yahoo": "2150.SR"
+    },
+    {
+      "symbol": "2160",
+      "name": "AMIANTIT",
+      "yahoo": "2160.SR"
+    },
+    {
+      "symbol": "2170",
+      "name": "ALUJAIN",
+      "yahoo": "2170.SR"
+    },
+    {
+      "symbol": "2180",
+      "name": "FIPCO",
+      "yahoo": "2180.SR"
+    },
+    {
+      "symbol": "2190",
+      "name": "SISCO HOLDING",
+      "yahoo": "2190.SR"
+    },
+    {
+      "symbol": "2200",
+      "name": "APC",
+      "yahoo": "2200.SR"
+    },
+    {
+      "symbol": "2210",
+      "name": "NAMA CHEMICALS",
+      "yahoo": "2210.SR"
+    },
+    {
+      "symbol": "2220",
+      "name": "MAADANIYAH",
+      "yahoo": "2220.SR"
+    },
+    {
+      "symbol": "2222",
+      "name": "SAUDI ARAMCO",
+      "yahoo": "2222.SR"
+    },
+    {
+      "symbol": "2223",
+      "name": "LUBEREF",
+      "yahoo": "2223.SR"
+    },
+    {
+      "symbol": "2230",
+      "name": "CHEMICAL",
+      "yahoo": "2230.SR"
+    },
+    {
+      "symbol": "2240",
+      "name": "SENAAT",
+      "yahoo": "2240.SR"
+    },
+    {
+      "symbol": "2250",
+      "name": "SIIG",
+      "yahoo": "2250.SR"
+    },
+    {
+      "symbol": "2270",
+      "name": "SADAFCO",
+      "yahoo": "2270.SR"
+    },
+    {
+      "symbol": "2280",
+      "name": "ALMARAI",
+      "yahoo": "2280.SR"
+    },
+    {
+      "symbol": "2281",
+      "name": "TANMIAH",
+      "yahoo": "2281.SR"
+    },
+    {
+      "symbol": "2282",
+      "name": "NAQI",
+      "yahoo": "2282.SR"
+    },
+    {
+      "symbol": "2283",
+      "name": "FIRST MILLS",
+      "yahoo": "2283.SR"
+    },
+    {
+      "symbol": "2284",
+      "name": "MODERN MILLS",
+      "yahoo": "2284.SR"
+    },
+    {
+      "symbol": "2285",
+      "name": "ARABIAN MILLS",
+      "yahoo": "2285.SR"
+    },
+    {
+      "symbol": "2286",
+      "name": "FOURTH MILLING",
+      "yahoo": "2286.SR"
+    },
+    {
+      "symbol": "2287",
+      "name": "ENTAJ",
+      "yahoo": "2287.SR"
+    },
+    {
+      "symbol": "2288",
+      "name": "NOFOTH",
+      "yahoo": "2288.SR"
+    },
+    {
+      "symbol": "2290",
+      "name": "YANSAB",
+      "yahoo": "2290.SR"
+    },
+    {
+      "symbol": "2300",
+      "name": "SPM",
+      "yahoo": "2300.SR"
+    },
+    {
+      "symbol": "2310",
+      "name": "SIPCHEM",
+      "yahoo": "2310.SR"
+    },
+    {
+      "symbol": "2320",
+      "name": "ALBABTAIN",
+      "yahoo": "2320.SR"
+    },
+    {
+      "symbol": "2330",
+      "name": "ADVANCED",
+      "yahoo": "2330.SR"
+    },
+    {
+      "symbol": "2340",
+      "name": "ARTEX",
+      "yahoo": "2340.SR"
+    },
+    {
+      "symbol": "2350",
+      "name": "SAUDI KAYAN",
+      "yahoo": "2350.SR"
+    },
+    {
+      "symbol": "2360",
+      "name": "SVCP",
+      "yahoo": "2360.SR"
+    },
+    {
+      "symbol": "2370",
+      "name": "MESC",
+      "yahoo": "2370.SR"
+    },
+    {
+      "symbol": "2380",
+      "name": "PETRO RABIGH",
+      "yahoo": "2380.SR"
+    },
+    {
+      "symbol": "2381",
+      "name": "ARABIAN DRILLING",
+      "yahoo": "2381.SR"
+    },
+    {
+      "symbol": "2382",
+      "name": "ADES",
+      "yahoo": "2382.SR"
+    },
+    {
+      "symbol": "3002",
+      "name": "NAJRAN CEMENT",
+      "yahoo": "3002.SR"
+    },
+    {
+      "symbol": "3003",
+      "name": "CITY CEMENT",
+      "yahoo": "3003.SR"
+    },
+    {
+      "symbol": "3004",
+      "name": "NORTHERN CEMENT",
+      "yahoo": "3004.SR"
+    },
+    {
+      "symbol": "3005",
+      "name": "UACC",
+      "yahoo": "3005.SR"
+    },
+    {
+      "symbol": "3007",
+      "name": "OASIS",
+      "yahoo": "3007.SR"
+    },
+    {
+      "symbol": "3008",
+      "name": "ALKATHIRI",
+      "yahoo": "3008.SR"
+    },
+    {
+      "symbol": "3010",
+      "name": "ACC",
+      "yahoo": "3010.SR"
+    },
+    {
+      "symbol": "3020",
+      "name": "YC",
+      "yahoo": "3020.SR"
+    },
+    {
+      "symbol": "3030",
+      "name": "SAUDI CEMENT",
+      "yahoo": "3030.SR"
+    },
+    {
+      "symbol": "3040",
+      "name": "QACCO",
+      "yahoo": "3040.SR"
+    },
+    {
+      "symbol": "3050",
+      "name": "SPCC",
+      "yahoo": "3050.SR"
+    },
+    {
+      "symbol": "3060",
+      "name": "YCC",
+      "yahoo": "3060.SR"
+    },
+    {
+      "symbol": "3080",
+      "name": "EPCCO",
+      "yahoo": "3080.SR"
+    },
+    {
+      "symbol": "3090",
+      "name": "TCC",
+      "yahoo": "3090.SR"
+    },
+    {
+      "symbol": "3091",
+      "name": "JOUF CEMENT",
+      "yahoo": "3091.SR"
+    },
+    {
+      "symbol": "3092",
+      "name": "RIYADH CEMENT",
+      "yahoo": "3092.SR"
+    },
+    {
+      "symbol": "4001",
+      "name": "A.OTHAIM MARKET",
+      "yahoo": "4001.SR"
+    },
+    {
+      "symbol": "4002",
+      "name": "MOUWASAT",
+      "yahoo": "4002.SR"
+    },
+    {
+      "symbol": "4003",
+      "name": "EXTRA",
+      "yahoo": "4003.SR"
+    },
+    {
+      "symbol": "4004",
+      "name": "DALLAH HEALTH",
+      "yahoo": "4004.SR"
+    },
+    {
+      "symbol": "4005",
+      "name": "CARE",
+      "yahoo": "4005.SR"
+    },
+    {
+      "symbol": "4006",
+      "name": "FARM SUPERSTORES",
+      "yahoo": "4006.SR"
+    },
+    {
+      "symbol": "4007",
+      "name": "ALHAMMADI",
+      "yahoo": "4007.SR"
+    },
+    {
+      "symbol": "4008",
+      "name": "SACO",
+      "yahoo": "4008.SR"
+    },
+    {
+      "symbol": "4009",
+      "name": "SAUDI GERMAN HEALTH",
+      "yahoo": "4009.SR"
+    },
+    {
+      "symbol": "4011",
+      "name": "LAZURDE",
+      "yahoo": "4011.SR"
+    },
+    {
+      "symbol": "4012",
+      "name": "ALASEEL",
+      "yahoo": "4012.SR"
+    },
+    {
+      "symbol": "4013",
+      "name": "SULAIMAN ALHABIB",
+      "yahoo": "4013.SR"
+    },
+    {
+      "symbol": "4014",
+      "name": "EQUIPMENT HOUSE",
+      "yahoo": "4014.SR"
+    },
+    {
+      "symbol": "4015",
+      "name": "JAMJOOM PHARMA",
+      "yahoo": "4015.SR"
+    },
+    {
+      "symbol": "4016",
+      "name": "AVALON PHARMA",
+      "yahoo": "4016.SR"
+    },
+    {
+      "symbol": "4017",
+      "name": "FAKEEH CARE",
+      "yahoo": "4017.SR"
+    },
+    {
+      "symbol": "4018",
+      "name": "ALMOOSA",
+      "yahoo": "4018.SR"
+    },
+    {
+      "symbol": "4019",
+      "name": "SMC HEALTHCARE",
+      "yahoo": "4019.SR"
+    },
+    {
+      "symbol": "4020",
+      "name": "ALAKARIA",
+      "yahoo": "4020.SR"
+    },
+    {
+      "symbol": "4021",
+      "name": "CMCER",
+      "yahoo": "4021.SR"
+    },
+    {
+      "symbol": "4030",
+      "name": "BAHRI",
+      "yahoo": "4030.SR"
+    },
+    {
+      "symbol": "4031",
+      "name": "SGS",
+      "yahoo": "4031.SR"
+    },
+    {
+      "symbol": "4040",
+      "name": "SAPTCO",
+      "yahoo": "4040.SR"
+    },
+    {
+      "symbol": "4050",
+      "name": "SASCO",
+      "yahoo": "4050.SR"
+    },
+    {
+      "symbol": "4051",
+      "name": "BAAZEEM",
+      "yahoo": "4051.SR"
+    },
+    {
+      "symbol": "4061",
+      "name": "ANAAM HOLDING",
+      "yahoo": "4061.SR"
+    },
+    {
+      "symbol": "4070",
+      "name": "TAPRCO",
+      "yahoo": "4070.SR"
+    },
+    {
+      "symbol": "4071",
+      "name": "ALARABIA",
+      "yahoo": "4071.SR"
+    },
+    {
+      "symbol": "4072",
+      "name": "MBC GROUP",
+      "yahoo": "4072.SR"
+    },
+    {
+      "symbol": "4080",
+      "name": "SINAD HOLDING",
+      "yahoo": "4080.SR"
+    },
+    {
+      "symbol": "4081",
+      "name": "NAYIFAT",
+      "yahoo": "4081.SR"
+    },
+    {
+      "symbol": "4082",
+      "name": "MRNA",
+      "yahoo": "4082.SR"
+    },
+    {
+      "symbol": "4083",
+      "name": "TASHEEL",
+      "yahoo": "4083.SR"
+    },
+    {
+      "symbol": "4084",
+      "name": "DERAYAH",
+      "yahoo": "4084.SR"
+    },
+    {
+      "symbol": "4090",
+      "name": "TAIBA",
+      "yahoo": "4090.SR"
+    },
+    {
+      "symbol": "4100",
+      "name": "MCDC",
+      "yahoo": "4100.SR"
+    },
+    {
+      "symbol": "4110",
+      "name": "BATIC",
+      "yahoo": "4110.SR"
+    },
+    {
+      "symbol": "4130",
+      "name": "SAUDI DARB",
+      "yahoo": "4130.SR"
+    },
+    {
+      "symbol": "4140",
+      "name": "SIECO",
+      "yahoo": "4140.SR"
+    },
+    {
+      "symbol": "4141",
+      "name": "ALOMRAN",
+      "yahoo": "4141.SR"
+    },
+    {
+      "symbol": "4142",
+      "name": "RIYADH CABLES",
+      "yahoo": "4142.SR"
+    },
+    {
+      "symbol": "4143",
+      "name": "TALCO",
+      "yahoo": "4143.SR"
+    },
+    {
+      "symbol": "4144",
+      "name": "RAOOM",
+      "yahoo": "4144.SR"
+    },
+    {
+      "symbol": "4145",
+      "name": "OGC",
+      "yahoo": "4145.SR"
+    },
+    {
+      "symbol": "4146",
+      "name": "GAS",
+      "yahoo": "4146.SR"
+    },
+    {
+      "symbol": "4147",
+      "name": "CGS",
+      "yahoo": "4147.SR"
+    },
+    {
+      "symbol": "4148",
+      "name": "ALWASAIL INDUSTRIAL",
+      "yahoo": "4148.SR"
+    },
+    {
+      "symbol": "4150",
+      "name": "ARDCO",
+      "yahoo": "4150.SR"
+    },
+    {
+      "symbol": "4160",
+      "name": "THIMAR",
+      "yahoo": "4160.SR"
+    },
+    {
+      "symbol": "4161",
+      "name": "BINDAWOOD",
+      "yahoo": "4161.SR"
+    },
+    {
+      "symbol": "4162",
+      "name": "ALMUNAJEM",
+      "yahoo": "4162.SR"
+    },
+    {
+      "symbol": "4163",
+      "name": "ALDAWAA",
+      "yahoo": "4163.SR"
+    },
+    {
+      "symbol": "4164",
+      "name": "NAHDI",
+      "yahoo": "4164.SR"
+    },
+    {
+      "symbol": "4165",
+      "name": "ALMAJED OUD",
+      "yahoo": "4165.SR"
+    },
+    {
+      "symbol": "4170",
+      "name": "TECO",
+      "yahoo": "4170.SR"
+    },
+    {
+      "symbol": "4180",
+      "name": "FITAIHI GROUP",
+      "yahoo": "4180.SR"
+    },
+    {
+      "symbol": "4190",
+      "name": "JARIR",
+      "yahoo": "4190.SR"
+    },
+    {
+      "symbol": "4191",
+      "name": "ABO MOATI",
+      "yahoo": "4191.SR"
+    },
+    {
+      "symbol": "4192",
+      "name": "ALSAIF GALLERY",
+      "yahoo": "4192.SR"
+    },
+    {
+      "symbol": "4193",
+      "name": "NICE ONE",
+      "yahoo": "4193.SR"
+    },
+    {
+      "symbol": "4194",
+      "name": "BUILD STATION",
+      "yahoo": "4194.SR"
+    },
+    {
+      "symbol": "4200",
+      "name": "ALDREES",
+      "yahoo": "4200.SR"
+    },
+    {
+      "symbol": "4210",
+      "name": "SRMG",
+      "yahoo": "4210.SR"
+    },
+    {
+      "symbol": "4220",
+      "name": "EMAAR EC",
+      "yahoo": "4220.SR"
+    },
+    {
+      "symbol": "4230",
+      "name": "RED SEA",
+      "yahoo": "4230.SR"
+    },
+    {
+      "symbol": "4240",
+      "name": "CENOMI RETAIL",
+      "yahoo": "4240.SR"
+    },
+    {
+      "symbol": "4250",
+      "name": "JABAL OMAR",
+      "yahoo": "4250.SR"
+    },
+    {
+      "symbol": "4260",
+      "name": "BUDGET SAUDI",
+      "yahoo": "4260.SR"
+    },
+    {
+      "symbol": "4261",
+      "name": "THEEB",
+      "yahoo": "4261.SR"
+    },
+    {
+      "symbol": "4262",
+      "name": "LUMI",
+      "yahoo": "4262.SR"
+    },
+    {
+      "symbol": "4263",
+      "name": "SAL",
+      "yahoo": "4263.SR"
+    },
+    {
+      "symbol": "4264",
+      "name": "FLYNAS",
+      "yahoo": "4264.SR"
+    },
+    {
+      "symbol": "4265",
+      "name": "CHERRY",
+      "yahoo": "4265.SR"
+    },
+    {
+      "symbol": "4270",
+      "name": "SPPC",
+      "yahoo": "4270.SR"
+    },
+    {
+      "symbol": "4280",
+      "name": "KINGDOM",
+      "yahoo": "4280.SR"
+    },
+    {
+      "symbol": "4290",
+      "name": "ALKHALEEJ TRNG",
+      "yahoo": "4290.SR"
+    },
+    {
+      "symbol": "4291",
+      "name": "NCLE",
+      "yahoo": "4291.SR"
+    },
+    {
+      "symbol": "4292",
+      "name": "ATAA",
+      "yahoo": "4292.SR"
+    },
+    {
+      "symbol": "4300",
+      "name": "DAR ALARKAN",
+      "yahoo": "4300.SR"
+    },
+    {
+      "symbol": "4310",
+      "name": "KEC",
+      "yahoo": "4310.SR"
+    },
+    {
+      "symbol": "4320",
+      "name": "ALANDALUS",
+      "yahoo": "4320.SR"
+    },
+    {
+      "symbol": "4321",
+      "name": "CENOMI CENTERS",
+      "yahoo": "4321.SR"
+    },
+    {
+      "symbol": "4322",
+      "name": "RETAL",
+      "yahoo": "4322.SR"
+    },
+    {
+      "symbol": "4323",
+      "name": "SUMOU",
+      "yahoo": "4323.SR"
+    },
+    {
+      "symbol": "4324",
+      "name": "BANAN",
+      "yahoo": "4324.SR"
+    },
+    {
+      "symbol": "4325",
+      "name": "MASAR",
+      "yahoo": "4325.SR"
+    },
+    {
+      "symbol": "4326",
+      "name": "ALMAJDIAH",
+      "yahoo": "4326.SR"
+    },
+    {
+      "symbol": "4327",
+      "name": "ALRAMZ",
+      "yahoo": "4327.SR"
+    },
+    {
+      "symbol": "4330",
+      "name": "RIYAD REIT",
+      "yahoo": "4330.SR"
+    },
+    {
+      "symbol": "4331",
+      "name": "ALJAZIRA REIT",
+      "yahoo": "4331.SR"
+    },
+    {
+      "symbol": "4332",
+      "name": "JADWA REIT ALHARAMAIN",
+      "yahoo": "4332.SR"
+    },
+    {
+      "symbol": "4333",
+      "name": "TALEEM REIT",
+      "yahoo": "4333.SR"
+    },
+    {
+      "symbol": "4334",
+      "name": "AL MAATHER REIT",
+      "yahoo": "4334.SR"
+    },
+    {
+      "symbol": "4335",
+      "name": "MUSHARAKA REIT",
+      "yahoo": "4335.SR"
+    },
+    {
+      "symbol": "4336",
+      "name": "MULKIA REIT",
+      "yahoo": "4336.SR"
+    },
+    {
+      "symbol": "4337",
+      "name": "AL AZIZIAH REIT",
+      "yahoo": "4337.SR"
+    },
+    {
+      "symbol": "4338",
+      "name": "ALAHLI REIT 1",
+      "yahoo": "4338.SR"
+    },
+    {
+      "symbol": "4339",
+      "name": "DERAYAH REIT",
+      "yahoo": "4339.SR"
+    },
+    {
+      "symbol": "4340",
+      "name": "Al RAJHI REIT",
+      "yahoo": "4340.SR"
+    },
+    {
+      "symbol": "4342",
+      "name": "JADWA REIT SAUDI",
+      "yahoo": "4342.SR"
+    },
+    {
+      "symbol": "4344",
+      "name": "SEDCO CAPITAL REIT",
+      "yahoo": "4344.SR"
+    },
+    {
+      "symbol": "4345",
+      "name": "ALINMA RETAIL REIT",
+      "yahoo": "4345.SR"
+    },
+    {
+      "symbol": "4346",
+      "name": "MEFIC REIT",
+      "yahoo": "4346.SR"
+    },
+    {
+      "symbol": "4347",
+      "name": "BONYAN REIT",
+      "yahoo": "4347.SR"
+    },
+    {
+      "symbol": "4348",
+      "name": "ALKHABEER REIT",
+      "yahoo": "4348.SR"
+    },
+    {
+      "symbol": "4349",
+      "name": "ALINMA HOSPITALITY REIT",
+      "yahoo": "4349.SR"
+    },
+    {
+      "symbol": "4350",
+      "name": "ALISTITHMAR REIT",
+      "yahoo": "4350.SR"
+    },
+    {
+      "symbol": "4700",
+      "name": "ALKHABEER INCOME",
+      "yahoo": "4700.SR"
+    },
+    {
+      "symbol": "4701",
+      "name": "ALKHABEER GROWTH AND INCOME",
+      "yahoo": "4701.SR"
+    },
+    {
+      "symbol": "4702",
+      "name": "ALKHABEER INCOME 2030",
+      "yahoo": "4702.SR"
+    },
+    {
+      "symbol": "4703",
+      "name": "SEDCO MULTI ASSET",
+      "yahoo": "4703.SR"
+    },
+    {
+      "symbol": "5110",
+      "name": "SAUDI ENERGY",
+      "yahoo": "5110.SR"
+    },
+    {
+      "symbol": "6001",
+      "name": "HB",
+      "yahoo": "6001.SR"
+    },
+    {
+      "symbol": "6002",
+      "name": "HERFY FOODS",
+      "yahoo": "6002.SR"
+    },
+    {
+      "symbol": "6004",
+      "name": "CATRION",
+      "yahoo": "6004.SR"
+    },
+    {
+      "symbol": "6010",
+      "name": "NADEC",
+      "yahoo": "6010.SR"
+    },
+    {
+      "symbol": "6012",
+      "name": "RAYDAN",
+      "yahoo": "6012.SR"
+    },
+    {
+      "symbol": "6013",
+      "name": "DWF",
+      "yahoo": "6013.SR"
+    },
+    {
+      "symbol": "6014",
+      "name": "ALAMAR",
+      "yahoo": "6014.SR"
+    },
+    {
+      "symbol": "6015",
+      "name": "AMERICANA",
+      "yahoo": "6015.SR"
+    },
+    {
+      "symbol": "6016",
+      "name": "BURGERIZZR",
+      "yahoo": "6016.SR"
+    },
+    {
+      "symbol": "6017",
+      "name": "JAHEZ",
+      "yahoo": "6017.SR"
+    },
+    {
+      "symbol": "6018",
+      "name": "SPORT CLUBS",
+      "yahoo": "6018.SR"
+    },
+    {
+      "symbol": "6019",
+      "name": "ALMASAR ALSHAMIL",
+      "yahoo": "6019.SR"
+    },
+    {
+      "symbol": "6020",
+      "name": "GACO",
+      "yahoo": "6020.SR"
+    },
+    {
+      "symbol": "6040",
+      "name": "TADCO",
+      "yahoo": "6040.SR"
+    },
+    {
+      "symbol": "6050",
+      "name": "SFICO",
+      "yahoo": "6050.SR"
+    },
+    {
+      "symbol": "6060",
+      "name": "SHARQIYAH DEV",
+      "yahoo": "6060.SR"
+    },
+    {
+      "symbol": "6070",
+      "name": "ALJOUF",
+      "yahoo": "6070.SR"
+    },
+    {
+      "symbol": "6090",
+      "name": "JAZADCO",
+      "yahoo": "6090.SR"
+    },
+    {
+      "symbol": "7010",
+      "name": "STC",
+      "yahoo": "7010.SR"
+    },
+    {
+      "symbol": "7020",
+      "name": "ETIHAD ETISALAT",
+      "yahoo": "7020.SR"
+    },
+    {
+      "symbol": "7030",
+      "name": "ZAIN KSA",
+      "yahoo": "7030.SR"
+    },
+    {
+      "symbol": "7040",
+      "name": "GO TELECOM",
+      "yahoo": "7040.SR"
+    },
+    {
+      "symbol": "7200",
+      "name": "MIS",
+      "yahoo": "7200.SR"
+    },
+    {
+      "symbol": "7201",
+      "name": "ARAB SEA",
+      "yahoo": "7201.SR"
+    },
+    {
+      "symbol": "7202",
+      "name": "SOLUTIONS",
+      "yahoo": "7202.SR"
+    },
+    {
+      "symbol": "7203",
+      "name": "ELM",
+      "yahoo": "7203.SR"
+    },
+    {
+      "symbol": "7204",
+      "name": "2P",
+      "yahoo": "7204.SR"
+    },
+    {
+      "symbol": "7205",
+      "name": "DBS",
+      "yahoo": "7205.SR"
+    },
+    {
+      "symbol": "7211",
+      "name": "AZM",
+      "yahoo": "7211.SR"
+    },
+    {
+      "symbol": "8010",
+      "name": "TAWUNIYA",
+      "yahoo": "8010.SR"
+    },
+    {
+      "symbol": "8012",
+      "name": "JAZIRA TAKAFUL",
+      "yahoo": "8012.SR"
+    },
+    {
+      "symbol": "8020",
+      "name": "MALATH INSURANCE",
+      "yahoo": "8020.SR"
+    },
+    {
+      "symbol": "8030",
+      "name": "MEDGULF",
+      "yahoo": "8030.SR"
+    },
+    {
+      "symbol": "8040",
+      "name": "MUTAKAMELA",
+      "yahoo": "8040.SR"
+    },
+    {
+      "symbol": "8050",
+      "name": "SALAMA",
+      "yahoo": "8050.SR"
+    },
+    {
+      "symbol": "8060",
+      "name": "WALAA",
+      "yahoo": "8060.SR"
+    },
+    {
+      "symbol": "8070",
+      "name": "ARABIAN SHIELD",
+      "yahoo": "8070.SR"
+    },
+    {
+      "symbol": "8100",
+      "name": "SAICO",
+      "yahoo": "8100.SR"
+    },
+    {
+      "symbol": "8120",
+      "name": "GULF UNION ALAHLIA",
+      "yahoo": "8120.SR"
+    },
+    {
+      "symbol": "8150",
+      "name": "ACIG",
+      "yahoo": "8150.SR"
+    },
+    {
+      "symbol": "8160",
+      "name": "AICC",
+      "yahoo": "8160.SR"
+    },
+    {
+      "symbol": "8170",
+      "name": "ALETIHAD",
+      "yahoo": "8170.SR"
+    },
+    {
+      "symbol": "8180",
+      "name": "ALSAGR INSURANCE",
+      "yahoo": "8180.SR"
+    },
+    {
+      "symbol": "8190",
+      "name": "UCA",
+      "yahoo": "8190.SR"
+    },
+    {
+      "symbol": "8200",
+      "name": "SAUDI RE",
+      "yahoo": "8200.SR"
+    },
+    {
+      "symbol": "8210",
+      "name": "BUPA ARABIA",
+      "yahoo": "8210.SR"
+    },
+    {
+      "symbol": "8230",
+      "name": "ALRAJHI TAKAFUL",
+      "yahoo": "8230.SR"
+    },
+    {
+      "symbol": "8240",
+      "name": "CHUBB",
+      "yahoo": "8240.SR"
+    },
+    {
+      "symbol": "8250",
+      "name": "GIG",
+      "yahoo": "8250.SR"
+    },
+    {
+      "symbol": "8260",
+      "name": "GULF GENERAL",
+      "yahoo": "8260.SR"
+    },
+    {
+      "symbol": "8280",
+      "name": "LIVA",
+      "yahoo": "8280.SR"
+    },
+    {
+      "symbol": "8300",
+      "name": "WATANIYA",
+      "yahoo": "8300.SR"
+    },
+    {
+      "symbol": "8310",
+      "name": "AMANA INSURANCE",
+      "yahoo": "8310.SR"
+    },
+    {
+      "symbol": "8311",
+      "name": "ENAYA",
+      "yahoo": "8311.SR"
+    },
+    {
+      "symbol": "8313",
+      "name": "RASAN",
+      "yahoo": "8313.SR"
+    },
+    {
+      "symbol": "9300",
+      "name": "ALWAHA REIT",
+      "yahoo": "9300.SR"
+    },
+    {
+      "symbol": "9510",
+      "name": "NBM",
+      "yahoo": "9510.SR"
+    },
+    {
+      "symbol": "9513",
+      "name": "WATANI STEEL",
+      "yahoo": "9513.SR"
+    },
+    {
+      "symbol": "9514",
+      "name": "ALNAQOOL",
+      "yahoo": "9514.SR"
+    },
+    {
+      "symbol": "9515",
+      "name": "FESH FASH",
+      "yahoo": "9515.SR"
+    },
+    {
+      "symbol": "9516",
+      "name": "NGDC",
+      "yahoo": "9516.SR"
+    },
+    {
+      "symbol": "9517",
+      "name": "MOBI INDUSTRY",
+      "yahoo": "9517.SR"
+    },
+    {
+      "symbol": "9521",
+      "name": "INMAR",
+      "yahoo": "9521.SR"
+    },
+    {
+      "symbol": "9522",
+      "name": "ALHASOOB",
+      "yahoo": "9522.SR"
+    },
+    {
+      "symbol": "9523",
+      "name": "GROUP FIVE",
+      "yahoo": "9523.SR"
+    },
+    {
+      "symbol": "9524",
+      "name": "AICTEC",
+      "yahoo": "9524.SR"
+    },
+    {
+      "symbol": "9527",
+      "name": "AME",
+      "yahoo": "9527.SR"
+    },
+    {
+      "symbol": "9530",
+      "name": "TIBBIYAH",
+      "yahoo": "9530.SR"
+    },
+    {
+      "symbol": "9532",
+      "name": "HILWA",
+      "yahoo": "9532.SR"
+    },
+    {
+      "symbol": "9533",
+      "name": "SPC",
+      "yahoo": "9533.SR"
+    },
+    {
+      "symbol": "9535",
+      "name": "LADUN",
+      "yahoo": "9535.SR"
+    },
+    {
+      "symbol": "9536",
+      "name": "FADECO",
+      "yahoo": "9536.SR"
+    },
+    {
+      "symbol": "9537",
+      "name": "AMWAJ INTERNATIONAL",
+      "yahoo": "9537.SR"
+    },
+    {
+      "symbol": "9538",
+      "name": "NASEEJ TECH",
+      "yahoo": "9538.SR"
+    },
+    {
+      "symbol": "9539",
+      "name": "AQASEEM",
+      "yahoo": "9539.SR"
+    },
+    {
+      "symbol": "9540",
+      "name": "TADWEEER",
+      "yahoo": "9540.SR"
+    },
+    {
+      "symbol": "9541",
+      "name": "ACADEMY OF LEARNING",
+      "yahoo": "9541.SR"
+    },
+    {
+      "symbol": "9542",
+      "name": "KEIR",
+      "yahoo": "9542.SR"
+    },
+    {
+      "symbol": "9543",
+      "name": "NETWORKERS",
+      "yahoo": "9543.SR"
+    },
+    {
+      "symbol": "9544",
+      "name": "FUTURE CARE",
+      "yahoo": "9544.SR"
+    },
+    {
+      "symbol": "9545",
+      "name": "ALDAWLIAH",
+      "yahoo": "9545.SR"
+    },
+    {
+      "symbol": "9546",
+      "name": "NABA ALSAHA",
+      "yahoo": "9546.SR"
+    },
+    {
+      "symbol": "9547",
+      "name": "RAWASI",
+      "yahoo": "9547.SR"
+    },
+    {
+      "symbol": "9548",
+      "name": "APICO",
+      "yahoo": "9548.SR"
+    },
+    {
+      "symbol": "9549",
+      "name": "ALBABTAIN FOOD",
+      "yahoo": "9549.SR"
+    },
+    {
+      "symbol": "9550",
+      "name": "SURE",
+      "yahoo": "9550.SR"
+    },
+    {
+      "symbol": "9551",
+      "name": "KNOWLEDGE TOWER",
+      "yahoo": "9551.SR"
+    },
+    {
+      "symbol": "9552",
+      "name": "SAUDI TOP",
+      "yahoo": "9552.SR"
+    },
+    {
+      "symbol": "9553",
+      "name": "MOLAN",
+      "yahoo": "9553.SR"
+    },
+    {
+      "symbol": "9555",
+      "name": "LEEN ALKHAIR",
+      "yahoo": "9555.SR"
+    },
+    {
+      "symbol": "9557",
+      "name": "EDARAT",
+      "yahoo": "9557.SR"
+    },
+    {
+      "symbol": "9558",
+      "name": "ALQEMAM",
+      "yahoo": "9558.SR"
+    },
+    {
+      "symbol": "9559",
+      "name": "BALADY",
+      "yahoo": "9559.SR"
+    },
+    {
+      "symbol": "9560",
+      "name": "WAJA",
+      "yahoo": "9560.SR"
+    },
+    {
+      "symbol": "9561",
+      "name": "KNOWLEDGENET",
+      "yahoo": "9561.SR"
+    },
+    {
+      "symbol": "9562",
+      "name": "FOOD GATE",
+      "yahoo": "9562.SR"
+    },
+    {
+      "symbol": "9563",
+      "name": "BENA",
+      "yahoo": "9563.SR"
+    },
+    {
+      "symbol": "9564",
+      "name": "HORIZON FOOD",
+      "yahoo": "9564.SR"
+    },
+    {
+      "symbol": "9565",
+      "name": "MEYAR",
+      "yahoo": "9565.SR"
+    },
+    {
+      "symbol": "9566",
+      "name": "LIME INDUSTRIES",
+      "yahoo": "9566.SR"
+    },
+    {
+      "symbol": "9567",
+      "name": "GHIDA ALSULTAN",
+      "yahoo": "9567.SR"
+    },
+    {
+      "symbol": "9568",
+      "name": "MAYAR",
+      "yahoo": "9568.SR"
+    },
+    {
+      "symbol": "9569",
+      "name": "ALMUNEEF",
+      "yahoo": "9569.SR"
+    },
+    {
+      "symbol": "9570",
+      "name": "TAM DEVELOPMENT",
+      "yahoo": "9570.SR"
+    },
+    {
+      "symbol": "9571",
+      "name": "MUNAWLA",
+      "yahoo": "9571.SR"
+    },
+    {
+      "symbol": "9572",
+      "name": "ALRAZI",
+      "yahoo": "9572.SR"
+    },
+    {
+      "symbol": "9574",
+      "name": "PRO MEDEX",
+      "yahoo": "9574.SR"
+    },
+    {
+      "symbol": "9575",
+      "name": "MARBLE DESIGN",
+      "yahoo": "9575.SR"
+    },
+    {
+      "symbol": "9576",
+      "name": "PAPER HOME",
+      "yahoo": "9576.SR"
+    },
+    {
+      "symbol": "9577",
+      "name": "DAR ALMARKABAH",
+      "yahoo": "9577.SR"
+    },
+    {
+      "symbol": "9578",
+      "name": "ATLAS ELEVATORS",
+      "yahoo": "9578.SR"
+    },
+    {
+      "symbol": "9579",
+      "name": "IOUD",
+      "yahoo": "9579.SR"
+    },
+    {
+      "symbol": "9580",
+      "name": "ALRASHID INDUSTRIAL",
+      "yahoo": "9580.SR"
+    },
+    {
+      "symbol": "9581",
+      "name": "CLEAN LIFE",
+      "yahoo": "9581.SR"
+    },
+    {
+      "symbol": "9583",
+      "name": "UNITED MINING",
+      "yahoo": "9583.SR"
+    },
+    {
+      "symbol": "9584",
+      "name": "RIYAL",
+      "yahoo": "9584.SR"
+    },
+    {
+      "symbol": "9585",
+      "name": "MULKIA",
+      "yahoo": "9585.SR"
+    },
+    {
+      "symbol": "9586",
+      "name": "OSOOL AND BAKHEET",
+      "yahoo": "9586.SR"
+    },
+    {
+      "symbol": "9587",
+      "name": "LANA",
+      "yahoo": "9587.SR"
+    },
+    {
+      "symbol": "9588",
+      "name": "RIYADH STEEL",
+      "yahoo": "9588.SR"
+    },
+    {
+      "symbol": "9589",
+      "name": "FAD",
+      "yahoo": "9589.SR"
+    },
+    {
+      "symbol": "9590",
+      "name": "ARMAH",
+      "yahoo": "9590.SR"
+    },
+    {
+      "symbol": "9591",
+      "name": "VIEW",
+      "yahoo": "9591.SR"
+    },
+    {
+      "symbol": "9592",
+      "name": "ALMUJTAMA MEDICAL",
+      "yahoo": "9592.SR"
+    },
+    {
+      "symbol": "9593",
+      "name": "PAN GULF",
+      "yahoo": "9593.SR"
+    },
+    {
+      "symbol": "9594",
+      "name": "ALMODAWAT",
+      "yahoo": "9594.SR"
+    },
+    {
+      "symbol": "9595",
+      "name": "WSM",
+      "yahoo": "9595.SR"
+    },
+    {
+      "symbol": "9596",
+      "name": "QUARA",
+      "yahoo": "9596.SR"
+    },
+    {
+      "symbol": "9597",
+      "name": "LEAF",
+      "yahoo": "9597.SR"
+    },
+    {
+      "symbol": "9598",
+      "name": "ALMOHAFAZA FOR EDUCATION",
+      "yahoo": "9598.SR"
+    },
+    {
+      "symbol": "9599",
+      "name": "TAQAT",
+      "yahoo": "9599.SR"
+    },
+    {
+      "symbol": "9600",
+      "name": "QOMEL",
+      "yahoo": "9600.SR"
+    },
+    {
+      "symbol": "9601",
+      "name": "ALRASHEED",
+      "yahoo": "9601.SR"
+    },
+    {
+      "symbol": "9602",
+      "name": "YAQEEN",
+      "yahoo": "9602.SR"
+    },
+    {
+      "symbol": "9603",
+      "name": "HORIZON EDUCATIONAL",
+      "yahoo": "9603.SR"
+    },
+    {
+      "symbol": "9604",
+      "name": "MIRAL",
+      "yahoo": "9604.SR"
+    },
+    {
+      "symbol": "9605",
+      "name": "NEFT ALSHARQ",
+      "yahoo": "9605.SR"
+    },
+    {
+      "symbol": "9606",
+      "name": "THARWAH",
+      "yahoo": "9606.SR"
+    },
+    {
+      "symbol": "9607",
+      "name": "ASG",
+      "yahoo": "9607.SR"
+    },
+    {
+      "symbol": "9608",
+      "name": "ALASHGHAL ALMOYSRA",
+      "yahoo": "9608.SR"
+    },
+    {
+      "symbol": "9609",
+      "name": "NAAS PETROL",
+      "yahoo": "9609.SR"
+    },
+    {
+      "symbol": "9610",
+      "name": "FIRST AVENUE",
+      "yahoo": "9610.SR"
+    },
+    {
+      "symbol": "9611",
+      "name": "UFG",
+      "yahoo": "9611.SR"
+    },
+    {
+      "symbol": "9612",
+      "name": "SAMA WATER",
+      "yahoo": "9612.SR"
+    },
+    {
+      "symbol": "9613",
+      "name": "SHALFA",
+      "yahoo": "9613.SR"
+    },
+    {
+      "symbol": "9614",
+      "name": "PURITY",
+      "yahoo": "9614.SR"
+    },
+    {
+      "symbol": "9615",
+      "name": "MUFEED",
+      "yahoo": "9615.SR"
+    },
+    {
+      "symbol": "9616",
+      "name": "JANA",
+      "yahoo": "9616.SR"
+    },
+    {
+      "symbol": "9617",
+      "name": "ARABICA STAR",
+      "yahoo": "9617.SR"
+    },
+    {
+      "symbol": "9618",
+      "name": "ALFAKHERA",
+      "yahoo": "9618.SR"
+    },
+    {
+      "symbol": "9619",
+      "name": "MULTI BUSINESS",
+      "yahoo": "9619.SR"
+    },
+    {
+      "symbol": "9620",
+      "name": "BALSM MEDICAL",
+      "yahoo": "9620.SR"
+    },
+    {
+      "symbol": "9621",
+      "name": "DRC",
+      "yahoo": "9621.SR"
+    },
+    {
+      "symbol": "9622",
+      "name": "SMC",
+      "yahoo": "9622.SR"
+    },
+    {
+      "symbol": "9623",
+      "name": "ALBATTAL FACTORY",
+      "yahoo": "9623.SR"
+    },
+    {
+      "symbol": "9624",
+      "name": "ALSHEHILI METAL",
+      "yahoo": "9624.SR"
+    },
+    {
+      "symbol": "9625",
+      "name": "ITMAM",
+      "yahoo": "9625.SR"
+    },
+    {
+      "symbol": "9626",
+      "name": "SMILE CARE",
+      "yahoo": "9626.SR"
+    },
+    {
+      "symbol": "9627",
+      "name": "TMC",
+      "yahoo": "9627.SR"
+    },
+    {
+      "symbol": "9628",
+      "name": "LAMASAT",
+      "yahoo": "9628.SR"
+    },
+    {
+      "symbol": "9630",
+      "name": "RATIO",
+      "yahoo": "9630.SR"
+    },
+    {
+      "symbol": "9631",
+      "name": "HKC",
+      "yahoo": "9631.SR"
+    },
+    {
+      "symbol": "9632",
+      "name": "FUTURE VISION",
+      "yahoo": "9632.SR"
+    },
+    {
+      "symbol": "9633",
+      "name": "SERVICE EQUIPMENT",
+      "yahoo": "9633.SR"
+    },
+    {
+      "symbol": "9634",
+      "name": "ADEER",
+      "yahoo": "9634.SR"
+    },
+    {
+      "symbol": "9635",
+      "name": "DKHOUN",
+      "yahoo": "9635.SR"
+    },
+    {
+      "symbol": "9636",
+      "name": "ALKUZAMA",
+      "yahoo": "9636.SR"
+    },
+    {
+      "symbol": "9637",
+      "name": "AXELERATED SOLUTIONS",
+      "yahoo": "9637.SR"
+    },
+    {
+      "symbol": "9639",
+      "name": "ANMAT",
+      "yahoo": "9639.SR"
+    },
+    {
+      "symbol": "9640",
+      "name": "ASAS MAKEEN",
+      "yahoo": "9640.SR"
+    },
+    {
+      "symbol": "9641",
+      "name": "HAWYIA",
+      "yahoo": "9641.SR"
+    },
+    {
+      "symbol": "9642",
+      "name": "TIME",
+      "yahoo": "9642.SR"
+    },
+    {
+      "symbol": "9644",
+      "name": "NAF",
+      "yahoo": "9644.SR"
+    },
+    {
+      "symbol": "9645",
+      "name": "SIGN WORLD",
+      "yahoo": "9645.SR"
+    },
+    {
+      "symbol": "9647",
+      "name": "WAJD LIFE",
+      "yahoo": "9647.SR"
+    },
+    {
+      "symbol": "9648",
+      "name": "HAMAD BIN SAEDAN REAL ESTATE",
+      "yahoo": "9648.SR"
+    },
+    {
+      "symbol": "9649",
+      "name": "JAMJOOM FASHION",
+      "yahoo": "9649.SR"
+    },
+    {
+      "symbol": "9650",
+      "name": "SAHAT ALMAJD",
+      "yahoo": "9650.SR"
+    },
+    {
+      "symbol": "9651",
+      "name": "ALTWIJRI",
+      "yahoo": "9651.SR"
+    },
+    {
+      "symbol": "9653",
+      "name": "KDL",
+      "yahoo": "9653.SR"
+    }
+  ],
+  "main_market_yahoo_tickers": [
+    "1010.SR",
+    "1020.SR",
+    "1030.SR",
+    "1050.SR",
+    "1060.SR",
+    "1080.SR",
+    "1111.SR",
+    "1120.SR",
+    "1140.SR",
+    "1150.SR",
+    "1180.SR",
+    "1182.SR",
+    "1183.SR",
+    "1201.SR",
+    "1202.SR",
+    "1210.SR",
+    "1211.SR",
+    "1212.SR",
+    "1213.SR",
+    "1214.SR",
+    "1301.SR",
+    "1302.SR",
+    "1303.SR",
+    "1304.SR",
+    "1320.SR",
+    "1321.SR",
+    "1322.SR",
+    "1323.SR",
+    "1324.SR",
+    "1810.SR",
+    "1820.SR",
+    "1830.SR",
+    "1831.SR",
+    "1832.SR",
+    "1833.SR",
+    "1834.SR",
+    "1835.SR",
+    "2001.SR",
+    "2010.SR",
+    "2020.SR",
+    "2030.SR",
+    "2040.SR",
+    "2050.SR",
+    "2060.SR",
+    "2070.SR",
+    "2080.SR",
+    "2081.SR",
+    "2082.SR",
+    "2083.SR",
+    "2084.SR",
+    "2090.SR",
+    "2100.SR",
+    "2110.SR",
+    "2120.SR",
+    "2130.SR",
+    "2140.SR",
+    "2150.SR",
+    "2160.SR",
+    "2170.SR",
+    "2180.SR",
+    "2190.SR",
+    "2200.SR",
+    "2210.SR",
+    "2220.SR",
+    "2222.SR",
+    "2223.SR",
+    "2230.SR",
+    "2240.SR",
+    "2250.SR",
+    "2270.SR",
+    "2280.SR",
+    "2281.SR",
+    "2282.SR",
+    "2283.SR",
+    "2284.SR",
+    "2285.SR",
+    "2286.SR",
+    "2287.SR",
+    "2288.SR",
+    "2290.SR",
+    "2300.SR",
+    "2310.SR",
+    "2320.SR",
+    "2330.SR",
+    "2340.SR",
+    "2350.SR",
+    "2360.SR",
+    "2370.SR",
+    "2380.SR",
+    "2381.SR",
+    "2382.SR",
+    "3002.SR",
+    "3003.SR",
+    "3004.SR",
+    "3005.SR",
+    "3007.SR",
+    "3008.SR",
+    "3010.SR",
+    "3020.SR",
+    "3030.SR",
+    "3040.SR",
+    "3050.SR",
+    "3060.SR",
+    "3080.SR",
+    "3090.SR",
+    "3091.SR",
+    "3092.SR",
+    "4001.SR",
+    "4002.SR",
+    "4003.SR",
+    "4004.SR",
+    "4005.SR",
+    "4006.SR",
+    "4007.SR",
+    "4008.SR",
+    "4009.SR",
+    "4011.SR",
+    "4012.SR",
+    "4013.SR",
+    "4014.SR",
+    "4015.SR",
+    "4016.SR",
+    "4017.SR",
+    "4018.SR",
+    "4019.SR",
+    "4020.SR",
+    "4021.SR",
+    "4030.SR",
+    "4031.SR",
+    "4040.SR",
+    "4050.SR",
+    "4051.SR",
+    "4061.SR",
+    "4070.SR",
+    "4071.SR",
+    "4072.SR",
+    "4080.SR",
+    "4081.SR",
+    "4082.SR",
+    "4083.SR",
+    "4084.SR",
+    "4090.SR",
+    "4100.SR",
+    "4110.SR",
+    "4130.SR",
+    "4140.SR",
+    "4141.SR",
+    "4142.SR",
+    "4143.SR",
+    "4144.SR",
+    "4145.SR",
+    "4146.SR",
+    "4147.SR",
+    "4148.SR",
+    "4150.SR",
+    "4160.SR",
+    "4161.SR",
+    "4162.SR",
+    "4163.SR",
+    "4164.SR",
+    "4165.SR",
+    "4170.SR",
+    "4180.SR",
+    "4190.SR",
+    "4191.SR",
+    "4192.SR",
+    "4193.SR",
+    "4194.SR",
+    "4200.SR",
+    "4210.SR",
+    "4220.SR",
+    "4230.SR",
+    "4240.SR",
+    "4250.SR",
+    "4260.SR",
+    "4261.SR",
+    "4262.SR",
+    "4263.SR",
+    "4264.SR",
+    "4265.SR",
+    "4270.SR",
+    "4280.SR",
+    "4290.SR",
+    "4291.SR",
+    "4292.SR",
+    "4300.SR",
+    "4310.SR",
+    "4320.SR",
+    "4321.SR",
+    "4322.SR",
+    "4323.SR",
+    "4324.SR",
+    "4325.SR",
+    "4326.SR",
+    "4327.SR",
+    "4330.SR",
+    "4331.SR",
+    "4332.SR",
+    "4333.SR",
+    "4334.SR",
+    "4335.SR",
+    "4336.SR",
+    "4337.SR",
+    "4338.SR",
+    "4339.SR",
+    "4340.SR",
+    "4342.SR",
+    "4344.SR",
+    "4345.SR",
+    "4346.SR",
+    "4347.SR",
+    "4348.SR",
+    "4349.SR",
+    "4350.SR",
+    "5110.SR",
+    "6001.SR",
+    "6002.SR",
+    "6004.SR",
+    "6010.SR",
+    "6012.SR",
+    "6013.SR",
+    "6014.SR",
+    "6015.SR",
+    "6016.SR",
+    "6017.SR",
+    "6018.SR",
+    "6019.SR",
+    "6020.SR",
+    "6040.SR",
+    "6050.SR",
+    "6060.SR",
+    "6070.SR",
+    "6090.SR",
+    "7010.SR",
+    "7020.SR",
+    "7030.SR",
+    "7040.SR",
+    "7200.SR",
+    "7201.SR",
+    "7202.SR",
+    "7203.SR",
+    "7204.SR",
+    "7205.SR",
+    "7211.SR",
+    "8010.SR",
+    "8012.SR",
+    "8020.SR",
+    "8030.SR",
+    "8040.SR",
+    "8050.SR",
+    "8060.SR",
+    "8070.SR",
+    "8100.SR",
+    "8120.SR",
+    "8150.SR",
+    "8160.SR",
+    "8170.SR",
+    "8180.SR",
+    "8190.SR",
+    "8200.SR",
+    "8210.SR",
+    "8230.SR",
+    "8240.SR",
+    "8250.SR",
+    "8260.SR",
+    "8280.SR",
+    "8300.SR",
+    "8310.SR",
+    "8311.SR",
+    "8313.SR"
+  ]
+}

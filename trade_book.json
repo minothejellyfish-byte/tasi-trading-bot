@@ -1,0 +1,167 @@
+{
+  "version": "2.0",
+  "rebuilt_at": "2026-06-09T03:40:48.189388+03:00",
+  "source": "derayah-api",
+  "trades": [
+    {
+      "timestamp": "2026-06-08T10:48:03",
+      "symbol": "2130",
+      "side": "BUY",
+      "qty": 12,
+      "price": 15.78,
+      "order_id": 23,
+      "fees": 0.09,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T11:08:05",
+      "symbol": "2130",
+      "side": "SELL",
+      "qty": 12,
+      "price": 15.75,
+      "order_id": 24,
+      "fees": 0.09,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T11:38:37",
+      "symbol": "2285",
+      "side": "BUY",
+      "qty": 4,
+      "price": 47.5,
+      "order_id": 25,
+      "fees": 0.1,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:03:41",
+      "symbol": "2285",
+      "side": "SELL",
+      "qty": 4,
+      "price": 47.24,
+      "order_id": 26,
+      "fees": 0.09,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:03:58",
+      "symbol": "4008",
+      "side": "BUY",
+      "qty": 6,
+      "price": 24.28,
+      "order_id": 27,
+      "fees": 0.07,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:08:41",
+      "symbol": "4008",
+      "side": "SELL",
+      "qty": 6,
+      "price": 24.5,
+      "order_id": 28,
+      "fees": 0.07,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:18:59",
+      "symbol": "4008",
+      "side": "BUY",
+      "qty": 8,
+      "price": 24.56,
+      "order_id": 29,
+      "fees": 0.1,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:23:51",
+      "symbol": "4008",
+      "side": "SELL",
+      "qty": 8,
+      "price": 24.56,
+      "order_id": 30,
+      "fees": 0.1,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:28:57",
+      "symbol": "4008",
+      "side": "BUY",
+      "qty": 6,
+      "price": 24.2,
+      "order_id": 31,
+      "fees": 0.07,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:28:59",
+      "symbol": "4008",
+      "side": "BUY",
+      "qty": 5,
+      "price": 24.2,
+      "order_id": 32,
+      "fees": 0.06,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:34:01",
+      "symbol": "4008",
+      "side": "SELL",
+      "qty": 5,
+      "price": 23.95,
+      "order_id": 33,
+      "fees": 0.06,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:39:06",
+      "symbol": "4008",
+      "side": "BUY",
+      "qty": 4,
+      "price": 23.88,
+      "order_id": 34,
+      "fees": 0.05,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:44:09",
+      "symbol": "4008",
+      "side": "SELL",
+      "qty": 4,
+      "price": 23.72,
+      "order_id": 35,
+      "fees": 0.05,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T12:44:10",
+      "symbol": "4008",
+      "side": "SELL",
+      "qty": 4,
+      "price": 23.72,
+      "order_id": 36,
+      "fees": 0.05,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T14:19:50",
+      "symbol": "2110",
+      "side": "BUY",
+      "qty": 1,
+      "price": 169.4,
+      "order_id": 37,
+      "fees": 0.08,
+      "source": "derayah-api"
+    },
+    {
+      "timestamp": "2026-06-08T14:24:52",
+      "symbol": "2110",
+      "side": "SELL",
+      "qty": 1,
+      "price": 169.6,
+      "order_id": 38,
+      "fees": 0.08,
+      "source": "derayah-api"
+    }
+  ]
+}

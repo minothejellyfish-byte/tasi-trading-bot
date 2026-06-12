@@ -1,0 +1,16 @@
+{
+  "date": "2026-06-10",
+  "mode": "premarket",
+  "picks": [
+    {
+      "ticker": "4325.SR",
+      "entry_low": 15.84,
+      "entry_high": 16.77,
+      "stop_loss": 15.44,
+      "score": 156.9,
+      "rsi": 58.6,
+      "vol_ratio": 2.07,
+      "close": 16.6,
+      "trend_pct": 1.18,
+      "higher_lows": true,
+      "near_breakout": 

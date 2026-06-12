@@ -1,0 +1,9 @@
+Log Summary: backtest.log
+Generated: 2026-06-02T04:00:31.223556
+Lines: 4
+Errors: 0
+Warnings: 0
+First entry: 2026-05-24 00:49:07,779 [INFO] Backtesting conserv
+Last entry: 2026-05-24 00:51:45,318 [INFO] conservative for 20
+
+Key Events:

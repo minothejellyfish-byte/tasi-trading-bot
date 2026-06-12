@@ -1,0 +1,147 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-24T03:37:33.906981",
+  "results": {
+    "previous": {
+      "name": "Previous System (v3.2)",
+      "qualified_picks": 2,
+      "hit_trades": 0,
+      "missed_trades": 2,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 7.39,
+      "trades": [
+        {
+          "symbol": "4280.SR",
+          "score": 115.7,
+          "entry": 10.63,
+          "open": 11.5,
+          "close": 12.35,
+          "pnl": 0,
+          "chase_pnl": 7.39,
+          "hit": false,
+          "note": "Gapped: entry 10.63, open 11.50"
+        },
+        {
+          "symbol": "4190.SR",
+          "score": 103.9,
+          "entry": 15.55,
+          "open": 15.73,
+          "close": 15.73,
+          "pnl": 0,
+          "chase_pnl": 0.0,
+          "hit": false,
+          "note": "Gapped: entry 15.55, open 15.73"
+        }
+      ]
+    },
+    "current": {
+      "name": "Current System (v4.0)",
+      "qualified_picks": 3,
+      "hit_trades": 0,
+      "missed_trades": 3,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 8.73,
+      "trades": [
+        {
+          "symbol": "4280.SR",
+          "score": 115.7,
+          "entry": 10.63,
+          "open": 11.5,
+          "close": 12.35,
+          "pnl": 0,
+          "chase_pnl": 7.39,
+          "hit": false,
+          "note": "Gapped: entry 10.63, open 11.50"
+        },
+        {
+          "symbol": "4190.SR",
+          "score": 103.9,
+          "entry": 15.55,
+          "open": 15.73,
+          "close": 15.73,
+          "pnl": 0,
+          "chase_pnl": 0.0,
+          "hit": false,
+          "note": "Gapped: entry 15.55, open 15.73"
+        },
+        {
+          "symbol": "2280.SR",
+          "score": 93.3,
+          "entry": 43.31,
+          "open": 44.8,
+          "close": 45.4,
+          "pnl": 0,
+          "chase_pnl": 1.34,
+          "hit": false,
+          "note": "Gapped: entry 43.31, open 44.80"
+        }
+      ]
+    },
+    "optimized": {
+      "name": "Optimized (v4.0+)",
+      "qualified_picks": 4,
+      "hit_trades": 0,
+      "missed_trades": 4,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 8.91,
+      "trades": [
+        {
+          "symbol": "4280.SR",
+          "score": 115.7,
+          "entry": 10.58,
+          "open": 11.5,
+          "close": 12.35,
+          "pnl": 0,
+          "chase_pnl": 7.39,
+          "hit": false,
+          "note": "Gapped: entry 10.58, open 11.50"
+        },
+        {
+          "symbol": "4190.SR",
+          "score": 103.9,
+          "entry": 15.47,
+          "open": 15.73,
+          "close": 15.73,
+          "pnl": 0,
+          "chase_pnl": 0.0,
+          "hit": false,
+          "note": "Gapped: entry 15.47, open 15.73"
+        },
+        {
+          "symbol": "2280.SR",
+          "score": 93.3,
+          "entry": 43.09,
+          "open": 44.8,
+          "close": 45.4,
+          "pnl": 0,
+          "chase_pnl": 1.34,
+          "hit": false,
+          "note": "Gapped: entry 43.09, open 44.80"
+        },
+        {
+          "symbol": "7010.SR",
+          "score": 79.7,
+          "entry": 43.31,
+          "open": 43.82,
+          "close": 43.9,
+          "pnl": 0,
+          "chase_pnl": 0.18,
+          "hit": false,
+          "note": "Gapped: entry 43.31, open 43.82"
+        }
+      ]
+    }
+  }
+}

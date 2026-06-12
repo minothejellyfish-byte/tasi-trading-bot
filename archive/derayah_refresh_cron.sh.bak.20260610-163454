@@ -1,0 +1,166 @@
+#!/bin/bash
+# =============================================================================
+# Derayah Session Refresh Cron Script
+# =============================================================================
+# Phase 2: Proactive token refresh every 50 minutes
+# Uses SSO navigation (reliable) instead of API refresh (fails with invalid_client)
+#
+# Created: 2026-06-08 per TASI_SESSION_MIGRATION_PLAN_v4.2
+# Updated: 2026-06-09 — switched to SSO navigation
+# =============================================================================
+
+set -euo pipefail
+
+SCRIPT_DIR="/home/mino/tasi-exec"
+LOG_FILE="/home/mino/tasi-exec/refresh_cron.log"
+TOKEN_FILE="/home/mino/tasi-exec/derayah_tokens.json"
+
+# ─── Logging ──────────────────────────────────────────────────────────────────
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') $1" | tee -a "$LOG_FILE"
+}
+
+# ─── Phase 2: Refresh Session via SSO ────────────────────────────────────────
+refresh_session() {
+    log "Starting SSO session refresh..."
+    
+    cd "$SCRIPT_DIR"
+    
+    # Use Python script for SSO refresh
+    python3 -c "
+import sys
+sys.path.insert(0, '/home/mino/tasi-exec')
+from derayah_session_manager import SessionManager, SSO_ENDPOINT
+import json, requests, time
+
+sm = SessionManager()
+
+# Load current tokens
+with open('/home/mino/tasi-exec/derayah_tokens.json') as f:
+    tokens = json.load(f)
+
+access_token = tokens['Derayah_accesstoken']
+
+# Get SSO URL with current access token
+headers = {
+    'Authorization': f'Bearer {access_token}',
+    'Accept': 'application/json'
+}
+
+resp = requests.get(SSO_ENDPOINT, headers=headers, timeout=10, allow_redirects=False)
+
+if resp.status_code != 200:
+    print(f'❌ SSO URL failed: {resp.status_code}')
+    sys.exit(1)
+
+data = resp.json()
+sso_url = data.get('data', '')
+
+if not sso_url:
+    print('❌ Empty SSO URL')
+    sys.exit(1)
+
+print(f'✅ SSO URL acquired ({len(sso_url)} chars)')
+
+# Navigate TC tab to SSO URL
+sm._navigate_tc_to_sso(sso_url)
+print('✅ TC tab navigated to SSO URL')
+
+# Wait for navigation to complete
+time.sleep(5)
+
+# Capture new tokens
+new_tokens = sm.capture_tokens()
+tc_len = len(new_tokens.get('TC_DERAYAH', ''))
+access_len = len(new_tokens.get('Derayah_accesstoken', ''))
+
+print(f'✅ Tokens captured — TC: {tc_len} chars, Access: {access_len} chars')
+" 2>> "$LOG_FILE"
+    
+    if [ $? -eq 0 ]; then
+        log "✅ Session refresh completed successfully"
+        return 0
+    else
+        log "❌ SSO refresh failed — entering Phase 3 recovery"
+        return 1
+    fi
+}
+
+# ─── Phase 3: Recovery ─────────────────────────────────────────────────────
+recovery() {
+    log "Phase 3: Recovery started"
+    
+    # Check if captcha is present
+    if python3 -c "
+import requests, sys
+resp = requests.get('https://onboarding.derayah.com/#/signin', timeout=10)
+if 'recaptcha' in resp.text.lower() or 'captcha' in resp.text.lower():
+    print('CAPTCHA detected')
+    sys.exit(1)
+" 2>/dev/null; then
+        log "⚠️ CAPTCHA detected — aborting auto-recovery"
+    else
+        log "No CAPTCHA — would attempt auto-OTP (2 attempts)"
+    fi
+    
+    # Notify user
+    log "🚨 Notifying user — manual login needed"
+    
+    # Send Telegram notification
+    BOT_TOKEN="898953…VYQU"
+    CHAT_ID="-5235925419"
+    MESSAGE="⚠️%20Derayah%20Session%20Refresh%20Failed%0AAuto-recovery%20not%20available.%0APlease%20run%20/Login%20after%20manual%20login."
+    curl -s "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${MESSAGE}&parse_mode=HTML" >/dev/null 2>&1 || true
+    
+    return 1
+}
+
+# ─── CDP Recovery ────────────────────────────────────────────────────────────
+# If Chrome/CDP is down, clear stuck lock and restart Chrome
+ensure_chrome() {
+    if curl -s "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+        return 0  # already up
+    fi
+
+    log "CDP not accessible — attempting Chrome auto-restart"
+    PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
+
+    # Clear stale lock files (Chrome IPC requires this after a hard kill)
+    rm -f "$PROFILE_DIR/SingletonLock" "$PROFILE_DIR/DevToolsActivePort" 2>/dev/null || true
+
+    # Start Chrome via the blueprint script
+    if bash /home/mino/tasi-exec/start-chrome.sh; then
+        log "✅ Chrome auto-restarted"
+        return 0
+    else
+        log "❌ Chrome auto-restart failed"
+        return 1
+    fi
+}
+
+# ─── Main ────────────────────────────────────────────────────────────────────
+main() {
+    log "=== Derayah Refresh Cron (SSO Navigation) ==="
+    
+    # Check if token file exists
+    if [[ ! -f "$TOKEN_FILE" ]]; then
+        log "❌ Token file not found — run /Login first"
+        exit 1
+    fi
+    
+    # Check if CDP is accessible — if not, try to bring Chrome back
+    if ! curl -s "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+        if ! ensure_chrome; then
+            log "❌ CDP not accessible — Chrome auto-restart failed"
+            exit 1
+        fi
+    fi
+    
+    # Perform refresh
+    if ! refresh_session; then
+        recovery
+        exit 1
+    fi
+}
+
+main "$@"

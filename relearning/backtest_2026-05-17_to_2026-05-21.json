@@ -1,0 +1,27 @@
+{
+  "week": "2026-05-17_to_2026-05-21",
+  "generated": "2026-05-23T23:31:59.630263",
+  "approaches": {
+    "Conservative": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "avg_pnl": 0,
+      "win_rate": 0,
+      "trades": []
+    },
+    "Aggressive": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "avg_pnl": 0,
+      "win_rate": 0,
+      "trades": []
+    },
+    "Optimized": {
+      "total_pnl": 0,
+      "num_trades": 0,
+      "avg_pnl": 0,
+      "win_rate": 0,
+      "trades": []
+    }
+  }
+}

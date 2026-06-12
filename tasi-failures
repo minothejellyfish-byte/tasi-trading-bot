@@ -1,0 +1,5 @@
+#!/bin/bash
+# Quick failure report command
+# Usage: tasi-failures
+
+python3 /home/mino/tasi-exec/auto_coder_consult.py report

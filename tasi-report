@@ -1,0 +1,34 @@
+#!/bin/bash
+# TASI Failure Report Commands
+# Usage: tasi-report [monitor|report|clear]
+
+case "${1:-monitor}" in
+    monitor)
+        echo "🔍 Monitoring TASI logs for failures..."
+        python3 /home/mino/tasi-exec/auto_coder_consult.py monitor
+        EXIT_CODE=$?
+        if [ $EXIT_CODE -eq 0 ]; then
+            # No failures — exit silently (no notification)
+            exit 0
+        else
+            # Failures detected — generate detailed report
+            echo ""
+            echo "🚨 ISSUES DETECTED — Generating detailed report..."
+            echo ""
+            python3 /home/mino/tasi-exec/auto_coder_consult.py report
+            exit 1
+        fi
+        ;;
+    report)
+        echo "📊 Generating failure report..."
+        python3 /home/mino/tasi-exec/auto_coder_consult.py report
+        ;;
+    clear)
+        echo "🗑️ Clearing failure log..."
+        python3 /home/mino/tasi-exec/auto_coder_consult.py clear
+        ;;
+    *)
+        echo "Usage: tasi-report [monitor|report|clear]"
+        exit 1
+        ;;
+esac

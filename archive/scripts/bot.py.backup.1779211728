@@ -1,0 +1,806 @@
+#!/usr/bin/env python3
+"""
+TASI Execution Bot
+Listens to the TASI Execution Telegram group and places orders on Derayah.
+"""
+
+import asyncio
+import base64
+import logging
+import re
+import json
+import os
+import subprocess
+import threading
+import time
+from datetime import datetime, timezone
+import pytz
+import yfinance as yf
+from telegram import Update, Bot
+from telegram.ext import Application, MessageHandler, filters, ContextTypes
+from playwright.async_api import async_playwright
+import derayah_api
+
+# ─── Config ──────────────────────────────────────────────────────────────────
+
+BOT_TOKEN     = "8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU"
+GROUP_CHAT_ID = -5235925419
+OWNER_ID      = 5529987063
+MINO_BOT_ID   = 8612182758  # Mino's bot — also allowed to send commands
+
+DERAYAH_URL   = "https://newonline.derayah.com/#/layout/dashboard"
+CDP_URL       = "http://127.0.0.1:18801"
+PORTFOLIO_ID  = "2063853"
+CHROMIUM_CMD  = [
+    "/snap/bin/chromium",
+    "--remote-debugging-port=18801",
+    "--user-data-dir=/home/mino/snap/chromium/common/openclaw-profile",
+    "--no-first-run", "--disable-sync", "--no-default-browser-check",
+    "--proxy-server=socks5://localhost:1080",
+]
+
+LOG_FILE       = "/home/mino/tasi-exec/exec.log"
+POSITIONS_FILE = "/home/mino/tasi-exec/positions.json"
+RIYADH         = pytz.timezone("Asia/Riyadh")
+
+# ─── Logging ─────────────────────────────────────────────────────────────────
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    level=logging.INFO,
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler(),
+    ]
+)
+log = logging.getLogger(__name__)
+
+# ─── State ───────────────────────────────────────────────────────────────────
+
+browser_context = None
+page = None
+
+def _load_positions() -> dict:
+    if not os.path.exists(POSITIONS_FILE):
+        return {}
+    with open(POSITIONS_FILE) as f:
+        return json.load(f)
+
+def _save_positions(pos: dict):
+    with open(POSITIONS_FILE, "w") as f:
+        json.dump(pos, f, indent=2)
+
+DERAYAH_LIVE    = True    # Derayah real-time subscription active
+SELECTOR_FILE   = "/home/mino/tasi-exec/selector_map.json"
+TC_URL          = "derayah.tickerchart.net"  # Derayah Trade tab (TickerChart)
+
+# SlickGrid scroll map — built once per process lifetime on first cache miss
+_TC_SCROLL_MAP: dict = {}   # {base_symbol: scroll_top_px}
+_TC_SCROLL_MAP_BUILT = False
+
+_FALLBACK_SELECTORS = [
+    "[class*='last-price']", "[class*='lastPrice']",
+    "[class*='current-price']", "[class*='currentPrice']",
+    "[data-field='lastPrice']", "[data-field='last']",
+    ".price-value", ".ag-cell-value",
+]
+
+def _load_confirmed_selector() -> str | None:
+    try:
+        if os.path.exists(SELECTOR_FILE):
+            with open(SELECTOR_FILE) as f:
+                sel = json.load(f).get("selector")
+            if sel:
+                return sel
+    except Exception:
+        pass
+    return None
+
+_TC_VP_SELECTOR = (
+    ".slick-viewport-top.slick-viewport-left, "
+    ".slick-viewport-top, .slick-viewport"
+)
+
+_TC_READ_JS = """(base) => {
+    const rows = document.querySelectorAll('.slick-row');
+    for (const row of rows) {
+        const sym = row.querySelector('.slick-cell.symbol');
+        if (sym && sym.textContent.trim() === base) {
+            const last = row.querySelector('.slick-cell.last');
+            return last ? last.textContent.trim() : null;
+        }
+    }
+    return null;
+}"""
+
+async def _tc_build_scroll_map(pg) -> dict:
+    """Scan full SlickGrid to build {symbol: scroll_top_px}. Runs once per session."""
+    scroll_map = {}
+    for sp in range(0, 7500, 200):
+        await pg.evaluate(f"""() => {{
+            const vps = document.querySelectorAll('{_TC_VP_SELECTOR}');
+            for (const vp of vps) if (vp.scrollHeight > 500) vp.scrollTop = {sp};
+        }}""")
+        await pg.wait_for_timeout(80)
+        syms = await pg.evaluate("""() =>
+            [...document.querySelectorAll('.slick-row')].map(r => {
+                const s = r.querySelector('.slick-cell.symbol');
+                return s ? s.textContent.trim() : null;
+            }).filter(Boolean)
+        """)
+        for sym in syms:
+            if sym and sym not in scroll_map:
+                scroll_map[sym] = sp
+    await pg.evaluate(f"""() => {{
+        const vps = document.querySelectorAll('{_TC_VP_SELECTOR}');
+        for (const vp of vps) if (vp.scrollHeight > 500) vp.scrollTop = 0;
+    }}""")
+    return scroll_map
+
+
+async def _tc_price(symbol: str) -> float | None:
+    """
+    Read live price from the TickerChart SlickGrid DOM.
+    Fast path: visible rows (no interaction).
+    Fallback: scroll to symbol's row via cached scroll map, read, restore.
+    """
+    global _TC_SCROLL_MAP, _TC_SCROLL_MAP_BUILT
+    try:
+        pw  = await async_playwright().start()
+        br  = await pw.chromium.connect_over_cdp(CDP_URL, timeout=3000)
+        ctx = br.contexts[0]
+        pg  = next((p for p in ctx.pages if TC_URL in p.url), None)
+        if not pg:
+            return None
+
+        base = symbol.replace(".SR", "")
+
+        # Fast path — already visible
+        price_str = await pg.evaluate(_TC_READ_JS, base)
+        if price_str:
+            val = float(price_str.replace(",", ""))
+            if val > 0:
+                log.info(f"TC price {base}: {val} (visible)")
+                return val
+
+        # Build scroll map once on first cache miss
+        if not _TC_SCROLL_MAP_BUILT:
+            _TC_SCROLL_MAP = await _tc_build_scroll_map(pg)
+            _TC_SCROLL_MAP_BUILT = True
+            log.info(f"TC scroll map built: {len(_TC_SCROLL_MAP)} symbols")
+
+        sp = _TC_SCROLL_MAP.get(base)
+        if sp is None:
+            return None
+
+        # Save current scroll position
+        orig = await pg.evaluate(f"""() => {{
+            const vps = document.querySelectorAll('{_TC_VP_SELECTOR}');
+            for (const vp of vps) if (vp.scrollHeight > 500) return vp.scrollTop;
+            return 0;
+        }}""")
+
+        # Scroll to symbol's row, read, restore
+        await pg.evaluate(f"""() => {{
+            const vps = document.querySelectorAll('{_TC_VP_SELECTOR}');
+            for (const vp of vps) if (vp.scrollHeight > 500) vp.scrollTop = {sp};
+        }}""")
+        await pg.wait_for_timeout(100)
+
+        price_str = await pg.evaluate(_TC_READ_JS, base)
+
+        await pg.evaluate(f"""() => {{
+            const vps = document.querySelectorAll('{_TC_VP_SELECTOR}');
+            for (const vp of vps) if (vp.scrollHeight > 500) vp.scrollTop = {orig};
+        }}""")
+
+        if price_str:
+            val = float(price_str.replace(",", ""))
+            if val > 0:
+                log.info(f"TC price {base}: {val} (scroll={sp})")
+                return val
+        return None
+    except Exception as e:
+        log.debug(f"_tc_price {symbol}: {e}")
+        return None
+
+async def _derayah_price_async(symbol: str) -> float | None:
+    """
+    Scrape live price from the open Derayah browser tab.
+    Uses confirmed selector from selector_map.json if available,
+    falls back to built-in list otherwise.
+    """
+    try:
+        pw  = await async_playwright().start()
+        br  = await pw.chromium.connect_over_cdp(CDP_URL, timeout=3000)
+        ctx = br.contexts[0]
+        pg  = next((p for p in ctx.pages if "derayah.com" in p.url), None)
+        if not pg:
+            return None
+
+        base = symbol.replace(".SR", "")
+        target = f"https://newonline.derayah.com/#/layout/market-watch?symbol={base}"
+        try:
+            await pg.goto(target, wait_until="domcontentloaded", timeout=6000)
+            await pg.wait_for_timeout(2000)
+        except Exception:
+            pass
+
+        confirmed = _load_confirmed_selector()
+        selectors = ([confirmed] if confirmed else []) + _FALLBACK_SELECTORS
+
+        for sel in selectors:
+            try:
+                for el in await pg.query_selector_all(sel):
+                    text = (await el.inner_text()).strip().replace(",", "")
+                    try:
+                        val = float(text)
+                        if 5.0 < val < 5000.0:
+                            log.info(f"Derayah live {symbol}: {val} (selector: {sel})")
+                            return val
+                    except ValueError:
+                        pass
+            except Exception:
+                pass
+
+        log.warning(f"Derayah scraper: no price for {symbol} — run map_selectors.py 1010 at 10:00")
+        return None
+    except Exception as e:
+        log.warning(f"derayah_price {symbol}: {e}")
+        return None
+
+def fetch_last_price(symbol: str) -> float | None:
+    """
+    Best-effort current price. Priority:
+    1. Derayah Trade tab (TickerChart — live, no navigation)
+    2. Derayah online tab (live scrape, navigates to market-watch)
+    3. yfinance (~15-min delayed)
+    """
+    # 1. TickerChart — fastest, real-time
+    try:
+        price = asyncio.run(_tc_price(symbol))
+        if price:
+            return price
+    except Exception as e:
+        log.debug(f"TC price failed: {e}")
+
+    # 2. Derayah live scrape
+    if DERAYAH_LIVE:
+        try:
+            price = asyncio.run(_derayah_price_async(symbol))
+            if price:
+                log.info(f"fill price {symbol}: {price:.2f} (Derayah live)")
+                return price
+        except Exception as e:
+            log.warning(f"Derayah fill lookup failed: {e}")
+
+    # 3. yfinance
+    try:
+        ticker_sym = symbol if "." in symbol else f"{symbol}.SR"
+        df = yf.Ticker(ticker_sym).history(period="1d", interval="1m")
+        if not df.empty:
+            price = float(df["Close"].iloc[-1])
+            log.info(f"fill price {symbol}: {price:.2f} (yfinance ~15-min delayed)")
+            return price
+    except Exception as e:
+        log.warning(f"fetch_last_price yfinance {symbol}: {e}")
+    return None
+
+def record_buy(symbol: str, qty: int, price: float):
+    source = "limit"
+    if price == 0.0:
+        # MARKET order — use yfinance last price as fill proxy (~15-min delayed)
+        fetched = fetch_last_price(symbol)
+        if fetched:
+            log.info(f"MARKET fill proxy for {symbol}: {fetched:.2f} (yfinance last)")
+            price = fetched
+            source = "market-proxy"
+        else:
+            log.warning(f"Could not fetch fill price for {symbol} — entry_price will be 0")
+            source = "unknown"
+
+    pos = _load_positions()
+    pos[symbol] = {
+        "symbol":       symbol,
+        "entry_price":  price,
+        "qty":          qty,
+        "entry_time":   datetime.now(RIYADH).isoformat(),
+        "peak_price":   price,
+        "closed":       False,
+        "close_price":  None,
+        "close_time":   None,
+        "price_source": source,
+    }
+    _save_positions(pos)
+    log.info(f"Position opened: {symbol} qty={qty} entry={price} source={source}")
+
+def record_sell(symbol: str, price: float):
+    pos = _load_positions()
+    if symbol in pos:
+        pos[symbol]["closed"]      = True
+        pos[symbol]["close_price"] = price
+        pos[symbol]["close_time"]  = datetime.now(RIYADH).isoformat()
+        _save_positions(pos)
+        log.info(f"Position closed: {symbol} exit={price}")
+
+# ─── Security ────────────────────────────────────────────────────────────────
+
+def is_authorized(update: Update) -> bool:
+    msg = update.message
+    if msg.chat_id != GROUP_CHAT_ID:
+        return False
+    if msg.from_user and msg.from_user.id == OWNER_ID:
+        return True
+    # Allow Mino bot relayed commands (via_bot or forward)
+    if msg.via_bot and msg.via_bot.id == MINO_BOT_ID:
+        return True
+    return False
+
+# ─── Command Parsing ─────────────────────────────────────────────────────────
+
+def parse_command(text: str):
+    """
+    Accepted formats:
+      BUY 1010 100 @ 45.50       → limit buy
+      BUY 1010 100 MARKET        → market buy
+      SELL 1010 100 @ 45.50      → limit sell
+      SELL 1010 100 MARKET       → market sell
+      STATUS                     → show positions
+      CANCEL                     → cancel all pending orders
+      CLOSE ALL                  → market sell all positions
+    Returns dict or None.
+    """
+    text = text.strip().upper()
+
+    if text in ("STATUS",):
+        return {"action": "STATUS"}
+
+    if text in ("CANCEL", "CANCEL ALL"):
+        return {"action": "CANCEL"}
+
+    if text in ("CLOSE ALL", "CLOSE"):
+        return {"action": "CLOSE_ALL"}
+
+    # BUY/SELL with limit price
+    m = re.match(r'^(BUY|SELL)\s+(\w+)\s+(\d+)\s+@\s*([\d.]+)$', text)
+    if m:
+        return {
+            "action": m.group(1),
+            "symbol": m.group(2),
+            "qty":    int(m.group(3)),
+            "price":  float(m.group(4)),
+            "type":   "LIMIT",
+        }
+
+    # BUY/SELL at market
+    m = re.match(r'^(BUY|SELL)\s+(\w+)\s+(\d+)\s+MARKET$', text)
+    if m:
+        return {
+            "action": m.group(1),
+            "symbol": m.group(2),
+            "qty":    int(m.group(3)),
+            "type":   "MARKET",
+        }
+
+    return None
+
+# ─── Derayah Browser Automation ──────────────────────────────────────────────
+
+async def ensure_page():
+    """Attach to running Chromium via CDP, auto-starting it if needed."""
+    global browser_context, page
+    if page is not None:
+        try:
+            await page.title()
+            return page
+        except Exception:
+            page = None
+
+    pw = await async_playwright().start()
+    try:
+        browser = await pw.chromium.connect_over_cdp(CDP_URL, timeout=3000)
+    except Exception:
+        log.info("CDP unreachable — starting Chromium")
+        env = {**os.environ, "DISPLAY": ":0"}
+        subprocess.Popen(CHROMIUM_CMD, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        await asyncio.sleep(4)
+        browser = await pw.chromium.connect_over_cdp(CDP_URL, timeout=8000)
+
+    contexts = browser.contexts
+    ctx = contexts[0] if contexts else await browser.new_context()
+    browser_context = ctx
+
+    pages = ctx.pages
+    derayah_page = None
+    for p in pages:
+        if "derayah.com" in p.url:
+            derayah_page = p
+            break
+
+    if derayah_page is None:
+        derayah_page = await ctx.new_page()
+        await derayah_page.goto(DERAYAH_URL, wait_until="networkidle")
+
+    page = derayah_page
+    return page
+
+async def place_order(symbol: str, action: str, qty: int, price_type: str, price: float = None) -> str:
+    """Place an order via Derayah REST API. Returns a result message."""
+    try:
+        side       = derayah_api.SIDE_BUY  if action == "BUY"    else derayah_api.SIDE_SELL
+        order_type = derayah_api.TYPE_MARKET if price_type == "MARKET" else derayah_api.TYPE_LIMIT
+        resp = await derayah_api.place_order(symbol, side, qty, order_type, price or 0.0)
+        if resp.get("isSuccess"):
+            order_id  = (resp.get("data") or {}).get("orderId", "?")
+            price_str = "Market" if price_type == "MARKET" else f"{price} SAR"
+            return f"✅ {action} {qty} × {symbol} @ {price_str} — orderId={order_id}"
+        else:
+            err = resp.get("message") or resp.get("errorMessage") or str(resp)
+            return f"❌ Order rejected: {err}"
+    except Exception as e:
+        log.error(f"place_order error: {e}")
+        return f"❌ Order failed: {e}"
+
+async def cancel_all_orders() -> str:
+    """Cancel all open/pending orders via Derayah REST API."""
+    try:
+        orders = await derayah_api.get_orders()
+        # Pending statuses: 1=pending, 2=partial — anything not terminal
+        TERMINAL = {3, 4, 5, 6, 7, 8}   # filled, cancelled, rejected, expired, etc.
+        pending  = [o for o in orders if o.get("orderStatusId") not in TERMINAL]
+        if not pending:
+            return "✅ No outstanding orders to cancel."
+
+        cancelled, failed = 0, 0
+        for o in pending:
+            oid = o.get("orderId")
+            try:
+                resp = await derayah_api.cancel_order(oid)
+                if resp.get("isSuccess"):
+                    cancelled += 1
+                else:
+                    failed += 1
+                    log.warning(f"cancel_all: orderId={oid} → {resp.get('message','')}")
+            except Exception as e:
+                failed += 1
+                log.warning(f"cancel_all: orderId={oid} exception: {e}")
+
+        parts = [f"✅ Cancelled {cancelled} order(s)."]
+        if failed:
+            parts.append(f"⚠️ {failed} failed.")
+        return " ".join(parts)
+    except Exception as e:
+        log.error(f"cancel_all_orders: {e}")
+        return f"❌ Cancel failed: {e}"
+
+
+async def get_status() -> str:
+    try:
+        p = await ensure_page()
+        await p.bring_to_front()
+        await p.goto("https://newonline.derayah.com/#/layout/trading-portfolio", wait_until="domcontentloaded", timeout=8000)
+        await p.wait_for_timeout(2500)
+        content = await p.inner_text("body")
+        lines = [l.strip() for l in content.splitlines() if l.strip()]
+
+        # Load local positions
+        pos = _load_positions()
+        open_pos = {k: v for k, v in pos.items() if not v.get("closed")}
+
+        result_lines = [f"📊 Open positions: {len(open_pos)}"]
+        for sym, data in open_pos.items():
+            entry = data.get("entry_price", 0)
+            qty = data.get("qty", 0)
+            result_lines.append(f"  {sym}: {qty} shares @ {entry:.2f}")
+
+        for i, line in enumerate(lines):
+            if "Grand Total" in line or "Total Cash" in line or "Buying Power" in line:
+                result_lines.append(lines[i] + ": " + (lines[i+1] if i+1 < len(lines) else ""))
+                break
+
+        result_lines.append(f"Session: {'LOGGED IN ✅' if 'newonline.derayah.com' in p.url else 'LOGGED OUT ❌'}")
+        return "\n".join(result_lines)
+    except Exception as e:
+        return f"❌ Status error: {e}"
+
+# ─── Telegram Handler ─────────────────────────────────────────────────────────
+
+async def handle_message(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if not update.message or not update.message.text:
+        return
+
+    msg = update.message
+    log.info(f"Received from chat={msg.chat_id} user={msg.from_user.id if msg.from_user else 'none'} text={msg.text!r}")
+
+    if not is_authorized(update):
+        log.info(f"Rejected: chat={msg.chat_id} expected={GROUP_CHAT_ID} user={msg.from_user.id if msg.from_user else 'none'}")
+        return
+
+    text = update.message.text.strip()
+    log.info(f"Command received: {text}")
+
+    cmd = parse_command(text)
+    if cmd is None:
+        await update.message.reply_text(
+            "❓ Unknown command.\n"
+            "Use: BUY/SELL SYMBOL QTY @ PRICE  or  BUY/SELL SYMBOL QTY MARKET\n"
+            "Also: STATUS | CANCEL | CLOSE ALL"
+        )
+        return
+
+    await update.message.reply_text("⏳ Processing...")
+
+    action = cmd["action"]
+
+    if action == "STATUS":
+        result = await get_status()
+    elif action == "CANCEL":
+        result = await cancel_all_orders()
+    elif action == "CLOSE_ALL":
+        result = "⚠️ CLOSE ALL: not yet implemented — sell positions manually on Derayah."
+    elif action in ("BUY", "SELL"):
+        result = await place_order(
+            symbol=cmd["symbol"],
+            action=action,
+            qty=cmd["qty"],
+            price_type=cmd["type"],
+            price=cmd.get("price"),
+        )
+        if result.startswith("✅"):
+            price = cmd.get("price", 0.0) or 0.0
+            sym = cmd["symbol"]
+            if action == "BUY":
+                record_buy(sym, cmd["qty"], price)
+            else:
+                record_sell(sym, price)
+    else:
+        result = "❓ Unknown action."
+
+    log.info(f"Result: {result}")
+    await update.message.reply_text(result)
+
+    # Forward order results to Amin's DM when command came from EXEC group.
+    # Always forward so Amin sees confirmation/failure without watching EXEC group.
+    if action in ("BUY", "SELL") and msg.chat_id == GROUP_CHAT_ID:
+        try:
+            bot_inst = ctx.bot
+            await bot_inst.send_message(chat_id=OWNER_ID, text=result)
+        except Exception as e:
+            log.warning(f"DM forward failed: {e}")
+
+# ─── Derayah session keepalive ───────────────────────────────────────────────
+
+KEEPALIVE_INTERVAL = 15 * 60   # 15 min — Derayah sessions time out at ~30 min idle
+DERAYAH_DASHBOARD  = "https://newonline.derayah.com/#/layout/dashboard"
+OWNER_CHAT_ID      = GROUP_CHAT_ID  # alerts go to exec group (bot can't DM users directly)
+
+CREDS_FILE = "/home/mino/tasi-exec/derayah_creds.json"
+
+def _load_creds() -> dict | None:
+    try:
+        if os.path.exists(CREDS_FILE):
+            with open(CREDS_FILE) as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return None
+
+async def _derayah_login(page) -> bool:
+    """Attempt auto-login using stored credentials. Returns True if successful."""
+    creds = _load_creds()
+    if not creds:
+        log.warning("Auto-login: no creds file found at derayah_creds.json")
+        return False
+    try:
+        login_url = "https://onboarding.derayah.com/#/signin"
+        await page.goto(login_url, wait_until="domcontentloaded", timeout=10000)
+        await page.wait_for_timeout(2000)
+
+        # National ID field
+        nid = page.locator("input[placeholder*='National'], input[formcontrolname*='national'], input[formcontrolname*='username'], input[type='text']").first
+        await nid.wait_for(state="visible", timeout=5000)
+        await nid.fill(str(creds["national_id"]))
+        await page.wait_for_timeout(400)
+
+        # Password field
+        pwd = page.locator("input[type='password']").first
+        await pwd.fill(str(creds["password"]))
+        await page.wait_for_timeout(400)
+
+        # Submit
+        btn = page.locator("button[type='submit'], button:has-text('Login'), button:has-text('Sign In'), button:has-text('تسجيل')").first
+        await btn.click(timeout=4000)
+        await page.wait_for_timeout(4000)
+
+        # Check if we landed on the app (not still on signin)
+        if "onboarding.derayah.com" in page.url and "signin" in page.url:
+            # Might need OTP — alert owner
+            log.warning("Auto-login: stopped at OTP/2FA step — manual intervention needed")
+            bot_inst = Bot(token=BOT_TOKEN)
+            await bot_inst.send_message(
+                chat_id=OWNER_CHAT_ID,
+                text="⚠️ <b>Derayah session expired</b>\nAuto-login started but stopped at OTP/2FA.\nPlease complete login manually at https://newonline.derayah.com",
+                parse_mode="HTML",
+            )
+            return False
+
+        log.info("Auto-login: success — navigating to trading portfolio")
+        await page.goto("https://newonline.derayah.com/#/layout/trading-portfolio",
+                        wait_until="domcontentloaded", timeout=10000)
+        await page.wait_for_timeout(5000)   # let TC iframe load and open its tab
+        return True
+    except Exception as e:
+        log.warning(f"Auto-login failed: {e}")
+        return False
+
+async def _keepalive_once():
+    """Keep Derayah sessions alive. Navigates newonline tab + pings REST API."""
+    pw = None
+    try:
+        pw      = await async_playwright().start()
+        browser = await pw.chromium.connect_over_cdp(CDP_URL, timeout=4000)
+        ctx     = browser.contexts[0]
+        pages   = ctx.pages
+
+        # ── 1. newonline.derayah.com — navigate to dashboard (reliable refresh) ──
+        # Silent fetch/HEAD is not enough; server needs a real page request to reset
+        # the cookie session timer. We no longer do DOM automation here so navigation
+        # is safe.
+        derayah = next((p for p in pages if "newonline.derayah.com" in p.url), None)
+        if derayah:
+            if "onboarding.derayah.com" in derayah.url or "signin" in derayah.url:
+                log.warning("Derayah online: session expired — attempting auto-login")
+                ok = await _derayah_login(derayah)
+                if not ok:
+                    bot_inst = Bot(token=BOT_TOKEN)
+                    await bot_inst.send_message(
+                        chat_id=OWNER_CHAT_ID,
+                        text="⚠️ <b>Derayah online session expired</b>\nPlease log in again:\nhttps://newonline.derayah.com",
+                        parse_mode="HTML",
+                    )
+            else:
+                await derayah.goto(DERAYAH_DASHBOARD, wait_until="domcontentloaded", timeout=10000)
+                log.info("Derayah online keepalive: dashboard navigation OK")
+        else:
+            log.warning("Derayah online: no tab open — opening new tab and logging in")
+            new_tab = await ctx.new_page()
+            await new_tab.goto(DERAYAH_DASHBOARD, wait_until="domcontentloaded", timeout=10000)
+            await new_tab.wait_for_timeout(2000)
+            if "onboarding.derayah.com" in new_tab.url or "signin" in new_tab.url:
+                log.warning("Derayah online: new tab hit signin — attempting auto-login")
+                ok = await _derayah_login(new_tab)
+                if not ok:
+                    bot_inst = Bot(token=BOT_TOKEN)
+                    await bot_inst.send_message(
+                        chat_id=OWNER_CHAT_ID,
+                        text="⚠️ <b>Derayah auto-login failed</b>\nOTP/2FA required — please log in manually:\nhttps://newonline.derayah.com",
+                        parse_mode="HTML",
+                    )
+            else:
+                log.info("Derayah online: new tab opened, session restored — navigating to trading portfolio")
+                await new_tab.goto("https://newonline.derayah.com/#/layout/trading-portfolio",
+                                   wait_until="domcontentloaded", timeout=10000)
+                await new_tab.wait_for_timeout(5000)
+            pages = ctx.pages  # refresh page list after new tab
+
+        # ── 2. TickerChart tab — check session is live ───────────────────────
+        # Do NOT reload — that kills the WebSocket price stream used by poller.py
+        tc = next((p for p in pages if TC_URL in p.url), None)
+        if tc:
+            try:
+                logged_out = await tc.evaluate("""() => {
+                    const b = document.body.innerText.substring(0, 200).toLowerCase();
+                    return b.includes('login') || b.includes('sign in') || b.includes('username');
+                }""")
+                if logged_out:
+                    log.warning("TC: trading session expired — manual login needed")
+                    bot_inst = Bot(token=BOT_TOKEN)
+                    await bot_inst.send_message(
+                        chat_id=OWNER_CHAT_ID,
+                        text="⚠️ <b>Derayah Trade session expired</b>\nPlease log in on the Trade tab.",
+                        parse_mode="HTML",
+                    )
+                else:
+                    log.info("TC keepalive: session OK")
+            except Exception as e:
+                log.warning(f"TC keepalive check error: {e}")
+        else:
+            log.info("TC keepalive: tab not open (skipped)")
+
+        # ── 3. TC tab JWT — re-open via 'Derayah Trade' click if expiring ───
+        tc = next((p for p in ctx.pages if TC_URL in p.url), None)
+        needs_refresh = False
+        if tc:
+            try:
+                token = await tc.evaluate(
+                    "() => JSON.parse(localStorage.getItem('TC_DERAYAH')||'{}').token || ''"
+                )
+                if token:
+                    parts = token.split(".")
+                    if len(parts) == 3:
+                        pad = parts[1] + "=" * (-len(parts[1]) % 4)
+                        exp = json.loads(base64.urlsafe_b64decode(pad.encode())).get("exp", 0)
+                        if exp - time.time() < 300:
+                            needs_refresh = True
+                else:
+                    needs_refresh = True  # no token at all
+            except Exception as e:
+                log.warning(f"TC JWT expiry check: {e}")
+        else:
+            needs_refresh = True  # TC tab not open
+
+        if needs_refresh:
+            try:
+                log.info("TC tab: JWT expiring/missing — re-opening via Derayah Trade click")
+                derayah_pg = next((p for p in ctx.pages if "newonline.derayah.com" in p.url), None)
+                if derayah_pg:
+                    # Close old TC tab if present
+                    if tc:
+                        await tc.close()
+                    # Click 'Derayah Trade' from the parent page — triggers proper auth handshake
+                    await derayah_pg.evaluate("""() => {
+                        const link = Array.from(document.querySelectorAll('a.nav-link'))
+                            .find(e => e.textContent.trim() === 'Derayah Trade');
+                        if (link) link.click();
+                    }""")
+                    # Wait for TC tab to open and authenticate
+                    for _ in range(25):
+                        await derayah_pg.wait_for_timeout(1000)
+                        tc_pages = [p for p in ctx.pages if TC_URL in p.url]
+                        if tc_pages:
+                            new_tok = await tc_pages[0].evaluate(
+                                "() => JSON.parse(localStorage.getItem('TC_DERAYAH')||'{}').token || ''"
+                            )
+                            if new_tok:
+                                derayah_api.invalidate_token()
+                                log.info("TC tab: re-opened with fresh JWT")
+                                break
+                    else:
+                        log.warning("TC tab: re-open timed out — no fresh JWT after 25s")
+            except Exception as e:
+                log.warning(f"TC tab re-open error: {e}")
+
+        # ── 4. REST API ping — keeps the JWT session alive ───────────────────
+        try:
+            await derayah_api.get_orders()
+            log.info("REST API keepalive: JWT valid")
+        except Exception as e:
+            log.warning(f"REST API keepalive: JWT ping failed: {e}")
+
+    except Exception as e:
+        log.warning(f"Keepalive error: {e}")
+    finally:
+        if pw:
+            try:
+                await pw.stop()
+            except Exception:
+                pass
+
+
+def _keepalive_thread():
+    """Background thread — refreshes Derayah every 15 min forever."""
+    time.sleep(10)   # wait for bot to fully start first
+    while True:
+        try:
+            asyncio.run(_keepalive_once())
+        except Exception as e:
+            log.warning(f"Keepalive thread error: {e}")
+        time.sleep(KEEPALIVE_INTERVAL)
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
+def main():
+    log.info("TASI Execution Bot starting...")
+
+    # Start Derayah session keepalive in background
+    t = threading.Thread(target=_keepalive_thread, daemon=True)
+    t.start()
+    log.info(f"Session keepalive started — refreshing Derayah every {KEEPALIVE_INTERVAL//60} min")
+
+    app = Application.builder().token(BOT_TOKEN).build()
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    log.info(f"Listening on group {GROUP_CHAT_ID}")
+    app.run_polling(allowed_updates=["message"])
+
+if __name__ == "__main__":
+    main()

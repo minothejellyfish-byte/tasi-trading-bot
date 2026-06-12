@@ -1,0 +1,19 @@
+{
+  "available_capital": 978.21,
+  "updated_at": "2026-06-12T14:55:06.874630+03:00",
+  "source": "derayah-30min-refresh",
+  "grand_total": 978.21,
+  "securities_value": 0,
+  "invested": 0,
+  "money_transfer": 978.21,
+  "total_fees": 0,
+  "cash_breakdown": {
+    "total_cash": 978.21,
+    "money_transfer": 978.21,
+    "cash_accounts": 0
+  },
+  "equity": 0,
+  "booked": 0,
+  "cash_3bucket": 978.21,
+  "total_3bucket": 978.21
+}

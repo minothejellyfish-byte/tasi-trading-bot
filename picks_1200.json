@@ -1,0 +1,72 @@
+{
+  "date": "2026-06-11",
+  "mode": "midscreen2",
+  "window": "11:00-12:00",
+  "picks": [
+    {
+      "symbol": "8280.SR",
+      "entry_high": 10.92,
+      "entry_low": 10.61,
+      "score": 75,
+      "pm_metrics": {
+        "change_pct": 9.05,
+        "range_pct": 9.05,
+        "ticks": 462
+      },
+      "tier": "midscreen",
+      "source": "midscreen2"
+    },
+    {
+      "symbol": "4280.SR",
+      "entry_high": 13.98,
+      "entry_low": 13.18,
+      "score": 72.9,
+      "pm_metrics": {
+        "change_pct": 4.79,
+        "range_pct": 5.45,
+        "ticks": 562
+      },
+      "tier": "midscreen",
+      "source": "midscreen2"
+    },
+    {
+      "symbol": "1321.SR",
+      "entry_high": 212.42,
+      "entry_low": 203.29,
+      "score": 58.3,
+      "pm_metrics": {
+        "change_pct": 3.33,
+        "range_pct": 3.9,
+        "ticks": 414
+      },
+      "tier": "midscreen",
+      "source": "midscreen2"
+    },
+    {
+      "symbol": "8180.SR",
+      "entry_high": 11.42,
+      "entry_low": 11.11,
+      "score": 53.4,
+      "pm_metrics": {
+        "change_pct": 2.84,
+        "range_pct": 3.56,
+        "ticks": 275
+      },
+      "tier": "midscreen",
+      "source": "midscreen2"
+    },
+    {
+      "symbol": "8240.SR",
+      "entry_high": 19.26,
+      "entry_low": 18.58,
+      "score": 49.1,
+      "pm_metrics": {
+        "change_pct": 2.41,
+        "range_pct": 3.14,
+        "ticks": 309
+      },
+      "tier": "midscreen",
+      "source": "midscreen2"
+    }
+  ]
+}
