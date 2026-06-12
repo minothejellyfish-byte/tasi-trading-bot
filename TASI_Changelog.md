@@ -202,3 +202,39 @@
 
 **Owner:** Mino + A A
 **Next Update:** After next system change
+
+## v4.3.5 — 2026-06-12 22:12 KSA
+
+### Added: Ship/Show/Ask Change Control System
+- Git initialized in tasi-exec (282 files tracked, 3.3MB)
+- `.ASK_REQUIRED` file created — 3-tier classification system
+- Read-only permissions (`chmod 444`) on 8 critical files
+- Pre-commit hook — blocks commits to ASK files
+- Integrity monitor — hourly checksum comparison + Telegram alerts
+- Auto-backup wrapper — timestamped backups before every edit
+- Hourly cron job for integrity monitoring
+- SOUL.md updated with hard-coded change control rules
+
+### Purpose
+Prevent unauthorized code changes after Jun 11–12 tab explosion incident.
+
+### Enforcement Barriers
+| # | Barrier | Status |
+|---|---------|--------|
+| 1 | `.ASK_REQUIRED` file | ✅ Active |
+| 2 | Git pre-commit hook | ✅ Active |
+| 3 | File permissions (444) | ✅ Active |
+| 4 | Integrity monitor | ✅ Active |
+| 5 | Telegram alerts | ✅ Active |
+| 6 | Auto-backup | ✅ Active |
+| 7 | SOUL.md rules | ✅ Active |
+| 8 | Change request template | ✅ Active |
+
+### Affected Files
+- `.ASK_REQUIRED`
+- `.git/hooks/pre-commit`
+- `.integrity_monitor.sh`
+- `.file_baseline.sha256`
+- `backups/.backup_before_edit.sh`
+- `SOUL.md` (workspace)
+
