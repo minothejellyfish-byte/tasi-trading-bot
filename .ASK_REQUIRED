@@ -39,11 +39,11 @@ orders.json
 picks.json
 regime.json
 sharia_list.json
+history/*
 
 ## LOGS (SHIP — Safe)
 *.log
 logs/*
-history/*
 reports/*
 
 ## DOCUMENTATION (SHIP — Safe)
