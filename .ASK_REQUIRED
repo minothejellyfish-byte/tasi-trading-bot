@@ -1,0 +1,51 @@
+# TASI Change Control — ASK_REQUIRED Files
+# These files REQUIRE explicit Amin approval before modification.
+# Mino must PROPOSE changes via change request, not execute directly.
+#
+# Last updated: 2026-06-12
+# Version: 1.0
+
+## CORE TRADING LOGIC (ASK — Always)
+poller.py
+bot.py
+bookkeeper.py
+screener.py
+market_regime.py
+
+## SESSION & AUTH (ASK — Always)
+derayah_session_manager.py
+derayah_api.py
+order_helpers.py
+
+## CRON SCRIPTS (ASK — Always)
+derayah_refresh_cron.sh
+cleanup_stand_down.sh
+start-chrome.sh
+ws_keepalive_v2.sh
+
+## SYSTEMD SERVICES (ASK — Always)
+*.service
+*.timer
+
+## CONFIG FILES (ASK — Always)
+derayah_tokens.json
+derayah_creds.json
+setup-derayah-creds.sh
+
+## DATA FILES (SHOW — Notify + Proceed)
+capital.json
+positions.json
+orders.json
+picks.json
+regime.json
+sharia_list.json
+
+## LOGS (SHIP — Safe)
+*.log
+logs/*
+history/*
+reports/*
+
+## DOCUMENTATION (SHIP — Safe)
+*.md
+TASI_Changelog.md
