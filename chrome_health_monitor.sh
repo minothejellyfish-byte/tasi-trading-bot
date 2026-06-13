@@ -147,9 +147,21 @@ restart_chrome() {
         killall -9 chrome 2>/dev/null || true
         sleep 2
         
-        # Clear stale lock files
+        # ─── v4.3.6 Fix: Clear ALL Chrome profile lock files ──────────────────
+        # Chrome uses multiple lock mechanisms. If any remain, new Chrome
+        # instances attach to stale session instead of creating fresh process.
         PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
-        rm -f "$PROFILE_DIR/SingletonLock" "$PROFILE_DIR/DevToolsActivePort" 2>/dev/null || true
+        log "  🧹 Clearing Chrome profile locks..."
+        rm -f "$PROFILE_DIR/SingletonLock" \
+              "$PROFILE_DIR/SingletonSocket" \
+              "$PROFILE_DIR/SingletonCookie" \
+              "$PROFILE_DIR/DevToolsActivePort" \
+              "$PROFILE_DIR/GrShaderCache/data*" \
+              "$PROFILE_DIR/GPUCache/data*" \
+              "$PROFILE_DIR/Default/Web Data-journal" 2>/dev/null || true
+        
+        # Also clear temp files that might cause corruption
+        rm -rf "$PROFILE_DIR/.org.chromium.Chromium"* 2>/dev/null || true
         
         # Restart Chrome
         if bash "$START_SCRIPT" >>"$LOG_FILE" 2>&1; then
