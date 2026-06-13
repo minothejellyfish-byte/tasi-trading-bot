@@ -27,6 +27,11 @@ ws_keepalive_v2.sh
 *.service
 *.timer
 
+# NOTE: For systemd files, the repo copy in tasi-exec/systemd/ is the SOURCE OF TRUTH.
+# Process: Edit repo copy → commit → copy to active location.
+# NEVER edit active files in ~/.config/systemd/user/ directly.
+# If active files differ from repo copies, they will drift and changes will be lost.
+
 ## CONFIG FILES (ASK — Always)
 derayah_tokens.json
 derayah_creds.json
