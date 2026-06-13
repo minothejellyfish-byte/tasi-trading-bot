@@ -1189,6 +1189,18 @@ class SessionManager:
         otp_method = "email"
         log.info(f"=== Auto-Recovery: email OTP login (user={username}) ===")
         
+        # Phase 0.5: Close ALL existing Derayah tabs before opening new signin tab
+        # This prevents signin tab accumulation when auto-recovery runs multiple times
+        tabs = self._cdp_list_tabs()
+        for tab in tabs:
+            url = tab.get("url", "")
+            if "derayah.com" in url or "onboarding.derayah.com" in url:
+                try:
+                    self._cdp_close_tab(tab["id"])
+                    log.info(f"Closed existing derayah tab: {url[:60]}")
+                except Exception as e:
+                    log.warning(f"Failed to close tab {tab.get('id')}: {e}")
+        
         # Open or navigate to signin tab
         signin = self._find_signin_tab()
         if not signin:
