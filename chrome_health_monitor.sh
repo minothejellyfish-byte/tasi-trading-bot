@@ -139,6 +139,14 @@ restart_chrome() {
         # Export DISPLAY for Chrome
         export DISPLAY=:0
         
+        # ─── v4.3.6 Fix: Proper Chrome cleanup before restart ─────────────────
+        # Problem: SIGTERM only kills main process, child processes (crashpad,
+        # zygote, GPU) stay alive and hold profile lock/CDP port, causing new
+        # Chrome to fail. Use killall -9 to force terminate ALL Chrome processes.
+        log "  🧹 Cleaning up existing Chrome processes..."
+        killall -9 chrome 2>/dev/null || true
+        sleep 2
+        
         # Clear stale lock files
         PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
         rm -f "$PROFILE_DIR/SingletonLock" "$PROFILE_DIR/DevToolsActivePort" 2>/dev/null || true
