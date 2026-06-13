@@ -398,11 +398,11 @@ main() {
     log "=== Derayah Refresh Cron (SSO Navigation v2) ==="
     
     # Make sure CDP is up
-    if ! curl -s "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+    if ! curl -s --max-time 5 --connect-timeout 2 "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
         log "❌ CDP not accessible — attempting Chrome auto-restart"
         # System display is :0 — CRD uses existing lightdm display
-    export DISPLAY=:0
-    PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
+        export DISPLAY=:0
+        PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
         rm -f "$PROFILE_DIR/SingletonLock" "$PROFILE_DIR/DevToolsActivePort" 2>/dev/null || true
         if bash /home/mino/tasi-exec/start-chrome.sh >>"$LOG_FILE" 2>&1; then
             log "  ✅ Chrome restarted"
@@ -411,6 +411,28 @@ main() {
             log "  ❌ Chrome restart failed — aborting"
             notify_user "🔴" "Chrome auto-restart failed. Trading system offline."
             exit 1
+        fi
+    fi
+    
+    # ─── v4.3.6 Fix: Verify required tabs exist ──────────────────────────────
+    # CDP may be up but tabs could be missing (e.g., user closed tab).
+    # Opening missing tabs via CDP prevents false 401s in sso_refresh().
+    local tabs_json
+    tabs_json=$(curl -s --max-time 5 --connect-timeout 2 "http://127.0.0.1:18801/json" 2>/dev/null)
+    
+    if [[ -n "$tabs_json" ]]; then
+        # Check for TC tab
+        if ! echo "$tabs_json" | grep -q "tickerchart"; then
+            log "⚠️ TC tab missing — opening via CDP"
+            curl -s --max-time 5 -X PUT "http://127.0.0.1:18801/json/new?https://derayah.tickerchart.net/app/en" >/dev/null 2>&1 || true
+            sleep 1
+        fi
+        
+        # Check for dashboard tab
+        if ! echo "$tabs_json" | grep -q "newonline.derayah"; then
+            log "⚠️ Dashboard tab missing — opening via CDP"
+            curl -s --max-time 5 -X PUT "http://127.0.0.1:18801/json/new?https://newonline.derayah.com/" >/dev/null 2>&1 || true
+            sleep 1
         fi
     fi
     

@@ -11,6 +11,22 @@ LOG="/home/mino/tasi-exec/chrome_startup.log"
 # System display is :0 (lightdm + CRD uses existing display)
 export DISPLAY=:0
 
+# ─── v4.3.6 Fix: Kill existing Chrome before starting fresh ─────────────────
+# Prevent stale session attachment when Chrome is already running
+# (causes "Opening in existing browser session" and CDP conflicts)
+echo "$(date): Cleaning up existing Chrome processes..." >> $LOG
+killall -9 chrome 2>/dev/null || true
+sleep 2
+
+# Clear ALL profile lock files (not just SingletonLock)
+rm -f "$PROFILE_DIR/SingletonLock" \
+      "$PROFILE_DIR/SingletonSocket" \
+      "$PROFILE_DIR/SingletonCookie" \
+      "$PROFILE_DIR/DevToolsActivePort" \
+      "$PROFILE_DIR/GrShaderCache/data*" \
+      "$PROFILE_DIR/GPUCache/data*" 2>/dev/null || true
+rm -rf "$PROFILE_DIR/.org.chromium.Chromium"* 2>/dev/null || true
+
 echo "$(date): Starting Chrome with CDP on port $CDP_PORT..." >> $LOG
 
 $CHROME \
