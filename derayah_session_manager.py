@@ -493,6 +493,50 @@ class SessionManager:
             log.error(f"CDP list failed: {e}")
             return []
 
+    def _cdp_is_healthy(self) -> bool:
+        """Quick check: is CDP responding?"""
+        try:
+            resp = requests.get(f"{CDP_URL}/json/version", timeout=5)
+            return resp.status_code == 200
+        except Exception:
+            return False
+
+    def _ensure_chrome_running(self) -> bool:
+        """Ensure Chrome is running and CDP is healthy.
+        
+        If Chrome is not running, attempts to restart it via start-chrome.sh.
+        This is a single point of truth for Chrome availability — call it
+        at the start of any method that needs CDP.
+        
+        Returns:
+            True if Chrome is running and healthy, False otherwise.
+        """
+        if self._cdp_is_healthy():
+            return True
+        
+        log.warning("CDP is down — attempting Chrome restart")
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["bash", "/home/mino/tasi-exec/start-chrome.sh"],
+                timeout=30, capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                log.info("Chrome restarted, waiting for CDP...")
+                time.sleep(5)
+                if self._cdp_is_healthy():
+                    log.info("CDP is healthy after restart")
+                    return True
+                else:
+                    log.warning("Chrome started but CDP not responding")
+                    return False
+            else:
+                log.error(f"start-chrome.sh failed: {result.returncode}")
+                return False
+        except Exception as e:
+            log.error(f"Chrome restart failed: {e}")
+            return False
+
     def _find_dashboard_tab(self, tabs: list) -> dict:
         """Find Derayah dashboard tab.
         
@@ -1099,6 +1143,11 @@ class SessionManager:
             dict with success=True and the captured tokens, or success=False with error.
         """
         result = {"success": False, "error": None, "tokens": None}
+        
+        # Phase 0: Ensure Chrome is running
+        if not self._ensure_chrome_running():
+            result["error"] = "Chrome is not running and could not be restarted. Health monitor will handle it."
+            return result
         
         # Load creds (try multiple locations for robustness)
         # The file might be at /home/mino/.derayah-creds (user's HOME)

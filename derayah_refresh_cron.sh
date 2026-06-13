@@ -397,21 +397,12 @@ print(json.dumps(result))
 main() {
     log "=== Derayah Refresh Cron (SSO Navigation v2) ==="
     
-    # Make sure CDP is up
-    if ! curl -s "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
-        log "❌ CDP not accessible — attempting Chrome auto-restart"
-        # System display is :0 — CRD uses existing lightdm display
-    export DISPLAY=:0
-    PROFILE_DIR="/home/mino/.config/google-chrome/derayah-live"
-        rm -f "$PROFILE_DIR/SingletonLock" "$PROFILE_DIR/DevToolsActivePort" 2>/dev/null || true
-        if bash /home/mino/tasi-exec/start-chrome.sh >>"$LOG_FILE" 2>&1; then
-            log "  ✅ Chrome restarted"
-            sleep 3
-        else
-            log "  ❌ Chrome restart failed — aborting"
-            notify_user "🔴" "Chrome auto-restart failed. Trading system offline."
-            exit 1
-        fi
+    # Phase 1: Health monitor handles Chrome. We only do a lightweight check.
+    # If CDP is down, the health monitor will restart Chrome within 60s.
+    # We abort here and let the health monitor do its job.
+    if ! curl -s --max-time 5 --connect-timeout 2 "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+        log "❌ CDP not accessible — health monitor will handle Chrome restart. Aborting this cycle."
+        exit 1
     fi
     
     # Try SSO refresh
@@ -425,11 +416,20 @@ main() {
             exit 0
             ;;
         1)
-            # No tokens at all — try auto-recovery via email OTP, then manual
+            # No tokens at all — try auto-recovery via email OTP
             log "❌ No tokens — attempting auto-recovery via email OTP"
+            
+            # Extra safety: re-verify CDP is up before attempting auto-recovery
+            # Chrome might have died between the initial check and now
+            if ! curl -s --max-time 5 --connect-timeout 2 "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+                log "  ❌ CDP went down mid-cycle — health monitor will restart Chrome. Aborting auto-recovery."
+                notify_user "🔴" "CDP down during auto-recovery attempt. Health monitor will restart Chrome. Manual login may be needed."
+                exit 1
+            fi
+            
             if [[ -f "$HOME/.derayah-creds" || -f "/home/mino/.derayah-creds" ]]; then
-            [[ -f "/home/mino/.derayah-creds" ]] && CREDS_FILE="/home/mino/.derayah-creds" || CREDS_FILE="$HOME/.derayah-creds"
-            log "  Using creds file: $CREDS_FILE"
+                [[ -f "/home/mino/.derayah-creds" ]] && CREDS_FILE="/home/mino/.derayah-creds" || CREDS_FILE="$HOME/.derayah-creds"
+                log "  Using creds file: $CREDS_FILE"
                 auto_recover "No tokens found" "🟡"
                 exit $?
             else
@@ -441,9 +441,17 @@ main() {
         2)
             # Tokens exist but SSO refresh failed — try auto-recovery
             log "❌ SSO refresh failed — attempting auto-recovery via email OTP"
+            
+            # Extra safety: re-verify CDP is up before attempting auto-recovery
+            if ! curl -s --max-time 5 --connect-timeout 2 "http://127.0.0.1:18801/json" >/dev/null 2>&1; then
+                log "  ❌ CDP went down mid-cycle — health monitor will restart Chrome. Aborting auto-recovery."
+                notify_user "🔴" "CDP down during auto-recovery attempt. Health monitor will restart Chrome. Manual login may be needed."
+                exit 1
+            fi
+            
             if [[ -f "$HOME/.derayah-creds" || -f "/home/mino/.derayah-creds" ]]; then
-            [[ -f "/home/mino/.derayah-creds" ]] && CREDS_FILE="/home/mino/.derayah-creds" || CREDS_FILE="$HOME/.derayah-creds"
-            log "  Using creds file: $CREDS_FILE"
+                [[ -f "/home/mino/.derayah-creds" ]] && CREDS_FILE="/home/mino/.derayah-creds" || CREDS_FILE="$HOME/.derayah-creds"
+                log "  Using creds file: $CREDS_FILE"
                 auto_recover "SSO refresh failed" "🔴"
                 exit $?
             else

@@ -23781,3 +23781,325 @@ navigated
 2026-06-12 22:10:02   Calling derayah_session_manager.auto_login_with_email_otp()...
 2026-06-12 22:10:19   ❌ Auto-recovery failed: Signin form never became ready
 2026-06-12T22:10:19.967728  Telegram notify failed: HTTP Error 404: Not Found
+2026-06-13 20:10:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:10:01 === SSO refresh attempt ===
+2026-06-13 20:10:01   Access token expires in -1729 min
+2026-06-13 20:10:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_accesstoken (exp 1781372725 > 1781266819), Derayah_refreshtoken, TC_DERAYAH (exp 1781373911 > 1781270710)
+2026-06-13 20:10:01   After sync: access expires in 35 min
+2026-06-13 20:10:03   SSO URL response: 200
+2026-06-13 20:10:03   ✅ SSO URL acquired (241 chars)
+navigated
+2026-06-13 20:10:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:10:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781373911
+  ✅ New TC exp: 1781374210 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:10:11   Verify with TC token: HTTP 200
+2026-06-13 20:10:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:10:11 ✅ Session refresh completed
+2026-06-13 20:15:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:15:01 === SSO refresh attempt ===
+2026-06-13 20:15:02   Access token expires in 30 min
+2026-06-13 20:15:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781372725 >= browser 1781372725), TC_DERAYAH (file 1781374210 >= browser 1781374210)
+2026-06-13 20:15:02   After sync: access expires in 30 min
+2026-06-13 20:15:03   SSO URL response: 200
+2026-06-13 20:15:03   ✅ SSO URL acquired (243 chars)
+navigated
+2026-06-13 20:15:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:15:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781374210
+  ✅ New TC exp: 1781374511 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 20:15:11   Verify with TC token: HTTP 200
+2026-06-13 20:15:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:15:11 ✅ Session refresh completed
+2026-06-13 20:20:02 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:20:02 === SSO refresh attempt ===
+2026-06-13 20:20:02   Access token expires in 25 min
+2026-06-13 20:20:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781372725 >= browser 1781372725), TC_DERAYAH (file 1781374511 >= browser 1781374511)
+2026-06-13 20:20:02   After sync: access expires in 25 min
+2026-06-13 20:20:03   SSO URL response: 200
+2026-06-13 20:20:03   ✅ SSO URL acquired (241 chars)
+navigated
+2026-06-13 20:20:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:20:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781374511
+  ✅ New TC exp: 1781374810 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:20:12   Verify with TC token: HTTP 200
+2026-06-13 20:20:12 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:20:12 ✅ Session refresh completed
+2026-06-13 20:25:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:25:01 === SSO refresh attempt ===
+2026-06-13 20:25:02   Access token expires in 20 min
+2026-06-13 20:25:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781372725 >= browser 1781372725), TC_DERAYAH (file 1781374810 >= browser 1781374810)
+2026-06-13 20:25:02   After sync: access expires in 20 min
+2026-06-13 20:25:03   SSO URL response: 200
+2026-06-13 20:25:03   ✅ SSO URL acquired (241 chars)
+navigated
+2026-06-13 20:25:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:25:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781374810
+  ✅ New TC exp: 1781375110 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 20:25:11   Verify with TC token: HTTP 200
+2026-06-13 20:25:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:25:11 ✅ Session refresh completed
+2026-06-13 20:30:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:30:01 === SSO refresh attempt ===
+2026-06-13 20:30:02   Access token expires in 15 min
+2026-06-13 20:30:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_accesstoken (exp 1781375128 > 1781372725), Derayah_refreshtoken
+    Kept:    TC_DERAYAH (file 1781375110 >= browser 1781375110)
+2026-06-13 20:30:02   After sync: access expires in 55 min
+2026-06-13 20:30:03   SSO URL response: 200
+2026-06-13 20:30:03   ✅ SSO URL acquired (243 chars)
+navigated
+2026-06-13 20:30:06   ✅ TC tab navigated to SSO URL
+2026-06-13 20:30:06   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781375110
+  ✅ New TC exp: 1781375412 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 20:30:13   Verify with TC token: HTTP 200
+2026-06-13 20:30:13 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:30:13 ✅ Session refresh completed
+2026-06-13 20:35:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:35:01 === SSO refresh attempt ===
+2026-06-13 20:35:02   Access token expires in 50 min
+2026-06-13 20:35:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781375412 >= browser 1781375412)
+2026-06-13 20:35:02   After sync: access expires in 50 min
+2026-06-13 20:35:04   SSO URL response: 200
+2026-06-13 20:35:04   ✅ SSO URL acquired (241 chars)
+navigated
+2026-06-13 20:35:05   ✅ TC tab navigated to SSO URL
+2026-06-13 20:35:05   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781375412
+  ✅ New TC exp: 1781375711 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:35:13   Verify with TC token: HTTP 200
+2026-06-13 20:35:13 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:35:13 ✅ Session refresh completed
+2026-06-13 20:40:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:40:01 === SSO refresh attempt ===
+2026-06-13 20:40:01   Access token expires in 45 min
+2026-06-13 20:40:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781375711 >= browser 1781375711)
+2026-06-13 20:40:01   After sync: access expires in 45 min
+2026-06-13 20:40:03   SSO URL response: 200
+2026-06-13 20:40:03   ✅ SSO URL acquired (239 chars)
+navigated
+2026-06-13 20:40:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:40:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781375711
+  ✅ New TC exp: 1781376010 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:40:11   Verify with TC token: HTTP 200
+2026-06-13 20:40:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:40:11 ✅ Session refresh completed
+2026-06-13 20:45:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:45:01 === SSO refresh attempt ===
+2026-06-13 20:45:01   Access token expires in 40 min
+2026-06-13 20:45:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781376010 >= browser 1781376010)
+2026-06-13 20:45:02   After sync: access expires in 40 min
+2026-06-13 20:45:03   SSO URL response: 200
+2026-06-13 20:45:03   ✅ SSO URL acquired (239 chars)
+navigated
+2026-06-13 20:45:06   ✅ TC tab navigated to SSO URL
+2026-06-13 20:45:06   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781376010
+  ✅ New TC exp: 1781376312 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 20:45:13   Verify with TC token: HTTP 200
+2026-06-13 20:45:13 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:45:13 ✅ Session refresh completed
+2026-06-13 20:50:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:50:01 === SSO refresh attempt ===
+2026-06-13 20:50:02   Access token expires in 35 min
+2026-06-13 20:50:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781376312 >= browser 1781376312)
+2026-06-13 20:50:02   After sync: access expires in 35 min
+2026-06-13 20:50:03   SSO URL response: 200
+2026-06-13 20:50:03   ✅ SSO URL acquired (237 chars)
+navigated
+2026-06-13 20:50:04   ✅ TC tab navigated to SSO URL
+2026-06-13 20:50:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781376312
+  ✅ New TC exp: 1781376610 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:50:11   Verify with TC token: HTTP 200
+2026-06-13 20:50:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:50:12 ✅ Session refresh completed
+2026-06-13 20:55:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 20:55:01 === SSO refresh attempt ===
+2026-06-13 20:55:01   Access token expires in 30 min
+2026-06-13 20:55:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781376610 >= browser 1781376610)
+2026-06-13 20:55:01   After sync: access expires in 30 min
+2026-06-13 20:55:03   SSO URL response: 200
+2026-06-13 20:55:03   ✅ SSO URL acquired (237 chars)
+navigated
+2026-06-13 20:55:03   ✅ TC tab navigated to SSO URL
+2026-06-13 20:55:03   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781376610
+  ✅ New TC exp: 1781376909 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 20:55:10   Verify with TC token: HTTP 200
+2026-06-13 20:55:10 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 20:55:10 ✅ Session refresh completed
+2026-06-13 21:00:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:00:01 === SSO refresh attempt ===
+2026-06-13 21:00:02   Access token expires in 25 min
+2026-06-13 21:00:02   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781376909 >= browser 1781376909)
+2026-06-13 21:00:02   After sync: access expires in 25 min
+2026-06-13 21:00:03   SSO URL response: 200
+2026-06-13 21:00:03   ✅ SSO URL acquired (241 chars)
+navigated
+2026-06-13 21:00:06   ✅ TC tab navigated to SSO URL
+2026-06-13 21:00:06   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781376909
+  ✅ New TC exp: 1781377212 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 21:00:13   Verify with TC token: HTTP 200
+2026-06-13 21:00:13 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:00:13 ✅ Session refresh completed
+2026-06-13 21:05:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:05:01 === SSO refresh attempt ===
+2026-06-13 21:05:01   Access token expires in 20 min
+2026-06-13 21:05:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781375128 >= browser 1781375128), TC_DERAYAH (file 1781377212 >= browser 1781377212)
+2026-06-13 21:05:02   After sync: access expires in 20 min
+2026-06-13 21:05:03   SSO URL response: 200
+2026-06-13 21:05:03   ✅ SSO URL acquired (235 chars)
+navigated
+2026-06-13 21:05:04   ✅ TC tab navigated to SSO URL
+2026-06-13 21:05:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781377212
+  ✅ New TC exp: 1781377510 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 21:05:11   Verify with TC token: HTTP 200
+2026-06-13 21:05:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:05:11 ✅ Session refresh completed
+2026-06-13 21:10:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:10:01 === SSO refresh attempt ===
+2026-06-13 21:10:01   Access token expires in 15 min
+2026-06-13 21:10:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_accesstoken (exp 1781377529 > 1781375128), Derayah_refreshtoken
+    Kept:    TC_DERAYAH (file 1781377510 >= browser 1781377510)
+2026-06-13 21:10:01   After sync: access expires in 55 min
+2026-06-13 21:10:03   SSO URL response: 200
+2026-06-13 21:10:03   ✅ SSO URL acquired (245 chars)
+navigated
+2026-06-13 21:10:04   ✅ TC tab navigated to SSO URL
+2026-06-13 21:10:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781377510
+  ✅ New TC exp: 1781377810 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 21:10:11   Verify with TC token: HTTP 200
+2026-06-13 21:10:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:10:11 ✅ Session refresh completed
+2026-06-13 21:15:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:15:01 === SSO refresh attempt ===
+2026-06-13 21:15:01   Access token expires in 50 min
+2026-06-13 21:15:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781377529 >= browser 1781377529), TC_DERAYAH (file 1781377810 >= browser 1781377810)
+2026-06-13 21:15:02   After sync: access expires in 50 min
+2026-06-13 21:15:03   SSO URL response: 200
+2026-06-13 21:15:03   ✅ SSO URL acquired (239 chars)
+navigated
+2026-06-13 21:15:04   ✅ TC tab navigated to SSO URL
+2026-06-13 21:15:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781377810
+  ✅ New TC exp: 1781378110 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 21:15:11   Verify with TC token: HTTP 200
+2026-06-13 21:15:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:15:12 ✅ Session refresh completed
+2026-06-13 21:20:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:20:01 === SSO refresh attempt ===
+2026-06-13 21:20:01   Access token expires in 45 min
+2026-06-13 21:20:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781377529 >= browser 1781377529), TC_DERAYAH (file 1781378110 >= browser 1781378110)
+2026-06-13 21:20:01   After sync: access expires in 45 min
+2026-06-13 21:20:02   SSO URL response: 200
+2026-06-13 21:20:03   ✅ SSO URL acquired (243 chars)
+navigated
+2026-06-13 21:20:03   ✅ TC tab navigated to SSO URL
+2026-06-13 21:20:03   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781378110
+  ✅ New TC exp: 1781378409 (+4m)
+  ✅ Saved fresh TC token
+2026-06-13 21:20:10   Verify with TC token: HTTP 200
+2026-06-13 21:20:10 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:20:11 ✅ Session refresh completed
+2026-06-13 21:25:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:25:01 === SSO refresh attempt ===
+2026-06-13 21:25:01   Access token expires in 40 min
+2026-06-13 21:25:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781377529 >= browser 1781377529), TC_DERAYAH (file 1781378409 >= browser 1781378409)
+2026-06-13 21:25:01   After sync: access expires in 40 min
+2026-06-13 21:25:02   SSO URL response: 200
+2026-06-13 21:25:02   ✅ SSO URL acquired (239 chars)
+navigated
+2026-06-13 21:25:03   ✅ TC tab navigated to SSO URL
+2026-06-13 21:25:03   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781378409
+  ✅ New TC exp: 1781378709 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 21:25:11   Verify with TC token: HTTP 200
+2026-06-13 21:25:11 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:25:11 ✅ Session refresh completed
+2026-06-13 21:30:01 === Derayah Refresh Cron (SSO Navigation v2) ===
+2026-06-13 21:30:01 === SSO refresh attempt ===
+2026-06-13 21:30:01   Access token expires in 35 min
+2026-06-13 21:30:01   Syncing tokens from browser (source of truth)...
+    Updated: Derayah_refreshtoken
+    Kept:    Derayah_accesstoken (file 1781377529 >= browser 1781377529), TC_DERAYAH (file 1781378709 >= browser 1781378709)
+2026-06-13 21:30:01   After sync: access expires in 35 min
+2026-06-13 21:30:03   SSO URL response: 200
+2026-06-13 21:30:03   ✅ SSO URL acquired (245 chars)
+navigated
+2026-06-13 21:30:04   ✅ TC tab navigated to SSO URL
+2026-06-13 21:30:04   Polling for TC_DERAYAH update (up to 30s)...
+  Old TC exp: 1781378709
+  ✅ New TC exp: 1781379011 (+5m)
+  ✅ Saved fresh TC token
+2026-06-13 21:30:12   Verify with TC token: HTTP 200
+2026-06-13 21:30:12 ✅ SSO refresh successful — new TC token valid
+  Sync: 1 updated, 2 kept
+2026-06-13 21:30:13 ✅ Session refresh completed
