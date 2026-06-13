@@ -1,0 +1,12 @@
+[Unit]
+Description=Chrome Health Monitor — Keeps Derayah Chrome/CDP alive
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/mino/tasi-exec/chrome_health_monitor.sh
+StandardOutput=journal
+StandardError=journal
+
+# Environment for Chrome (DISPLAY is set in the script, but belt and suspenders)
+Environment="DISPLAY=:0"

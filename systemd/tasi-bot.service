@@ -1,0 +1,21 @@
+[Unit]
+Description=TASI Telegram Bot — Derayah Trading
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mino/tasi-exec
+Environment=HOME=/home/mino
+Environment=PYTHONPATH=/home/mino/tasi-exec
+Environment=TELEGRAM_BOT_TOKEN=8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU
+ExecStart=/usr/bin/python3 /home/mino/tasi-exec/bot.py
+Restart=always
+RestartSec=15
+StartLimitInterval=600
+StartLimitBurst=10
+StandardOutput=append:/home/mino/tasi-exec/logs/bot.log
+StandardError=append:/home/mino/tasi-exec/logs/bot.log
+
+[Install]
+WantedBy=default.target

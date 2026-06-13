@@ -1,0 +1,22 @@
+[Unit]
+Description=TASI System Watchdog — Daily Activity Logger
+After=openclaw-gateway.service
+Wants=openclaw-gateway.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/mino/tasi-exec/tasi_watchdog.py
+Restart=always
+RestartSec=60
+WorkingDirectory=/home/mino/tasi-exec
+
+# Environment
+Environment="PYTHONUNBUFFERED=1"
+Environment="TZ=Asia/Riyadh"
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

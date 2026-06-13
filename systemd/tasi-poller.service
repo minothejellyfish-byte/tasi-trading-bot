@@ -1,0 +1,16 @@
+[Unit]
+Description=TASI Price Poller
+After=tasi-bot.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mino/tasi-exec
+ExecStart=/usr/bin/python3 /home/mino/tasi-exec/poller.py
+Restart=on-failure
+RestartSec=15
+StandardOutput=append:/home/mino/tasi-exec/poller.log
+StandardError=append:/home/mino/tasi-exec/poller.log
+Environment="TELEGRAM_BOT_TOKEN=8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU"
+
+[Install]
+WantedBy=default.target

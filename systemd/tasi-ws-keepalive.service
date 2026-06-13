@@ -1,0 +1,16 @@
+[Unit]
+Description=TASI WebSocket Keepalive v2 (CDP-aware)
+After=tasi-bot.service
+
+[Service]
+Type=simple
+ExecStart=/home/mino/tasi-exec/ws_keepalive_v2.sh
+Restart=always
+RestartSec=10
+StartLimitInterval=600
+StartLimitBurst=10
+StandardOutput=append:/home/mino/tasi-exec/ws_keepalive.log
+StandardError=append:/home/mino/tasi-exec/ws_keepalive.log
+
+[Install]
+WantedBy=default.target
