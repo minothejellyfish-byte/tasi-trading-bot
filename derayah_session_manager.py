@@ -1196,7 +1196,10 @@ class SessionManager:
             url = tab.get("url", "")
             if "derayah.com" in url or "onboarding.derayah.com" in url:
                 try:
-                    self._cdp_close_tab(tab["id"])
+                    import websocket
+                    ws = websocket.create_connection(tab.get("webSocketDebuggerUrl"), timeout=5)
+                    ws.send(json.dumps({"id": 1, "method": "Page.close", "params": {}}))
+                    ws.close()
                     log.info(f"Closed existing derayah tab: {url[:60]}")
                 except Exception as e:
                     log.warning(f"Failed to close tab {tab.get('id')}: {e}")
