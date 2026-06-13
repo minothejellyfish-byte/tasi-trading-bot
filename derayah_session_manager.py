@@ -1204,16 +1204,14 @@ class SessionManager:
                 except Exception as e:
                     log.warning(f"Failed to close tab {tab.get('id')}: {e}")
         
-        # Open or navigate to signin tab
-        signin = self._find_signin_tab()
-        if not signin:
-            log.info("No signin tab found - opening one")
-            new_tab = self._cdp_new_tab("https://onboarding.derayah.com/#/signin")
-            if not new_tab:
-                result["error"] = "Failed to open signin tab"
-                return result
-            time.sleep(3)
-            signin = self._find_signin_tab() or new_tab
+        # Open fresh signin tab
+        log.info("Opening fresh signin tab")
+        new_tab = self._cdp_new_tab("https://onboarding.derayah.com/#/signin")
+        if not new_tab:
+            result["error"] = "Failed to open signin tab"
+            return result
+        time.sleep(3)
+        signin = new_tab
         
         ws_url = signin.get("webSocketDebuggerUrl")
         if not ws_url:
