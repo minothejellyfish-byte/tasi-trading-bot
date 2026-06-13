@@ -2,7 +2,7 @@
 
 **Version:** 4.3
 **Date:** 2026-06-12
-**Last Updated:** 2026-06-12 01:30 GMT+3
+**Last Updated:** 2026-06-13 19:40 GMT+3
 **Purpose:** Complete rebuild-from-scratch guide for the TASI automated trading system
 **Previous Versions:** v4.0 (May 22, obsolete), v4.2 (Jun 9, incomplete)
 
@@ -20,6 +20,7 @@
 8. [Bot Commands](#8-bot-commands)
 9. [Recovery Procedures](#9-recovery-procedures)
 10. [Change Log](#10-change-log)
+11. [Change Control System](#11-change-control-system-v435)
 
 ---
 
@@ -377,7 +378,83 @@ Net PnL = 194.13 SAR
 - Updated: End of day by bookkeeper
 - Source: Derayah dashboard (browser localStorage)
 
-### 4.6 Deduplication
+### 4.6 File Locking (v4.3.5)
+
+**Problem:** Concurrent JSON/CSV corruption when poller + bot + bookkeeper write simultaneously
+
+**Solution:** Advisory file locks via `fcntl.flock()`
+
+| File | Lock Type | Functions |
+|------|-----------|-----------|
+| `orders.json` | Exclusive | `save_orders()`, `_locked_load()` |
+| `order_history.csv` | Shared (read) / Exclusive (write) | `_locked_read_csv()`, `_locked_write_csv()` |
+| `daily_pnl.csv` | Shared (read) / Exclusive (write) | `_locked_read_csv()`, `_locked_write_csv()` |
+
+**Behavior:**
+- Write lock waits for readers to finish
+- Read lock allows multiple concurrent readers
+- Lock released automatically on file close
+
+### 4.7 VWAP Recovery Logic (v4.3.5)
+
+**Problem:** Bot sold positions at -0.5% (VWAP breakdown) that would recover minutes later
+
+**Solution:** Combined 3-step recovery logic in `poller.py`
+
+```
+VWAP breakdown detected:
+├── Step 1: Minimum Hold Time (15 min)
+│   └── Held < 15 min? → SKIP (re-evaluate next cycle)
+├── Step 2: Recovery Probability
+│   └── rising_candles / total × volume_strength
+│   └── recovery_score = probability × strength
+└── Step 3: Breakeven Hold
+    └── Loss < 3% AND recovery_score > 0.66? → HOLD
+    └── Otherwise → SELL (genuine breakdown)
+```
+
+**Parameters:**
+| Parameter | Value | Purpose |
+|-----------|-------|---------|
+| `MIN_HOLD_MINS` | 15 | Don't sell too early |
+| `recovery_score` | 0.0–1.5+ | Weighted probability |
+| `is_small_loss` | < 3% | Only hold small losses |
+| `is_recovering` | > 0.66 | 2:1 odds threshold |
+
+**Test Results:**
+| Scenario | Input | Result |
+|----------|-------|--------|
+| 4325 trade | -0.5%, rising candles, 25 min | **HOLD** ✅ |
+| Genuine breakdown | -2.4%, falling candles | **SELL** ✅ |
+| Too early | -0.5%, 10 min held | **SKIP** ✅ |
+
+### 4.8 Async Safety (v4.3.5)
+
+**Problem:** `auto_login_with_email_otp()` is synchronous, crashes async bot handlers
+
+**Solution:** `auto_login_with_email_otp_async()` wrapper in `derayah_session_manager.py`
+
+```python
+async def auto_login_with_email_otp_async():
+    """Thread-safe async wrapper for synchronous login."""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(
+        None, auto_login_with_email_otp
+    )
+```
+
+**Usage:** Bot handlers call async version; poller calls sync version.
+
+### 4.9 Self-Test Isolation (v4.3.5)
+
+**Problem:** Self-tests in `order_helpers.py` and `history_io.py` wrote to production files
+
+**Solution:** All self-tests use `tempfile.mkdtemp()` for isolated test paths
+
+**Before:** Tests wrote to `orders.json` → could corrupt active orders
+**After:** Tests write to `/tmp/tmpXXXXXX/` → completely isolated
+
+### 4.10 Deduplication
 
 **Problem:** Duplicate order entries from multiple triggers
 
@@ -672,6 +749,15 @@ Net PnL = 194.13 SAR
 - **Removed:** Obsolete 15-min cron references (now 5-min)
 - **Note:** `TASI_SESSION_PROCEDURE_v4.3.md` maintained separately for session details
 
+### v4.3.5 (2026-06-12) — Change Control System
+- **Added:** Ship/Show/Ask 3-tier change control (see Section 11)
+- `.ASK_REQUIRED` file — classifies all files by risk tier
+- Git pre-commit hook — blocks commits to ASK files
+- Read-only permissions (`chmod 444`) on 8 critical files
+- Integrity monitor — hourly checksum comparison + Telegram alerts
+- Auto-backup wrapper — timestamped backups before every edit
+- `TASI_Changelog.md` — dedicated changelog for tracking all changes
+
 ### v4.3.4 (2026-06-12)
 - Fixed double logging in `derayah_refresh_cron.sh` (removed `tee` from `log()`)
 
@@ -713,3 +799,57 @@ Net PnL = 194.13 SAR
 **Owner:** Mino + A A
 **Next Review:** After next major system change
 **Dependencies:** `TASI_SESSION_PROCEDURE_v4.3.md` (session details)
+
+---
+
+## 11. Change Control System (v4.3.5)
+
+**Purpose:** Prevent unauthorized code changes after Jun 11–12 tab explosion incident
+
+### 11.1 3-Tier Classification
+
+| Tier | Risk | Workflow | Examples |
+|------|------|----------|----------|
+| **ASK** | Critical | **Must get "Do X" approval** | poller.py, bot.py, bookkeeper.py, screener.py, market_regime.py, crons, services |
+| **SHOW** | Medium | Commit + notify, proceed | Bug fixes in helpers, new logging, cron time adjustments |
+| **SHIP** | Safe | Direct commit, log it | Docs, comments, log rotation, status checks |
+
+### 11.2 Enforcement Barriers
+
+| # | Barrier | Implementation |
+|---|---------|----------------|
+| 1 | `.ASK_REQUIRED` file | Lists critical files by tier |
+| 2 | Git pre-commit hook | Blocks commits to ASK files |
+| 3 | File permissions (`chmod 444`) | Read-only on critical files |
+| 4 | Integrity monitor | Hourly checksum alerts |
+| 5 | Telegram DM | Real-time change notifications |
+| 6 | Auto-backup wrapper | Timestamped backup before every edit |
+| 7 | SOUL.md rules | Hard-coded in Mino identity |
+| 8 | Change request template | Forces structured proposal |
+
+### 11.3 Required Protocol
+
+1. **Check `.ASK_REQUIRED`** — Before ANY file edit in tasi-exec
+2. **If ASK file:** Create change proposal, WAIT for "Do X" approval
+3. **If SHOW file:** Commit + notify Amin, proceed after CI
+4. **If SHIP file:** Direct commit, log in CHANGELOG
+5. **Always backup:** `./backups/.backup_before_edit.sh <file>`
+6. **Always commit:** `git commit -m "[ASK/SHOW/SHIP] description"`
+7. **Always update:** `TASI_Changelog.md`
+
+### 11.4 Files Modified
+
+| File | Tier | Reason |
+|------|------|--------|
+| `.ASK_REQUIRED` | ASK | Master classification file |
+| `.git/hooks/pre-commit` | ASK | Blocks ASK commits |
+| `.integrity_monitor.sh` | ASK | Hourly checks |
+| `backups/.backup_before_edit.sh` | SHOW | Auto-backup wrapper |
+| `TASI_Changelog.md` | SHIP | Change tracking |
+
+### 11.5 Why This Exists
+
+**Incident:** Jun 11–12 tab explosion — 16 auto-recoveries, 19 tabs, 2-hour outage
+**Cause:** Unauthorized changes without approval
+**Fix:** 8 enforcement barriers + explicit approval protocol
+**Date:** 2026-06-12

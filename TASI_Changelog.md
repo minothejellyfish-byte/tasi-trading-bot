@@ -238,3 +238,26 @@ Prevent unauthorized code changes after Jun 11–12 tab explosion incident.
 - `backups/.backup_before_edit.sh`
 - `SOUL.md` (workspace)
 
+
+## v4.3.6 — 2026-06-13 19:45 KSA
+
+### ADDED
+- `TASI_Trading_Blueprint_v4.3.md` — Documentation updates for v4.3.5 features:
+  - Section 4.6: File Locking (fcntl.flock)
+  - Section 4.7: VWAP Recovery Logic (3-step combined)
+  - Section 4.8: Async Safety (thread pool wrapper)
+  - Section 4.9: Self-Test Isolation (tempfile.mkdtemp)
+  - Section 11: Change Control System (complete)
+- Archived deprecated blueprint versions:
+  - `TASI_SYSTEM_BLUEPRINT_v4.2_DEPRECATED_2026-06-13.md`
+  - `TASI_Trading_Blueprint_v4.3_PREVIOUS_2026-06-13.pdf`
+  - `TASI_Blueprint_v4.3_PRO_2026-06-13.html`
+  - `TASI_Blueprint_v4.3_HTML_2026-06-12.html`
+
+### MODIFIED
+- `TASI_Trading_Blueprint_v4.3.md` — Updated Table of Contents, added Section 11
+- Last Updated: 2026-06-13 19:40 GMT+3
+
+### DELETED
+- Nothing (archived to `archive/`)
+
