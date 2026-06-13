@@ -1,5 +1,5 @@
 # TASI Session Management — Configuration Reference v4.3
-## Updated: 2026-06-10 21:00 GMT+3
+## Updated: 2026-06-13 22:31 GMT+3
 ## Changes from v4.2: 5-min refresh_cron (was 15-min) — see "v4.3 Changelog" at bottom
 
 ---
@@ -12,10 +12,15 @@
 
 **Key Methods**:
 ```python
-capture_tokens()      → Phase 1: Read browser localStorage
-refresh_session()     → Phase 2: OAuth refresh + CDP navigation  
-check_health()        → Phase 3: Detect failure, trigger recovery
-auto_otp_recovery()     → Phase 3: 2 email OTP attempts
+capture_tokens()              → Phase 1: Read browser localStorage
+sync_tokens_from_browser()    → Phase 1.5: Sync ALL tokens from browser (v4.3.5)
+refresh_session()             → Phase 2: OAuth refresh + CDP navigation  
+check_health()                → Phase 3: Detect failure, trigger recovery
+auto_login_with_email_otp()   → Phase 3: Email OTP recovery (sync)
+auto_login_with_email_otp_async() → Phase 3: Async wrapper for bot handlers (v4.3.5)
+_ensure_chrome_running()      → Phase 0: Restart Chrome if CDP down (v4.3.6)
+_close_extra_tabs()           → Cleanup: Remove duplicate/tracker tabs (v4.3.3)
+_activate_tab()               → UI: Bring TC tab to foreground (v4.3.2)
 ```
 
 ### 2. Telegram Commands
@@ -182,8 +187,33 @@ if not is_valid:
 
 ## 🔄 Phase 3: Recovery Flow
 
+### v4.3.6 Update: Chrome Health Monitor (Primary Defense)
+**File**: `/home/mino/tasi-exec/chrome_health_monitor.sh`
+**Service**: `chrome-health-monitor.service` + `chrome-health-monitor.timer`
+**Schedule**: Every 60 seconds
+
+**Purpose**: Decouples Chrome availability from cron logic. If Chrome dies, health monitor restarts it within 60s — cron never has to worry about Chrome lifecycle.
+
+**Behavior**:
+1. Checks CDP (`curl --max-time 5 http://127.0.0.1:18801/json`)
+2. If CDP down → attempts restart via `start-chrome.sh`
+3. Verifies CDP responds within 10s of restart
+4. Rate limiting: max 3 restarts per 10 min
+5. Uses `flock` to prevent concurrent restarts
+
+**Why**: Prevents 22-hour outage (Jun 12 incident) caused by circular dependency — auto-recovery needs Chrome, but Chrome restart only happened at cron start.
+
+---
+
+### Phase 3: Recovery Flow (Updated for v4.3.6)
+
 ```
 Refresh attempt fails
+    ↓
+Check CDP (re-verify before auto-recovery)
+    ↓
+├─→ CDP down → Abort, health monitor will restart Chrome
+└─→ CDP up → Continue
     ↓
 Open login tab automatically (CDP)
     ↓
@@ -197,6 +227,11 @@ Attempt OTP via email (2 tries)
     ├─ NO stand_down file created
     └─ Wait for manual /Login command
 ```
+
+**v4.3.6 changes**:
+- Pre-recovery CDP re-check added to `derayah_refresh_cron.sh`
+- If CDP down mid-cycle → abort, don't attempt auto-recovery
+- `_ensure_chrome_running()` added to SessionManager as fallback
 
 ---
 
@@ -266,6 +301,9 @@ python3 -c "from derayah_session_manager import SessionManager; sm = SessionMana
 | CDP port dependency | Session manager needs Chrome | Port 18801 must be open |
 | localStorage cleared | Tokens lost on expiry | 5-min cron refreshes before 5-min grace window closes |
 | 5-min SSO grace period | SSO 401s after 5 min past exp | 5-min cron interval < 5-min grace → always caught |
+| Chrome dies unexpectedly | 22-hour outage (Jun 12) | Health monitor restarts within 60s (v4.3.6) |
+| Token file stale | False 401s | `sync_tokens_from_browser()` reads browser first (v4.3.5) |
+| Async bot crash | `auto_login_with_email_otp()` blocks async | `auto_login_with_email_otp_async()` wrapper (v4.3.5) |
 
 ---
 
@@ -273,6 +311,14 @@ python3 -c "from derayah_session_manager import SessionManager; sm = SessionMana
 
 | Date | Change | File |
 |------|--------|------|
+| 2026-06-13 | **v4.3.6**: Chrome Health Monitor — standalone CDP checker + auto-restart (60s interval) | `chrome_health_monitor.sh` + systemd |
+| 2026-06-13 | **v4.3.6**: Cron restructure — removed Chrome restart, added pre-recovery CDP re-check | `derayah_refresh_cron.sh` |
+| 2026-06-13 | **v4.3.6**: `_ensure_chrome_running()` — SessionManager fallback for CDP down | `derayah_session_manager.py` |
+| 2026-06-13 | **v4.3.6**: `DISPLAY=:0` fix for Chrome startup on lightdm display | `start-chrome.sh` |
+| 2026-06-12 | **v4.3.5**: `sync_tokens_from_browser()` — reads browser localStorage before SSO refresh | `derayah_session_manager.py` |
+| 2026-06-12 | **v4.3.5**: `auto_login_with_email_otp_async()` — thread-safe async wrapper | `derayah_session_manager.py` |
+| 2026-06-11 | **v4.3.4**: Tab activation `_activate_tab()` — brings TC tab to foreground after SSO | `derayah_session_manager.py` |
+| 2026-06-11 | **v4.3.3**: Tab deduplication `_close_extra_tabs()` — keeps active tab, closes duplicates | `derayah_session_manager.py` |
 | 2026-06-10 | **v4.3**: 5-min refresh_cron (was 15-min) | `crontab` |
 | 2026-06-10 | **v4.3**: Added 5-min SSO grace period finding | `derayah_refresh_cron.sh` (comment) |
 | 2026-06-10 | **v4.3**: `_close_extra_tabs()` cleanup (tracker domains) | `derayah_session_manager.py` |
