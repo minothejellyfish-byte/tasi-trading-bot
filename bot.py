@@ -1528,25 +1528,39 @@ async def handle_hiscap_command(update, context):
 
 
 async def handle_history_command(update, context):
-    """/HISTORY — Show last 2 trading days of orders (oldest first)."""
+    """/HISTORY — Show today's orders only, split into multiple messages if too long."""
     try:
         sys.path.insert(0, BASE_DIR)
         from history_io import read_order_history
-        orders = read_order_history(last_n_orders=100, days=2)
+        from datetime import datetime
+        
+        # Get today's date in Riyadh timezone
+        today = datetime.now(RIYADH).strftime("%Y-%m-%d")
+        
+        orders = read_order_history(last_n_orders=100, days=1)
         if not orders:
             await update.message.reply_text("📜 No order history yet.")
             return
         
-        # Filter: real FILLED orders only (no test, no rejected)
-        real_orders = [o for o in orders if not o.get("order_id", "").startswith("TEST") and o.get("status") == "FILLED"]
+        # Filter: today's real FILLED orders only
+        real_orders = [o for o in orders if 
+                       not o.get("order_id", "").startswith("TEST") and 
+                       o.get("status") == "FILLED" and
+                       o.get("date", "") == today]
         
-        # Sort ascending (oldest first) by date+time
-        real_orders.sort(key=lambda o: (o.get("date", ""), o.get("time", "")))
+        if not real_orders:
+            await update.message.reply_text(f"📜 No orders today ({today}).")
+            return
         
-        lines = [f"📜 <b>Order History — {len(real_orders)} orders (oldest → newest)</b>", ""]
+        # Sort ascending (oldest first) by time
+        real_orders.sort(key=lambda o: o.get("time", ""))
+        
+        # Build messages (max 3500 chars each to stay under Telegram 4096 limit)
+        messages = []
+        current_lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
+        current_length = len(current_lines[0]) + len(current_lines[1])
         
         for o in real_orders:
-            date = o.get("date", "?")
             time = o.get("time", "") or "--:--"
             oid = o.get("order_id", "?")
             side = o.get("side", "?")
@@ -1560,15 +1574,35 @@ async def handle_history_command(update, context):
             
             price_str = "Market" if otype == "MARKET" else f"{price:.2f}"
             
-            lines.append(f"<b>{date} {time}</b> | #{oid} | {side} {qty}×{sym} @ {price_str}")
+            order_line = f"<b>{time}</b> | #{oid} | {side} {qty}×{sym} @ {price_str}"
+            detail_lines = []
             if total:
-                lines.append(f"  Total: {total} SAR | Fees: {fees} SAR")
+                detail_lines.append(f"  Total: {total} SAR | Fees: {fees} SAR")
             if trigger:
-                lines.append(f"  Trigger: {trigger}")
+                detail_lines.append(f"  Trigger: {trigger}")
+            
+            # Check if adding this order would exceed limit
+            new_lines = [order_line] + detail_lines + [""]
+            new_length = sum(len(line) for line in new_lines)
+            
+            if current_length + new_length > 3500 and current_lines:
+                # Save current message and start new one
+                messages.append("\n".join(current_lines))
+                current_lines = [f"📜 <b>Today's Orders (continued)</b>", ""]
+                current_length = len(current_lines[0]) + len(current_lines[1])
+            
+            current_lines.extend(new_lines)
+            current_length += new_length
         
-        lines.append("")
-        lines.append(f"<i>Full CSV: history/order_history.csv</i>")
-        await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
+        # Add remaining lines
+        if current_lines:
+            current_lines.append(f"<i>Full CSV: history/order_history.csv</i>")
+            messages.append("\n".join(current_lines))
+        
+        # Send messages
+        for msg in messages:
+            await update.message.reply_text(msg, parse_mode=ParseMode.HTML)
+        
     except Exception as e:
         log.error(f"handle_history_command error: {e}")
         await update.message.reply_text(f"❌ Error reading history: {e}")
