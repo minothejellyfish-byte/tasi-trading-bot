@@ -595,6 +595,8 @@ def reconcile_orders() -> dict:
         new_orders[oid] = {
             "initiated_at": existing.get("initiated_at") or api_data["order_date"] or _now(),
             "initiated_by": existing.get("initiated_by") or "derayah-direct",
+            "trigger_basis": existing.get("trigger_basis") or "unknown",
+            "trigger_detail": existing.get("trigger_detail") or "",
             "symbol": api_data["symbol"],
             "side": api_data["side"],
             "qty": api_data["qty"],
