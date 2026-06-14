@@ -1531,8 +1531,8 @@ async def handle_history_command(update, context):
         
         # Build table with PnL calculation
         lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
-        lines.append("<code>ID  | Side | Qty | Symbol | Price  | Total   | Fees | Trigger       | PnL</code>")
-        lines.append("<code>----+------+-----+--------+--------+---------+------+---------------+------</code>")
+        lines.append("<code>Time | ID  | Side | Qty | Symbol | Price  | Total   | Fees | Trigger       | PnL</code>")
+        lines.append("<code>-----+-----+------+-----+--------+--------+---------+------+---------------+------</code>")
         
         # Build lookup for buy orders (to calculate PnL for sells)
         buy_orders = {}
@@ -1542,6 +1542,7 @@ async def handle_history_command(update, context):
                 buy_orders[key] = float(o.get("price", 0) or 0)
         
         for o in real_orders:
+            time = o.get("time", "")[:5] or "--:--"
             oid = o.get("order_id", "?")[:4]
             side = o.get("side", "?")[:4]
             qty = str(o.get("qty", 0))[:3]
@@ -1568,7 +1569,7 @@ async def handle_history_command(update, context):
             
             price_str = f"{price:.2f}" if price else "MKT"
             
-            lines.append(f"<code>{oid:<4}| {side:<5}| {qty:<4}| {sym:<7}| {price_str:<7}| {total:<8}| {fees:<5}| {trigger:<15}| {pnl:<6}</code>")
+            lines.append(f"<code>{time:<5}| {oid:<4}| {side:<5}| {qty:<4}| {sym:<7}| {price_str:<7}| {total:<8}| {fees:<5}| {trigger:<15}| {pnl:<6}</code>")
         
         lines.append("")
         lines.append(f"<i>Full CSV: history/order_history.csv</i>")
