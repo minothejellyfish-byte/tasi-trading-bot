@@ -1019,8 +1019,32 @@ async def get_status() -> str:
         pos = _load_positions()
         open_pos = {k: v for k, v in pos.items() if not v.get("closed")}
 
-        # Fetch actual balance from Derayah
-        actual = await get_actual_balance_from_derayah()
+        # ─── Phase 1: Trigger bookkeeper sync for fresh data ──────────────
+        sync_msg = ""
+        try:
+            if ORDER_HELPERS_AVAILABLE:
+                from bookkeeper import quick_refresh
+                quick_refresh()
+                sync_msg = "(synced)"
+        except Exception as e:
+            log.warning(f"/Status: bookkeeper sync failed: {e}")
+            sync_msg = "(sync failed)"
+
+        # ─── Phase 2: Read from files (bookkeeper source of truth) ─────────
+        actual = None
+        try:
+            with open(CAPITAL_FILE) as f:
+                cap = json.load(f)
+            actual = {
+                'total': cap.get('grand_total', 0) or 0,
+                'available': cap.get('available_capital', 0) or 0,
+                'invested': cap.get('invested', 0) or 0,
+                'cash': cap.get('available_capital', 0) or 0,
+            }
+        except Exception as e:
+            log.warning(f"/Status: could not read capital.json: {e}")
+            # Fallback to scrape only if files missing
+            actual = await get_actual_balance_from_derayah()
 
         # Build clean status message - using plain text, no HTML tags for cleaner display
         lines = []
@@ -1074,79 +1098,38 @@ async def get_status() -> str:
         
         lines.append("")
         
-        # ─── Phase 4: 3-bucket capital display ────────────────────────────
+        # ─── Phase 4: 3-bucket capital display (from files) ───────────────
         if ORDER_HELPERS_AVAILABLE and actual:
             try:
                 equity = actual.get('invested', 0) or 0
                 booked = get_booked_capital()
-                # grand_total from Derayah = total portfolio value
-                grand_total = actual.get('total', 1000.66) or 1000.66
-                # Cash = what's NOT in positions AND NOT in outstanding orders
-                # Derayah's "available" already accounts for outstanding orders
-                # so we use: cash = available (Derayah's number, accurate)
+                grand_total = actual.get('total', 0) or 0
                 cash = actual.get('available', 0) or 0
                 total_3bucket = equity + booked + cash
                 
-                lines.append("💰 Capital (3-bucket)")
+                lines.append(f"💰 Capital (3-bucket) {sync_msg}")
                 lines.append(f"  Equity:  {equity:>10,.2f} SAR  (positions at market)")
                 lines.append(f"  Booked:  {booked:>10,.2f} SAR  (outstanding orders)")
                 lines.append(f"  Cash:    {cash:>10,.2f} SAR  (available)")
                 lines.append(f"  ────────")
                 lines.append(f"  Total:   {total_3bucket:>10,.2f} SAR")
                 
-                # Persist to capital.json for bookkeeper/bookkeeping audit trail
-                try:
-                    import json as _json
-                    with open(CAPITAL_FILE) as _f:
-                        _cap = _json.load(_f)
-                    _cap['equity'] = round(equity, 2)
-                    _cap['booked'] = round(booked, 2)
-                    _cap['cash_3bucket'] = round(cash, 2)
-                    _cap['total_3bucket'] = round(total_3bucket, 2)
-                    _cap['updated_at'] = datetime.now(RIYADH).isoformat()
-                    _cap['source'] = '3bucket-derayah'
-                    with open(CAPITAL_FILE, 'w') as _f:
-                        _json.dump(_cap, _f, indent=2)
-                except Exception as _e:
-                    log.warning(f"Could not persist 3-bucket capital: {_e}")
             except Exception as e:
                 log.warning(f"3-bucket capital failed: {e}")
                 lines.append("💰 Capital (3-bucket): error")
             lines.append("")
         
-        # Legacy balance section - use scraped Derayah values
+        # Legacy balance section - from files (not scraped)
         if actual:
-            lines.append("💰 Account Balance (Derayah Actual)")
-            lines.append(f"  Grand Total: {actual.get('total', 1000.66):,.2f} SAR")
+            lines.append("💰 Account Balance (from bookkeeper)")
+            lines.append(f"  Grand Total: {actual.get('total', 0):,.2f} SAR")
             lines.append(f"  Invested:    {actual.get('invested', 0):,.2f} SAR")
             lines.append(f"  Available:   {actual.get('available', 0):,.2f} SAR")
             lines.append(f"  Cash:        {actual.get('cash', 0):,.2f} SAR")
             lines.append("")
-            
-            # Update local capital.json with scraped values
-            try:
-                with open(CAPITAL_FILE, 'r') as f:
-                    cap = json.load(f)
-                cap['available_capital'] = actual.get('available', 0)
-                cap['grand_total'] = actual.get('total', 1000.66)
-                cap['invested'] = actual.get('invested', 0)
-                cap['updated_at'] = datetime.now(RIYADH).isoformat()
-                cap['source'] = 'derayah-dashboard-scraped-refresh'
-                with open(CAPITAL_FILE, 'w') as f:
-                    json.dump(cap, f, indent=2)
-            except Exception as e:
-                log.warning(f"Could not update capital.json: {e}")
         else:
-            # Fallback to local calculation
-            try:
-                with open(CAPITAL_FILE) as f:
-                    cap = json.load(f)
-                local_available = cap.get('available_capital', 0)
-                
-                lines.append("💰 Account Balance (Local Calculation - Fallback)")
-                lines.append(f"  Available: {local_available:.2f} SAR")
-            except:
-                lines.append("💰 Account Balance: Unable to fetch")
+            # Fallback if no data at all
+            lines.append("💰 Account Balance: Unable to read from files")
         
         lines.append("")
         
