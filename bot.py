@@ -1108,20 +1108,18 @@ async def get_status() -> str:
                 cash = actual.get('available', 0) or 0
                 total_3bucket = equity + booked + cash
                 
-                lines.append(f"💰 Capital (3-bucket) {sync_msg}")
-                lines.append(f"  Equity:  {equity:>10,.2f} SAR  (positions at market)")
-                lines.append(f"  Booked:  {booked:>10,.2f} SAR  (outstanding orders)")
-                lines.append(f"  Cash:    {cash:>10,.2f} SAR  (available)")
+                lines.append(f"💰 Capital")
+                lines.append(f"  Equity:  {equity:>10,.2f} SAR")
+                lines.append(f"  Booked:  {booked:>10,.2f} SAR")
+                lines.append(f"  Cash:    {cash:>10,.2f} SAR")
                 lines.append(f"  ────────")
                 lines.append(f"  Total:   {total_3bucket:>10,.2f} SAR")
                 
             except Exception as e:
                 log.warning(f"3-bucket capital failed: {e}")
-                lines.append("💰 Capital (3-bucket): error")
+                lines.append("💰 Capital: error")
             lines.append("")
-        
-        # Note: All capital data comes from files (bookkeeper source of truth)
-        if not actual:
+        elif not actual:
             lines.append("⚠️ Capital data unavailable")
             lines.append("")
         
