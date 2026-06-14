@@ -1460,7 +1460,7 @@ async def handle_pnl_command(update, context):
 
 
 async def handle_hiscap_command(update, context):
-    """ /HisCap — Show historical capital from bookkeeper's daily_pnl.csv (Derayah-sourced). """
+    """ /HisCap — Show historical capital table from daily_pnl.csv. """
     try:
         sys.path.insert(0, BASE_DIR)
         from history_io import read_daily_pnl
@@ -1470,29 +1470,39 @@ async def handle_hiscap_command(update, context):
             return
         
         lines = ["💰 <b>Historical Capital (Last 10 Trading Days)</b>", ""]
+        lines.append("<code>Date       | Start    | End      | PnL      | Trades</code>")
+        lines.append("<code>-----------+----------+----------+----------+-------</code>")
+        
         total_pnl = 0.0
         prev_total = None
         
-        # daily_pnl rows are newest first — reverse to show oldest first
-        for row in reversed(rows):
+        # daily_pnl rows are oldest first already
+        for row in rows:
             date_str = row.get("date", "?")
             total = float(row.get("total", 0) or 0)
-            cash = float(row.get("cash", 0) or 0)
-            equity = float(row.get("equity", 0) or 0)
             pnl = float(row.get("pnl", 0) or 0)
             trades = row.get("trades", 0)
             
-            day_pnl = pnl  # daily_pnl already has daily PnL
+            # Calculate actual capital-based PnL
+            if prev_total is not None:
+                day_pnl = round(total - prev_total, 2)
+                start_str = f"{prev_total:.2f}"
+            else:
+                day_pnl = pnl  # First day, use stored PnL
+                start_str = "N/A"
+            
             total_pnl += day_pnl
             
             emoji = "🟢" if day_pnl >= 0 else "🔴"
-            lines.append(f"<b>{date_str}</b> {emoji} {day_pnl:+.2f}  ({trades} trades)")
-            lines.append(f"  Total: {total:,.2f} | Cash: {cash:,.2f} | Invested: {equity:,.2f}")
-            lines.append("")
+            lines.append(f"<code>{date_str} | {start_str:<8} | {total:>8.2f} | {day_pnl:>+8.2f} | {trades:>5}</code> {emoji}")
+            
+            prev_total = total
+        
+        lines.append("<code>-----------+----------+----------+----------+-------</code>")
         
         if len(rows) > 1:
             emoji = "🟢" if total_pnl >= 0 else "🔴"
-            lines.append(f"{emoji} <b>Period P&L: {total_pnl:+.2f} SAR</b>")
+            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} |       </code> {emoji} <b>Total</b>")
         
         await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
     except Exception as e:
