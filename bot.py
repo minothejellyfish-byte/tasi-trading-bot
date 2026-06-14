@@ -1656,7 +1656,9 @@ async def get_history() -> str:
         
         lines = ["📜 Recent Orders (last 10):"]
         for o in orders[:10]:
-            status = o.get("orderStatus", "?")
+            status_code = o.get("status") or o.get("orderStatusId")
+            status_map = {12: "FILLED", 1: "PENDING", 2: "PARTIAL", 4: "CANCELLED", 5: "REJECTED"}
+            status = status_map.get(status_code, "?")
             side = "BUY" if o.get("side") == 1 else "SELL"
             sym = o.get("symbol", "?")
             qty = o.get("quantity", 0)
