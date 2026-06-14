@@ -1509,6 +1509,7 @@ async def handle_history_command(update, context):
         
         # Get today's date in Riyadh timezone
         today = datetime.now(RIYADH).strftime("%Y-%m-%d")
+        today_short = datetime.now(RIYADH).strftime("%m-%d")  # CSV uses MM-DD format
         
         orders = read_order_history(last_n_orders=100, days=1)
         if not orders:
@@ -1519,7 +1520,7 @@ async def handle_history_command(update, context):
         real_orders = [o for o in orders if 
                        not o.get("order_id", "").startswith("TEST") and 
                        o.get("status") == "FILLED" and
-                       o.get("date", "") == today]
+                       (o.get("date", "") == today or o.get("date", "") == today_short)]
         
         if not real_orders:
             await update.message.reply_text(f"📜 No orders today ({today}).")
