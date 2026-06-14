@@ -1,6 +1,7 @@
 # TASI Session Management — Configuration Reference v4.3
-## Updated: 2026-06-14 00:53 GMT+3
+## Updated: 2026-06-14 03:35 GMT+3
 ## Changes from v4.2: 5-min refresh_cron (was 15-min) — see "v4.3 Changelog" at bottom
+## v4.3.7: Post-SSO dashboard verification — detects signin page and triggers auto-recovery
 
 **IMPORTANT**: Chrome Health Monitor removed (v4.3.6-reverted). See "v4.3.6 Revert" section below.
 
@@ -533,6 +534,105 @@ Also removed `| tee -a "$LOG_FILE"` from Python script output lines that already
 | File | Changes |
 |------|---------|
 | `derayah_refresh_cron.sh` | `log()` function: `tee` → `>>` ; 3× `| tee -a "$LOG_FILE"` removed |
+
+---
+
+## v4.3.7 Update (2026-06-14 03:35) — Post-SSO Dashboard Verification
+
+**Problem:** SSO refresh returned success (rc=0) even when the user was logged out. The dashboard tab showed the signin page (onboarding.derayah.com/#/signin), but the cron considered this a success because:
+1. The SSO URL endpoint returns 200 (session is still valid server-side)
+2. The TC token gets refreshed
+3. But the dashboard tab is NOT actually usable for trading
+
+**Root cause:** The cron's `main()` case statement treated `sso_refresh()` return code 0 as "everything is fine" and exited immediately. It never verified the dashboard tab was actually logged in.
+
+**Fix:** After `sso_refresh` returns 0, the cron now:
+1. Fetches the dashboard tab URL via CDP using `SessionManager._cdp_list_tabs()` and `_find_dashboard_tab()`
+2. Checks if the URL contains "signin" or "onboarding"
+3. If logged out → triggers `auto_recover()` with reason "Dashboard shows signin after SSO refresh"
+4. If logged in → proceeds normally
+
+**Code inserted in `main()`, case 0) branch:**
+```bash
+0)
+    log "✅ SSO refresh returned success — verifying dashboard tab is actually logged in..."
+    local dashboard_url
+    dashboard_url=$(python3 -c "...fetch dashboard URL via CDP...")
+    log "  Dashboard tab URL: $dashboard_url"
+    
+    if echo "$dashboard_url" | grep -qiE "signin|onboarding"; then
+        log "  ❌ Dashboard tab shows signin/onboarding page"
+        auto_recover "Dashboard shows signin after SSO refresh" "🔴"
+        exit $?
+    else
+        log "✅ Dashboard tab is active and logged in — session fully operational"
+        exit 0
+    fi
+    ;;
+```
+
+**Result:** The cron now correctly detects when the user is logged out and triggers auto-recovery, even though SSO refresh succeeded.
+
+### Files Modified
+| File | Changes |
+|------|---------|
+| `derayah_refresh_cron.sh` | Added post-SSO dashboard verification (37 lines added) |
+
+---
+
+## v4.3.8 Update (2026-06-14 03:42) — 5-Minute Grace Period Analysis
+
+### Problem
+Amin reported that sometimes the system "misses the 5-minute grace period" and needs to initiate recovery.
+
+### Understanding the Grace Period
+- **Access token lifetime:** 60 minutes from capture
+- **Cron frequency:** Every 5 minutes
+- **Grace period:** ~55 minutes (60 min - 5 min buffer) where SSO refresh works
+- **Danger zone:** 55-60 minutes — SSO refresh may fail intermittently
+- **After 60 minutes:** Access token expired → auto-recovery required
+
+### What "Missing the Grace Period" Means
+The system has ~11 chances (every 5 min for 55 min) to refresh the token via SSO. If ALL of these fail, the token expires and we need auto-recovery.
+
+**Causes of missing the grace period:**
+1. **Chrome down** — CDP not accessible, cron can't sync tokens or navigate
+2. **Cron disabled** — crontab line removed or commented out
+3. **Network issues** — SSO endpoint unreachable (rare)
+4. **Token sync failure** — browser tokens not being read (file permissions, etc.)
+
+### Evidence from Logs (2026-06-14 Early Morning)
+Auto-recovery ran every 5 minutes from 01:30 to 03:00 (18 consecutive failures) before succeeding at 03:00.
+
+```
+2026-06-14 01:30 → Auto-recovery triggered (token expired -129 min ago)
+2026-06-14 01:35 → Auto-recovery triggered
+...
+2026-06-14 02:55 → Auto-recovery triggered
+2026-06-14 03:00 → ✅ Auto-recovery succeeded
+```
+
+**Root cause:** Chrome was down or tabs were missing. The cron at 02:55 shows:
+```
+2026-06-14 02:55:01 ❌ CDP not accessible — attempting Chrome auto-restart
+```
+
+After Chrome restarted, auto-recovery had a chance to work.
+
+### Key Insight
+The grace period isn't "missed" by a single cron failure — it's missed when the system is in a failed state for an extended period (>55 minutes). Individual cron failures are normal and expected; the system retries every 5 minutes.
+
+### Prevention
+1. **Chrome restart in cron** — Already implemented (v4.3.6): If CDP down, restart Chrome automatically
+2. **Tab existence checks** — Already implemented (v4.3.6): Open missing tabs via CDP
+3. **Post-SSO dashboard verification** — v4.3.7: Detect when user is logged out despite SSO success
+4. **Token sync from browser** — Already implemented: Browser is source of truth
+
+### When Auto-Recovery is Actually Needed
+- After Chrome crash + restart (session lost)
+- After user manually logs out
+- After token expiry >60 minutes (system down for extended period)
+- When Derayah forces re-authentication (security policy)
 
 ---
 
