@@ -327,7 +327,8 @@ def analyze_picks_comprehensive(picks: list, perf_map: dict, trades: list, date_
     trade_map = {t["symbol"]: t for t in trades}
     
     for pick in picks:
-        symbol = pick.get("symbol", "")
+        # Fix: some picks have ticker instead of symbol
+        symbol = pick.get("symbol", "") or pick.get("ticker", "").replace(".SR", "")
         perf = perf_map.get(symbol)
         trade = trade_map.get(symbol)
         
@@ -770,7 +771,16 @@ def generate_recommendations(pick_analysis: list, missed: dict, performances: li
             f"need zone calculation or manual review."
         )
 
-    if missed:
+    if missed and isinstance(missed, dict):
+        our_picks = missed.get("our_picks", [])
+        outside = missed.get("outside_top3", [])
+        total_missed = len(our_picks) + len(outside)
+        if total_missed > 0:
+            recommendations.append(
+                f"🔍 {total_missed} missed opportunities ({len(our_picks)} from our picks, {len(outside)} outside) — "
+                f"review entry/exit strategy."
+            )
+    elif missed:
         avg_missed = sum(p["max_intraday_pct"] for p in missed) / len(missed)
         recommendations.append(
             f"🔍 {len(missed)} missed opportunities avg +{avg_missed:.1f}% — "
@@ -1125,6 +1135,7 @@ ORDER_HISTORY_FILE = BASE_DIR / "history" / "order_history.csv"
 def load_actual_trades(date_str: str) -> list:
     """
     Load actual BUY/SELL trades from order_history.csv for the given date.
+    Only returns FILLED trades (filters out REJECTED).
     Returns list of trade dicts with entry/exit details.
     """
     trades = []
@@ -1136,18 +1147,21 @@ def load_actual_trades(date_str: str) -> list:
                 row_date = row.get("date", "")
                 # Match both MM-DD and YYYY-MM-DD formats
                 if row_date == date_str[5:] or row_date == date_str:
-                    trades.append({
-                        "order_id": row.get("order_id"),
-                        "symbol": row.get("symbol", "").replace(".SR", ""),
-                        "side": row.get("side", ""),
-                        "qty": int(row.get("qty", 0) or 0),
-                        "price": float(row.get("price", 0) or 0),
-                        "total": float(row.get("total", 0) or 0),
-                        "fees": float(row.get("fees", 0) or 0),
-                        "trigger_basis": row.get("trigger_basis", ""),
-                        "time": row.get("time", ""),
-                        "status": row.get("status", ""),
-                    })
+                    status = row.get("status", "").upper()
+                    # Only include FILLED trades, skip REJECTED
+                    if status == "FILLED":
+                        trades.append({
+                            "order_id": row.get("order_id"),
+                            "symbol": row.get("symbol", "").replace(".SR", ""),
+                            "side": row.get("side", ""),
+                            "qty": int(row.get("qty", 0) or 0),
+                            "price": float(row.get("price", 0) or 0),
+                            "total": float(row.get("total", 0) or 0),
+                            "fees": float(row.get("fees", 0) or 0),
+                            "trigger_basis": row.get("trigger_basis", ""),
+                            "time": row.get("time", ""),
+                            "status": status,
+                        })
     except Exception as e:
         print(f"[WARN] Failed to load order history: {e}")
     return trades
