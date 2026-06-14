@@ -1099,29 +1099,20 @@ async def get_status() -> str:
         
         lines.append("")
         
-        # ─── Phase 4: 3-bucket capital display (from files) ───────────────
-        if ORDER_HELPERS_AVAILABLE and actual:
-            try:
-                equity = actual.get('invested', 0) or 0
-                booked = get_booked_capital()
-                grand_total = actual.get('total', 0) or 0
-                cash = actual.get('available', 0) or 0
-                total_3bucket = equity + booked + cash
-                
-                lines.append(f"💰 Capital (3-bucket) {sync_msg}")
-                lines.append(f"  Equity:  {equity:>10,.2f} SAR  (positions at market)")
-                lines.append(f"  Booked:  {booked:>10,.2f} SAR  (outstanding orders)")
-                lines.append(f"  Cash:    {cash:>10,.2f} SAR  (available)")
-                lines.append(f"  ────────")
-                lines.append(f"  Total:   {total_3bucket:>10,.2f} SAR")
-                
-            except Exception as e:
-                log.warning(f"3-bucket capital failed: {e}")
-                lines.append("💰 Capital (3-bucket): error")
+        # ─── Capital Display (Simple - from files) ─────────────────────
+        if actual:
+            invested = actual.get('invested', 0) or 0
+            available = actual.get('available', 0) or 0
+            grand_total = actual.get('total', 0) or 0
+            
+            lines.append(f"💰 Capital {sync_msg}")
+            lines.append(f"  Grand Total: {grand_total:>10,.2f} SAR")
+            lines.append(f"  Available:   {available:>10,.2f} SAR")
+            lines.append(f"  Invested:    {invested:>10,.2f} SAR")
             lines.append("")
-        
-        # Note: All capital data comes from files (bookkeeper source of truth)
-        if not actual:
+        else:
+            lines.append("💰 Capital: Unable to read from files")
+            lines.append("")
             lines.append("⚠️ Capital data unavailable")
             lines.append("")
         
