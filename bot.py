@@ -1120,19 +1120,10 @@ async def get_status() -> str:
                 lines.append("💰 Capital (3-bucket): error")
             lines.append("")
         
-        # Legacy balance section - from files (not scraped)
-        if actual:
-            lines.append("💰 Account Balance (from bookkeeper)")
-            lines.append(f"  Grand Total: {actual.get('total', 0):,.2f} SAR")
-            lines.append(f"  Invested:    {actual.get('invested', 0):,.2f} SAR")
-            lines.append(f"  Available:   {actual.get('available', 0):,.2f} SAR")
-            lines.append(f"  Cash:        {actual.get('cash', 0):,.2f} SAR")
+        # Note: All capital data comes from files (bookkeeper source of truth)
+        if not actual:
+            lines.append("⚠️ Capital data unavailable")
             lines.append("")
-        else:
-            # Fallback if no data at all
-            lines.append("💰 Account Balance: Unable to read from files")
-        
-        lines.append("")
         
         # Market status
         now = datetime.now(RIYADH)
