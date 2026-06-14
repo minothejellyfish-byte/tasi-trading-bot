@@ -36,6 +36,8 @@ DAILY_PNL_HEADERS = [
     "total",          # SAR — grand_total
     "pnl",            # SAR — realized P&L for the day (vs previous close)
     "trades",         # int — number of fills
+    "deposits",       # SAR — deposits recorded today
+    "withdrawals",    # SAR — withdrawals recorded today
     "notes",          # free text (e.g., "weekend gap", "EOD cancel")
     "recorded_at",    # ISO timestamp
 ]
@@ -121,7 +123,8 @@ def _locked_write_csv(path: str, fieldnames: list, rows: list):
 
 
 def append_daily_pnl(date: str, equity: float, booked: float, cash: float,
-                     total: float, pnl: float, trades: int, notes: str = "") -> bool:
+                     total: float, pnl: float, trades: int,
+                     deposits: float = 0, withdrawals: float = 0, notes: str = "") -> bool:
     """
     Append a daily P&L row. If a row for this date already exists, it is
     overwritten in-place (we only keep the latest snapshot per day).
@@ -142,6 +145,8 @@ def append_daily_pnl(date: str, equity: float, booked: float, cash: float,
                 "total": round(total, 2),
                 "pnl": round(pnl, 2),
                 "trades": trades,
+                "deposits": round(deposits, 2),
+                "withdrawals": round(withdrawals, 2),
                 "notes": notes,
                 "recorded_at": _now_iso(),
             })
@@ -156,6 +161,8 @@ def append_daily_pnl(date: str, equity: float, booked: float, cash: float,
             "total": round(total, 2),
             "pnl": round(pnl, 2),
             "trades": trades,
+            "deposits": round(deposits, 2),
+            "withdrawals": round(withdrawals, 2),
             "notes": notes,
             "recorded_at": _now_iso(),
         })

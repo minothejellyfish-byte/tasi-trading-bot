@@ -781,14 +781,31 @@ def record_daily_pnl(date_str: str = None, notes: str = "") -> dict:
     from history_io import read_daily_pnl
     prev_rows = read_daily_pnl(last_n=5)
     account_change = 0.0
+    previous_total = 0.0
     if prev_rows:
         for r in reversed(prev_rows):
             if r.get("date") != date_str:
                 try:
-                    account_change = round(total - float(r.get("total", 0)), 2)
+                    previous_total = float(r.get("total", 0))
+                    account_change = round(total - previous_total, 2)
                 except (ValueError, TypeError):
                     account_change = 0.0
                 break
+
+    # Auto-detect deposits/withdrawals (>= 100 SAR threshold)
+    deposits = 0.0
+    withdrawals = 0.0
+    if abs(account_change) >= 100:
+        # Significant capital movement detected
+        if account_change > 0:
+            deposits = account_change
+            notes = f"Deposit detected: +{deposits:.2f} SAR. {notes}"
+        else:
+            withdrawals = abs(account_change)
+            notes = f"Withdrawal detected: -{withdrawals:.2f} SAR. {notes}"
+    else:
+        # Small change = trading variance, use calculated PnL
+        pass
 
     append_daily_pnl(
         date=date_str,
@@ -798,6 +815,8 @@ def record_daily_pnl(date_str: str = None, notes: str = "") -> dict:
         total=total,
         pnl=realized_pnl,
         trades=trades,
+        deposits=deposits,
+        withdrawals=withdrawals,
         notes=notes,
     )
 
