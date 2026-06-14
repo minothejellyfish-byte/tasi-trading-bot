@@ -1505,7 +1505,13 @@ async def handle_hiscap_command(update, context):
         
         if len(rows) > 1:
             emoji = "🟢" if total_pnl >= 0 else "🔴"
-            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} |        |       </code> {emoji} <b>Total</b>")
+            # Calculate total PnL% based on first day's starting capital
+            first_total = float(rows[0].get("total", 0) or 0)
+            if first_total > 0:
+                total_pnl_pct = (total_pnl / first_total) * 100
+            else:
+                total_pnl_pct = 0
+            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} | {total_pnl_pct:>+6.2f}% |       </code> {emoji} <b>Total</b>")
         
         await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
     except Exception as e:
