@@ -713,23 +713,42 @@ def reconcile_orders() -> dict:
     if HISTORY_IO_AVAILABLE:
         try:
             today = _today()
+            recorded = 0
+            skipped = 0
             for oid, o in new_orders.items():
                 if o.get("status") in TERMINAL_STATUSES:
-                    # Only record if this is a NEW terminal (not already in history)
-                    # Heuristic: check if last row in order_history.csv matches
-                    append_order_history({
-                        "date": today,
-                        "order_id": oid,
-                        "symbol": o.get("symbol", ""),
-                        "side": o.get("side", ""),
-                        "qty": o.get("qty", 0),
-                        "price": o.get("price", 0),
-                        "type": o.get("type", ""),
-                        "status": _status_name(o.get("status", 0)),
-                        "initiated_by": o.get("initiated_by", "derayah-direct"),
-                        "trigger_basis": o.get("trigger_basis", "unknown"),
-                        "trigger_detail": o.get("trigger_detail", ""),
-                    })
+                    # Check if already in history to prevent duplicates
+                    from history_io import read_order_history
+                    existing = read_order_history(last_n_orders=50, days=1)
+                    
+                    # Create unique key
+                    unique_key = f"{oid}_{o.get('symbol', '')}_{o.get('side', '')}_{o.get('price', 0)}"
+                    is_duplicate = False
+                    for row in existing:
+                        row_key = f"{row.get('order_id', '')}_{row.get('symbol', '')}_{row.get('side', '')}_{row.get('price', 0)}"
+                        if row_key == unique_key and row.get('date') == today:
+                            is_duplicate = True
+                            skipped += 1
+                            break
+                    
+                    if not is_duplicate:
+                        append_order_history({
+                            "date": today,
+                            "order_id": oid,
+                            "symbol": o.get("symbol", ""),
+                            "side": o.get("side", ""),
+                            "qty": o.get("qty", 0),
+                            "price": o.get("price", 0),
+                            "type": o.get("type", ""),
+                            "status": _status_name(o.get("status", 0)),
+                            "initiated_by": o.get("initiated_by", "derayah-direct"),
+                            "trigger_basis": o.get("trigger_basis", "unknown"),
+                            "trigger_detail": o.get("trigger_detail", ""),
+                        })
+                        recorded += 1
+            
+            if skipped > 0:
+                print(f"[{_now()}] History: recorded {recorded} new orders, skipped {skipped} duplicates")
         except Exception as e:
             print(f"[{_now()}] record_to_history failed: {e}")
 

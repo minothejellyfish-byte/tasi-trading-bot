@@ -1136,9 +1136,12 @@ def load_actual_trades(date_str: str) -> list:
     """
     Load actual BUY/SELL trades from order_history.csv for the given date.
     Only returns FILLED trades (filters out REJECTED).
+    Also filters out duplicates (same order_id, symbol, side, price).
     Returns list of trade dicts with entry/exit details.
     """
     trades = []
+    seen = set()  # Track seen trades to avoid duplicates
+    
     try:
         with open(ORDER_HISTORY_FILE) as f:
             reader = csv.DictReader(f)
@@ -1150,10 +1153,24 @@ def load_actual_trades(date_str: str) -> list:
                     status = row.get("status", "").upper()
                     # Only include FILLED trades, skip REJECTED
                     if status == "FILLED":
+                        # Create unique key to detect duplicates
+                        order_id = row.get("order_id", "")
+                        symbol = row.get("symbol", "").replace(".SR", "")
+                        side = row.get("side", "")
+                        price = row.get("price", "")
+                        
+                        # Skip orders with no order_id (like "?")
+                        if order_id and order_id != "?":
+                            unique_key = f"{order_id}_{symbol}_{side}_{price}"
+                            if unique_key in seen:
+                                log.warning(f"Duplicate trade filtered: {unique_key} on {row_date}")
+                                continue
+                            seen.add(unique_key)
+                        
                         trades.append({
-                            "order_id": row.get("order_id"),
-                            "symbol": row.get("symbol", "").replace(".SR", ""),
-                            "side": row.get("side", ""),
+                            "order_id": order_id,
+                            "symbol": symbol,
+                            "side": side,
                             "qty": int(row.get("qty", 0) or 0),
                             "price": float(row.get("price", 0) or 0),
                             "total": float(row.get("total", 0) or 0),
