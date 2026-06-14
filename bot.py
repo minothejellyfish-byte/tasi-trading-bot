@@ -2244,7 +2244,94 @@ def main():
     app.add_handler(CommandHandler("HISTORY", handle_history_command))
     app.add_handler(CommandHandler("HisCap", handle_hiscap_command))
     app.add_handler(CommandHandler("HISCAP", handle_hiscap_command))
-    log.info("HisCap commands enabled: /HisCap")
+async def handle_fund_command(update, context):
+    """ /Fund — Record a manual deposit to daily_pnl.csv. """
+    try:
+        if not context.args:
+            await update.message.reply_text("❌ Usage: /Fund <amount> [notes]\nExample: /Fund 500 \"Saudi Riyal Deposit\"")
+            return
+        
+        amount = float(context.args[0])
+        notes = " ".join(context.args[1:]) if len(context.args) > 1 else "Manual deposit"
+        
+        if amount < 100:
+            await update.message.reply_text(f"⚠️ Minimum deposit is 100 SAR. You entered: {amount:.2f}")
+            return
+        
+        sys.path.insert(0, BASE_DIR)
+        from history_io import append_daily_pnl
+        from datetime import datetime
+        
+        today = datetime.now(RIYADH).strftime("%Y-%m-%d")
+        
+        # Read current capital
+        with open(CAPITAL_FILE) as f:
+            cap = json.load(f)
+        
+        append_daily_pnl(
+            date=today,
+            equity=cap.get("equity", 0),
+            booked=cap.get("booked", 0),
+            cash=cap.get("cash_3bucket", 0),
+            total=cap.get("total_3bucket", 0),
+            pnl=0,
+            trades=0,
+            deposits=amount,
+            withdrawals=0,
+            notes=notes,
+        )
+        
+        await update.message.reply_text(f"✅ Deposit recorded: +{amount:.2f} SAR\nNotes: {notes}")
+        
+    except Exception as e:
+        log.error(f"handle_fund_command error: {e}")
+        await update.message.reply_text(f"❌ Error recording deposit: {e}")
+
+async def handle_withdraw_command(update, context):
+    """ /Withdraw — Record a manual withdrawal to daily_pnl.csv. """
+    try:
+        if not context.args:
+            await update.message.reply_text("❌ Usage: /Withdraw <amount> [notes]\nExample: /Withdraw 300 \"Expense withdrawal\"")
+            return
+        
+        amount = float(context.args[0])
+        notes = " ".join(context.args[1:]) if len(context.args) > 1 else "Manual withdrawal"
+        
+        if amount < 100:
+            await update.message.reply_text(f"⚠️ Minimum withdrawal is 100 SAR. You entered: {amount:.2f}")
+            return
+        
+        sys.path.insert(0, BASE_DIR)
+        from history_io import append_daily_pnl
+        from datetime import datetime
+        
+        today = datetime.now(RIYADH).strftime("%Y-%m-%d")
+        
+        # Read current capital
+        with open(CAPITAL_FILE) as f:
+            cap = json.load(f)
+        
+        append_daily_pnl(
+            date=today,
+            equity=cap.get("equity", 0),
+            booked=cap.get("booked", 0),
+            cash=cap.get("cash_3bucket", 0),
+            total=cap.get("total_3bucket", 0),
+            pnl=0,
+            trades=0,
+            deposits=0,
+            withdrawals=amount,
+            notes=notes,
+        )
+        
+        await update.message.reply_text(f"✅ Withdrawal recorded: -{amount:.2f} SAR\nNotes: {notes}")
+        
+    except Exception as e:
+        log.error(f"handle_withdraw_command error: {e}")
+        await update.message.reply_text(f"❌ Error recording withdrawal: {e}")
+    app.add_handler(CommandHandler("Fund", handle_fund_command))
+    app.add_handler(CommandHandler("Withdraw", handle_withdraw_command))
+    log.info("Fund commands enabled: /Fund, /Withdraw")
 
     log.info("History commands enabled: /Pnl, /History, /HisCap")
     # Then add message handler for regular commands
