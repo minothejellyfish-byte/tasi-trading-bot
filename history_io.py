@@ -174,17 +174,23 @@ def append_order_history(order: dict) -> bool:
     if not fieldnames:
         fieldnames = ORDER_HISTORY_HEADERS
 
-    # Deduplicate: skip if exact same order_id+date+side+status already exists
+    # Deduplicate: skip if exact same order_id+date+side+status+symbol+qty+price already exists
     order_id = str(order.get("order_id", ""))
     date = order.get("date") or _today_str()
     side = str(order.get("side", ""))
     status = str(order.get("status", ""))
+    symbol = str(order.get("symbol", ""))
+    qty = str(order.get("qty", ""))
+    price = str(order.get("price", ""))
     
     for existing in rows:
         if (existing.get("order_id") == order_id and
             existing.get("date") == date and
             existing.get("side") == side and
-            existing.get("status") == status):
+            existing.get("status") == status and
+            existing.get("symbol") == symbol and
+            existing.get("qty") == qty and
+            existing.get("price") == price):
             return False  # Duplicate, skip
 
     qty = int(order.get("qty", 0))
