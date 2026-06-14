@@ -18,6 +18,7 @@ import requests
 import time
 import sys
 import csv
+import logging
 
 RIYADH = pytz.timezone("Asia/Riyadh")
 BASE_DIR = Path("/home/mino/tasi-exec")
@@ -29,6 +30,18 @@ SYSTEM_REF = Path("/home/mino/.openclaw-mino/workspace/TASI_SYSTEM_REFERENCE.md"
 
 BOT_TOKEN = "8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU"
 GROUP_CHAT_ID = -5235925419
+
+# Logging setup
+LOG_FILE = BASE_DIR / "post_market.log"
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+log = logging.getLogger(__name__)
 
 # Parallel config
 MAX_WORKERS = 8
@@ -1300,20 +1313,24 @@ def analyze_actual_vs_ideal(trades: list, picks: list, perf_map: dict) -> list:
         analysis.append(result)
     
     return analysis
+
+
+def _is_saudi_trading_day(dt: datetime) -> bool:
     """Return True if dt falls on a TASI trading day (Sun–Thu)."""
     return dt.weekday() in (6, 0, 1, 2, 3, 4)
 
 
 def main():
+    log.info(f"📊 Post-market analysis starting")
+    
     now = datetime.now(RIYADH)
     date_str = now.strftime("%Y-%m-%d")
-
-    print(f"📊 Post-market analysis starting: {date_str}")
-    print(f"[INFO] System config: {SYSTEM_CONFIG['version']} | Screens: {len(SYSTEM_CONFIG['screens'])} | Trading days: {', '.join(SYSTEM_CONFIG['trading_days'][:3])}...")
+    
+    log.info(f"[INFO] System config: {SYSTEM_CONFIG['version']} | Screens: {len(SYSTEM_CONFIG['screens'])} | Trading days: {', '.join(SYSTEM_CONFIG['trading_days'][:3])}...")
 
     if not _is_saudi_trading_day(now):
         msg = f"⚠️ TASI closed today ({now:%A}). Skipping post-market scan."
-        print(msg)
+        log.info(msg)
         tg_send(msg)
         return
 
