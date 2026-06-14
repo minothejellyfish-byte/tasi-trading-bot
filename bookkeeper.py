@@ -208,7 +208,7 @@ def _now() -> str:
     return datetime.now(RIYADH_TZ).isoformat()
 
 def _today() -> str:
-    return datetime.now(RIYADH_TZ).strftime("%Y-%m-%d")
+    return datetime.now(RIYADH_TZ).strftime("%m-%d")
 
 def load_tokens() -> dict:
     with open(TOKEN_FILE) as f:

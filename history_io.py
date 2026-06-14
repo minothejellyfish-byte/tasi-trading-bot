@@ -174,26 +174,46 @@ def append_order_history(order: dict) -> bool:
     if not fieldnames:
         fieldnames = ORDER_HISTORY_HEADERS
 
-    # Deduplicate: skip if exact same order_id+date+side+status+symbol+qty+price+time already exists
+    # Deduplicate: skip if exact same order_id+date+side+status+symbol+qty+price already exists
     order_id = str(order.get("order_id", ""))
     date = order.get("date") or _today_str()
     side = str(order.get("side", ""))
     status = str(order.get("status", ""))
     symbol = str(order.get("symbol", ""))
     qty = str(order.get("qty", ""))
-    price = str(order.get("price", ""))
-    time = str(order.get("time", ""))
+    # Normalize price to string with 1 decimal place for comparison
+    try:
+        price = str(float(order.get("price", 0)))
+    except:
+        price = str(order.get("price", ""))
     
     for existing in rows:
-        if (existing.get("order_id") == order_id and
-            existing.get("date") == date and
-            existing.get("side") == side and
-            existing.get("status") == status and
-            existing.get("symbol") == symbol and
-            existing.get("qty") == qty and
-            existing.get("price") == price and
-            existing.get("time") == time):
-            return False  # Duplicate, skip
+        # Normalize existing price
+        try:
+            existing_price = str(float(existing.get("price", 0)))
+        except:
+            existing_price = str(existing.get("price", ""))
+        
+        # For REJECTED orders with order_id="?", allow multiple entries (different dates ok)
+        if order_id == "?":
+            # Only skip if ALL fields including date match
+            if (existing.get("order_id") == order_id and
+                existing.get("date") == date and
+                existing.get("side") == side and
+                existing.get("status") == status and
+                existing.get("symbol") == symbol and
+                existing.get("qty") == qty and
+                existing_price == price):
+                return False  # Exact duplicate, skip
+        else:
+            # For normal orders, skip if order_id+side+status+symbol+qty+price match (any date)
+            if (existing.get("order_id") == order_id and
+                existing.get("side") == side and
+                existing.get("status") == status and
+                existing.get("symbol") == symbol and
+                existing.get("qty") == qty and
+                existing_price == price):
+                return False  # Duplicate, skip
 
     qty = int(order.get("qty", 0))
     price = float(order.get("price", 0))
@@ -209,6 +229,7 @@ def append_order_history(order: dict) -> bool:
     if date_str and len(date_str) == 10 and date_str.count("-") == 2:
         date_str = date_str[5:]  # Extract MM-DD from YYYY-MM-DD
     
+    now = datetime.now(RIYADH_TZ)
     # Use passed time if available, otherwise current time
     time_str = order.get("time") or now.strftime("%H:%M")
     
