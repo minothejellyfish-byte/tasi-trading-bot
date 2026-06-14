@@ -443,8 +443,43 @@ main() {
     
     case $rc in
         0)
-            log "✅ Session refresh completed"
-            exit 0
+            log "✅ SSO refresh returned success — verifying dashboard tab is actually logged in..."
+            # ─── v4.3.7 Fix: Verify dashboard tab is not stuck on signin page ───
+            # The SSO endpoint returns 200 even when the user is logged out server-side,
+            # because the session cookie is still valid. The dashboard tab may show the
+            # onboarding signin page (onboarding.derayah.com/#/signin) even though TC
+            # token got refreshed. We must detect this and trigger auto-recovery.
+            local dashboard_url
+            dashboard_url=$(python3 -c "
+import sys, json
+sys.path.insert(0, '$SCRIPT_DIR')
+from derayah_session_manager import SessionManager
+sm = SessionManager()
+tabs = sm._cdp_list_tabs()
+db = sm._find_dashboard_tab(tabs)
+if db:
+    print(db.get('url', ''))
+else:
+    print('NOT_FOUND')
+" 2>>"$LOG_FILE")
+            log "  Dashboard tab URL: $dashboard_url"
+
+            if echo "$dashboard_url" | grep -qiE "signin|onboarding"; then
+                log "  ❌ Dashboard tab shows signin/onboarding page — session is NOT actually logged in"
+                if [[ -f "$HOME/.derayah-creds" || -f "/home/mino/.derayah-creds" ]]; then
+                    [[ -f "/home/mino/.derayah-creds" ]] && CREDS_FILE="/home/mino/.derayah-creds" || CREDS_FILE="$HOME/.derayah-creds"
+                    log "  Using creds file: $CREDS_FILE"
+                    auto_recover "Dashboard shows signin after SSO refresh" "🔴"
+                    exit $?
+                else
+                    log "  No ~/.derayah-creds — cannot auto-recover"
+                    notify_user "🔴" "SSO refresh succeeded but dashboard is on signin page. No auto-recovery creds. Manual Derayah login needed ASAP."
+                    exit 1
+                fi
+            else
+                log "✅ Session refresh completed — dashboard is logged in"
+                exit 0
+            fi
             ;;
         1)
             # No tokens at all — try auto-recovery via email OTP, then manual
