@@ -138,6 +138,57 @@ sso_refresh() {
         log "  ⚠️ Could not decode access token expiry"
     fi
     
+    # ─── Step 1: Read from DASHBOARD localStorage FIRST ──────────────────────
+    log "  Checking dashboard tab for fresh token..."
+    local dash_token
+    dash_token=$(python3 -c "
+import sys
+sys.path.insert(0, '$SCRIPT_DIR')
+from derayah_session_manager import SessionManager
+import base64, json, time
+
+sm = SessionManager()
+tabs = sm._cdp_list_tabs()
+dash = sm._find_dashboard_tab(tabs)
+if dash:
+    ws = dash.get('webSocketDebuggerUrl')
+    token = sm._cdp_eval(ws, \"localStorage.getItem('Derayah_accesstoken') || ''\")
+    if token and len(token) > 100:
+        parts = token.split('.')
+        payload = json.loads(base64.urlsafe_b64decode(parts[1] + '=' * (-len(parts[1]) % 4)))
+        exp = payload.get('exp', 0)
+        remaining = (exp - time.time()) // 60
+        print(f'TOKEN_FOUND|{exp}|{remaining}')
+    else:
+        print('NO_TOKEN')
+else:
+    print('NO_DASHBOARD_TAB')
+" 2>>"$LOG_FILE")
+    
+    local dash_token_found=false
+    local dash_token_exp=0
+    if [[ "$dash_token" == TOKEN_FOUND* ]]; then
+        IFS='|' read -r _ dash_token_exp dash_remaining <<< "$dash_token"
+        log "  ✅ Dashboard token found (exp ${dash_remaining} min)"
+        dash_token_found=true
+        access_exp=$dash_token_exp
+        remaining_min=$dash_remaining
+        # Re-read token from dashboard for use
+        access_tok=$(python3 -c "
+import sys
+sys.path.insert(0, '$SCRIPT_DIR')
+from derayah_session_manager import SessionManager
+sm = SessionManager()
+tabs = sm._cdp_list_tabs()
+dash = sm._find_dashboard_tab(tabs)
+if dash:
+    ws = dash.get('webSocketDebuggerUrl')
+    print(sm._cdp_eval(ws, \"localStorage.getItem('Derayah_accesstoken') || ''\"))
+" 2>/dev/null)
+    else
+        log "  ℹ️ No dashboard token (reason: ${dash_token:-unknown})"
+    fi
+
     # ─── Sync from browser FIRST (browser is source of truth) ─────────────────
     # The dashboard tab may have a fresher Derayah_accesstoken than the JSON
     # file. Reading it here avoids false 401s when the file is stale.
