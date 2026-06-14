@@ -21704,3 +21704,854 @@
 [21:32:55] ws_probe.py started (PID: 760462)
 [21:32:55] ✅ ws_probe.py running successfully
 [21:33:58] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:35:00] ✅ CDP working, ws_probe not running - starting...
+[21:35:00] ws_probe.py started (PID: 760541)
+[21:35:00] ✅ ws_probe.py running successfully
+[21:36:03] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:37:06] ✅ CDP working, ws_probe not running - starting...
+[21:37:06] ws_probe.py started (PID: 760673)
+[21:37:06] ✅ ws_probe.py running successfully
+[21:38:09] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:39:11] ✅ CDP working, ws_probe not running - starting...
+[21:39:11] ws_probe.py started (PID: 760736)
+[21:39:11] ✅ ws_probe.py running successfully
+[21:40:14] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:41:16] ✅ CDP working, ws_probe not running - starting...
+[21:41:16] ws_probe.py started (PID: 760886)
+[21:41:16] ✅ ws_probe.py running successfully
+[21:42:19] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:43:21] ✅ CDP working, ws_probe not running - starting...
+[21:43:21] ws_probe.py started (PID: 760963)
+[21:43:21] ✅ ws_probe.py running successfully
+[21:44:24] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:45:26] ✅ CDP working, ws_probe not running - starting...
+[21:45:26] ws_probe.py started (PID: 761078)
+[21:45:26] ✅ ws_probe.py running successfully
+[21:46:29] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:47:31] ✅ CDP working, ws_probe not running - starting...
+[21:47:31] ws_probe.py started (PID: 761145)
+[21:47:31] ✅ ws_probe.py running successfully
+[21:48:34] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:49:36] ✅ CDP working, ws_probe not running - starting...
+[21:49:36] ws_probe.py started (PID: 761208)
+[21:49:36] ✅ ws_probe.py running successfully
+[21:50:39] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:51:41] ✅ CDP working, ws_probe not running - starting...
+[21:51:41] ws_probe.py started (PID: 761340)
+[21:51:41] ✅ ws_probe.py running successfully
+[21:52:45] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:53:47] ✅ CDP working, ws_probe not running - starting...
+[21:53:47] ws_probe.py started (PID: 761415)
+[21:53:47] ✅ ws_probe.py running successfully
+[21:54:50] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:55:52] ✅ CDP working, ws_probe not running - starting...
+[21:55:52] ws_probe.py started (PID: 761543)
+[21:55:52] ✅ ws_probe.py running successfully
+[21:56:55] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[21:57:57] ✅ CDP working, ws_probe not running - starting...
+[21:57:57] ws_probe.py started (PID: 761611)
+[21:57:57] ✅ ws_probe.py running successfully
+[21:59:00] ✅ ws_probe running and capturing data (513 bytes/2sec)
+[22:00:02] ✅ CDP working, ws_probe not running - starting...
+[22:00:02] ws_probe.py started (PID: 761752)
+[22:00:02] ✅ ws_probe.py running successfully
+[22:01:05] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:02:07] ✅ CDP working, ws_probe not running - starting...
+[22:02:07] ws_probe.py started (PID: 761866)
+[22:02:07] ✅ ws_probe.py running successfully
+[22:03:10] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:04:12] ✅ CDP working, ws_probe not running - starting...
+[22:04:12] ws_probe.py started (PID: 761929)
+[22:04:12] ✅ ws_probe.py running successfully
+[22:05:15] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:06:17] ✅ CDP working, ws_probe not running - starting...
+[22:06:17] ws_probe.py started (PID: 762048)
+[22:06:17] ✅ ws_probe.py running successfully
+[22:07:20] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:08:23] ✅ CDP working, ws_probe not running - starting...
+[22:08:23] ws_probe.py started (PID: 762162)
+[22:08:23] ✅ ws_probe.py running successfully
+[22:09:26] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:10:28] ✅ CDP working, ws_probe not running - starting...
+[22:10:28] ws_probe.py started (PID: 762294)
+[22:10:28] ✅ ws_probe.py running successfully
+[22:11:31] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:12:33] ✅ CDP working, ws_probe not running - starting...
+[22:12:33] ws_probe.py started (PID: 762368)
+[22:12:33] ✅ ws_probe.py running successfully
+[22:13:36] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:14:38] ✅ CDP working, ws_probe not running - starting...
+[22:14:38] ws_probe.py started (PID: 762439)
+[22:14:38] ✅ ws_probe.py running successfully
+[22:15:41] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:16:43] ✅ CDP working, ws_probe not running - starting...
+[22:16:43] ws_probe.py started (PID: 762548)
+[22:16:43] ✅ ws_probe.py running successfully
+[22:17:46] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:18:48] ✅ CDP working, ws_probe not running - starting...
+[22:18:48] ws_probe.py started (PID: 762628)
+[22:18:48] ✅ ws_probe.py running successfully
+[22:19:51] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:20:53] ✅ CDP working, ws_probe not running - starting...
+[22:20:53] ws_probe.py started (PID: 762758)
+[22:20:53] ✅ ws_probe.py running successfully
+[22:21:56] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:22:59] ✅ CDP working, ws_probe not running - starting...
+[22:22:59] ws_probe.py started (PID: 762833)
+[22:22:59] ✅ ws_probe.py running successfully
+[22:24:02] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:25:04] ✅ CDP working, ws_probe not running - starting...
+[22:25:04] ws_probe.py started (PID: 762930)
+[22:25:04] ✅ ws_probe.py running successfully
+[22:26:07] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:27:09] ✅ CDP working, ws_probe not running - starting...
+[22:27:09] ws_probe.py started (PID: 763020)
+[22:27:09] ✅ ws_probe.py running successfully
+[22:28:12] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:29:14] ✅ CDP working, ws_probe not running - starting...
+[22:29:14] ws_probe.py started (PID: 763098)
+[22:29:14] ✅ ws_probe.py running successfully
+[22:30:17] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:31:19] ✅ CDP working, ws_probe not running - starting...
+[22:31:19] ws_probe.py started (PID: 763248)
+[22:31:19] ✅ ws_probe.py running successfully
+[22:32:22] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:33:24] ✅ CDP working, ws_probe not running - starting...
+[22:33:24] ws_probe.py started (PID: 763328)
+[22:33:24] ✅ ws_probe.py running successfully
+[22:34:27] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:35:29] ✅ CDP working, ws_probe not running - starting...
+[22:35:29] ws_probe.py started (PID: 763462)
+[22:35:29] ✅ ws_probe.py running successfully
+[22:36:32] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:37:34] ✅ CDP working, ws_probe not running - starting...
+[22:37:34] ws_probe.py started (PID: 763531)
+[22:37:34] ✅ ws_probe.py running successfully
+[22:38:38] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[22:39:40] ✅ CDP working, ws_probe not running - starting...
+[22:39:40] ws_probe.py started (PID: 764158)
+[22:39:40] ✅ ws_probe.py running successfully
+[22:41:38] ✅ CDP working, ws_probe not running - starting...
+[22:41:38] ws_probe.py started (PID: 764492)
+[22:41:38] ✅ ws_probe.py running successfully
+[22:42:41] ✅ ws_probe running and capturing data (401 bytes/2sec)
+[22:43:43] ✅ CDP working, ws_probe not running - starting...
+[22:43:43] ws_probe.py started (PID: 764736)
+[22:43:43] ✅ ws_probe.py running successfully
+[22:44:46] ✅ ws_probe running and capturing data (401 bytes/2sec)
+[22:45:48] ✅ CDP working, ws_probe not running - starting...
+[22:45:48] ws_probe.py started (PID: 764863)
+[22:45:48] ✅ ws_probe.py running successfully
+[22:46:51] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[22:47:53] ✅ CDP working, ws_probe not running - starting...
+[22:47:53] ws_probe.py started (PID: 764948)
+[22:47:53] ✅ ws_probe.py running successfully
+[22:49:41] ✅ CDP working, ws_probe not running - starting...
+[22:49:41] ws_probe.py started (PID: 765434)
+[22:49:41] ✅ ws_probe.py running successfully
+[22:54:59] ✅ CDP working, ws_probe not running - starting...
+[22:54:59] ws_probe.py started (PID: 766375)
+[22:54:59] ✅ ws_probe.py running successfully
+[22:56:02] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[22:57:04] ✅ CDP working, ws_probe not running - starting...
+[22:57:04] ws_probe.py started (PID: 766527)
+[22:57:04] ✅ ws_probe.py running successfully
+[22:58:07] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[22:59:09] ✅ CDP working, ws_probe not running - starting...
+[22:59:09] ws_probe.py started (PID: 766588)
+[22:59:09] ✅ ws_probe.py running successfully
+[23:00:12] ✅ ws_probe running and capturing data (310 bytes/2sec)
+[23:01:59] ✅ CDP working, ws_probe not running - starting...
+[23:01:59] ws_probe.py started (PID: 767158)
+[23:01:59] ✅ ws_probe.py running successfully
+[23:03:02] ✅ ws_probe running and capturing data (402 bytes/2sec)
+[23:04:04] ✅ CDP working, ws_probe not running - starting...
+[23:04:04] ws_probe.py started (PID: 767243)
+[23:04:04] ✅ ws_probe.py running successfully
+[23:06:11] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:07:13] ✅ CDP working, ws_probe not running - starting...
+[23:07:13] ws_probe.py started (PID: 767398)
+[23:07:13] ✅ ws_probe.py running successfully
+[23:08:17] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:09:19] ✅ CDP working, ws_probe not running - starting...
+[23:09:19] ws_probe.py started (PID: 767474)
+[23:09:19] ✅ ws_probe.py running successfully
+[23:10:22] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:11:24] ✅ CDP working, ws_probe not running - starting...
+[23:11:24] ws_probe.py started (PID: 767597)
+[23:11:24] ✅ ws_probe.py running successfully
+[23:12:27] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:13:29] ✅ CDP working, ws_probe not running - starting...
+[23:13:29] ws_probe.py started (PID: 767655)
+[23:13:29] ✅ ws_probe.py running successfully
+[23:14:32] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:15:34] ✅ CDP working, ws_probe not running - starting...
+[23:15:34] ws_probe.py started (PID: 767765)
+[23:15:34] ✅ ws_probe.py running successfully
+[23:16:37] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:17:39] ✅ CDP working, ws_probe not running - starting...
+[23:17:39] ws_probe.py started (PID: 767850)
+[23:17:39] ✅ ws_probe.py running successfully
+[23:18:42] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:19:44] ✅ CDP working, ws_probe not running - starting...
+[23:19:44] ws_probe.py started (PID: 767928)
+[23:19:44] ✅ ws_probe.py running successfully
+[23:20:47] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:21:49] ✅ CDP working, ws_probe not running - starting...
+[23:21:49] ws_probe.py started (PID: 768038)
+[23:21:49] ✅ ws_probe.py running successfully
+[23:22:53] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:23:55] ✅ CDP working, ws_probe not running - starting...
+[23:23:55] ws_probe.py started (PID: 768096)
+[23:23:55] ✅ ws_probe.py running successfully
+[23:24:58] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:26:00] ✅ CDP working, ws_probe not running - starting...
+[23:26:00] ws_probe.py started (PID: 768208)
+[23:26:00] ✅ ws_probe.py running successfully
+[23:27:03] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:28:05] ✅ CDP working, ws_probe not running - starting...
+[23:28:05] ws_probe.py started (PID: 768284)
+[23:28:05] ✅ ws_probe.py running successfully
+[23:29:08] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[23:30:10] ✅ CDP working, ws_probe not running - starting...
+[23:30:10] ws_probe.py started (PID: 768428)
+[23:30:10] ✅ ws_probe.py running successfully
+[23:33:28] ✅ CDP working, ws_probe not running - starting...
+[23:33:28] ws_probe.py started (PID: 768854)
+[23:33:28] ✅ ws_probe.py running successfully
+[23:42:12] ✅ CDP working, ws_probe not running - starting...
+[23:42:12] ws_probe.py started (PID: 769587)
+[23:42:12] ✅ ws_probe.py running successfully
+[23:44:24] ✅ ws_probe running and capturing data (401 bytes/2sec)
+[23:45:26] ✅ CDP working, ws_probe not running - starting...
+[23:45:26] ws_probe.py started (PID: 769936)
+[23:45:26] ✅ ws_probe.py running successfully
+[23:46:29] ✅ ws_probe running and capturing data (401 bytes/2sec)
+[23:48:16] ✅ CDP working, ws_probe not running - starting...
+[23:48:16] ws_probe.py started (PID: 770260)
+[23:48:16] ✅ ws_probe.py running successfully
+[00:00:29] ✅ CDP working, ws_probe not running - starting...
+[00:00:29] ws_probe.py started (PID: 771498)
+[00:00:29] ✅ ws_probe.py running successfully
+[00:01:32] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:02:34] ✅ CDP working, ws_probe not running - starting...
+[00:02:34] ws_probe.py started (PID: 771565)
+[00:02:34] ✅ ws_probe.py running successfully
+[00:03:37] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:04:39] ✅ CDP working, ws_probe not running - starting...
+[00:04:39] ws_probe.py started (PID: 771619)
+[00:04:39] ✅ ws_probe.py running successfully
+[00:05:43] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:06:45] ✅ CDP working, ws_probe not running - starting...
+[00:06:45] ws_probe.py started (PID: 771727)
+[00:06:45] ✅ ws_probe.py running successfully
+[00:07:48] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:08:50] ✅ CDP working, ws_probe not running - starting...
+[00:08:50] ws_probe.py started (PID: 771793)
+[00:08:50] ✅ ws_probe.py running successfully
+[00:09:53] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:10:55] ✅ CDP working, ws_probe not running - starting...
+[00:10:55] ws_probe.py started (PID: 771897)
+[00:10:55] ✅ ws_probe.py running successfully
+[00:11:58] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:13:00] ✅ CDP working, ws_probe not running - starting...
+[00:13:00] ws_probe.py started (PID: 771949)
+[00:13:00] ✅ ws_probe.py running successfully
+[00:14:03] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:15:05] ✅ CDP working, ws_probe not running - starting...
+[00:15:05] ws_probe.py started (PID: 772036)
+[00:15:05] ✅ ws_probe.py running successfully
+[00:16:08] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:17:10] ✅ CDP working, ws_probe not running - starting...
+[00:17:10] ws_probe.py started (PID: 772097)
+[00:17:10] ✅ ws_probe.py running successfully
+[00:18:13] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:19:15] ✅ CDP working, ws_probe not running - starting...
+[00:19:15] ws_probe.py started (PID: 772142)
+[00:19:15] ✅ ws_probe.py running successfully
+[00:20:18] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:21:21] ✅ CDP working, ws_probe not running - starting...
+[00:21:21] ws_probe.py started (PID: 772259)
+[00:21:21] ✅ ws_probe.py running successfully
+[00:22:24] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:23:26] ✅ CDP working, ws_probe not running - starting...
+[00:23:26] ws_probe.py started (PID: 772308)
+[00:23:26] ✅ ws_probe.py running successfully
+[00:24:29] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:25:31] ✅ CDP working, ws_probe not running - starting...
+[00:25:31] ws_probe.py started (PID: 772413)
+[00:25:31] ✅ ws_probe.py running successfully
+[00:26:34] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:27:36] ✅ CDP working, ws_probe not running - starting...
+[00:27:36] ws_probe.py started (PID: 772493)
+[00:27:36] ✅ ws_probe.py running successfully
+[00:28:39] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:29:41] ✅ CDP working, ws_probe not running - starting...
+[00:29:41] ws_probe.py started (PID: 772565)
+[00:29:41] ✅ ws_probe.py running successfully
+[00:30:44] ✅ ws_probe running and capturing data (406 bytes/2sec)
+[00:31:46] ✅ CDP working, ws_probe not running - starting...
+[00:31:46] ws_probe.py started (PID: 772719)
+[00:31:46] ✅ ws_probe.py running successfully
+[00:32:49] ✅ ws_probe running and capturing data (406 bytes/2sec)
+[00:33:51] ✅ CDP working, ws_probe not running - starting...
+[00:33:51] ws_probe.py started (PID: 772768)
+[00:33:51] ✅ ws_probe.py running successfully
+[00:34:54] ✅ ws_probe running and capturing data (406 bytes/2sec)
+[00:35:57] ✅ CDP working, ws_probe not running - starting...
+[00:35:57] ws_probe.py started (PID: 772928)
+[00:35:57] ✅ ws_probe.py running successfully
+[00:41:16] ✅ ws_probe running and capturing data (402 bytes/2sec)
+[00:42:18] ✅ CDP working, ws_probe not running - starting...
+[00:42:18] ws_probe.py started (PID: 773286)
+[00:42:18] ✅ ws_probe.py running successfully
+[00:43:21] ✅ ws_probe running and capturing data (402 bytes/2sec)
+[00:44:23] ✅ CDP working, ws_probe not running - starting...
+[00:44:23] ws_probe.py started (PID: 773332)
+[00:44:23] ✅ ws_probe.py running successfully
+[00:49:57] ✅ CDP working, ws_probe not running - starting...
+[00:49:57] ws_probe.py started (PID: 773714)
+[00:49:57] ✅ ws_probe.py running successfully
+[00:51:10] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:52:12] ✅ CDP working, ws_probe not running - starting...
+[00:52:12] ws_probe.py started (PID: 773824)
+[00:52:12] ✅ ws_probe.py running successfully
+[00:53:15] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:54:17] ✅ CDP working, ws_probe not running - starting...
+[00:54:17] ws_probe.py started (PID: 773890)
+[00:54:17] ✅ ws_probe.py running successfully
+[00:55:20] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:56:22] ✅ CDP working, ws_probe not running - starting...
+[00:56:22] ws_probe.py started (PID: 774023)
+[00:56:22] ✅ ws_probe.py running successfully
+[00:57:25] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[00:58:27] ✅ CDP working, ws_probe not running - starting...
+[00:58:27] ws_probe.py started (PID: 774094)
+[00:58:27] ✅ ws_probe.py running successfully
+[00:59:30] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:00:32] ✅ CDP working, ws_probe not running - starting...
+[01:00:32] ws_probe.py started (PID: 774246)
+[01:00:32] ✅ ws_probe.py running successfully
+[01:01:35] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:02:37] ✅ CDP working, ws_probe not running - starting...
+[01:02:37] ws_probe.py started (PID: 774308)
+[01:02:37] ✅ ws_probe.py running successfully
+[01:03:41] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:04:43] ✅ CDP working, ws_probe not running - starting...
+[01:04:43] ws_probe.py started (PID: 774374)
+[01:04:43] ✅ ws_probe.py running successfully
+[01:05:46] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:06:48] ✅ CDP working, ws_probe not running - starting...
+[01:06:48] ws_probe.py started (PID: 774493)
+[01:06:48] ✅ ws_probe.py running successfully
+[01:07:51] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:08:53] ✅ CDP working, ws_probe not running - starting...
+[01:08:53] ws_probe.py started (PID: 774544)
+[01:08:53] ✅ ws_probe.py running successfully
+[01:09:56] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:10:58] ✅ CDP working, ws_probe not running - starting...
+[01:10:58] ws_probe.py started (PID: 774675)
+[01:10:58] ✅ ws_probe.py running successfully
+[01:12:01] ✅ ws_probe running and capturing data (508 bytes/2sec)
+[01:13:03] ✅ CDP working, ws_probe not running - starting...
+[01:13:03] ws_probe.py started (PID: 774737)
+[01:13:03] ✅ ws_probe.py running successfully
+[01:14:06] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:15:08] ✅ CDP working, ws_probe not running - starting...
+[01:15:08] ws_probe.py started (PID: 774841)
+[01:15:08] ✅ ws_probe.py running successfully
+[01:16:11] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:17:13] ✅ CDP working, ws_probe not running - starting...
+[01:17:13] ws_probe.py started (PID: 774907)
+[01:17:13] ✅ ws_probe.py running successfully
+[01:18:16] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:19:19] ✅ CDP working, ws_probe not running - starting...
+[01:19:19] ws_probe.py started (PID: 774967)
+[01:19:19] ✅ ws_probe.py running successfully
+[01:20:22] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:21:24] ✅ CDP working, ws_probe not running - starting...
+[01:21:24] ws_probe.py started (PID: 775087)
+[01:21:24] ✅ ws_probe.py running successfully
+[01:22:27] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:23:29] ✅ CDP working, ws_probe not running - starting...
+[01:23:29] ws_probe.py started (PID: 775149)
+[01:23:29] ✅ ws_probe.py running successfully
+[01:24:32] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:25:34] ✅ CDP working, ws_probe not running - starting...
+[01:25:34] ws_probe.py started (PID: 775265)
+[01:25:34] ✅ ws_probe.py running successfully
+[01:26:37] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:27:39] ✅ CDP working, ws_probe not running - starting...
+[01:27:39] ws_probe.py started (PID: 775335)
+[01:27:39] ✅ ws_probe.py running successfully
+[01:28:42] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:29:44] ✅ CDP working, ws_probe not running - starting...
+[01:29:44] ws_probe.py started (PID: 775399)
+[01:29:44] ✅ ws_probe.py running successfully
+[01:30:47] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:31:49] ✅ CDP working, ws_probe not running - starting...
+[01:31:49] ws_probe.py started (PID: 775563)
+[01:31:49] ✅ ws_probe.py running successfully
+[01:32:52] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:33:55] ✅ CDP working, ws_probe not running - starting...
+[01:33:55] ws_probe.py started (PID: 775615)
+[01:33:55] ✅ ws_probe.py running successfully
+[01:34:58] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:36:00] ✅ CDP working, ws_probe not running - starting...
+[01:36:00] ws_probe.py started (PID: 775743)
+[01:36:00] ✅ ws_probe.py running successfully
+[01:37:03] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:38:05] ✅ CDP working, ws_probe not running - starting...
+[01:38:05] ws_probe.py started (PID: 775807)
+[01:38:05] ✅ ws_probe.py running successfully
+[01:39:08] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:40:10] ✅ CDP working, ws_probe not running - starting...
+[01:40:10] ws_probe.py started (PID: 775937)
+[01:40:10] ✅ ws_probe.py running successfully
+[01:41:13] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:42:15] ✅ CDP working, ws_probe not running - starting...
+[01:42:15] ws_probe.py started (PID: 776012)
+[01:42:15] ✅ ws_probe.py running successfully
+[01:43:18] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:44:20] ✅ CDP working, ws_probe not running - starting...
+[01:44:20] ws_probe.py started (PID: 776074)
+[01:44:20] ✅ ws_probe.py running successfully
+[01:45:23] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:46:25] ✅ CDP working, ws_probe not running - starting...
+[01:46:25] ws_probe.py started (PID: 776179)
+[01:46:25] ✅ ws_probe.py running successfully
+[01:47:28] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:48:30] ✅ CDP working, ws_probe not running - starting...
+[01:48:30] ws_probe.py started (PID: 776255)
+[01:48:30] ✅ ws_probe.py running successfully
+[01:49:34] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:50:36] ✅ CDP working, ws_probe not running - starting...
+[01:50:36] ws_probe.py started (PID: 776393)
+[01:50:36] ✅ ws_probe.py running successfully
+[01:51:39] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:52:41] ✅ CDP working, ws_probe not running - starting...
+[01:52:41] ws_probe.py started (PID: 776452)
+[01:52:41] ✅ ws_probe.py running successfully
+[01:53:44] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:54:46] ✅ CDP working, ws_probe not running - starting...
+[01:54:46] ws_probe.py started (PID: 776519)
+[01:54:46] ✅ ws_probe.py running successfully
+[01:55:49] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:56:51] ✅ CDP working, ws_probe not running - starting...
+[01:56:51] ws_probe.py started (PID: 776647)
+[01:56:51] ✅ ws_probe.py running successfully
+[01:57:54] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[01:58:56] ✅ CDP working, ws_probe not running - starting...
+[01:58:56] ws_probe.py started (PID: 776724)
+[01:58:56] ✅ ws_probe.py running successfully
+[01:59:59] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:01:01] ✅ CDP working, ws_probe not running - starting...
+[02:01:01] ws_probe.py started (PID: 779830)
+[02:01:01] ✅ ws_probe.py running successfully
+[02:02:04] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:03:07] ✅ CDP working, ws_probe not running - starting...
+[02:03:07] ws_probe.py started (PID: 779958)
+[02:03:07] ✅ ws_probe.py running successfully
+[02:04:10] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:05:12] ✅ CDP working, ws_probe not running - starting...
+[02:05:12] ws_probe.py started (PID: 780141)
+[02:05:12] ✅ ws_probe.py running successfully
+[02:06:15] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:07:17] ✅ CDP working, ws_probe not running - starting...
+[02:07:17] ws_probe.py started (PID: 780267)
+[02:07:17] ✅ ws_probe.py running successfully
+[02:08:20] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:09:22] ✅ CDP working, ws_probe not running - starting...
+[02:09:22] ws_probe.py started (PID: 780393)
+[02:09:22] ✅ ws_probe.py running successfully
+[02:10:25] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:11:27] ✅ CDP working, ws_probe not running - starting...
+[02:11:27] ws_probe.py started (PID: 780595)
+[02:11:27] ✅ ws_probe.py running successfully
+[02:12:30] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:13:32] ✅ CDP working, ws_probe not running - starting...
+[02:13:32] ws_probe.py started (PID: 780738)
+[02:13:32] ✅ ws_probe.py running successfully
+[02:14:36] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:15:38] ✅ CDP working, ws_probe not running - starting...
+[02:15:38] ws_probe.py started (PID: 780908)
+[02:15:38] ✅ ws_probe.py running successfully
+[02:16:41] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:17:43] ✅ CDP working, ws_probe not running - starting...
+[02:17:43] ws_probe.py started (PID: 781035)
+[02:17:43] ✅ ws_probe.py running successfully
+[02:18:46] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:19:48] ✅ CDP working, ws_probe not running - starting...
+[02:19:48] ws_probe.py started (PID: 781139)
+[02:19:48] ✅ ws_probe.py running successfully
+[02:20:51] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:21:53] ✅ CDP working, ws_probe not running - starting...
+[02:21:53] ws_probe.py started (PID: 781338)
+[02:21:53] ✅ ws_probe.py running successfully
+[02:22:56] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:23:58] ✅ CDP working, ws_probe not running - starting...
+[02:23:58] ws_probe.py started (PID: 781445)
+[02:23:58] ✅ ws_probe.py running successfully
+[02:25:02] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:26:04] ✅ CDP working, ws_probe not running - starting...
+[02:26:04] ws_probe.py started (PID: 781632)
+[02:26:04] ✅ ws_probe.py running successfully
+[02:27:07] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:28:09] ✅ CDP working, ws_probe not running - starting...
+[02:28:09] ws_probe.py started (PID: 781761)
+[02:28:09] ✅ ws_probe.py running successfully
+[02:29:12] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:30:14] ✅ CDP working, ws_probe not running - starting...
+[02:30:14] ws_probe.py started (PID: 781985)
+[02:30:14] ✅ ws_probe.py running successfully
+[02:31:17] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:32:19] ✅ CDP working, ws_probe not running - starting...
+[02:32:19] ws_probe.py started (PID: 782128)
+[02:32:19] ✅ ws_probe.py running successfully
+[02:33:22] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:34:25] ✅ CDP working, ws_probe not running - starting...
+[02:34:25] ws_probe.py started (PID: 782245)
+[02:34:25] ✅ ws_probe.py running successfully
+[02:35:28] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:36:30] ✅ CDP working, ws_probe not running - starting...
+[02:36:30] ws_probe.py started (PID: 782444)
+[02:36:30] ✅ ws_probe.py running successfully
+[02:37:33] ✅ ws_probe running and capturing data (302 bytes/2sec)
+[02:38:35] ✅ CDP working, ws_probe not running - starting...
+[02:38:35] ws_probe.py started (PID: 782549)
+[02:38:35] ✅ ws_probe.py running successfully
+[02:39:38] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:40:40] ✅ CDP working, ws_probe not running - starting...
+[02:40:40] ws_probe.py started (PID: 782792)
+[02:40:40] ✅ ws_probe.py running successfully
+[02:41:43] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:42:45] ✅ CDP working, ws_probe not running - starting...
+[02:42:45] ws_probe.py started (PID: 782938)
+[02:42:45] ✅ ws_probe.py running successfully
+[02:43:48] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:44:50] ✅ CDP working, ws_probe not running - starting...
+[02:44:50] ws_probe.py started (PID: 783033)
+[02:44:50] ✅ ws_probe.py running successfully
+[02:45:54] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:46:56] ✅ CDP working, ws_probe not running - starting...
+[02:46:56] ws_probe.py started (PID: 783193)
+[02:46:56] ✅ ws_probe.py running successfully
+[02:47:59] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:49:01] ✅ CDP working, ws_probe not running - starting...
+[02:49:01] ws_probe.py started (PID: 783261)
+[02:49:01] ✅ ws_probe.py running successfully
+[02:50:04] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:51:06] ✅ CDP working, ws_probe not running - starting...
+[02:51:06] ws_probe.py started (PID: 783430)
+[02:51:06] ✅ ws_probe.py running successfully
+[02:52:09] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[02:55:26] ✅ CDP working, ws_probe not running - starting...
+[02:55:26] ws_probe.py started (PID: 783901)
+[02:55:26] ✅ ws_probe.py running successfully
+[02:56:29] ✅ ws_probe running and capturing data (101 bytes/2sec)
+[02:57:31] ✅ CDP working, ws_probe not running - starting...
+[02:57:31] ws_probe.py started (PID: 784058)
+[02:57:31] ✅ ws_probe.py running successfully
+[02:58:34] ✅ ws_probe running and capturing data (101 bytes/2sec)
+[02:59:36] ✅ CDP working, ws_probe not running - starting...
+[02:59:36] ws_probe.py started (PID: 784126)
+[02:59:36] ✅ ws_probe.py running successfully
+[03:00:40] ✅ ws_probe running and capturing data (101 bytes/2sec)
+[03:01:42] ✅ CDP working, ws_probe not running - starting...
+[03:01:42] ws_probe.py started (PID: 784308)
+[03:01:42] ✅ ws_probe.py running successfully
+[03:02:45] ✅ ws_probe running and capturing data (101 bytes/2sec)
+[03:03:47] ✅ CDP working, ws_probe not running - starting...
+[03:03:47] ws_probe.py started (PID: 784364)
+[03:03:47] ✅ ws_probe.py running successfully
+[03:04:50] ✅ ws_probe running and capturing data (101 bytes/2sec)
+[03:05:52] ✅ CDP working, ws_probe not running - starting...
+[03:05:52] ws_probe.py started (PID: 784491)
+[03:05:52] ✅ ws_probe.py running successfully
+[03:06:55] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:07:57] ✅ CDP working, ws_probe not running - starting...
+[03:07:57] ws_probe.py started (PID: 784550)
+[03:07:57] ✅ ws_probe.py running successfully
+[03:09:00] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:10:02] ✅ CDP working, ws_probe not running - starting...
+[03:10:02] ws_probe.py started (PID: 784688)
+[03:10:02] ✅ ws_probe.py running successfully
+[03:11:05] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:12:07] ✅ CDP working, ws_probe not running - starting...
+[03:12:07] ws_probe.py started (PID: 784809)
+[03:12:07] ✅ ws_probe.py running successfully
+[03:13:10] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:14:13] ✅ CDP working, ws_probe not running - starting...
+[03:14:13] ws_probe.py started (PID: 784869)
+[03:14:13] ✅ ws_probe.py running successfully
+[03:15:16] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:16:18] ✅ CDP working, ws_probe not running - starting...
+[03:16:18] ws_probe.py started (PID: 784996)
+[03:16:18] ✅ ws_probe.py running successfully
+[03:17:21] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:18:23] ✅ CDP working, ws_probe not running - starting...
+[03:18:23] ws_probe.py started (PID: 785103)
+[03:18:23] ✅ ws_probe.py running successfully
+[03:19:26] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:20:28] ✅ CDP working, ws_probe not running - starting...
+[03:20:28] ws_probe.py started (PID: 785282)
+[03:20:28] ✅ ws_probe.py running successfully
+[03:21:31] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:22:33] ✅ CDP working, ws_probe not running - starting...
+[03:22:33] ws_probe.py started (PID: 785339)
+[03:22:33] ✅ ws_probe.py running successfully
+[03:23:36] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:24:38] ✅ CDP working, ws_probe not running - starting...
+[03:24:38] ws_probe.py started (PID: 785427)
+[03:24:38] ✅ ws_probe.py running successfully
+[03:25:41] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:26:43] ✅ CDP working, ws_probe not running - starting...
+[03:26:43] ws_probe.py started (PID: 785600)
+[03:26:43] ✅ ws_probe.py running successfully
+[03:27:46] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:28:49] ✅ CDP working, ws_probe not running - starting...
+[03:28:49] ws_probe.py started (PID: 785669)
+[03:28:49] ✅ ws_probe.py running successfully
+[03:29:52] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:30:54] ✅ CDP working, ws_probe not running - starting...
+[03:30:54] ws_probe.py started (PID: 785787)
+[03:30:54] ✅ ws_probe.py running successfully
+[03:31:57] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:32:59] ✅ CDP working, ws_probe not running - starting...
+[03:32:59] ws_probe.py started (PID: 785875)
+[03:32:59] ✅ ws_probe.py running successfully
+[03:34:02] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:35:04] ✅ CDP working, ws_probe not running - starting...
+[03:35:04] ws_probe.py started (PID: 786010)
+[03:35:04] ✅ ws_probe.py running successfully
+[03:36:07] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:37:09] ✅ CDP working, ws_probe not running - starting...
+[03:37:09] ws_probe.py started (PID: 786126)
+[03:37:09] ✅ ws_probe.py running successfully
+[03:38:12] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[03:39:14] ✅ CDP working, ws_probe not running - starting...
+[03:39:14] ws_probe.py started (PID: 786216)
+[03:39:14] ✅ ws_probe.py running successfully
+[03:40:17] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:41:19] ✅ CDP working, ws_probe not running - starting...
+[03:41:19] ws_probe.py started (PID: 786364)
+[03:41:19] ✅ ws_probe.py running successfully
+[03:42:22] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:43:24] ✅ CDP working, ws_probe not running - starting...
+[03:43:24] ws_probe.py started (PID: 786414)
+[03:43:24] ✅ ws_probe.py running successfully
+[03:44:28] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:45:30] ✅ CDP working, ws_probe not running - starting...
+[03:45:30] ws_probe.py started (PID: 786518)
+[03:45:30] ✅ ws_probe.py running successfully
+[03:46:33] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:47:35] ✅ CDP working, ws_probe not running - starting...
+[03:47:35] ws_probe.py started (PID: 786569)
+[03:47:35] ✅ ws_probe.py running successfully
+[03:48:38] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:49:40] ✅ CDP working, ws_probe not running - starting...
+[03:49:40] ws_probe.py started (PID: 786617)
+[03:49:40] ✅ ws_probe.py running successfully
+[03:50:43] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:51:45] ✅ CDP working, ws_probe not running - starting...
+[03:51:45] ws_probe.py started (PID: 786746)
+[03:51:45] ✅ ws_probe.py running successfully
+[03:52:48] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:53:50] ✅ CDP working, ws_probe not running - starting...
+[03:53:50] ws_probe.py started (PID: 786796)
+[03:53:50] ✅ ws_probe.py running successfully
+[03:54:53] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:55:55] ✅ CDP working, ws_probe not running - starting...
+[03:55:55] ws_probe.py started (PID: 786901)
+[03:55:55] ✅ ws_probe.py running successfully
+[03:56:58] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[03:58:00] ✅ CDP working, ws_probe not running - starting...
+[03:58:00] ws_probe.py started (PID: 786951)
+[03:58:00] ✅ ws_probe.py running successfully
+[03:59:04] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:00:06] ✅ CDP working, ws_probe not running - starting...
+[04:00:06] ws_probe.py started (PID: 787078)
+[04:00:06] ✅ ws_probe.py running successfully
+[04:04:54] ✅ CDP working, ws_probe not running - starting...
+[04:04:54] ws_probe.py started (PID: 787417)
+[04:04:54] ✅ ws_probe.py running successfully
+[04:06:07] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:07:09] ✅ CDP working, ws_probe not running - starting...
+[04:07:09] ws_probe.py started (PID: 787544)
+[04:07:09] ✅ ws_probe.py running successfully
+[04:08:12] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:09:14] ✅ CDP working, ws_probe not running - starting...
+[04:09:14] ws_probe.py started (PID: 787590)
+[04:09:14] ✅ ws_probe.py running successfully
+[04:10:17] ✅ ws_probe running and capturing data (349 bytes/2sec)
+[04:11:19] ✅ CDP working, ws_probe not running - starting...
+[04:11:19] ws_probe.py started (PID: 787716)
+[04:11:19] ✅ ws_probe.py running successfully
+[04:12:23] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:13:25] ✅ CDP working, ws_probe not running - starting...
+[04:13:25] ws_probe.py started (PID: 787766)
+[04:13:25] ✅ ws_probe.py running successfully
+[04:14:28] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:15:30] ✅ CDP working, ws_probe not running - starting...
+[04:15:30] ws_probe.py started (PID: 787868)
+[04:15:30] ✅ ws_probe.py running successfully
+[04:16:33] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:17:35] ✅ CDP working, ws_probe not running - starting...
+[04:17:35] ws_probe.py started (PID: 787925)
+[04:17:35] ✅ ws_probe.py running successfully
+[04:18:38] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:19:40] ✅ CDP working, ws_probe not running - starting...
+[04:19:40] ws_probe.py started (PID: 787972)
+[04:19:40] ✅ ws_probe.py running successfully
+[04:20:43] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:21:45] ✅ CDP working, ws_probe not running - starting...
+[04:21:45] ws_probe.py started (PID: 788106)
+[04:21:45] ✅ ws_probe.py running successfully
+[04:22:48] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:23:50] ✅ CDP working, ws_probe not running - starting...
+[04:23:50] ws_probe.py started (PID: 788156)
+[04:23:50] ✅ ws_probe.py running successfully
+[04:24:53] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:25:55] ✅ CDP working, ws_probe not running - starting...
+[04:25:55] ws_probe.py started (PID: 788260)
+[04:25:55] ✅ ws_probe.py running successfully
+[04:26:58] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:28:01] ✅ CDP working, ws_probe not running - starting...
+[04:28:01] ws_probe.py started (PID: 788312)
+[04:28:01] ✅ ws_probe.py running successfully
+[04:29:04] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:30:06] ✅ CDP working, ws_probe not running - starting...
+[04:30:06] ws_probe.py started (PID: 788428)
+[04:30:06] ✅ ws_probe.py running successfully
+[04:31:09] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:32:11] ✅ CDP working, ws_probe not running - starting...
+[04:32:11] ws_probe.py started (PID: 788503)
+[04:32:11] ✅ ws_probe.py running successfully
+[04:33:14] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:34:16] ✅ CDP working, ws_probe not running - starting...
+[04:34:16] ws_probe.py started (PID: 788547)
+[04:34:16] ✅ ws_probe.py running successfully
+[04:35:19] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:36:21] ✅ CDP working, ws_probe not running - starting...
+[04:36:21] ws_probe.py started (PID: 788660)
+[04:36:21] ✅ ws_probe.py running successfully
+[04:37:24] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:38:26] ✅ CDP working, ws_probe not running - starting...
+[04:38:26] ws_probe.py started (PID: 788880)
+[04:38:26] ✅ ws_probe.py running successfully
+[04:39:29] ✅ ws_probe running and capturing data (405 bytes/2sec)
+[04:40:31] ✅ CDP working, ws_probe not running - starting...
+[04:40:31] ws_probe.py started (PID: 789133)
+[04:40:31] ✅ ws_probe.py running successfully
+[04:41:34] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:42:36] ✅ CDP working, ws_probe not running - starting...
+[04:42:36] ws_probe.py started (PID: 789200)
+[04:42:36] ✅ ws_probe.py running successfully
+[04:43:40] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:44:42] ✅ CDP working, ws_probe not running - starting...
+[04:44:42] ws_probe.py started (PID: 789343)
+[04:44:42] ✅ ws_probe.py running successfully
+[04:45:45] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:46:47] ✅ CDP working, ws_probe not running - starting...
+[04:46:47] ws_probe.py started (PID: 789466)
+[04:46:47] ✅ ws_probe.py running successfully
+[04:47:50] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:48:52] ✅ CDP working, ws_probe not running - starting...
+[04:48:52] ws_probe.py started (PID: 789569)
+[04:48:52] ✅ ws_probe.py running successfully
+[04:49:55] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:50:57] ✅ CDP working, ws_probe not running - starting...
+[04:50:57] ws_probe.py started (PID: 789691)
+[04:50:57] ✅ ws_probe.py running successfully
+[04:52:00] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:53:02] ✅ CDP working, ws_probe not running - starting...
+[04:53:02] ws_probe.py started (PID: 789787)
+[04:53:02] ✅ ws_probe.py running successfully
+[04:54:05] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:55:07] ✅ CDP working, ws_probe not running - starting...
+[04:55:07] ws_probe.py started (PID: 789942)
+[04:55:07] ✅ ws_probe.py running successfully
+[04:56:10] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:57:12] ✅ CDP working, ws_probe not running - starting...
+[04:57:12] ws_probe.py started (PID: 790024)
+[04:57:12] ✅ ws_probe.py running successfully
+[04:58:16] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[04:59:18] ✅ CDP working, ws_probe not running - starting...
+[04:59:18] ws_probe.py started (PID: 790122)
+[04:59:18] ✅ ws_probe.py running successfully
+[05:00:21] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:01:23] ✅ CDP working, ws_probe not running - starting...
+[05:01:23] ws_probe.py started (PID: 790239)
+[05:01:23] ✅ ws_probe.py running successfully
+[05:02:26] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:03:28] ✅ CDP working, ws_probe not running - starting...
+[05:03:28] ws_probe.py started (PID: 790383)
+[05:03:28] ✅ ws_probe.py running successfully
+[05:04:31] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:05:33] ✅ CDP working, ws_probe not running - starting...
+[05:05:33] ws_probe.py started (PID: 790540)
+[05:05:33] ✅ ws_probe.py running successfully
+[05:06:36] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:07:38] ✅ CDP working, ws_probe not running - starting...
+[05:07:38] ws_probe.py started (PID: 790627)
+[05:07:38] ✅ ws_probe.py running successfully
+[05:08:41] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:09:43] ✅ CDP working, ws_probe not running - starting...
+[05:09:43] ws_probe.py started (PID: 790699)
+[05:09:43] ✅ ws_probe.py running successfully
+[05:10:46] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:11:48] ✅ CDP working, ws_probe not running - starting...
+[05:11:48] ws_probe.py started (PID: 790822)
+[05:11:48] ✅ ws_probe.py running successfully
+[05:12:52] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:13:54] ✅ CDP working, ws_probe not running - starting...
+[05:13:54] ws_probe.py started (PID: 790875)
+[05:13:54] ✅ ws_probe.py running successfully
+[05:14:57] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:15:59] ✅ CDP working, ws_probe not running - starting...
+[05:15:59] ws_probe.py started (PID: 790980)
+[05:15:59] ✅ ws_probe.py running successfully
+[05:17:02] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:18:04] ✅ CDP working, ws_probe not running - starting...
+[05:18:04] ws_probe.py started (PID: 791033)
+[05:18:04] ✅ ws_probe.py running successfully
+[05:19:07] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:20:09] ✅ CDP working, ws_probe not running - starting...
+[05:20:09] ws_probe.py started (PID: 791149)
+[05:20:09] ✅ ws_probe.py running successfully
+[05:21:12] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:22:14] ✅ CDP working, ws_probe not running - starting...
+[05:22:14] ws_probe.py started (PID: 791219)
+[05:22:14] ✅ ws_probe.py running successfully
+[05:23:17] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:24:19] ✅ CDP working, ws_probe not running - starting...
+[05:24:19] ws_probe.py started (PID: 791265)
+[05:24:19] ✅ ws_probe.py running successfully
+[05:25:22] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:26:24] ✅ CDP working, ws_probe not running - starting...
+[05:26:24] ws_probe.py started (PID: 791385)
+[05:26:24] ✅ ws_probe.py running successfully
+[05:27:27] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:28:30] ✅ CDP working, ws_probe not running - starting...
+[05:28:30] ws_probe.py started (PID: 791470)
+[05:28:30] ✅ ws_probe.py running successfully
+[05:29:33] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:30:35] ✅ CDP working, ws_probe not running - starting...
+[05:30:35] ws_probe.py started (PID: 791586)
+[05:30:35] ✅ ws_probe.py running successfully
+[05:31:38] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:32:40] ✅ CDP working, ws_probe not running - starting...
+[05:32:40] ws_probe.py started (PID: 791639)
+[05:32:40] ✅ ws_probe.py running successfully
+[05:33:43] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:34:45] ✅ CDP working, ws_probe not running - starting...
+[05:34:45] ws_probe.py started (PID: 791706)
+[05:34:45] ✅ ws_probe.py running successfully
+[05:35:48] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:36:50] ✅ CDP working, ws_probe not running - starting...
+[05:36:50] ws_probe.py started (PID: 791813)
+[05:36:50] ✅ ws_probe.py running successfully
+[05:37:53] ✅ ws_probe running and capturing data (409 bytes/2sec)
+[05:38:55] ✅ CDP working, ws_probe not running - starting...
+[05:38:55] ws_probe.py started (PID: 791879)
+[05:38:55] ✅ ws_probe.py running successfully

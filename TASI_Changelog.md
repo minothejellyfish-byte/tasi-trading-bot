@@ -261,3 +261,8 @@ Prevent unauthorized code changes after Jun 11–12 tab explosion incident.
 ### DELETED
 - Nothing (archived to `archive/`)
 
+2026-06-14 05:38:41 +0300 [ASK] derayah_refresh_cron.sh — Option C token priority
+  - Changed sso_refresh() to read dashboard localStorage FIRST
+  - Falls back to file token, then OAuth refresh, then auto-recovery
+  - Per Amin approval: 'Do it'
+
