@@ -1531,8 +1531,8 @@ async def handle_history_command(update, context):
         
         # Build table
         lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
-        lines.append("<code>ID  | Side | Qty | Symbol | Price  | Total   | Fees</code>")
-        lines.append("<code>----+------+-----+--------+--------+---------+------</code>")
+        lines.append("<code>ID  | Side | Qty | Symbol | Price  | Total   | Fees | Trigger       | PnL</code>")
+        lines.append("<code>----+------+-----+--------+--------+---------+------+---------------+------</code>")
         
         for o in real_orders:
             oid = o.get("order_id", "?")[:4]
@@ -1542,10 +1542,17 @@ async def handle_history_command(update, context):
             price = float(o.get("price", 0) or 0)
             total = o.get("total", "")[:7]
             fees = o.get("fees", "")[:5]
+            trigger = o.get("trigger_basis", "")[:15]
+            pnl = o.get("pnl", "")[:6]
+            
+            # If pnl is empty, calculate rough estimate for sells
+            if not pnl and side == "SELL":
+                # This is a simplified calculation - actual would need entry price
+                pnl = "~"
             
             price_str = f"{price:.2f}" if price else "MKT"
             
-            lines.append(f"<code>{oid:<4}| {side:<5}| {qty:<4}| {sym:<7}| {price_str:<7}| {total:<8}| {fees:<5}</code>")
+            lines.append(f"<code>{oid:<4}| {side:<5}| {qty:<4}| {sym:<7}| {price_str:<7}| {total:<8}| {fees:<5}| {trigger:<15}| {pnl:<6}</code>")
         
         lines.append("")
         lines.append(f"<i>Full CSV: history/order_history.csv</i>")
