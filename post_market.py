@@ -587,18 +587,117 @@ def calculate_pnl_attribution(analysis: dict, perf: dict) -> dict:
     return results
 
 
-def find_missed_opportunities(performances: list, picks_symbols: set, min_move: float = 1.5):
-    missed = [
+def analyze_pick_missed_profit(pick_analysis: list) -> list:
+    """
+    Focus on OUR picks that we didn't maximize profit from.
+    Returns list of missed profit opportunities.
+    """
+    missed_profit = []
+    
+    for pick in pick_analysis:
+        symbol = pick.get("symbol", "")
+        
+        # Case 1: We didn't enter (gapped above zone)
+        if pick.get("gap_status") == "above" and not pick.get("actual_entry"):
+            missed_profit.append({
+                "symbol": symbol,
+                "reason": "Gapped above zone - no entry",
+                "gap_pct": pick.get("gap_pct", 0),
+                "potential_entry": pick.get("entry_high"),
+                "actual_high": pick.get("high"),
+                "missed_profit": (pick.get("high", 0) - pick["entry_high"]) if pick.get("high") and pick.get("entry_high") else 0,
+                "recommendation": "Consider chase entry with tight stop if gap < 1%",
+            })
+        
+        # Case 2: We entered but exited too early
+        elif pick.get("actual_entry") and pick.get("actual_exit"):
+            actual_pnl = pick.get("actual_pnl", 0)
+            max_possible = 0
+            if pick.get("simulated_exits") and pick["simulated_exits"]:
+                max_possible = pick["simulated_exits"][0].get("pnl", 0)
+            
+            if max_possible and max_possible > actual_pnl * 1.5:  # Could have made 50% more
+                missed_profit.append({
+                    "symbol": symbol,
+                    "reason": "Exited too early",
+                    "actual_pnl": actual_pnl,
+                    "potential_pnl": max_possible,
+                    "left_on_table": max_possible - actual_pnl,
+                    "recommendation": "Consider trailing stop or wider profit target",
+                })
+        
+        # Case 3: Zone was wrong (price never reached)
+        elif pick.get("gap_status") == "below":
+            missed_profit.append({
+                "symbol": symbol,
+                "reason": "Zone too high - price opened below",
+                "gap_pct": pick.get("gap_pct", 0),
+                "recommendation": "Adjust zone calculation or use VWAP-based zones",
+            })
+    
+    return sorted(missed_profit, key=lambda x: x.get("missed_profit", 0) or x.get("left_on_table", 0), reverse=True)
+
+
+def analyze_top3_missed_outside(performances: list, picks_symbols: set) -> list:
+    """
+    Only analyze top 3 missed stocks NOT in our picks.
+    Identify why they moved and if screener should have caught them.
+    """
+    outside_movers = [
         p for p in performances
         if not p["was_picked"]
-        and p["max_intraday_pct"] > min_move
-        and (p["high"] - p["low"]) / p["open"] > 0.015
-        and p["volume"] > 50000
+        and p["max_intraday_pct"] > 3.0  # Higher threshold - only significant movers
+        and p["volume"] > 100000  # Higher volume filter
     ]
-    return missed[:10]
+    
+    top3 = sorted(outside_movers, key=lambda x: x["max_intraday_pct"], reverse=True)[:3]
+    
+    results = []
+    for stock in top3:
+        results.append({
+            "symbol": stock["symbol"],
+            "max_move_pct": stock["max_intraday_pct"],
+            "change_pct": stock["change_pct"],
+            "volume": stock["volume"],
+            "why_missed": analyze_why_not_picked(stock),
+        })
+    
+    return results
 
 
-def generate_recommendations(pick_analysis: list, missed: list, performances: list, trade_analysis: list = None):
+def analyze_why_not_picked(stock: dict) -> str:
+    """
+    Analyze why this stock wasn't in our picks.
+    """
+    reasons = []
+    
+    if stock["volume"] < 50000:
+        reasons.append("Low volume (screener filter)")
+    
+    if abs(stock["change_pct"]) < 1:
+        reasons.append("Low pre-market momentum")
+    
+    return "; ".join(reasons) if reasons else "Unknown - need screener logs"
+
+
+def find_missed_opportunities(performances: list, picks_symbols: set, pick_analysis: list, min_move: float = 1.5):
+    """
+    Focused missed opportunities analysis.
+    Priority: Our picks first, then top 3 outside picks.
+    """
+    # Analyze our picks for missed profit
+    our_missed = analyze_pick_missed_profit(pick_analysis)
+    
+    # Top 3 outside movers
+    outside_missed = analyze_top3_missed_outside(performances, picks_symbols)
+    
+    return {
+        "our_picks": our_missed,
+        "outside_top3": outside_missed,
+    }
+
+
+def generate_recommendations(pick_analysis: list, missed: dict, performances: list, trade_analysis: list = None):
     recommendations = []
     
     # Trade-based recommendations
@@ -618,6 +717,21 @@ def generate_recommendations(pick_analysis: list, missed: list, performances: li
                 f"⚠️ {len(slippage_trades)} entries had >1% slippage (avg: {avg_slip:+.2f}%). "
                 f"Use limit orders at zone low instead of market orders."
             )
+        
+        # Entry quality recommendations
+        poor_entries = [t for t in trade_analysis if t.get("entry_vs_zone") == "out_of_zone"]
+        if poor_entries:
+            recommendations.append(
+                f"⚠️ {len(poor_entries)} entries outside zone — review entry timing or use limit orders"
+            )
+        
+        # VWAP-based recommendations
+        if pick_analysis:
+            above_vwap = [p for p in pick_analysis if p.get("entry_vs_vwap", 0) > 1]
+            if above_vwap:
+                recommendations.append(
+                    f"⚠️ {len(above_vwap)} entries >1% above VWAP — consider waiting for VWAP test"
+                )
     
     gap_ups = [p for p in pick_analysis if p.get("gap_status") == "above"]
     if gap_ups:
@@ -771,20 +885,37 @@ def generate_report(date_str: str, pick_analysis: list, performances: list,
         report.append("━" * 45)
         report.append("")
 
-    # Missed opportunities
-    if missed:
-        report.append(f"<b>🔍 Missed Opportunities ({len(missed)} stocks)</b>")
-        report.append("Top movers not in our picks:")
+    # Missed opportunities - our picks first
+    our_missed = missed.get("our_picks", [])
+    outside_top3 = missed.get("outside_top3", [])
+    
+    if our_missed:
+        report.append(f"<b>💰 Missed Profit from Our Picks ({len(our_missed)})</b>")
         report.append("")
-        for i, p in enumerate(missed[:8], 1):
+        for i, m in enumerate(our_missed[:5], 1):
+            report.append(f"{i}. <b>{m['symbol']}</b> | {m['reason']}")
+            if "missed_profit" in m:
+                report.append(f"   💸 Missed: {m['missed_profit']:.2f} SAR | {m['recommendation']}")
+            elif "left_on_table" in m:
+                report.append(f"   💸 Left on table: {m['left_on_table']:.2f} SAR | {m['recommendation']}")
+            elif "gap_pct" in m:
+                report.append(f"   📊 Gap: {m['gap_pct']:.2f}% | {m['recommendation']}")
+        report.append("")
+    
+    # Top 3 outside movers
+    if outside_top3:
+        report.append(f"<b>🔍 Top 3 Missed Outside Picks</b>")
+        report.append("")
+        for i, m in enumerate(outside_top3, 1):
             report.append(
-                f"{i}. <b>{p['symbol']}</b> | +{p['max_intraday_pct']:.1f}% max | "
-                f"O:{p['open']:.2f} C:{p['close']:.2f}({p['change_pct']:+.1f}%) V:{p['volume']:,}"
+                f"{i}. <b>{m['symbol']}</b> | +{m['max_move_pct']:.1f}% | "
+                f"Vol: {m['volume']:,} | Why: {m['why_missed']}"
             )
         report.append("")
-    else:
-        report.append("<b>🔍 Missed Opportunities</b>")
-        report.append("No significant missed opportunities (>1.5% move, >50K vol).")
+    
+    if not our_missed and not outside_top3:
+        report.append("<b>✅ No Significant Missed Opportunities</b>")
+        report.append("All picks performed within expected parameters.")
         report.append("")
 
     report.append("━" * 45)
@@ -841,13 +972,51 @@ def generate_report(date_str: str, pick_analysis: list, performances: list,
     return "\n".join(report)
 
 
-def save_and_track(date_str: str, report: str, missed: list, recommendations: list):
+def save_and_track(date_str: str, report: str, missed: dict, recommendations: list, pick_analysis: list = None, trade_analysis: list = None):
     report_dir = BASE_DIR / "reports"
     report_dir.mkdir(exist_ok=True)
     report_file = report_dir / f"post_market_{date_str}.html"
 
     with open(report_file, "w") as f:
         f.write(f"<pre>{report}</pre>")
+
+    # ── Write to relearning directory ──────────────────────────────────
+    try:
+        relearning_dir = BASE_DIR / "relearning" / "daily" / date_str
+        relearning_dir.mkdir(parents=True, exist_ok=True)
+        (relearning_dir / "charts").mkdir(exist_ok=True)
+        
+        # Save main report
+        with open(relearning_dir / "report.md", "w") as f:
+            f.write(report)
+        
+        # Save pick analysis JSON
+        if pick_analysis:
+            with open(relearning_dir / "picks_analysis.json", "w") as f:
+                json.dump(pick_analysis, f, indent=2, default=str)
+        
+        # Save trade analysis JSON
+        if trade_analysis:
+            with open(relearning_dir / "trades_analysis.json", "w") as f:
+                json.dump(trade_analysis, f, indent=2, default=str)
+        
+        # Save missed opportunities JSON
+        with open(relearning_dir / "missed_opportunities.json", "w") as f:
+            json.dump(missed, f, indent=2, default=str)
+        
+        # Save entry/exit stats
+        if trade_analysis and pick_analysis:
+            entry_exit_stats = calculate_entry_exit_stats(trade_analysis, pick_analysis)
+            with open(relearning_dir / "entry_exit_stats.json", "w") as f:
+                json.dump(entry_exit_stats, f, indent=2, default=str)
+        
+        # Update weekly aggregate
+        update_weekly_aggregate(date_str)
+        
+        print(f"📝 Saved relearning data to {relearning_dir}")
+    except Exception as e:
+        print(f"[WARNING] Failed to write relearning files: {e}")
+    # ───────────────────────────────────────────────────────────────────
 
     # ── Write to OpenClaw memory ──────────────────────────────────────
     try:
@@ -909,7 +1078,22 @@ Generated by post_market.py v4.1
     learning["sessions_analyzed"] += 1
     learning["recommendations_made"].extend(recommendations)
 
-    if missed:
+    # Handle dict structure for missed opportunities
+    total_missed = 0
+    if isinstance(missed, dict):
+        our_picks = missed.get("our_picks", [])
+        outside = missed.get("outside_top3", [])
+        total_missed = len(our_picks) + len(outside)
+        if total_missed > 0:
+            # Calculate average gain from our missed picks
+            avg_gain = sum(m.get("missed_profit", 0) for m in our_picks) / len(our_picks) if our_picks else 0
+            if outside:
+                avg_gain += sum(m.get("max_move_pct", 0) for m in outside) / len(outside)
+                avg_gain /= 2
+            prev_avg = learning.get("missed_opportunities_avg", 0)
+            n = learning["sessions_analyzed"]
+            learning["missed_opportunities_avg"] = (prev_avg * (n - 1) + avg_gain) / n
+    elif isinstance(missed, list) and missed:
         avg_gain = sum(m["max_intraday_pct"] for m in missed) / len(missed)
         prev_avg = learning.get("missed_opportunities_avg", 0)
         n = learning["sessions_analyzed"]
@@ -965,6 +1149,107 @@ def calculate_hold_time(buy_time: str, sell_time: str) -> int:
         return int((sell - buy).total_seconds() / 60)
     except:
         return 0
+
+
+def calculate_entry_exit_stats(trade_analysis: list, pick_analysis: list) -> dict:
+    """
+    Calculate entry/exit performance statistics.
+    """
+    stats = {
+        "total_trades": 0,
+        "win_rate": 0,
+        "avg_entry_slippage_pct": 0,
+        "avg_exit_vs_hod_pct": 0,
+        "avg_hold_time_min": 0,
+        "early_exit_rate": 0,
+        "missed_entries": 0,
+    }
+    
+    if not trade_analysis:
+        return stats
+    
+    entries = [t for t in trade_analysis if t.get("buy_price")]
+    exits = [t for t in trade_analysis if t.get("sell_price")]
+    
+    stats["total_trades"] = len(entries)
+    
+    if entries:
+        # Entry slippage
+        slippages = [t.get("entry_slippage_pct", 0) for t in entries if t.get("entry_slippage_pct") is not None]
+        if slippages:
+            stats["avg_entry_slippage_pct"] = sum(slippages) / len(slippages)
+        
+        # Hold time
+        hold_times = [t.get("hold_time_min", 0) for t in entries if t.get("hold_time_min")]
+        if hold_times:
+            stats["avg_hold_time_min"] = sum(hold_times) / len(hold_times)
+    
+    if exits:
+        # Exit vs HOD
+        hod_distances = [t.get("exit_vs_hod_pct", 0) for t in exits if t.get("exit_vs_hod_pct") is not None]
+        if hod_distances:
+            stats["avg_exit_vs_hod_pct"] = sum(hod_distances) / len(hod_distances)
+        
+        # Early exit rate
+        early_exits = [t for t in exits if t.get("potential_missed_profit", 0) > 5]
+        stats["early_exit_rate"] = len(early_exits) / len(exits) * 100 if exits else 0
+    
+    # Win rate
+    winners = [t for t in trade_analysis if t.get("actual_pnl", 0) > 0]
+    stats["win_rate"] = len(winners) / len(trade_analysis) * 100 if trade_analysis else 0
+    
+    # Missed entries (picks we didn't trade)
+    if pick_analysis:
+        traded_symbols = {t["symbol"] for t in trade_analysis}
+        picked_symbols = {p["symbol"] for p in pick_analysis}
+        stats["missed_entries"] = len(picked_symbols - traded_symbols)
+    
+    return stats
+
+
+def update_weekly_aggregate(date_str: str):
+    """
+    Aggregate daily data into weekly summary.
+    """
+    try:
+        # Parse date
+        dt = datetime.strptime(date_str, "%Y-%m-%d")
+        week_start = dt - timedelta(days=dt.weekday())
+        week_str = week_start.strftime("%Y-W%W")
+        
+        weekly_dir = BASE_DIR / "relearning" / "weekly" / week_str
+        weekly_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Collect all daily data for this week
+        daily_data = []
+        for day_dir in (BASE_DIR / "relearning" / "daily").glob("*"):
+            if day_dir.is_dir():
+                stats_file = day_dir / "entry_exit_stats.json"
+                if stats_file.exists():
+                    with open(stats_file) as f:
+                        daily_data.append(json.load(f))
+        
+        if not daily_data:
+            return
+        
+        # Aggregate stats
+        weekly_stats = {
+            "week": week_str,
+            "trading_days": len(daily_data),
+            "total_trades": sum(d.get("total_trades", 0) for d in daily_data),
+            "avg_win_rate": sum(d.get("win_rate", 0) for d in daily_data) / len(daily_data),
+            "avg_entry_slippage": sum(d.get("avg_entry_slippage_pct", 0) for d in daily_data) / len(daily_data),
+            "avg_exit_vs_hod": sum(d.get("avg_exit_vs_hod_pct", 0) for d in daily_data) / len(daily_data),
+            "avg_hold_time": sum(d.get("avg_hold_time_min", 0) for d in daily_data) / len(daily_data),
+            "avg_early_exit_rate": sum(d.get("early_exit_rate", 0) for d in daily_data) / len(daily_data),
+        }
+        
+        with open(weekly_dir / "aggregate.json", "w") as f:
+            json.dump(weekly_stats, f, indent=2)
+        
+        print(f"📝 Updated weekly aggregate: {weekly_dir}")
+    except Exception as e:
+        print(f"[WARNING] Failed to update weekly aggregate: {e}")
 
 
 def analyze_actual_vs_ideal(trades: list, picks: list, perf_map: dict) -> list:
@@ -1079,17 +1364,17 @@ def main():
                 "max_profit_if_held": trade_info.get("max_profit_if_held"),
             })
     
-    missed = find_missed_opportunities(performances, picks_symbols)
+    missed = find_missed_opportunities(performances, picks_symbols, pick_analysis)
     recommendations = generate_recommendations(pick_analysis, missed, performances, trade_analysis)
 
-    print(f"• Missed opportunities: {len(missed)}")
+    print(f"• Missed opportunities: {len(missed.get('our_picks', []))} our picks, {len(missed.get('outside_top3', []))} outside top3")
 
     report = generate_report(date_str, pick_analysis, performances, missed,
                             recommendations, len(tickers), fail_count, trade_analysis)
 
     tg_send(report)
 
-    learning_file = save_and_track(date_str, report, missed, recommendations)
+    learning_file = save_and_track(date_str, report, missed, recommendations, pick_analysis, trade_analysis)
 
     summary = (
         f"📊 Post-market analysis sent to TASI group\n"
