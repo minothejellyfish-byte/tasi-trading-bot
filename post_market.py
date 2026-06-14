@@ -298,7 +298,255 @@ def analyze_all_stocks_sequential(tickers: list, picks_symbols: set, cache: dict
     return performances, fail_count, new_cache
 
 
-def analyze_picks_detailed(picks: list, perf_map: dict):
+def analyze_picks_comprehensive(picks: list, perf_map: dict, trades: list, date_str: str) -> list:
+    """
+    Comprehensive pick analysis with:
+    1. Screener picks evaluation
+    2. Actual vs ideal entries/exits with VWAP consideration
+    3. Full-day gap status
+    4. Performance evaluation
+    5. P&L attribution (why lost/made money)
+    """
+    results = []
+    
+    # Build trade lookup
+    trade_map = {t["symbol"]: t for t in trades}
+    
+    for pick in picks:
+        symbol = pick.get("symbol", "")
+        perf = perf_map.get(symbol)
+        trade = trade_map.get(symbol)
+        
+        analysis = {
+            "symbol": symbol,
+            "score": pick.get("score", 0),
+            "tier": pick.get("tier", "main"),
+            "source": pick.get("source", ""),
+            "entry_low": pick.get("entry_low", 0),
+            "entry_high": pick.get("entry_high", 0),
+        }
+        
+        if perf:
+            # 1. Full-day OHLC data
+            analysis["open"] = perf["open"]
+            analysis["high"] = perf["high"]
+            analysis["low"] = perf["low"]
+            analysis["close"] = perf["close"]
+            analysis["volume"] = perf["volume"]
+            analysis["change_pct"] = perf["change_pct"]
+            analysis["max_intraday_pct"] = perf["max_intraday_pct"]
+            
+            # 2. Gap status at open vs zone
+            if perf["open"] > pick["entry_high"]:
+                analysis["gap_status"] = "above"
+                analysis["gap_pct"] = (perf["open"] - pick["entry_high"]) / pick["entry_high"] * 100
+            elif perf["open"] < pick["entry_low"]:
+                analysis["gap_status"] = "below"
+                analysis["gap_pct"] = (perf["open"] - pick["entry_low"]) / pick["entry_low"] * 100
+            else:
+                analysis["gap_status"] = "in_zone"
+                analysis["gap_pct"] = 0
+                analysis["touched_zone"] = pick["entry_low"] <= perf["low"] <= pick["entry_high"] or \
+                                          pick["entry_low"] <= perf["high"] <= pick["entry_high"]
+            
+            # 3. Zone quality (how well did the zone predict?)
+            if pick["entry_low"] > 0 and pick["entry_high"] > 0:
+                zone_low_error = (perf["low"] - pick["entry_low"]) / pick["entry_low"] * 100
+                zone_high_error = (perf["high"] - pick["entry_high"]) / pick["entry_high"] * 100
+                analysis["zone_accuracy"] = {
+                    "low_error_pct": zone_low_error,
+                    "high_error_pct": zone_high_error,
+                    "zone_was_support": perf["low"] >= pick["entry_low"] * 0.99,
+                    "zone_was_resistance": perf["high"] <= pick["entry_high"] * 1.01,
+                }
+        
+        # 4. Actual trade analysis with VWAP consideration
+        if trade:
+            if trade["side"] == "BUY":
+                analysis["actual_entry"] = trade["price"]
+                analysis["entry_time"] = trade["time"]
+                analysis["entry_trigger"] = trade["trigger_basis"]
+                
+                # Entry quality vs zone
+                if pick.get("entry_high"):
+                    ideal_mid = (pick["entry_low"] + pick["entry_high"]) / 2
+                    analysis["entry_slippage_pct"] = (trade["price"] - ideal_mid) / ideal_mid * 100
+                    analysis["entry_vs_zone"] = "in_zone" if pick["entry_low"] <= trade["price"] <= pick["entry_high"] else "out_of_zone"
+                
+                # Entry quality vs VWAP (if available)
+                # During trading hours, ws_frames would have VWAP data
+                # For now, we calculate approximate VWAP from OHLC
+                if perf:
+                    # Approximate VWAP = (Open + High + Low + Close) / 4
+                    approx_vwap = (perf["open"] + perf["high"] + perf["low"] + perf["close"]) / 4
+                    analysis["entry_vs_vwap"] = (trade["price"] - approx_vwap) / approx_vwap * 100
+                    analysis["vwap_at_entry"] = approx_vwap
+                    
+                    if trade["price"] < approx_vwap * 0.995:
+                        analysis["entry_quality"] = "excellent (below VWAP)"
+                    elif trade["price"] < approx_vwap * 1.005:
+                        analysis["entry_quality"] = "good (near VWAP)"
+                    else:
+                        analysis["entry_quality"] = "poor (above VWAP)"
+            
+            elif trade["side"] == "SELL":
+                analysis["actual_exit"] = trade["price"]
+                analysis["exit_time"] = trade["time"]
+                analysis["exit_trigger"] = trade["trigger_basis"]
+                
+                # Exit quality analysis
+                if perf:
+                    # vs High of Day
+                    hod_distance = (perf["high"] - trade["price"]) / perf["high"] * 100
+                    analysis["exit_vs_hod_pct"] = hod_distance
+                    
+                    # vs VWAP
+                    approx_vwap = (perf["open"] + perf["high"] + perf["low"] + perf["close"]) / 4
+                    analysis["exit_vs_vwap"] = (trade["price"] - approx_vwap) / approx_vwap * 100
+                    
+                    # Exit quality based on trigger
+                    trigger = trade.get("trigger_basis", "")
+                    if "stop" in trigger.lower():
+                        analysis["exit_quality"] = f"stop loss triggered ({hod_distance:.1f}% from HOD)"
+                    elif "target" in trigger.lower() or "tier" in trigger.lower():
+                        analysis["exit_quality"] = f"profit target hit ({hod_distance:.1f}% from HOD)"
+                    elif "manual" in trigger.lower():
+                        analysis["exit_quality"] = f"manual exit ({hod_distance:.1f}% from HOD)"
+                    elif "trailing" in trigger.lower():
+                        analysis["exit_quality"] = f"trailing stop ({hod_distance:.1f}% from HOD)"
+                    else:
+                        analysis["exit_quality"] = f"auto exit ({hod_distance:.1f}% from HOD)"
+                    
+                    # Could we have done better?
+                    if hod_distance > 2:
+                        analysis["exit_improvement"] = f"Could have gained {hod_distance:.1f}% more by holding"
+                    else:
+                        analysis["exit_improvement"] = "Good exit timing"
+                
+                # Calculate hold time and P&L
+                if analysis.get("actual_entry"):
+                    analysis["hold_time_min"] = calculate_hold_time(
+                        analysis["entry_time"], trade["time"]
+                    )
+                    analysis["actual_pnl"] = (trade["price"] - analysis["actual_entry"]) * trade["qty"]
+                    
+                    # Simulate other exits
+                    if perf:
+                        analysis["simulated_exits"] = simulate_exit_windows(
+                            entry_price=analysis["actual_entry"],
+                            perf=perf,
+                            actual_exit=trade["price"]
+                        )
+        
+        # 5. P&L attribution
+        analysis["pnl_attribution"] = calculate_pnl_attribution(analysis, perf)
+        
+        results.append(analysis)
+    
+    return results
+
+
+def simulate_exit_windows(entry_price: float, perf: dict, actual_exit: float) -> list:
+    """
+    Simulate what P&L would be with different exit strategies.
+    Returns list of exit scenarios.
+    """
+    scenarios = []
+    
+    # Scenario 1: Exit at high of day
+    max_profit = (perf["high"] - entry_price)
+    scenarios.append({
+        "strategy": "Exit at HOD",
+        "exit_price": perf["high"],
+        "pnl": max_profit,
+        "vs_actual": max_profit - (actual_exit - entry_price),
+        "realistic": False,
+    })
+    
+    # Scenario 2: Trailing stop -1% from high
+    trailing_exit = perf["high"] * 0.99
+    if trailing_exit > entry_price:
+        scenarios.append({
+            "strategy": "Trailing stop -1%",
+            "exit_price": trailing_exit,
+            "pnl": trailing_exit - entry_price,
+            "vs_actual": (trailing_exit - entry_price) - (actual_exit - entry_price),
+            "realistic": True,
+        })
+    
+    # Scenario 3: Exit at VWAP (if above entry)
+    approx_vwap = (perf["open"] + perf["high"] + perf["low"] + perf["close"]) / 4
+    if approx_vwap > entry_price:
+        scenarios.append({
+            "strategy": "Exit at VWAP",
+            "exit_price": approx_vwap,
+            "pnl": approx_vwap - entry_price,
+            "vs_actual": (approx_vwap - entry_price) - (actual_exit - entry_price),
+            "realistic": True,
+        })
+    
+    return scenarios
+
+
+def calculate_pnl_attribution(analysis: dict, perf: dict) -> dict:
+    """
+    Analyze why we made/lost money on this pick.
+    """
+    attribution = {
+        "entry_quality": "neutral",
+        "exit_quality": "neutral",
+        "market_factor": "neutral",
+        "zone_quality": "neutral",
+    }
+    
+    if not perf or not analysis.get("actual_entry"):
+        return attribution
+    
+    # Entry quality
+    if analysis.get("entry_vs_vwap") is not None:
+        vwap_dist = analysis["entry_vs_vwap"]
+        if vwap_dist < -1:
+            attribution["entry_quality"] = "excellent (below VWAP)"
+        elif vwap_dist < 0:
+            attribution["entry_quality"] = "good (slight discount)"
+        elif vwap_dist < 1:
+            attribution["entry_quality"] = "fair (near VWAP)"
+        else:
+            attribution["entry_quality"] = "poor (chased above VWAP)"
+    
+    # Zone quality
+    if analysis.get("zone_accuracy"):
+        za = analysis["zone_accuracy"]
+        if za["zone_was_support"] and za["zone_was_resistance"]:
+            attribution["zone_quality"] = "excellent"
+        elif za["zone_was_support"]:
+            attribution["zone_quality"] = "good (support worked)"
+        else:
+            attribution["zone_quality"] = "poor (price broke through)"
+    
+    # Exit quality based on trigger
+    if analysis.get("exit_trigger"):
+        trigger = analysis["exit_trigger"].lower()
+        if "stop" in trigger:
+            attribution["exit_quality"] = "stop loss (defensive)"
+        elif "target" in trigger or "tier" in trigger:
+            attribution["exit_quality"] = "profit target (disciplined)"
+        elif "trailing" in trigger:
+            attribution["exit_quality"] = "trailing stop (balanced)"
+        elif "manual" in trigger:
+            attribution["exit_quality"] = "manual (discretionary)"
+    
+    # Market factor
+    if perf["change_pct"] > 2:
+        attribution["market_factor"] = "strong bullish"
+    elif perf["change_pct"] < -2:
+        attribution["market_factor"] = "strong bearish"
+    elif perf["change_pct"] > 0:
+        attribution["market_factor"] = "mild bullish"
+    else:
+        attribution["market_factor"] = "mild bearish"
+    
+    return attribution
     results = []
     for pick in picks:
         symbol = pick.get("symbol", "")
@@ -804,12 +1052,14 @@ def main():
     print(f"• Done in {elapsed:.1f}s: {len(performances)}/{len(tickers)} stocks ({fail_count} failures)")
 
     perf_map = {p["symbol"]: p for p in performances}
-    pick_analysis = analyze_picks_detailed(picks, perf_map)
     
-    # Load actual trades and integrate
+    # Load actual trades
     print(f"• Loading actual trades from order_history.csv...")
     trades = load_actual_trades(date_str)
     print(f"• Found {len(trades)} trades for {date_str}")
+    
+    # Comprehensive pick analysis (Phase 3)
+    pick_analysis = analyze_picks_comprehensive(picks, perf_map, trades, date_str)
     
     # Analyze actual vs ideal
     trade_analysis = analyze_actual_vs_ideal(trades, picks, perf_map)
