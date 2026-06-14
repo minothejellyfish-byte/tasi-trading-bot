@@ -669,6 +669,8 @@ def reconcile_orders() -> dict:
                 new_orders[matched_api_order] = {
                     "initiated_at": local_o.get("initiated_at") or api_order_map[matched_api_order]["order_date"] or _now(),
                     "initiated_by": local_o.get("initiated_by") or "derayah-direct",
+                    "trigger_basis": local_o.get("trigger_basis") or "unknown",
+                    "trigger_detail": local_o.get("trigger_detail") or "",
                     "symbol": api_order_map[matched_api_order]["symbol"],
                     "side": api_order_map[matched_api_order]["side"],
                     "qty": api_order_map[matched_api_order]["qty"],

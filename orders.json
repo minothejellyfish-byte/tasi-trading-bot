@@ -1,4 +1,160 @@
 {
+  "55": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "BUY",
+    "qty": 5,
+    "price": 56.8,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139108+03:00"
+  },
+  "56": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "BUY",
+    "qty": 17,
+    "price": 17.03,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139123+03:00"
+  },
+  "57": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "SELL",
+    "qty": 5,
+    "price": 56.4,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139128+03:00"
+  },
+  "58": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "SELL",
+    "qty": 17,
+    "price": 16.96,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139132+03:00"
+  },
+  "59": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "BUY",
+    "qty": 5,
+    "price": 56.3,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139143+03:00"
+  },
+  "60": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "SELL",
+    "qty": 5,
+    "price": 56.3,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139147+03:00"
+  },
+  "61": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "BUY",
+    "qty": 17,
+    "price": 16.95,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139150+03:00"
+  },
+  "62": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "SELL",
+    "qty": 17,
+    "price": 16.91,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139152+03:00"
+  },
+  "63": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "BUY",
+    "qty": 5,
+    "price": 56.3,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139155+03:00"
+  },
+  "64": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "1320",
+    "side": "SELL",
+    "qty": 5,
+    "price": 56.45,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139158+03:00"
+  },
+  "65": {
+    "initiated_at": "2026-06-14T13:22:07.415271+03:00",
+    "initiated_by": "auto_buy",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "BUY",
+    "qty": 12,
+    "price": 17.04,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139161+03:00"
+  },
+  "66": {
+    "initiated_at": "2026-06-14T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "target_reached",
+    "trigger_detail": "",
+    "symbol": "5110",
+    "side": "SELL",
+    "qty": 12,
+    "price": 17,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-14T16:08:18.139164+03:00"
+  },
   "40": {
     "initiated_at": "2026-06-11T00:00:00",
     "initiated_by": "derayah-direct",
@@ -8,7 +164,8 @@
     "price": 191.7,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490938+03:00"
+    "updated_at": "2026-06-11T19:20:08.490938+03:00",
+    "trigger_basis": "pick_entry"
   },
   "41": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -19,7 +176,8 @@
     "price": 16.6,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490954+03:00"
+    "updated_at": "2026-06-11T19:20:08.490954+03:00",
+    "trigger_basis": "pick_entry"
   },
   "42": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -30,7 +188,8 @@
     "price": 118.4,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490960+03:00"
+    "updated_at": "2026-06-11T19:20:08.490960+03:00",
+    "trigger_basis": "pick_entry"
   },
   "43": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -41,7 +200,8 @@
     "price": 16.5,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490964+03:00"
+    "updated_at": "2026-06-11T19:20:08.490964+03:00",
+    "trigger_basis": "target_reached"
   },
   "44": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -52,7 +212,8 @@
     "price": 117.8,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490967+03:00"
+    "updated_at": "2026-06-11T19:20:08.490967+03:00",
+    "trigger_basis": "target_reached"
   },
   "45": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -63,7 +224,8 @@
     "price": 191.4,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490970+03:00"
+    "updated_at": "2026-06-11T19:20:08.490970+03:00",
+    "trigger_basis": "target_reached"
   },
   "46": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -74,7 +236,8 @@
     "price": 16.54,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490973+03:00"
+    "updated_at": "2026-06-11T19:20:08.490973+03:00",
+    "trigger_basis": "pick_entry"
   },
   "47": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -85,7 +248,8 @@
     "price": 16.81,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490976+03:00"
+    "updated_at": "2026-06-11T19:20:08.490976+03:00",
+    "trigger_basis": "target_reached"
   },
   "48": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -96,7 +260,8 @@
     "price": 16.76,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490979+03:00"
+    "updated_at": "2026-06-11T19:20:08.490979+03:00",
+    "trigger_basis": "target_reached"
   },
   "49": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -107,7 +272,8 @@
     "price": 16.79,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490982+03:00"
+    "updated_at": "2026-06-11T19:20:08.490982+03:00",
+    "trigger_basis": "target_reached"
   },
   "50": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -118,7 +284,8 @@
     "price": 119,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490985+03:00"
+    "updated_at": "2026-06-11T19:20:08.490985+03:00",
+    "trigger_basis": "pick_entry"
   },
   "51": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -129,7 +296,8 @@
     "price": 16.78,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490988+03:00"
+    "updated_at": "2026-06-11T19:20:08.490988+03:00",
+    "trigger_basis": "target_reached"
   },
   "52": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -140,7 +308,8 @@
     "price": 117.7,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490992+03:00"
+    "updated_at": "2026-06-11T19:20:08.490992+03:00",
+    "trigger_basis": "target_reached"
   },
   "53": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -151,7 +320,8 @@
     "price": 16.82,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490995+03:00"
+    "updated_at": "2026-06-11T19:20:08.490995+03:00",
+    "trigger_basis": "pick_entry"
   },
   "54": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -162,19 +332,7 @@
     "price": 16.73,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-11T19:20:08.490998+03:00"
-  },
-  "?": {
-    "initiated_at": "2026-06-11T14:46:58.624920+03:00",
-    "initiated_by": "auto_sell",
-    "trigger_basis": "time_stop",
-    "trigger_detail": "Time stop: held 40min, gain=-0.5% (threshold: <0.5% after 20min)",
-    "symbol": "4325",
-    "side": "SELL",
-    "qty": 11,
-    "price": 0.0,
-    "type": "MARKET",
-    "status": 5,
-    "updated_at": "2026-06-11T14:47:02.748246+03:00"
+    "updated_at": "2026-06-11T19:20:08.490998+03:00",
+    "trigger_basis": "target_reached"
   }
 }
