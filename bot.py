@@ -1501,7 +1501,7 @@ async def handle_hiscap_command(update, context):
 
 
 async def handle_history_command(update, context):
-    """/HISTORY — Show today's orders only, split into multiple messages if too long."""
+    """/HISTORY — Show today's orders as a table."""
     try:
         sys.path.insert(0, BASE_DIR)
         from history_io import read_order_history
@@ -1509,7 +1509,7 @@ async def handle_history_command(update, context):
         
         # Get today's date in Riyadh timezone
         today = datetime.now(RIYADH).strftime("%Y-%m-%d")
-        today_short = datetime.now(RIYADH).strftime("%m-%d")  # CSV uses MM-DD format
+        today_short = datetime.now(RIYADH).strftime("%m-%d")
         
         orders = read_order_history(last_n_orders=100, days=1)
         if not orders:
@@ -1529,53 +1529,28 @@ async def handle_history_command(update, context):
         # Sort ascending (oldest first) by time
         real_orders.sort(key=lambda o: o.get("time", ""))
         
-        # Build messages (max 3500 chars each to stay under Telegram 4096 limit)
-        messages = []
-        current_lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
-        current_length = len(current_lines[0]) + len(current_lines[1])
+        # Build table
+        lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
+        lines.append("<code>ID  | Side | Qty | Symbol | Price  | Total   | Fees</code>")
+        lines.append("<code>----+------+-----+--------+--------+---------+------</code>")
         
         for o in real_orders:
-            time = o.get("time", "") or "--:--"
-            oid = o.get("order_id", "?")
-            side = o.get("side", "?")
-            sym = o.get("symbol", "?")
-            qty = o.get("qty", 0)
+            oid = o.get("order_id", "?")[:4]
+            side = o.get("side", "?")[:4]
+            qty = str(o.get("qty", 0))[:3]
+            sym = o.get("symbol", "?")[:6]
             price = float(o.get("price", 0) or 0)
-            total = o.get("total", "")
-            fees = o.get("fees", "")
-            trigger = o.get("trigger_basis", "")
-            otype = o.get("type", "?")
+            total = o.get("total", "")[:7]
+            fees = o.get("fees", "")[:5]
             
-            price_str = "Market" if otype == "MARKET" else f"{price:.2f}"
+            price_str = f"{price:.2f}" if price else "MKT"
             
-            order_line = f"<b>{time}</b> | #{oid} | {side} {qty}×{sym} @ {price_str}"
-            detail_lines = []
-            if total:
-                detail_lines.append(f"  Total: {total} SAR | Fees: {fees} SAR")
-            if trigger:
-                detail_lines.append(f"  Trigger: {trigger}")
-            
-            # Check if adding this order would exceed limit
-            new_lines = [order_line] + detail_lines + [""]
-            new_length = sum(len(line) for line in new_lines)
-            
-            if current_length + new_length > 3500 and current_lines:
-                # Save current message and start new one
-                messages.append("\n".join(current_lines))
-                current_lines = [f"📜 <b>Today's Orders (continued)</b>", ""]
-                current_length = len(current_lines[0]) + len(current_lines[1])
-            
-            current_lines.extend(new_lines)
-            current_length += new_length
+            lines.append(f"<code>{oid:<4}| {side:<5}| {qty:<4}| {sym:<7}| {price_str:<7}| {total:<8}| {fees:<5}</code>")
         
-        # Add remaining lines
-        if current_lines:
-            current_lines.append(f"<i>Full CSV: history/order_history.csv</i>")
-            messages.append("\n".join(current_lines))
+        lines.append("")
+        lines.append(f"<i>Full CSV: history/order_history.csv</i>")
         
-        # Send messages
-        for msg in messages:
-            await update.message.reply_text(msg, parse_mode=ParseMode.HTML)
+        await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
         
     except Exception as e:
         log.error(f"handle_history_command error: {e}")
