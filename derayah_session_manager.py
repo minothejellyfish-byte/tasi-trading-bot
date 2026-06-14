@@ -991,8 +991,10 @@ class SessionManager:
         
         deadline = time.time() + timeout
         last_uid = None
+        search_count = 0
         
         while time.time() < deadline:
+            search_count += 1
             try:
                 M = imaplib.IMAP4_SSL(IMAP_HOST, 993)
                 M.login(Mino_IMAP, Mino_PASS)
@@ -1006,11 +1008,16 @@ class SessionManager:
                 typ, data = M.search(None, search_crit)
                 ids = data[0].split() if data and data[0] else []
                 
+                log.info(f"IMAP search #{search_count}: found {len(ids)} email(s) from {sender} since {since_date}")
+                
                 if ids:
+                    log.info(f"Checking {len(ids)} email(s), most recent first")
                     # Check the most recent first
                     for num in reversed(ids):
+                        log.info(f"Checking email UID {num}")
                         typ, msg_data = M.fetch(num, '(RFC822)')
                         if not msg_data or not msg_data[0] or not isinstance(msg_data[0], tuple):
+                            log.warning(f"Email UID {num}: no data or wrong format")
                             continue
                         msg = email_module.message_from_bytes(msg_data[0][1])
                         
@@ -1029,9 +1036,14 @@ class SessionManager:
                             log.warning(f"Subject decode failed: {e}")
                             subj_decoded = str(subj)
                         
+                        log.info(f"Email UID {num}: subject='{subj_decoded[:60]}'")
+                        
                         # Check subject contains keyword
                         if subject_keyword and subject_keyword not in subj_decoded:
+                            log.info(f"Email UID {num}: subject missing keyword '{subject_keyword}' - skipping")
                             continue
+                        
+                        log.info(f"Email UID {num}: subject matches keyword")
                         
                         # Get body
                         body = ""
@@ -1052,16 +1064,23 @@ class SessionManager:
                                         body = str(part.get_payload())
                                     break
                         
+                        log.info(f"Email UID {num}: body length={len(body)}")
+                        
                         # Check the email is recent (within since_minutes)
                         date_hdr = msg.get('Date', '')
                         try:
                             from email.utils import parsedate_to_datetime
                             email_time = parsedate_to_datetime(date_hdr)
                             age = (datetime.now(email_time.tzinfo) - email_time).total_seconds()
+                            log.info(f"Email UID {num}: age={age/60:.1f}min, since_limit={since_minutes}min")
                             if age > since_minutes * 60:
+                                log.info(f"Email UID {num}: too old ({age/60:.1f}min > {since_minutes}min) - skipping")
                                 continue  # Too old
-                        except:
+                        except Exception as e:
+                            log.warning(f"Email UID {num}: date parse failed: {e}")
                             pass
+                        
+                        log.info(f"Email UID {num}: age OK, searching for OTP in body")
                         
                         # Extract OTP code
                         # Pattern 1: 'رمز التحقق لمرة واحدة: NNNN' (one-time verification code)
@@ -1070,30 +1089,39 @@ class SessionManager:
                         # Pattern 4: Generic 4-6 digit code in OTP-like context
                         otp = ""
                         patterns = [
-                            r'رمز التحقق لمرة واحدة[::]\s*(\d{4,6})',
-                            r'رمز التحقق[::]\s*(\d{4,6})',
-                            r'رمز التفعيل[::]\s*(\d{4,6})',
-                            r'verification code[::]\s*(\d{4,6})',
-                            r'activation code[::]\s*(\d{4,6})',
+                            r'رمز التحقق لمرة واحدة[:\s]*(\d{4,6})',
+                            r'رمز التحقق[:\s]*(\d{4,6})',
+                            r'رمز التفعيل[:\s]*(\d{4,6})',
+                            r'verification code[:\s]*(\d{4,6})',
+                            r'activation code[:\s]*(\d{4,6})',
                             r'code[:\s]+(\d{4,6})\b',
                         ]
-                        for pat in patterns:
+                        for i, pat in enumerate(patterns):
                             m = re_module.search(pat, body, re_module.IGNORECASE)
                             if m:
                                 otp = m.group(1)
+                                log.info(f"Email UID {num}: OTP found with pattern #{i}: {otp}")
                                 break
                         if not otp:
+                            log.info(f"Email UID {num}: no OTP found with standard patterns")
                             # Last resort: find 4-6 digit number near 'code' or 'OTP'
                             ctx = re_module.search(r'.{0,30}(?:code|OTP|otp|رمز).{0,30}', body)
                             if ctx:
                                 digits = re_module.findall(r'\d{4,6}', ctx.group(0))
                                 if digits:
                                     otp = digits[0]
+                                    log.info(f"Email UID {num}: OTP found with last resort: {otp}")
+                                else:
+                                    log.info(f"Email UID {num}: last resort found context but no digits")
+                            else:
+                                log.info(f"Email UID {num}: no OTP context found in body")
                         
                         if otp:
                             M.logout()
                             log.info(f"OTP fetched from email: {otp} (subj: {subj_decoded[:40]})")
                             return otp
+                else:
+                    log.info(f"IMAP search: no emails found from {sender}")
                 
                 M.logout()
             except Exception as e:
@@ -1101,7 +1129,7 @@ class SessionManager:
             
             time.sleep(3)  # Poll every 3s
         
-        log.error(f"OTP fetch timed out after {timeout}s")
+        log.error(f"OTP fetch timed out after {timeout}s (searched {search_count} times)")
         return ""
 
     def _wait_for_login_complete(self, ws_url: str, timeout: int = 30) -> bool:
