@@ -384,33 +384,22 @@ def _record_capital_history(capital: dict):
 def quick_refresh() -> dict:
     """Quick sync with Derayah truth. Called by bot/poller after trades.
     
-    Scrapes dashboard for grand_total (true source), then syncs positions.
+    Reads from Derayah API (not dashboard), then syncs positions and orders.
     """
-    # ── Get true grand_total from Derayah dashboard ─────────────────────
-    scrape = scrape_dashboard_cash()
+    # ── Get data from Derayah API ──────────────────────────────────────
     positions = get_positions_api()
     invested = sum(p.get("cost", 0) for p in positions)
     
-    if scrape.get("success") and scrape.get("grand_total"):
-        # Use dashboard-scraped values (TRUE source)
-        grand_total = scrape["grand_total"]
-        money_transfer = scrape.get("money_transfer", 0) or 0
-        cash_accounts = scrape.get("cash_accounts", 0) or 0
-        available = money_transfer or (grand_total - invested)
-        source = "derayah-dashboard-quick"
-    else:
-        # Fallback to API-only (dashboard scrape failed)
-        print(f"[{_now()}] Dashboard scrape failed: {scrape.get('error')}. Using API fallback.")
-        try:
-            with open(CAPITAL_FILE) as f:
-                existing = json.load(f)
-            grand_total = existing.get("grand_total", 1000)
-        except:
-            grand_total = 1000
-        available = grand_total - invested
-        money_transfer = available
-        cash_accounts = 0
-        source = "derayah-api-fallback"
+    # Get grand_total from existing capital.json (not dashboard scrape)
+    try:
+        with open(CAPITAL_FILE) as f:
+            existing = json.load(f)
+        grand_total = existing.get("grand_total", 1000)
+    except:
+        grand_total = 1000
+    
+    available = grand_total - invested
+    source = "derayah-api-only"
     
     capital = {
         "available_capital": round(available, 2),
@@ -419,12 +408,12 @@ def quick_refresh() -> dict:
         "grand_total": round(grand_total, 2),
         "securities_value": round(invested, 2),
         "invested": round(invested, 2),
-        "money_transfer": round(money_transfer, 2),
+        "money_transfer": round(available, 2),
         "total_fees": 0,
         "cash_breakdown": {
             "total_cash": round(grand_total, 2),
-            "money_transfer": round(money_transfer, 2),
-            "cash_accounts": round(cash_accounts, 2),
+            "money_transfer": round(available, 2),
+            "cash_accounts": 0,
         },
     }
     
