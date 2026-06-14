@@ -659,7 +659,7 @@ def analyze_top3_missed_outside(performances: list, picks_symbols: set) -> list:
     """
     outside_movers = [
         p for p in performances
-        if not p["was_picked"]
+        if not p.get("was_picked", False)
         and p["max_intraday_pct"] > 3.0  # Higher threshold - only significant movers
         and p["volume"] > 100000  # Higher volume filter
     ]
