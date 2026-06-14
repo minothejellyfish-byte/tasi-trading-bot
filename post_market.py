@@ -99,7 +99,108 @@ def save_cache(data: dict):
         json.dump({"date": today, "data": data}, f)
 
 
-def fetch_one(symbol: str, cache: dict) -> tuple:
+def fetch_from_ws_frames(symbol: str, date_str: str) -> dict | None:
+    """
+    Fetch OHLCV from WebSocket price frames captured during trading.
+    Returns dict with open, high, low, close, volume or None.
+    """
+    try:
+        with open(WS_FRAMES_FILE) as f:
+            ws_data = json.load(f)
+        
+        # ws_frames.json structure: { "frames": [{ "timestamp": "...", "symbol": "1010", "price": 45.2, "volume": 1000 }, ...] }
+        frames = ws_data.get("frames", [])
+        
+        # Filter frames for this symbol and date
+        symbol_frames = [
+            f for f in frames 
+            if f.get("symbol") == symbol.replace(".SR", "")
+            and date_str in f.get("timestamp", "")
+        ]
+        
+        if not symbol_frames:
+            return None
+        
+        prices = [f["price"] for f in symbol_frames]
+        volumes = [f.get("volume", 0) for f in symbol_frames]
+        
+        return {
+            "open": prices[0],
+            "high": max(prices),
+            "low": min(prices),
+            "close": prices[-1],
+            "volume": sum(volumes),
+        }
+    except Exception:
+        return None
+
+
+def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
+    """
+    Fetch stock data with retry and fallback to WebSocket frames.
+    Priority: cache → ws_frames → yfinance
+    """
+    # Check cache first
+    if symbol in cache:
+        return symbol, cache[symbol]
+    
+    # Fallback 1: WebSocket frames (real-time captured data)
+    ws_data = fetch_from_ws_frames(symbol, date_str)
+    if ws_data:
+        result = {
+            "symbol": symbol,
+            "open": ws_data["open"],
+            "high": ws_data["high"],
+            "low": ws_data["low"],
+            "close": ws_data["close"],
+            "volume": ws_data["volume"],
+            "change_pct": (ws_data["close"] - ws_data["open"]) / ws_data["open"] * 100,
+            "max_intraday_pct": (ws_data["high"] - ws_data["open"]) / ws_data["open"] * 100,
+        }
+        return symbol, result
+    
+    # Fallback 2: yfinance with exponential backoff
+    for attempt in range(5):
+        try:
+            ticker = yf.Ticker(symbol)
+            df = ticker.history(period="1d")
+            if df.empty:
+                df = ticker.history(period="5d")
+                if not df.empty:
+                    df = df.iloc[[-1]]
+            
+            if df.empty:
+                if attempt == 4:
+                    return symbol, None
+                time.sleep(2 ** attempt)  # 1s, 2s, 4s, 8s
+                continue
+
+            open_p = float(df["Open"].iloc[0])
+            high = float(df["High"].max())
+            low = float(df["Low"].min())
+            close = float(df["Close"].iloc[-1])
+            volume = int(df["Volume"].sum())
+
+            change_pct = (close - open_p) / open_p * 100
+            max_intraday_pct = (high - open_p) / open_p * 100
+
+            result = {
+                "symbol": symbol,
+                "open": open_p,
+                "high": high,
+                "low": low,
+                "close": close,
+                "volume": volume,
+                "change_pct": change_pct,
+                "max_intraday_pct": max_intraday_pct,
+            }
+            return symbol, result
+        except Exception:
+            if attempt == 4:
+                return symbol, None
+            time.sleep(2 ** attempt)
+    
+    return symbol, None
     """Fetch a single stock with caching."""
     # Check cache first
     if symbol in cache:
@@ -150,7 +251,29 @@ def fetch_one(symbol: str, cache: dict) -> tuple:
     return symbol, None
 
 
-def analyze_all_stocks_sequential(tickers: list, picks_symbols: set, cache: dict):
+def analyze_all_stocks_sequential(tickers: list, picks_symbols: set, cache: dict, date_str: str):
+    """Fetch all stocks sequentially (yfinance is not thread-safe)."""
+    performances = []
+    new_cache = {}
+    fail_count = 0
+
+    for sym in tickers:
+        symbol, result = fetch_one(sym, cache, date_str)
+        if result:
+            result["was_picked"] = symbol in picks_symbols
+            performances.append(result)
+            new_cache[symbol] = result
+        elif symbol in cache:
+            # Keep cached data even if fetch failed this time
+            cached = cache[symbol].copy()
+            cached["was_picked"] = symbol in picks_symbols
+            performances.append(cached)
+            new_cache[symbol] = cache[symbol]
+        else:
+            fail_count += 1
+
+    performances.sort(key=lambda x: x["max_intraday_pct"], reverse=True)
+    return performances, fail_count, new_cache
     """Fetch all stocks sequentially (yfinance is not thread-safe)."""
     performances = []
     new_cache = {}
@@ -226,9 +349,27 @@ def find_missed_opportunities(performances: list, picks_symbols: set, min_move: 
     return missed[:10]
 
 
-def generate_recommendations(pick_analysis: list, missed: list, performances: list):
+def generate_recommendations(pick_analysis: list, missed: list, performances: list, trade_analysis: list = None):
     recommendations = []
-
+    
+    # Trade-based recommendations
+    if trade_analysis:
+        early_exits = [t for t in trade_analysis if t.get("potential_missed_profit", 0) > 5]
+        if early_exits:
+            avg_missed = sum(t["potential_missed_profit"] for t in early_exits) / len(early_exits)
+            recommendations.append(
+                f"💰 {len(early_exits)} trades exited early — avg missed profit: {avg_missed:.2f} SAR. "
+                f"Consider trailing stops or wider targets."
+            )
+        
+        slippage_trades = [t for t in trade_analysis if abs(t.get("entry_slippage_pct", 0)) > 1]
+        if slippage_trades:
+            avg_slip = sum(t["entry_slippage_pct"] for t in slippage_trades) / len(slippage_trades)
+            recommendations.append(
+                f"⚠️ {len(slippage_trades)} entries had >1% slippage (avg: {avg_slip:+.2f}%). "
+                f"Use limit orders at zone low instead of market orders."
+            )
+    
     gap_ups = [p for p in pick_analysis if p.get("gap_status") == "above"]
     if gap_ups:
         avg_gap = sum(p["gap_pct"] for p in gap_ups) / len(gap_ups)
@@ -275,7 +416,8 @@ def generate_recommendations(pick_analysis: list, missed: list, performances: li
 
 
 def generate_report(date_str: str, pick_analysis: list, performances: list,
-                    missed: list, recommendations: list, total_scanned: int, fail_count: int):
+                    missed: list, recommendations: list, total_scanned: int, fail_count: int,
+                    trade_analysis: list = None):
     report = [
         f"📊 <b>Post-Market Analysis: {date_str}</b>",
         f"Market: TASI | Scanned: {len(performances)}/{total_scanned} stocks | Time: {datetime.now(RIYADH).strftime('%H:%M %Z')}",
@@ -340,6 +482,45 @@ def generate_report(date_str: str, pick_analysis: list, performances: list,
 
     report.append("━" * 45)
     report.append("")
+
+    # Actual trades section
+    if trade_analysis:
+        report.append("<b>💰 Actual Trade Performance</b>")
+        report.append("")
+        
+        total_actual_pnl = sum(t.get("actual_pnl", 0) for t in trade_analysis if t.get("actual_pnl"))
+        total_missed = sum(t.get("potential_missed_profit", 0) for t in trade_analysis if t.get("potential_missed_profit", 0) > 0)
+        
+        report.append(f"• Total actual P&L: {total_actual_pnl:+.2f} SAR")
+        report.append(f"• Potential missed profit: {total_missed:.2f} SAR")
+        report.append("")
+        
+        for ta in trade_analysis:
+            if ta.get("has_trade"):
+                emoji = "🟢" if ta.get("actual_pnl", 0) > 0 else "🔴"
+                report.append(
+                    f"{emoji} <b>{ta['symbol']}</b> | "
+                    f"Entry: {ta['buy_price']:.2f} → Exit: {ta.get('sell_price', 'N/A')} | "
+                    f"P&L: {ta.get('actual_pnl', 0):+.2f} | "
+                    f"Hold: {ta.get('hold_time_min', 0)}min"
+                )
+                
+                if ta.get("entry_slippage_pct"):
+                    slip_emoji = "⚠️" if abs(ta["entry_slippage_pct"]) > 1 else "✅"
+                    report.append(
+                        f"   {slip_emoji} Entry slippage: {ta['entry_slippage_pct']:+.2f}% | "
+                        f"Zone: {ta.get('entry_vs_zone', 'N/A')}"
+                    )
+                
+                if ta.get("potential_missed_profit", 0) > 5:
+                    report.append(
+                        f"   💰 Missed profit: {ta['potential_missed_profit']:.2f} SAR "
+                        f"(if held to HOD: {ta['max_profit_if_held']:.2f})"
+                    )
+        
+        report.append("")
+        report.append("━" * 45)
+        report.append("")
 
     # Missed opportunities
     if missed:
@@ -491,7 +672,100 @@ Generated by post_market.py v4.1
     return learning_file
 
 
-def _is_saudi_trading_day(dt: datetime) -> bool:
+# Actual trade data integration (added 2026-06-14)
+ORDER_HISTORY_FILE = BASE_DIR / "history" / "order_history.csv"
+
+
+def load_actual_trades(date_str: str) -> list:
+    """
+    Load actual BUY/SELL trades from order_history.csv for the given date.
+    Returns list of trade dicts with entry/exit details.
+    """
+    trades = []
+    try:
+        with open(ORDER_HISTORY_FILE) as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                # Match date format in CSV (MM-DD)
+                row_date = row.get("date", "")
+                # Match both MM-DD and YYYY-MM-DD formats
+                if row_date == date_str[5:] or row_date == date_str:
+                    trades.append({
+                        "order_id": row.get("order_id"),
+                        "symbol": row.get("symbol", "").replace(".SR", ""),
+                        "side": row.get("side", ""),
+                        "qty": int(row.get("qty", 0) or 0),
+                        "price": float(row.get("price", 0) or 0),
+                        "total": float(row.get("total", 0) or 0),
+                        "fees": float(row.get("fees", 0) or 0),
+                        "trigger_basis": row.get("trigger_basis", ""),
+                        "time": row.get("time", ""),
+                        "status": row.get("status", ""),
+                    })
+    except Exception as e:
+        print(f"[WARN] Failed to load order history: {e}")
+    return trades
+
+
+def calculate_hold_time(buy_time: str, sell_time: str) -> int:
+    """Calculate hold time in minutes between buy and sell."""
+    try:
+        fmt = "%H:%M"
+        buy = datetime.strptime(buy_time[:5], fmt)
+        sell = datetime.strptime(sell_time[:5], fmt)
+        return int((sell - buy).total_seconds() / 60)
+    except:
+        return 0
+
+
+def analyze_actual_vs_ideal(trades: list, picks: list, perf_map: dict) -> list:
+    """
+    Compare actual trade entries/exits with ideal picks.
+    Returns analysis with slippage, timing, and performance gaps.
+    """
+    analysis = []
+    
+    # Build buy/sell pairs
+    buys = {t["symbol"]: t for t in trades if t["side"] == "BUY" and t["status"] == "FILLED"}
+    sells = {t["symbol"]: t for t in trades if t["side"] == "SELL" and t["status"] == "FILLED"}
+    
+    for symbol in set(buys.keys()) | set(sells.keys()):
+        buy = buys.get(symbol)
+        sell = sells.get(symbol)
+        perf = perf_map.get(symbol)
+        pick = next((p for p in picks if p.get("symbol", "") == symbol), None)
+        
+        result = {
+            "symbol": symbol,
+            "has_trade": bool(buy or sell),
+            "buy_price": buy["price"] if buy else None,
+            "sell_price": sell["price"] if sell else None,
+            "ideal_entry_low": pick.get("entry_low") if pick else None,
+            "ideal_entry_high": pick.get("entry_high") if pick else None,
+        }
+        
+        if buy and pick and pick.get("entry_high", 0) > 0:
+            # Entry slippage analysis
+            ideal_mid = (pick["entry_low"] + pick["entry_high"]) / 2
+            result["entry_slippage_pct"] = (buy["price"] - ideal_mid) / ideal_mid * 100
+            result["entry_vs_zone"] = "in_zone" if pick["entry_low"] <= buy["price"] <= pick["entry_high"] else "out_of_zone"
+        
+        if buy and sell:
+            # Actual P&L
+            actual_pnl = (sell["price"] - buy["price"]) * buy["qty"] - buy["fees"] - sell.get("fees", 0)
+            result["actual_pnl"] = actual_pnl
+            result["hold_time_min"] = calculate_hold_time(buy["time"], sell["time"])
+            
+            # Simulate other exits
+            if perf:
+                result["ideal_exit_high"] = perf["high"]
+                result["ideal_exit_low"] = perf["low"]
+                result["max_profit_if_held"] = (perf["high"] - buy["price"]) * buy["qty"]
+                result["potential_missed_profit"] = result["max_profit_if_held"] - actual_pnl
+        
+        analysis.append(result)
+    
+    return analysis
     """Return True if dt falls on a TASI trading day (Sun–Thu)."""
     return dt.weekday() in (6, 0, 1, 2, 3, 4)
 
@@ -521,7 +795,7 @@ def main():
     print(f"• Cached: {len(cache)} stocks")
 
     print(f"\nScanning {len(tickers)} stocks sequentially (yfinance thread-safe)...")
-    performances, fail_count, new_cache = analyze_all_stocks_sequential(tickers, picks_symbols, cache)
+    performances, fail_count, new_cache = analyze_all_stocks_sequential(tickers, picks_symbols, cache, date_str)
 
     # Save cache for next run
     save_cache(new_cache)
@@ -531,13 +805,36 @@ def main():
 
     perf_map = {p["symbol"]: p for p in performances}
     pick_analysis = analyze_picks_detailed(picks, perf_map)
+    
+    # Load actual trades and integrate
+    print(f"• Loading actual trades from order_history.csv...")
+    trades = load_actual_trades(date_str)
+    print(f"• Found {len(trades)} trades for {date_str}")
+    
+    # Analyze actual vs ideal
+    trade_analysis = analyze_actual_vs_ideal(trades, picks, perf_map)
+    
+    # Add trade data to pick analysis
+    for pa in pick_analysis:
+        symbol = pa["symbol"]
+        trade_info = next((t for t in trade_analysis if t["symbol"] == symbol), None)
+        if trade_info:
+            pa.update({
+                "actual_entry": trade_info.get("buy_price"),
+                "actual_exit": trade_info.get("sell_price"),
+                "entry_slippage_pct": trade_info.get("entry_slippage_pct"),
+                "actual_pnl": trade_info.get("actual_pnl"),
+                "hold_time_min": trade_info.get("hold_time_min"),
+                "max_profit_if_held": trade_info.get("max_profit_if_held"),
+            })
+    
     missed = find_missed_opportunities(performances, picks_symbols)
-    recommendations = generate_recommendations(pick_analysis, missed, performances)
+    recommendations = generate_recommendations(pick_analysis, missed, performances, trade_analysis)
 
     print(f"• Missed opportunities: {len(missed)}")
 
     report = generate_report(date_str, pick_analysis, performances, missed,
-                            recommendations, len(tickers), fail_count)
+                            recommendations, len(tickers), fail_count, trade_analysis)
 
     tg_send(report)
 
@@ -547,6 +844,7 @@ def main():
         f"📊 Post-market analysis sent to TASI group\n"
         f"• Stocks scanned: {len(performances)}/{len(tickers)} ({elapsed:.0f}s)\n"
         f"• Picks analyzed: {len(picks)}\n"
+        f"• Actual trades: {len(trades)}\n"
         f"• Missed opportunities: {len(missed)}\n"
         f"• Recommendations: {len(recommendations)}\n"
         f"• Data failures: {fail_count}"
