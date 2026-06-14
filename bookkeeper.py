@@ -384,53 +384,73 @@ def _record_capital_history(capital: dict):
 def quick_refresh() -> dict:
     """Quick sync with Derayah truth. Called by bot/poller after trades.
     
-    Reads from Derayah API (not dashboard), then syncs positions and orders.
+    Capital: from dashboard scraping (Grand Total, Money Transfer)
+    Positions/Orders: from Derayah API
     """
-    # ── Get data from Derayah API ──────────────────────────────────────
+    # ── 1. Get capital from dashboard scrape ──────────────────────────
+    scrape = scrape_dashboard_cash()
+    
+    if scrape.get("success") and scrape.get("grand_total"):
+        grand_total = scrape["grand_total"]
+        money_transfer = scrape.get("money_transfer", 0) or 0
+        # Equity = Grand Total - Available (Money Transfer)
+        equity = grand_total - money_transfer
+        source = "derayah-dashboard-scrape"
+        print(f"[{_now()}] Dashboard scrape OK: grand_total={grand_total}, money_transfer={money_transfer}")
+    else:
+        # Fallback: read from existing capital.json
+        print(f"[{_now()}] Dashboard scrape failed: {scrape.get('error')}. Using file fallback.")
+        try:
+            with open(CAPITAL_FILE) as f:
+                existing = json.load(f)
+            grand_total = existing.get("grand_total", 1000)
+            money_transfer = existing.get("available_capital", 0)
+            equity = existing.get("invested", 0)
+        except:
+            grand_total = 1000
+            money_transfer = 0
+            equity = 0
+        source = "file-fallback"
+    
+    # ── 2. Get positions/orders from API ───────────────────────────────
     positions = get_positions_api()
     invested = sum(p.get("cost", 0) for p in positions)
     
-    # Get grand_total from existing capital.json (not dashboard scrape)
-    try:
-        with open(CAPITAL_FILE) as f:
-            existing = json.load(f)
-        grand_total = existing.get("grand_total", 1000)
-    except:
-        grand_total = 1000
-    
-    available = grand_total - invested
-    source = "derayah-api-only"
+    # Override equity with API invested if more accurate
+    # But keep dashboard grand_total as source of truth
+    if invested > 0:
+        equity = invested
     
     capital = {
-        "available_capital": round(available, 2),
+        "available_capital": round(money_transfer, 2),
         "updated_at": _now(),
         "source": source,
         "grand_total": round(grand_total, 2),
-        "securities_value": round(invested, 2),
-        "invested": round(invested, 2),
-        "money_transfer": round(available, 2),
+        "securities_value": round(equity, 2),
+        "invested": round(equity, 2),
+        "money_transfer": round(money_transfer, 2),
         "total_fees": 0,
         "cash_breakdown": {
             "total_cash": round(grand_total, 2),
-            "money_transfer": round(available, 2),
-            "cash_accounts": 0,
+            "money_transfer": round(money_transfer, 2),
+            "cash_accounts": round(equity, 2),
         },
     }
     
     # Add 3-bucket fields (Phase 4) — equity/booked/cash
     if ORDER_HELPERS_AVAILABLE:
         try:
-            capital["equity"] = round(invested, 2)
             from order_helpers import get_booked_capital
+            capital["equity"] = round(equity, 2)
             capital["booked"] = round(get_booked_capital(), 2)
-            capital["cash_3bucket"] = round(available, 2)
-            capital["total_3bucket"] = round(invested + get_booked_capital() + available, 2)
+            capital["cash_3bucket"] = round(money_transfer, 2)
+            capital["total_3bucket"] = round(equity + get_booked_capital() + money_transfer, 2)
         except Exception as e:
             print(f"[{_now()}] 3-bucket calc failed: {e}")
 
     with open(CAPITAL_FILE, "w") as f:
         json.dump(capital, f, indent=2)
-    print(f"[{_now()}] Capital synced: grand_total={grand_total}, available={available}, invested={invested} (source: {source})")
+    print(f"[{_now()}] Capital synced: grand_total={grand_total}, money_transfer={money_transfer}, equity={equity} (source: {source})")
 
     # Sync positions too
     sync_positions()
