@@ -619,13 +619,68 @@ def reconcile_orders() -> dict:
             # Already terminal locally, but not in API — keep as-is (terminal row)
             new_orders[oid] = local_o
         elif local_o.get("status") == STATUS_INITIATED:
-            # INITIATED but Derayah doesn't see it → mark REJECTED
-            new_orders[oid] = {**local_o, "status": STATUS_REJECTED, "updated_at": _now()}
-            transitions["initiated_to_rejected"].append({
-                "order_id": oid, "symbol": local_o.get("symbol"),
-                "side": local_o.get("side"), "qty": local_o.get("qty"),
-                "price": local_o.get("price"),
-            })
+            # INITIATED but Derayah doesn't see it by order_id
+            # Check if there's a matching FILLED order in API (fuzzy match)
+            # Match by: symbol, side, qty, price, AND time window (±5 min)
+            matched_api_order = None
+            local_time = local_o.get("initiated_at", "")
+            local_symbol = local_o.get("symbol", "")
+            local_side = local_o.get("side", "")
+            local_qty = local_o.get("qty", 0)
+            local_price = local_o.get("price", 0)
+            
+            for api_oid, api_data in api_order_map.items():
+                if api_data["our_status"] == STATUS_FILLED:
+                    # Check symbol, side, qty, price match
+                    if (api_data["symbol"] == local_symbol and 
+                        api_data["side"] == local_side and 
+                        api_data["qty"] == local_qty and
+                        api_data["price"] == local_price):
+                        # Check time window (±5 minutes)
+                        api_time = api_data.get("order_date", "")
+                        if api_time and local_time:
+                            try:
+                                from datetime import datetime
+                                # Parse times (handle ISO format)
+                                local_dt = datetime.fromisoformat(local_time.replace('Z', '+00:00'))
+                                api_dt = datetime.fromisoformat(api_time.replace('Z', '+00:00'))
+                                time_diff = abs((api_dt - local_dt).total_seconds())
+                                if time_diff <= 300:  # 5 minutes = 300 seconds
+                                    matched_api_order = api_oid
+                                    break
+                            except Exception:
+                                # If time parsing fails, match anyway (fallback)
+                                matched_api_order = api_oid
+                                break
+            
+            if matched_api_order:
+                # Found matching FILLED order — update with real order ID and FILLED status
+                new_orders[matched_api_order] = {
+                    "initiated_at": local_o.get("initiated_at") or api_order_map[matched_api_order]["order_date"] or _now(),
+                    "initiated_by": local_o.get("initiated_by") or "derayah-direct",
+                    "symbol": api_order_map[matched_api_order]["symbol"],
+                    "side": api_order_map[matched_api_order]["side"],
+                    "qty": api_order_map[matched_api_order]["qty"],
+                    "price": api_order_map[matched_api_order]["price"],
+                    "type": api_order_map[matched_api_order]["type"],
+                    "status": STATUS_FILLED,
+                    "updated_at": _now(),
+                    "matched_from_api": True,
+                    "original_order_id": oid,
+                }
+                transitions["status_changes"].append({
+                    "order_id": matched_api_order, "old": STATUS_INITIATED, "new": STATUS_FILLED,
+                    "symbol": local_o.get("symbol"), "side": local_o.get("side"),
+                    "qty": local_o.get("qty"), "price": local_o.get("price"),
+                })
+            else:
+                # No matching FILLED order found → mark REJECTED
+                new_orders[oid] = {**local_o, "status": STATUS_REJECTED, "updated_at": _now()}
+                transitions["initiated_to_rejected"].append({
+                    "order_id": oid, "symbol": local_o.get("symbol"),
+                    "side": local_o.get("side"), "qty": local_o.get("qty"),
+                    "price": local_o.get("price"),
+                })
         elif local_o.get("status") in (STATUS_PLACED, STATUS_PARTIAL):
             # PLACED/PARTIAL but not in API anymore → mark EXPIRED
             new_orders[oid] = {**local_o, "status": STATUS_EXPIRED, "updated_at": _now()}
