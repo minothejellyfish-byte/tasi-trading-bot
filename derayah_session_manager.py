@@ -1002,8 +1002,9 @@ class SessionManager:
                 
                 # Search for emails from derayah.com in the last N minutes
                 # Use date-based search for "since" filter
-                from datetime import datetime, timedelta
-                since_date = (datetime.now() - timedelta(minutes=since_minutes)).strftime("%d-%b-%Y")
+                # IMPORTANT: Gmail IMAP SINCE uses UTC, not local time
+                from datetime import datetime, timedelta, timezone
+                since_date = (datetime.now(timezone.utc) - timedelta(minutes=since_minutes)).strftime("%d-%b-%Y")
                 search_crit = f'(FROM "{sender}" SINCE {since_date})'
                 typ, data = M.search(None, search_crit)
                 ids = data[0].split() if data and data[0] else []
