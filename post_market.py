@@ -31,8 +31,8 @@ SYSTEM_REF = Path("/home/mino/.openclaw-mino/workspace/TASI_SYSTEM_REFERENCE.md"
 BOT_TOKEN = "8989533040:AAFWzP_lYL3g_w4eXGxrvwdo-tBNdPxVYQU"
 GROUP_CHAT_ID = -5235925419
 
-# Logging setup
-LOG_FILE = BASE_DIR / "post_market.log"
+# Logging setup - save to logs/ subdirectory
+LOG_FILE = BASE_DIR / "logs" / "post_market.log"
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s',
