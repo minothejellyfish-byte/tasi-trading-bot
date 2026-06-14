@@ -2221,6 +2221,7 @@ def main():
     app.add_handler(CommandHandler("Pnl", handle_pnl_command))
     app.add_handler(CommandHandler("PNL", handle_pnl_command))
     app.add_handler(CommandHandler("History", handle_history_command))
+    app.add_handler(CommandHandler("history", handle_history_command))
     app.add_handler(CommandHandler("HISTORY", handle_history_command))
     app.add_handler(CommandHandler("HisCap", handle_hiscap_command))
     app.add_handler(CommandHandler("HISCAP", handle_hiscap_command))
