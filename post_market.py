@@ -17,6 +17,7 @@ import pytz
 import requests
 import time
 import sys
+import csv
 
 RIYADH = pytz.timezone("Asia/Riyadh")
 BASE_DIR = Path("/home/mino/tasi-exec")
