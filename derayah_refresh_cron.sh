@@ -248,6 +248,66 @@ except Exception as e:
     
     log "  SSO URL response: $sso_code"
     
+    # ─── Step 4: If SSO 401, try OAuth refresh ────────────────────────────────
+    if [[ "$sso_code" == "401" ]]; then
+        log "  SSO failed — trying OAuth refresh..."
+        local oauth_result
+        oauth_result=$(python3 -c "
+import sys
+sys.path.insert(0, '$SCRIPT_DIR')
+from derayah_session_manager import SessionManager
+sm = SessionManager()
+try:
+    result = sm.refresh_session()
+    print(f'OAUTH_SUCCESS|{result.get(\"tc_remaining_min\", 0)}')
+except Exception as e:
+    print(f'OAUTH_FAILED|{e}')
+" 2>>"$LOG_FILE")
+        
+        if [[ "$oauth_result" == OAUTH_SUCCESS* ]]; then
+            log "  ✅ OAuth refresh succeeded!"
+            # Re-read token after OAuth refresh
+            access_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE'))['Derayah_accesstoken'])" 2>/dev/null)
+            access_exp=$(jwt_exp "$access_tok")
+            remaining_min=$(( (access_exp - now) / 60 ))
+            log "  New token expires in ${remaining_min} min"
+            
+            # Retry SSO with new token
+            log "  Retrying SSO URL with refreshed token..."
+            sso_resp=$(python3 -c "
+import json, requests
+token = '''$access_tok'''
+if not token or token == 'None':
+    print('STATUS:0')
+    print('No token after OAuth')
+    exit(1)
+headers = {
+    'Authorization': f'Bearer {token}',
+    'Accept': 'application/json',
+    'Origin': 'https://newonline.derayah.com',
+    'Referer': 'https://newonline.derayah.com/',
+}
+try:
+    r = requests.get(
+        'https://api.derayah.com/apispark/trade/TickerChartUrl',
+        headers=headers, timeout=10, allow_redirects=False
+    )
+    print(f'STATUS:{r.status_code}')
+    print(r.text)
+except Exception as e:
+    print('STATUS:0')
+    print(f'EXC:{e}')
+" 2>>"$LOG_FILE")
+            sso_code="${sso_resp%%$'\n'*}"
+            sso_code="${sso_code#STATUS:}"
+            sso_body="${sso_resp#*$'\n'}"
+            log "  SSO URL (retry) response: $sso_code"
+        else
+            log "  ❌ OAuth refresh failed (${oauth_result})"
+        fi
+    fi
+    
+    # ─── If still not 200, fall through to recovery ───────────────────────────
     if [[ "$sso_code" != "200" ]]; then
         log "  ❌ SSO URL failed (HTTP $sso_code) — access token is invalid or expired"
         # Don't return yet — fall through to recovery notification
