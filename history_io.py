@@ -209,9 +209,12 @@ def append_order_history(order: dict) -> bool:
     if date_str and len(date_str) == 10 and date_str.count("-") == 2:
         date_str = date_str[5:]  # Extract MM-DD from YYYY-MM-DD
     
+    # Use passed time if available, otherwise current time
+    time_str = order.get("time") or now.strftime("%H:%M")
+    
     row = {
         "date": date_str,
-        "time": now.strftime("%H:%M"),             # HH:MM
+        "time": time_str,             # HH:MM
         "order_id": order_id,
         "symbol": str(order.get("symbol", "")),
         "side": side,
