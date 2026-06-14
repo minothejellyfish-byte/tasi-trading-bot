@@ -1470,8 +1470,8 @@ async def handle_hiscap_command(update, context):
             return
         
         lines = ["💰 <b>Historical Capital (Last 10 Trading Days)</b>", ""]
-        lines.append("<code>Date       | Start    | End      | PnL      | Trades</code>")
-        lines.append("<code>-----------+----------+----------+----------+-------</code>")
+        lines.append("<code>Date       | Start    | End      | PnL      | PnL%   | Trades</code>")
+        lines.append("<code>-----------+----------+----------+----------+--------+-------</code>")
         
         total_pnl = 0.0
         prev_total = None
@@ -1487,22 +1487,25 @@ async def handle_hiscap_command(update, context):
             if prev_total is not None:
                 day_pnl = round(total - prev_total, 2)
                 start_str = f"{prev_total:.2f}"
+                pnl_pct = (day_pnl / prev_total) * 100 if prev_total != 0 else 0
             else:
                 day_pnl = pnl  # First day, use stored PnL
                 start_str = "N/A"
+                # For first day, use default starting capital of 1000 to calculate PnL%
+                pnl_pct = (pnl / 1000) * 100 if pnl != 0 else 0
             
             total_pnl += day_pnl
             
             emoji = "🟢" if day_pnl >= 0 else "🔴"
-            lines.append(f"<code>{date_str} | {start_str:<8} | {total:>8.2f} | {day_pnl:>+8.2f} | {trades:>5}</code> {emoji}")
+            lines.append(f"<code>{date_str} | {start_str:<8} | {total:>8.2f} | {day_pnl:>+8.2f} | {pnl_pct:>+6.2f}% | {trades:>5}</code> {emoji}")
             
             prev_total = total
         
-        lines.append("<code>-----------+----------+----------+----------+-------</code>")
+        lines.append("<code>-----------+----------+----------+----------+--------+-------</code>")
         
         if len(rows) > 1:
             emoji = "🟢" if total_pnl >= 0 else "🔴"
-            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} |       </code> {emoji} <b>Total</b>")
+            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} |        |       </code> {emoji} <b>Total</b>")
         
         await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
     except Exception as e:
