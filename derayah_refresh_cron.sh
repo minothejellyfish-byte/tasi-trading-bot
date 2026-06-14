@@ -107,100 +107,73 @@ print(0)
 " 2>/dev/null
 }
 
-# ─── Phase 2: SSO navigation refresh with Option C priority ──────────────────
-# Option C: dashboard token → file token → OAuth → SSO → recovery
+# ─── Phase 2: SSO navigation refresh (the ONLY working path) ────────────────
 sso_refresh() {
-    log "=== SSO refresh attempt (Option C) ==="
+    log "=== SSO refresh attempt ==="
     
-    local access_tok access_exp now remaining_min
+    # Read tokens
+    if [[ ! -f "$TOKEN_FILE" ]]; then
+        log "❌ No token file — manual login needed"
+        return 1
+    fi
+    
+    local access_tok tc_tok access_exp tc_exp now remaining_min
+    access_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE'))['Derayah_accesstoken'])" 2>/dev/null)
+    tc_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE')).get('TC_DERAYAH',''))" 2>/dev/null)
     now=$(date +%s)
+    access_exp=$(jwt_exp "$access_tok")
+    tc_exp=$(jwt_exp "$tc_tok")
     
-    # ─── Step 1: Read from DASHBOARD localStorage FIRST ──────────────────────
-    log "  Step 1: Checking dashboard tab for fresh token..."
-    local dash_token
-    dash_token=$(python3 -c "
+    if [[ -z "$access_tok" || "$access_tok" == "None" ]]; then
+        log "❌ No access token in file — manual login needed"
+        return 1
+    fi
+    
+    # Calculate remaining time on the access token
+    if [[ "$access_exp" -gt 0 ]]; then
+        remaining_min=$(( (access_exp - now) / 60 ))
+        log "  Access token expires in ${remaining_min} min"
+    else
+        remaining_min=-1
+        log "  ⚠️ Could not decode access token expiry"
+    fi
+    
+    # ─── Sync from browser FIRST (browser is source of truth) ─────────────────
+    # The dashboard tab may have a fresher Derayah_accesstoken than the JSON
+    # file. Reading it here avoids false 401s when the file is stale.
+    log "  Syncing tokens from browser (source of truth)..."
+    local sync_out
+    sync_out=$(python3 -c "
 import sys
 sys.path.insert(0, '$SCRIPT_DIR')
 from derayah_session_manager import SessionManager
-import base64, json, time
-
 sm = SessionManager()
-tabs = sm._cdp_list_tabs()
-dash = sm._find_dashboard_tab(tabs)
-if dash:
-    ws = dash.get('webSocketDebuggerUrl')
-    token = sm._cdp_eval(ws, \"localStorage.getItem('Derayah_accesstoken') || ''\")
-    if token and len(token) > 100:
-        parts = token.split('.')
-        payload = json.loads(base64.urlsafe_b64decode(parts[1] + '=' * (-len(parts[1]) % 4)))
-        exp = payload.get('exp', 0)
-        remaining = (exp - time.time()) // 60
-        print(f'TOKEN_FOUND|{exp}|{remaining}')
-    else:
-        print('NO_TOKEN')
-else:
-    print('NO_DASHBOARD_TAB')
+sync = sm.sync_tokens_from_browser()
+if sync.get('updated'):
+    print(f'    Updated: ' + ', '.join(sync['updated']))
+if sync.get('kept'):
+    print(f'    Kept:    ' + ', '.join(sync['kept']))
+if sync.get('errors'):
+    for e in sync['errors']:
+        print(f'    Err:     {e}')
 " 2>>"$LOG_FILE")
+    [[ -n "$sync_out" ]] && echo "$sync_out" >> "$LOG_FILE"
     
-    local dash_token_found=false
-    local dash_token_exp=0
-    if [[ "$dash_token" == TOKEN_FOUND* ]]; then
-        IFS='|' read -r _ dash_token_exp dash_remaining <<< "$dash_token"
-        log "  ✅ Dashboard token found (exp ${dash_remaining} min)"
-        dash_token_found=true
-        access_exp=$dash_token_exp
-        remaining_min=$dash_remaining
-    else
-        log "  ℹ️ No dashboard token (reason: ${dash_token:-unknown})"
+    # Re-read after sync
+    access_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE'))['Derayah_accesstoken'])" 2>/dev/null)
+    access_exp=$(jwt_exp "$access_tok")
+    if [[ "$access_exp" -gt 0 ]]; then
+        remaining_min=$(( (access_exp - now) / 60 ))
+        log "  After sync: access expires in ${remaining_min} min"
     fi
     
-    # ─── Step 2: Fall back to FILE token ──────────────────────────────────────
-    if [[ "$dash_token_found" != true ]]; then
-        log "  Step 2: Reading from file..."
-        if [[ ! -f "$TOKEN_FILE" ]]; then
-            log "  ❌ No token file — manual login needed"
-            return 1
-        fi
-        access_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE'))['Derayah_accesstoken'])" 2>/dev/null)
-        if [[ -z "$access_tok" || "$access_tok" == "None" ]]; then
-            log "  ❌ No access token in file — manual login needed"
-            return 1
-        fi
-        access_exp=$(jwt_exp "$access_tok")
-        if [[ "$access_exp" -gt 0 ]]; then
-            remaining_min=$(( (access_exp - now) / 60 ))
-            log "  File token expires in ${remaining_min} min"
-        else
-            remaining_min=-1
-            log "  ⚠️ Could not decode file token expiry"
-        fi
-    else
-        # Use dashboard token for SSO call
-        access_tok=$(python3 -c "
-import sys
-sys.path.insert(0, '$SCRIPT_DIR')
-from derayah_session_manager import SessionManager
-sm = SessionManager()
-tabs = sm._cdp_list_tabs()
-dash = sm._find_dashboard_tab(tabs)
-if dash:
-    ws = dash.get('webSocketDebuggerUrl')
-    print(sm._cdp_eval(ws, \"localStorage.getItem('Derayah_accesstoken') || ''\"))
-" 2>/dev/null)
-    fi
-    
-    # ─── Step 3: Try SSO URL with freshest token ──────────────────────────────
-    log "  Step 3: Calling SSO URL..."
+    # ─── Try SSO URL ──────────────────────────────────────────────────────────
     local sso_resp
     sso_resp=$(python3 -c "
 import json, requests
-token = '''$access_tok'''
-if not token or token == 'None':
-    print('STATUS:0')
-    print('No token available')
-    exit(1)
+tokens = json.load(open('$TOKEN_FILE'))
 headers = {
-    'Authorization': f'Bearer {token}',
+    'Authorization': f'Bearer {tokens[\"Derayah_accesstoken\"]}',
     'Accept': 'application/json',
     'Origin': 'https://newonline.derayah.com',
     'Referer': 'https://newonline.derayah.com/',
@@ -210,6 +183,7 @@ try:
         'https://api.derayah.com/apispark/trade/TickerChartUrl',
         headers=headers, timeout=10, allow_redirects=False
     )
+    # Print status on line 1, full body on subsequent lines (no truncation)
     print(f'STATUS:{r.status_code}')
     print(r.text)
 except Exception as e:
@@ -223,68 +197,9 @@ except Exception as e:
     
     log "  SSO URL response: $sso_code"
     
-    # ─── Step 4: If SSO 401, try OAuth refresh via sm.refresh_session() ─────────
-    if [[ "$sso_code" == "401" ]]; then
-        log "  Step 4: SSO failed — trying OAuth refresh via refresh_session()..."
-        local oauth_result
-        oauth_result=$(python3 -c "
-import sys
-sys.path.insert(0, '$SCRIPT_DIR')
-from derayah_session_manager import SessionManager
-sm = SessionManager()
-try:
-    result = sm.refresh_session()
-    print(f'OAUTH_SUCCESS|{result.get(\"tc_remaining_min\", 0)}')
-except Exception as e:
-    print(f'OAUTH_FAILED|{e}')
-" 2>>"$LOG_FILE")
-        
-        if [[ "$oauth_result" == OAUTH_SUCCESS* ]]; then
-            log "  ✅ OAuth refresh succeeded!"
-            # Re-read token after OAuth refresh
-            access_tok=$(python3 -c "import json; print(json.load(open('$TOKEN_FILE'))['Derayah_accesstoken'])" 2>/dev/null)
-            access_exp=$(jwt_exp "$access_tok")
-            remaining_min=$(( (access_exp - now) / 60 ))
-            log "  New token expires in ${remaining_min} min"
-            
-            # Retry SSO with new token
-            log "  Retrying SSO URL with refreshed token..."
-            sso_resp=$(python3 -c "
-import json, requests
-token = '''$access_tok'''
-if not token or token == 'None':
-    print('STATUS:0')
-    print('No token after OAuth')
-    exit(1)
-headers = {
-    'Authorization': f'Bearer {token}',
-    'Accept': 'application/json',
-    'Origin': 'https://newonline.derayah.com',
-    'Referer': 'https://newonline.derayah.com/',
-}
-try:
-    r = requests.get(
-        'https://api.derayah.com/apispark/trade/TickerChartUrl',
-        headers=headers, timeout=10, allow_redirects=False
-    )
-    print(f'STATUS:{r.status_code}')
-    print(r.text)
-except Exception as e:
-    print('STATUS:0')
-    print(f'EXC:{e}')
-" 2>>"$LOG_FILE")
-            sso_code="${sso_resp%%$'\n'*}"
-            sso_code="${sso_code#STATUS:}"
-            sso_body="${sso_resp#*$'\n'}"
-            log "  SSO URL (retry) response: $sso_code"
-        else
-            log "  ❌ OAuth refresh failed (${oauth_result})"
-        fi
-    fi
-    
-    # ─── If still not 200, fall through to recovery ───────────────────────────
     if [[ "$sso_code" != "200" ]]; then
-        log "  ❌ SSO URL failed (HTTP $sso_code) — all refresh paths exhausted"
+        log "  ❌ SSO URL failed (HTTP $sso_code) — access token is invalid or expired"
+        # Don't return yet — fall through to recovery notification
         return 2
     fi
     
