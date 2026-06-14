@@ -1529,10 +1529,17 @@ async def handle_history_command(update, context):
         # Sort ascending (oldest first) by time
         real_orders.sort(key=lambda o: o.get("time", ""))
         
-        # Build table
+        # Build table with PnL calculation
         lines = [f"📜 <b>Today's Orders — {len(real_orders)} orders</b>", ""]
         lines.append("<code>ID  | Side | Qty | Symbol | Price  | Total   | Fees | Trigger       | PnL</code>")
         lines.append("<code>----+------+-----+--------+--------+---------+------+---------------+------</code>")
+        
+        # Build lookup for buy orders (to calculate PnL for sells)
+        buy_orders = {}
+        for o in real_orders:
+            if o.get("side") == "BUY":
+                key = (o.get("symbol"), o.get("qty"))
+                buy_orders[key] = float(o.get("price", 0) or 0)
         
         for o in real_orders:
             oid = o.get("order_id", "?")[:4]
@@ -1545,10 +1552,19 @@ async def handle_history_command(update, context):
             trigger = o.get("trigger_basis", "")[:15]
             pnl = o.get("pnl", "")[:6]
             
-            # If pnl is empty, calculate rough estimate for sells
+            # Calculate actual PnL for SELL orders
             if not pnl and side == "SELL":
-                # This is a simplified calculation - actual would need entry price
-                pnl = "~"
+                buy_key = (o.get("symbol"), o.get("qty"))
+                if buy_key in buy_orders:
+                    buy_price = buy_orders[buy_key]
+                    sell_price = price
+                    qty_num = int(o.get("qty", 0) or 0)
+                    pnl_value = (sell_price - buy_price) * qty_num
+                    pnl = f"{pnl_value:+.2f}"
+                else:
+                    pnl = "~"
+            elif side == "BUY":
+                pnl = "-"
             
             price_str = f"{price:.2f}" if price else "MKT"
             
