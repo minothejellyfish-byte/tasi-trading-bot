@@ -27,6 +27,12 @@ _close_extra_tabs()           → Cleanup: Remove duplicate/tracker tabs (v4.3.3
 _activate_tab()               → UI: Bring TC tab to foreground (v4.3.2)
 ```
 
+**v4.3.8 Update — OAuth Refresh Restored**:
+- **client_secret**: Found in Derayah Vue app (`NewDerayahWeb2026`)
+- **Path fix**: `derayah_session_manager.py` now reads from `/home/mino/.derayah-creds` (not agent's HOME)
+- **OAuth flow**: `refresh_session()` → `_refresh_derayah_tokens()` → POST to `/idspark/connect/token`
+- **Token flow**: Dashboard token → File → SSO → OAuth → Recovery
+
 ### 2. Telegram Commands
 **File**: `/home/mino/tasi-exec/bot_commands.py`
 **Purpose**: User-facing session commands
@@ -633,6 +639,42 @@ The grace period isn't "missed" by a single cron failure — it's missed when th
 - After user manually logs out
 - After token expiry >60 minutes (system down for extended period)
 - When Derayah forces re-authentication (security policy)
+- **OAuth refresh failure** — v4.3.8: OAuth fallback added to cron, but auto-recovery still needed if OAuth fails
+
+---
+
+## v4.3.8 Changelog — OAuth Refresh Restoration (2026-06-14)
+
+### Problem
+OAuth refresh was broken since Jun 10 due to:
+1. **Wrong client_secret** in `.derayah-creds` (`***` instead of real value)
+2. **Wrong file path** — code read from agent's HOME instead of `/home/mino/.derayah-creds`
+3. **OAuth removed from cron** — I thought it was "permanently dead" (wrong)
+
+### Fix Applied
+1. **Extracted real client_secret** from Derayah Vue app: `NewDerayahWeb2026`
+2. **Fixed path bug** in `derayah_session_manager.py` line 51-53
+3. **Added OAuth fallback to cron** — if SSO 401, try OAuth before auto-recovery
+
+### Token Flow (v4.3.8)
+```
+1. Dashboard localStorage → freshest token (if Vue app refreshed it)
+2. File token → fallback
+3. SSO URL → try with available token
+4. If 401 → OAuth refresh (NEW)
+5. Retry SSO with new token
+6. If still 401 → auto-recovery (OTP email)
+```
+
+### Files Changed
+- `derayah_session_manager.py` — Path fix (line 51-53)
+- `derayah_refresh_cron.sh` — OAuth fallback added
+- `.derayah-creds` — Real client_secret added
+
+### Verification
+- OAuth refresh tested manually: ✅ 200 OK
+- New tokens: access + refresh captured successfully
+- Saved to file automatically via `_save_tokens()`
 
 ---
 
