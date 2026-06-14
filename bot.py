@@ -1059,7 +1059,8 @@ async def get_status() -> str:
         if open_pos:
             lines.append(f"📈 Open Positions ({len(open_pos)})")
             for sym, data in open_pos.items():
-                entry = data.get("entry_price", 0)
+                # Support both entry_price and avg_price (poller uses both)
+                entry = data.get("entry_price") or data.get("avg_price", 0)
                 qty = data.get("qty", 0)
                 cost = data.get("cost", entry * qty)
                 lines.append(f"  • {sym}: {qty} shares @ {entry:.2f} SAR")

@@ -929,6 +929,7 @@ def sync_positions_with_derayah():
                     "qty": actual["qty"],
                     "cost": actual["cost"],
                     "avg_price": actual["cost"] / actual["qty"] if actual["qty"] > 0 else 0,
+                    "entry_price": actual["cost"] / actual["qty"] if actual["qty"] > 0 else 0,
                     "closed": False,
                     "entry_time": datetime.now(RIYADH).isoformat(),
                     "price_source": "derayah-sync",
