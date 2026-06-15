@@ -595,7 +595,7 @@ def reconcile_orders() -> dict:
         new_orders[oid] = {
             "initiated_at": existing.get("initiated_at") or api_data["order_date"] or _now(),
             "initiated_by": existing.get("initiated_by") or "derayah-direct",
-            "trigger_basis": existing.get("trigger_basis") or "unknown",
+            "trigger_basis": existing.get("trigger_basis", "unknown"),
             "trigger_detail": existing.get("trigger_detail") or "",
             "symbol": api_data["symbol"],
             "side": api_data["side"],
@@ -640,36 +640,162 @@ def reconcile_orders() -> dict:
             local_qty = local_o.get("qty", 0)
             local_price = local_o.get("price", 0)
             
+            
+            # Find best matching child order (closest in time)
+            best_match = None
+            best_time_diff = float('inf')
+            
             for api_oid, api_data in api_order_map.items():
+
+            # For orders with id "?", Derayah may split into multiple child orders
+            # Find ALL matching children that sum to parent qty
+            matched_children = []
+            remaining_qty = local_qty
+            best_time_diff = float('inf')
+            best_match = None
+        
+            for api_oid, api_data in api_order_map.items():
+                if api_data["our_status"] == STATUS_FILLED:
+                    # Check symbol, side match
+                    if (api_data["symbol"] == local_symbol and 
+                        api_data["side"] == local_side):
+                        # Price tolerance for MARKET orders (price == 0.0)
+                        price_match = (api_data["price"] == local_price or local_price == 0.0)
+            
+                        # Time matching with date-only handling
+                        api_time = api_data.get("order_date", "")
+                        time_match = False
+                        time_diff = 999999
+            
+                        if api_time and local_time:
+                            try:
+                                # Handle date-only format (e.g., "2026-06-15")
+                                if api_time.count("-") == 2 and "T" not in api_time and ":" not in api_time:
+                                    # Parse as date-only
+                                    api_date = datetime.strptime(api_time, "%Y-%m-%d").date()
+                                    local_date = datetime.fromisoformat(local_time.replace('Z', '+00:00')).date()
+                                    if api_date == local_date:
+                                        # Same date, perfect match
+                                        time_diff = 0
+                                        time_match = True
+                                    else:
+                                        # Different date, large penalty
+                                        days_diff = abs((api_date - local_date).days)
+                                        time_diff = 86400 * days_diff
+                                        time_match = True
+                                else:
+                                    # Full timestamp
+                                    local_dt = datetime.fromisoformat(local_time.replace('Z', '+00:00'))
+                                    api_dt = datetime.fromisoformat(api_time.replace('Z', '+00:00'))
+                                    time_diff = abs((api_dt - local_dt).total_seconds())
+                                    if time_diff <= 300:
+                                        time_match = True
+                            except Exception:
+                                # Parsing failed, allow match
+                                time_match = True
+                        else:
+                            # Missing timestamp, allow match
+                            time_match = True
+            
+                        if price_match and time_match:
+                            # Add to matched children if qty fits
+                            if api_data["qty"] <= remaining_qty:
+                                matched_children.append((api_oid, api_data, time_diff))
+                                remaining_qty -= api_data["qty"]
+                                if remaining_qty <= 0:
+                                    break  # Found enough children
+        
+            # Process matched children
+            if matched_children and remaining_qty <= 0:
+                # Found all child orders for this parent
+                for child_oid, child_data, child_time_diff in matched_children:
+                    new_orders[child_oid] = {
+                        "initiated_at": local_o.get("initiated_at") or child_data.get("order_date") or _now(),
+                        "initiated_by": local_o.get("initiated_by") or "derayah-direct",
+                        "trigger_basis": local_o.get("trigger_basis", "unknown"),
+                        "trigger_detail": local_o.get("trigger_detail") or "",
+                        "symbol": child_data["symbol"],
+                        "side": child_data["side"],
+                        "qty": child_data["qty"],
+                        "price": child_data["price"],
+                        "type": child_data["type"],
+                        "status": STATUS_FILLED,
+                        "updated_at": _now(),
+                        "matched_from_api": True,
+                        "original_order_id": oid,
+                    }
+                    transitions["status_changes"].append({
+                        "order_id": child_oid, "old": STATUS_INITIATED, "new": STATUS_FILLED,
+                        "symbol": local_o.get("symbol"), "side": local_o.get("side"),
+                        "qty": local_o.get("qty"), "price": local_o.get("price"),
+                    })
+                # Parent matched to children - don't add to new_orders
+                matched_api_order = matched_children[0][0] if matched_children else None
+            else:
+                matched_api_order = None
+
                 if api_data["our_status"] == STATUS_FILLED:
                     # Check symbol, side, qty, price match
                     if (api_data["symbol"] == local_symbol and 
                         api_data["side"] == local_side and 
                         api_data["qty"] == local_qty and
-                        api_data["price"] == local_price):
+                        (api_data["price"] == local_price or local_price == 0.0)):
                         # Check time window (±5 minutes)
                         api_time = api_data.get("order_date", "")
                         if api_time and local_time:
                             try:
-                                from datetime import datetime
-                                # Parse times (handle ISO format)
-                                local_dt = datetime.fromisoformat(local_time.replace('Z', '+00:00'))
-                                api_dt = datetime.fromisoformat(api_time.replace('Z', '+00:00'))
-                                time_diff = abs((api_dt - local_dt).total_seconds())
+                                # Handle date-only format (e.g., "2026-06-15")
+                                if api_time.count("-") == 2 and "T" not in api_time and ":" not in api_time:
+                                    # Parse as date-only
+                                    try:
+                                        from datetime import datetime
+                                        api_date = datetime.strptime(api_time, "%Y-%m-%d").date()
+                                        local_date = datetime.fromisoformat(local_time.replace('Z', '+00:00')).date()
+                                        if api_date == local_date:
+                                            # Same date, perfect match
+                                            time_diff = 0
+                                        else:
+                                            # Different date, large penalty
+                                            days_diff = abs((api_date - local_date).days)
+                                            time_diff = 86400 * days_diff  # seconds per day
+                                    except:
+                                        # Fallback
+                                        time_diff = 999999
+                                else:
+                                    # Full timestamp
+                                    local_dt = datetime.fromisoformat(local_time.replace('Z', '+00:00'))
+                                    api_dt = datetime.fromisoformat(api_time.replace('Z', '+00:00'))
+                                    time_diff = abs((api_dt - local_dt).total_seconds())
+                                
                                 if time_diff <= 300:  # 5 minutes = 300 seconds
-                                    matched_api_order = api_oid
-                                    break
+                                    # Tie-breaking: if same time_diff, prefer child without trigger_basis
+                                    if time_diff == best_time_diff:
+                                        # Check if this child is better tie-breaker
+                                        # (We could add more tie-breaking logic here)
+                                        pass
+                                    if time_diff < best_time_diff:
+                                        best_match = api_oid
+                                        best_time_diff = time_diff
                             except Exception:
                                 # If time parsing fails, match anyway (fallback)
-                                matched_api_order = api_oid
-                                break
+                                if 999999 < best_time_diff:  # Worse than any parsed time
+                                    best_match = api_oid
+                                    best_time_diff = 999999  # Worse than any parsed time
+                                    best_match = api_oid
+                                    best_time_diff = 999999
+                        else:
+                            # Missing timestamp, consider as match
+                            if 1000000 < best_time_diff:
+                                best_match = api_oid
+                                best_time_diff = 1000000
             
+            matched_api_order = best_match
             if matched_api_order:
                 # Found matching FILLED order — update with real order ID and FILLED status
                 new_orders[matched_api_order] = {
                     "initiated_at": local_o.get("initiated_at") or api_order_map[matched_api_order]["order_date"] or _now(),
                     "initiated_by": local_o.get("initiated_by") or "derayah-direct",
-                    "trigger_basis": local_o.get("trigger_basis") or "unknown",
+                    "trigger_basis": local_o.get("trigger_basis", "unknown"),
                     "trigger_detail": local_o.get("trigger_detail") or "",
                     "symbol": api_order_map[matched_api_order]["symbol"],
                     "side": api_order_map[matched_api_order]["side"],
@@ -685,9 +811,9 @@ def reconcile_orders() -> dict:
                     "order_id": matched_api_order, "old": STATUS_INITIATED, "new": STATUS_FILLED,
                     "symbol": local_o.get("symbol"), "side": local_o.get("side"),
                     "qty": local_o.get("qty"), "price": local_o.get("price"),
-                })
+                    })
             else:
-                # No matching FILLED order found → mark REJECTED
+            # No matching FILLED order found → mark REJECTED
                 new_orders[oid] = {**local_o, "status": STATUS_REJECTED, "updated_at": _now()}
                 transitions["initiated_to_rejected"].append({
                     "order_id": oid, "symbol": local_o.get("symbol"),
