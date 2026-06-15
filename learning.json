@@ -1,5 +1,5 @@
 {
-  "sessions_analyzed": 30,
+  "sessions_analyzed": 36,
   "recommendations_made": [
     "\u2705 Strategy performed well \u2014 no major gaps detected",
     "\u2705 Strategy performed well \u2014 no major gaps detected",
@@ -49,10 +49,20 @@
     "\ud83d\udd0d 10 missed opportunities avg +7.0% \u2014 review screener thresholds.",
     "\ud83d\udd0d 10 missed opportunities avg +7.0% \u2014 review screener thresholds.",
     "\ud83d\udd0d 10 missed opportunities avg +7.0% \u2014 review screener thresholds.",
-    "\ud83d\udd0d 10 missed opportunities avg +7.0% \u2014 review screener thresholds."
+    "\ud83d\udd0d 10 missed opportunities avg +7.0% \u2014 review screener thresholds.",
+    "\ud83d\udd0d 10 missed opportunities avg +6.8% \u2014 review screener thresholds.",
+    "\ud83d\udd0d 3 missed opportunities (0 from our picks, 3 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udcb0 1 trades exited early \u2014 avg missed profit: 5.07 SAR. Consider trailing stops or wider targets.",
+    "\ud83d\udcb0 MISSED PROFIT: 1 trades exited early \u2014 avg missed 5.07 SAR\n   \u2192 Cause: Exited on VWAP breakdown before reaching high of day\n   \u2192 Solution: Use trailing stop (-1% from high) instead of VWAP breakdown\n   \u2192 Benefit: Would capture 5.07 more SAR per trade",
+    "\ud83d\udd34 LOSING TRADES: 1 trades with total loss of -0.72 SAR\n   \u2192 Cause: 5110 sold below entry\n   \u2192 Solution: Wider stop loss or better entry timing\n   \u2192 Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown",
+    "\u2705 ENTRY QUALITY: 2 entries in zone (avg slippage: +0.09%)\n   \u2192 Good: Entries within predicted zones\n   \u2192 Improvement: Use limit orders at zone low for better price\n   \u2192 Benefit: Save 0.2-0.5% per entry",
+    "\ud83d\udd0d 2 missed opportunities (0 from our picks, 2 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udd0d 3 missed opportunities (0 from our picks, 3 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udd34 LOSING TRADES: 4 trades with total loss of -4.37 SAR\n   \u2192 Cause: 4191, 8020, 2381, 6019 sold below entry\n   \u2192 Solution: Wider stop loss or better entry timing\n   \u2192 Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown",
+    "\ud83d\udd0d 3 missed opportunities (0 from our picks, 3 outside) \u2014 review entry/exit strategy."
   ],
   "recommendations_applied": [],
-  "missed_opportunities_avg": 5.49582362620388,
+  "missed_opportunities_avg": 5.368454922214583,
   "strategy_versions": [
     "v1.0"
   ]

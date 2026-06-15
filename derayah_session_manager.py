@@ -49,6 +49,8 @@ CLIENT_ID       = "NewWebClient"
 _CLIENT_SECRET = None
 try:
     _creds_path = os.path.expanduser("~/.derayah-creds")
+    if not os.path.exists(_creds_path):
+        _creds_path = "/home/mino/.derayah-creds"
     if os.path.exists(_creds_path):
         with open(_creds_path) as f:
             _creds = json.load(f)

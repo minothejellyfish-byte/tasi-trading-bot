@@ -13,12 +13,11 @@
     "time_stop_pct": 0.01
   },
   "score": 1,
-  "reason": "Score 1: TASI momentum +0.97% above SMA5 (+2) | Yesterday 0.09% C-to-C (flat, 0) | 5d return +1.69% (strong trend bonus, +1) | Oil -3.57% 2-day (-1) | TASI below SMA10 (29.2 < 29.2, -1)",
-  "tasi_momentum": 0.97,
-  "tasi_yesterday": 0.086,
-  "tasi_5d_return": 1.692,
-  "oil_2d": -3.574,
-  "tasi_above_sma10": false,
-  "classified_at": "2026-06-12T19:39:23.019373",
-  "source": "premarket"
+  "reason": "Session return 0.00%, above_vwap=False \u2014 no override, keeping NEUTRAL.",
+  "session_return": 0.0,
+  "vwap": 29.152,
+  "above_vwap": false,
+  "big_move": false,
+  "classified_at": "2026-06-15T15:00:44.608752",
+  "source": "intraday"
 }

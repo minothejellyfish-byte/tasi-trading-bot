@@ -1,4 +1,238 @@
 {
+  "67": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "4191",
+    "side": "BUY",
+    "qty": 6,
+    "price": 46.06,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589549+03:00"
+  },
+  "68": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "6019",
+    "side": "BUY",
+    "qty": 9,
+    "price": 23.11,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589587+03:00"
+  },
+  "69": {
+    "initiated_at": "2026-06-15T10:10:34.561979+03:00",
+    "initiated_by": "auto_buy",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "Zone hold: price=9.64 vwap=9.28 zone=9.3-9.64",
+    "symbol": "8020",
+    "side": "BUY",
+    "qty": 15,
+    "price": 9.64,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589601+03:00"
+  },
+  "70": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "4191",
+    "side": "SELL",
+    "qty": 6,
+    "price": 45.86,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589612+03:00"
+  },
+  "71": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "6019",
+    "side": "SELL",
+    "qty": 9,
+    "price": 23,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589636+03:00"
+  },
+  "72": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "8020",
+    "side": "SELL",
+    "qty": 15,
+    "price": 9.54,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589646+03:00"
+  },
+  "73": {
+    "initiated_at": "2026-06-15T10:25:45.207779+03:00",
+    "initiated_by": "auto_buy",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "Zone hold: price=45.82 vwap=46.66 zone=42.33-46.04",
+    "symbol": "4191",
+    "side": "BUY",
+    "qty": 2,
+    "price": 45.82,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589656+03:00"
+  },
+  "74": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "6019",
+    "side": "BUY",
+    "qty": 11,
+    "price": 22.86,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589665+03:00"
+  },
+  "75": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "4191",
+    "side": "SELL",
+    "qty": 2,
+    "price": 45.62,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589674+03:00"
+  },
+  "76": {
+    "initiated_at": "2026-06-15T10:46:00.326137+03:00",
+    "initiated_by": "auto_buy",
+    "trigger_basis": "pick_entry",
+    "trigger_detail": "Zone hold: price=93.35 vwap=93.29 zone=90.05-93.73",
+    "symbol": "2381",
+    "side": "BUY",
+    "qty": 2,
+    "price": 93.35,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589683+03:00"
+  },
+  "77": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "6019",
+    "side": "SELL",
+    "qty": 11,
+    "price": 22.82,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589747+03:00"
+  },
+  "78": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "2381",
+    "side": "SELL",
+    "qty": 2,
+    "price": 93.2,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589752+03:00"
+  },
+  "79": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "2381",
+    "side": "BUY",
+    "qty": 3,
+    "price": 93.55,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589756+03:00"
+  },
+  "80": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "2381",
+    "side": "SELL",
+    "qty": 3,
+    "price": 93,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589760+03:00"
+  },
+  "81": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "2330",
+    "side": "BUY",
+    "qty": 10,
+    "price": 26.64,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589763+03:00"
+  },
+  "82": {
+    "initiated_at": "2026-06-15T14:27:26.340751+03:00",
+    "initiated_by": "auto_buy",
+    "trigger_basis": "vwap_reclaim",
+    "trigger_detail": "VWAP reclaim: price=22.74 vwap=22.86 zone=22.33-23.29",
+    "symbol": "6019",
+    "side": "BUY",
+    "qty": 9,
+    "price": 22.74,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589767+03:00"
+  },
+  "83": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "6019",
+    "side": "SELL",
+    "qty": 9,
+    "price": 22.74,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589771+03:00"
+  },
+  "84": {
+    "initiated_at": "2026-06-15T00:00:00",
+    "initiated_by": "derayah-direct",
+    "trigger_basis": "unknown",
+    "trigger_detail": "",
+    "symbol": "2330",
+    "side": "SELL",
+    "qty": 10,
+    "price": 26.86,
+    "type": "LIMIT",
+    "status": 3,
+    "updated_at": "2026-06-16T01:55:14.589774+03:00"
+  },
   "55": {
     "initiated_at": "2026-06-14T00:00:00",
     "initiated_by": "derayah-direct",
@@ -10,7 +244,7 @@
     "price": 56.8,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139108+03:00"
+    "updated_at": "2026-06-15T07:28:10.871115+03:00"
   },
   "56": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -23,7 +257,7 @@
     "price": 17.03,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139123+03:00"
+    "updated_at": "2026-06-15T07:28:10.871157+03:00"
   },
   "57": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -36,7 +270,7 @@
     "price": 56.4,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139128+03:00"
+    "updated_at": "2026-06-15T07:28:10.871173+03:00"
   },
   "58": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -49,7 +283,7 @@
     "price": 16.96,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139132+03:00"
+    "updated_at": "2026-06-15T07:28:10.871185+03:00"
   },
   "59": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -62,7 +296,7 @@
     "price": 56.3,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139143+03:00"
+    "updated_at": "2026-06-15T07:28:10.871195+03:00"
   },
   "60": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -75,7 +309,7 @@
     "price": 56.3,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139147+03:00"
+    "updated_at": "2026-06-15T07:28:10.871204+03:00"
   },
   "61": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -88,7 +322,7 @@
     "price": 16.95,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139150+03:00"
+    "updated_at": "2026-06-15T07:28:10.871213+03:00"
   },
   "62": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -101,7 +335,7 @@
     "price": 16.91,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139152+03:00"
+    "updated_at": "2026-06-15T07:28:10.871222+03:00"
   },
   "63": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -114,7 +348,7 @@
     "price": 56.3,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139155+03:00"
+    "updated_at": "2026-06-15T07:28:10.871231+03:00"
   },
   "64": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -127,7 +361,7 @@
     "price": 56.45,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139158+03:00"
+    "updated_at": "2026-06-15T07:28:10.871256+03:00"
   },
   "65": {
     "initiated_at": "2026-06-14T13:22:07.415271+03:00",
@@ -140,7 +374,7 @@
     "price": 17.04,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139161+03:00"
+    "updated_at": "2026-06-15T07:28:10.871267+03:00"
   },
   "66": {
     "initiated_at": "2026-06-14T00:00:00",
@@ -153,7 +387,7 @@
     "price": 17,
     "type": "LIMIT",
     "status": 3,
-    "updated_at": "2026-06-14T16:08:18.139164+03:00"
+    "updated_at": "2026-06-15T07:28:10.871277+03:00"
   },
   "40": {
     "initiated_at": "2026-06-11T00:00:00",
@@ -334,5 +568,18 @@
     "status": 3,
     "updated_at": "2026-06-11T19:20:08.490998+03:00",
     "trigger_basis": "target_reached"
+  },
+  "?": {
+    "initiated_at": "2026-06-15T14:42:31.803777+03:00",
+    "initiated_by": "auto_sell",
+    "trigger_basis": "vwap_breakdown",
+    "trigger_detail": "VWAP breakdown: price=22.74 vwap=22.84 gain=0.0% held=15min recovery_score=0.38",
+    "symbol": "6019",
+    "side": "SELL",
+    "qty": 9,
+    "price": 0.0,
+    "type": "MARKET",
+    "status": 5,
+    "updated_at": "2026-06-15T14:42:33.285586+03:00"
   }
 }

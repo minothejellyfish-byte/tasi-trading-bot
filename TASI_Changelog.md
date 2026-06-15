@@ -266,3 +266,60 @@ Prevent unauthorized code changes after Jun 11–12 tab explosion incident.
   - Falls back to file token, then OAuth refresh, then auto-recovery
   - Per Amin approval: 'Do it'
 
+2026-06-14 13:06:09 +0300 [ASK] OpenClaw cron tasi-bookkeeper-sync — Added TELEGRAM_BOT_TOKEN
+  - Modified payload to include TELEGRAM_BOT_TOKEN environment variable
+  - Reason: _tg_send() in bookkeeper.py requires bot token for Telegram announcements
+  - Note: Cron exists but not executing (log stale since Jun 13) — needs investigation
+  - Per Amin: document properly (option 2)
+
+
+## 2026-06-14 14:18 — [ASK] Bookkeeper Fuzzy Order Matching
+
+**File:** bookkeeper.py
+**Commit:** 15d95b0
+**Approved by:** A A
+**Issue:** #9459
+
+**Problem:** INITIATED orders with invalid order_id (?) were immediately marked REJECTED 
+if not found in Derayah API by exact order_id.
+
+**Solution:** Before marking REJECTED, search API for matching FILLED orders using
+fuzzy matching on symbol, side, qty, price, and time window (±5 min).
+
+**Impact:** Prevents false REJECTED notifications when Derayah returns malformed 
+orderId (?) but the order is actually placed.
+
+
+## 2026-06-14 14:30 — [ASK] /Status Reads from Files
+
+**File:** bot.py
+**Commit:** 7801346
+**Approved by:** A A
+**Issue:** #9474
+
+**Problem:** /Status scraped Derayah dashboard, frequently failed or showed stale data.
+Only displayed 'Available' when scraping failed.
+
+**Solution:**
+1. /Status triggers bookkeeper quick_refresh() first
+2. Waits for sync completion
+3. Reads capital.json, positions.json, orders.json
+4. Displays complete capital breakdown
+
+**Impact:** Accurate, fresh data on every /Status request.
+
+
+## v4.3.5 — 2026-06-16
+
+### ADDED
+- `CHANGELOG_entry.md` — Detailed documentation of bookkeeper fix
+
+### MODIFIED
+- `bookkeeper.py` — Fixed Derayah order splitting handling:
+  - Price tolerance for MARKET orders (0.0 matches any child price)
+  - trigger_basis inheritance fix (.get(key, default) not .get(key) or default)
+  - Multiple children handling (finds all children summing to parent qty)
+  - Date-only timestamp parsing ('2026-06-15' properly handled)
+  - Parent removal after matching
+  - Approval: 'Do 1' from Amin, Backup: bookkeeper.py.backup-20260616-003540
+

@@ -775,3 +775,7 @@
 2026-06-11T10:00:40+03:00 ocean autossh[1526]: ssh exited with error status 255; restarting ssh
 2026-06-11T10:00:40+03:00 ocean autossh[1526]: starting ssh (count 3)
 2026-06-11T10:00:40+03:00 ocean autossh[1526]: ssh child pid is 442071
+2026-06-15T17:34:08+03:00 ocean systemd[4549]: Started socks-tunnel.service - SOCKS5 tunnel to Amin-PC (residential proxy).
+2026-06-15T17:34:08+03:00 ocean autossh[4646]: port set to 0, monitoring disabled
+2026-06-15T17:34:08+03:00 ocean autossh[4646]: starting ssh (count 1)
+2026-06-15T17:34:08+03:00 ocean autossh[4646]: ssh child pid is 4666
