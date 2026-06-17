@@ -473,3 +473,28 @@ For direction/trend only:
 **Change Control:** ✅ **APPROVED by A A** — Critical architecture fix per brainstorm-2026-06-15
 
 ---
+
+## v4.5.5 — 2026-06-18 (1-Minute Candle Recovery Score)
+
+### ADDED
+- `build_1min_candles()` function in `poller.py` — builds 1-minute OHLCV candles from `ws_frames_raw.log`
+  - **Purpose:** More accurate recovery score calculation with finer granularity
+  - **Method:** Groups websocket ticks by minute, calculates Open/High/Low/Close/Volume
+  - **Volume weighting:** Real ticks = 2, Snapshots = 1 (to prioritize actual trades)
+- 1-minute candle recovery logic in VWAP breakdown exit handler
+  - **Window:** 15 candles × 1 minute = 15 minutes (vs previous 25 minutes with 5-min candles)
+  - **Threshold:** Adjusted from >0.66 to >0.60 (more sensitive for finer granularity)
+  - **Min hold time:** Reduced from 15 min to 10 min (faster response to market moves)
+
+### MODIFIED
+- VWAP breakdown exit logic (`poller.py`) — Now uses 1-minute candles first, falls back to 5-minute
+  - **Priority 1:** Build 1-min candles from websocket raw log
+  - **Priority 2:** Fall back to existing 5-min yfinance candles if 1-min unavailable
+  - **Benefit:** Catches rapid reversals faster, reduces holding time during false breakdowns
+
+### DELETED
+- Nothing
+
+**Change Control:** ✅ **APPROVED by A A** — Performance improvement per brainstorm-2026-06-15
+
+---

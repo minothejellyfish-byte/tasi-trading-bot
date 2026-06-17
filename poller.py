@@ -1439,6 +1439,111 @@ def _calculate_tick_based_vwap(symbol: str) -> float | None:
         return None
 
 
+# ─── 1-Minute Candle Builder from Raw WebSocket Data ───────────────────────────
+
+def build_1min_candles(symbol: str, date_str: str) -> pd.DataFrame | None:
+    """
+    Build 1-minute OHLCV candles from ws_frames_raw.log.
+    
+    Groups ticks by minute and calculates:
+    - Open: first price in minute
+    - High: max price in minute
+    - Low: min price in minute
+    - Close: last price in minute
+    - Volume: tick count (real=2, snapshot=1)
+    
+    Returns DataFrame or None if no data.
+    """
+    try:
+        raw_log = f'{BASE_DIR}/ws_frames_raw.log'
+        if not os.path.exists(raw_log):
+            return None
+        
+        symbol_topic = f"QO.{symbol}.TAD"
+        candles = {}
+        
+        with open(raw_log, 'r') as f:
+            for line in f:
+                if not line.startswith(date_str):
+                    continue
+                if symbol_topic not in line:
+                    continue
+                
+                try:
+                    # Extract timestamp
+                    timestamp_str = line[:19]
+                    dt = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+                    minute = dt.replace(second=0, microsecond=0)
+                    
+                    # Extract JSON
+                    json_start = line.find('{')
+                    if json_start == -1:
+                        continue
+                    
+                    d = json.loads(line[json_start:])
+                    
+                    # Get price
+                    price = None
+                    if 'last' in d and d['last'] != '#':
+                        price = float(d['last'])
+                    elif 'lasttradeprice' in d and d['lasttradeprice'] != '#':
+                        price = float(d['lasttradeprice'])
+                    elif 'bidprice' in d and d['bidprice'] != '#':
+                        price = float(d['bidprice'])
+                    
+                    if price is None or price <= 0:
+                        continue
+                    
+                    # Check if snapshot (less reliable)
+                    is_snapshot = d.get('issnapshot') == 'yes'
+                    vol_weight = 1 if is_snapshot else 2
+                    
+                    # Build candle
+                    if minute not in candles:
+                        candles[minute] = {
+                            'Open': price,
+                            'High': price,
+                            'Low': price,
+                            'Close': price,
+                            'Volume': vol_weight,
+                            'tick_count': 1
+                        }
+                    else:
+                        c = candles[minute]
+                        c['High'] = max(c['High'], price)
+                        c['Low'] = min(c['Low'], price)
+                        c['Close'] = price
+                        c['Volume'] += vol_weight
+                        c['tick_count'] += 1
+                except:
+                    continue
+        
+        if not candles:
+            return None
+        
+        # Convert to DataFrame
+        df_data = []
+        for minute in sorted(candles.keys()):
+            c = candles[minute]
+            df_data.append({
+                'datetime': minute,
+                'Open': c['Open'],
+                'High': c['High'],
+                'Low': c['Low'],
+                'Close': c['Close'],
+                'Volume': c['Volume']
+            })
+        
+        df = pd.DataFrame(df_data)
+        df.set_index('datetime', inplace=True)
+        
+        log.info(f"Built {len(df)} 1-min candles for {symbol} from raw log")
+        return df
+    except Exception as e:
+        log.warning(f"Failed to build 1-min candles for {symbol}: {e}")
+        return None
+
+
 # ─── Market data ──────────────────────────────────────────────────────────────
 
 def fetch_data(symbol: str) -> tuple:
@@ -1849,34 +1954,57 @@ def slow_poll(regime: dict):
                         log.info(f"VWAP breakdown: {symbol} price={price:.2f} vwap={vwap_now:.2f} gain={gain_pct*100:.1f}% — HELD {int(mins_held)}min < {MIN_HOLD_MINS}min min hold, skipping")
                         continue  # Skip sell, don't add to _alerted (re-evaluate next cycle)
                     
-                    # ── Step 2: Recovery probability (Option 3 weighted) ──
-                    # Calculate rising vs falling candles
-                    recent_candles = df_pos.tail(5)
-                    if len(recent_candles) >= 3:
+                    # ── Step 2: Recovery probability with 1-min candles ──
+                    # Build 1-min candles from websocket data for more accurate recovery detection
+                    date_str = now.strftime('%Y-%m-%d')
+                    candles_1m = build_1min_candles(symbol.replace(".SR", ""), date_str)
+                    
+                    if candles_1m is not None and len(candles_1m) >= 10:
+                        # Use last 15 candles (15-minute window)
+                        recent_candles = candles_1m.tail(15)
                         closes = [float(c) for c in recent_candles["Close"]]
+                        
+                        # Calculate rising vs falling candles
                         rising = sum(1 for i in range(1, len(closes)) if closes[i] > closes[i-1])
                         falling = sum(1 for i in range(1, len(closes)) if closes[i] < closes[i-1])
                         total = rising + falling
                         recovery_prob = rising / total if total > 0 else 0.5
                         
-                        # Volume strength
-                        recent_vol = float(recent_candles["Volume"].mean()) if "Volume" in recent_candles else 0
-                        avg_vol = float(df_pos["Volume"].mean()) if "Volume" in df_pos else 1
+                        # Volume strength (tick count as proxy)
+                        recent_vol = float(recent_candles["Volume"].mean())
+                        avg_vol = float(candles_1m["Volume"].mean())
                         vol_strength = min(recent_vol / avg_vol, 1.5) if avg_vol > 0 else 1.0
                         
-                        # Weighted recovery score
+                        # Weighted recovery score (adjusted threshold for 1-min)
                         recovery_score = recovery_prob * vol_strength
+                        is_recovering = recovery_score > 0.60  # Adjusted from 0.66
+                        
+                        log.info(f"VWAP breakdown: {symbol} 1-min recovery: {len(recent_candles)} candles, score={recovery_score:.2f} (threshold: 0.60), rising={rising}/{total}")
                     else:
-                        recovery_score = 0.5  # Neutral if insufficient data
+                        # Fallback to 5-min candles if 1-min not available
+                        recent_candles = df_pos.tail(5)
+                        if len(recent_candles) >= 3:
+                            closes = [float(c) for c in recent_candles["Close"]]
+                            rising = sum(1 for i in range(1, len(closes)) if closes[i] > closes[i-1])
+                            falling = sum(1 for i in range(1, len(closes)) if closes[i] < closes[i-1])
+                            total = rising + falling
+                            recovery_prob = rising / total if total > 0 else 0.5
+                            recent_vol = float(recent_candles["Volume"].mean()) if "Volume" in recent_candles else 0
+                            avg_vol = float(df_pos["Volume"].mean()) if "Volume" in df_pos else 1
+                            vol_strength = min(recent_vol / avg_vol, 1.5) if avg_vol > 0 else 1.0
+                            recovery_score = recovery_prob * vol_strength
+                            is_recovering = recovery_score > 0.66
+                            log.info(f"VWAP breakdown: {symbol} 5-min fallback recovery: score={recovery_score:.2f} (threshold: 0.66), rising={rising}/{total}")
+                        else:
+                            recovery_score = 0.5
+                            is_recovering = False
+                            log.info(f"VWAP breakdown: {symbol} insufficient data, default recovery_score=0.5")
                     
-                    # ── Step 3: Breakeven hold (Option 1) ──
-                    # HOLD if: loss < 3% AND (rising OR recovery_score > 0.66)
-                    loss_pct = abs(gain_pct) if gain_pct < 0 else 0
-                    is_recovering = recovery_score > 0.66  # 2:1 odds
-                    is_small_loss = loss_pct < 0.03  # < 3%
-                    
-                    if is_small_loss and is_recovering:
-                        # HOLD — high probability of recovery
+                    # Adjusted min hold time for 1-min candles
+                    MIN_HOLD_MINS = 10  # Reduced from 15 for faster response
+                    if mins_held < MIN_HOLD_MINS:
+                        log.info(f"VWAP breakdown: {symbol} price={price:.2f} vwap={vwap_now:.2f} gain={gain_pct*100:.1f}% — HELD {int(mins_held)}min < {MIN_HOLD_MINS}min min hold, skipping")
+                        continue
                         log.info(f"VWAP breakdown: {symbol} price={price:.2f} vwap={vwap_now:.2f} gain={gain_pct*100:.1f}% — BREAKEVEN HOLD (loss={loss_pct*100:.1f}% < 3%, recovery_score={recovery_score:.2f} > 0.66, rising={rising}/{total})")
                         continue  # Skip sell, don't add to _alerted (re-evaluate next cycle)
                     
