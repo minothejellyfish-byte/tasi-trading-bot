@@ -28,8 +28,8 @@ REGIME_PARAMS = {
         "max_positions":    3,
         "position_pct":     0.35,
         "alt_position_pct": 0.25,
-        "target_pct":       0.025,   # +2.5% target
-        "trail_trigger":    0.025,   # trail after +2.5%
+        "target_pct":       0.020,   # +2.0% target (was 2.5%)
+        "trail_trigger":    0.020,   # trail after +2.0% (matches target)
         "trail_stop":       0.03,    # -3% from peak
         "hard_stop":        0.07,    # -7% hard stop
         "time_stop_mins":   30,      # 30 min time stop
@@ -40,8 +40,8 @@ REGIME_PARAMS = {
         "max_positions":    3,
         "position_pct":     0.30,
         "alt_position_pct": 0.30,
-        "target_pct":       0.02,    # +2% target
-        "trail_trigger":    0.02,    # trail after +2%
+        "target_pct":       0.012,   # +1.2% target (was 2.0%)
+        "trail_trigger":    0.012,   # trail after +1.2% (matches target)
         "trail_stop":       0.03,    # -3% from peak
         "hard_stop":        0.05,    # -5% hard stop (tighter)
         "time_stop_mins":   30,
@@ -52,8 +52,8 @@ REGIME_PARAMS = {
         "max_positions":    4,
         "position_pct":     0.20,
         "alt_position_pct": 0.20,
-        "target_pct":       0.015,   # +1.5% target (quick profits)
-        "trail_trigger":    0.015,   # trail after +1.5%
+        "target_pct":       0.008,   # +0.8% target (was 1.5%)
+        "trail_trigger":    0.008,   # trail after +0.8% (matches target)
         "trail_stop":       0.02,    # -2% from peak (tight)
         "hard_stop":        0.04,    # -4% hard stop (tight)
         "time_stop_mins":   20,      # 20 min time stop (faster)
