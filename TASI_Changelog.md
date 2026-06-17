@@ -439,3 +439,37 @@ Final:      Targets and time constraints (no VWAP available)
 **Change Control:** ✅ **APPROVED by A A** — Critical feature implementation per brainstorm-2026-06-15
 
 ---
+
+## v4.5.4b — 2026-06-17 (Remove yfinance from VWAP Decisions)
+
+### MODIFIED
+- `poller.py` — VWAP architecture updated to exclude yfinance from real-time decisions:
+  - **Primary:** `get_ws_vwap()` — WebSocket incremental (real-time)
+  - **Fallback 1:** `_calculate_tick_based_vwap()` — from `ws_prices.jsonl` ticks
+  - **yfinance:** Only used for direction trend (`calc_vwap_direction`), NOT VWAP value
+  - **Final:** Targets and time constraints when no VWAP available
+
+- All VWAP decision points updated:
+  - `fast_poll()` hard close: `vwap_now = ws_vwap` → fallback to tick-based → no yfinance
+  - `slow_poll()` entry filter: same architecture
+  - Position monitoring: same architecture
+
+### DOCUMENTED
+- Added comment block explaining `calc_vwap()` is for direction only, not real-time VWAP
+- `calc_vwap_direction()` documented as using yfinance data for trend slope only
+
+### ARCHITECTURE
+```
+For VWAP decisions (entry/exit/hard_close):
+1. get_ws_vwap() — WebSocket incremental (real-time, preferred)
+2. _calculate_tick_based_vwap() — from ws_prices.jsonl (tick-based fallback)
+3. [NO yfinance for VWAP value — removed]
+4. Targets and time constraints (no VWAP available)
+
+For direction/trend only:
+- calc_vwap_direction() — uses yfinance for slope (15-min delay OK for trend)
+```
+
+**Change Control:** ✅ **APPROVED by A A** — Critical architecture fix per brainstorm-2026-06-15
+
+---
