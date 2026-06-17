@@ -1276,6 +1276,25 @@ def calc_vwap(df: pd.DataFrame) -> float | None:
     except Exception:
         return None
 
+# ─── VWAP Direction Calculation (for hard close) ──────────────────────────────
+def calc_vwap_direction(df: pd.DataFrame, window: int = 5) -> float:
+    """
+    Calculate VWAP trend direction over last N candles.
+    Positive = rising, Negative = falling, 0 = flat.
+    """
+    try:
+        if len(df) < 2:
+            return 0.0
+        # Calculate VWAP for each candle in window
+        df_copy = df.tail(window).copy()
+        df_copy["tp"] = (df_copy["High"] + df_copy["Low"] + df_copy["Close"]) / 3
+        cumvol = df_copy["Volume"].cumsum()
+        vwaps = (df_copy["tp"] * df_copy["Volume"]).cumsum() / cumvol
+        # Return slope (last - first)
+        return float(vwaps.iloc[-1] - vwaps.iloc[0]) if len(vwaps) >= 2 else 0.0
+    except Exception:
+        return 0.0
+
 def check_vwap_reclaim(df: pd.DataFrame, vwap: float) -> bool:
     if len(df) < 2:
         return False
@@ -1336,193 +1355,111 @@ def fast_poll(regime: dict):
     now_time = now.time()
 
     # v4.1: Dynamic hard close - VWAP-aware exit window 14:30-14:50
-    if now_time >= HARD_CLOSE_START and "hard_close" not in _alerted:
+    
+    # Phase 1: 14:30-14:49 - VWAP-based exits
+    if now_time >= HARD_CLOSE_START and now_time < HARD_CLOSE_END and "hard_close_p1" not in _alerted:
         positions = load_positions_cached()
         open_syms = [s for s, p in positions.items() if not p.get("closed")]
-
+        
         if open_syms:
             tg_send(f"⏰ Hard Close Window (14:30-14:50) - {len(open_syms)} position(s) still open")
-
-            # Phase 1: 14:30-14:49 - Try VWAP-based exits (existing logic)
-            if now_time < HARD_CLOSE_END:
-                for s in open_syms:
-                    # Try VWAP-based exit first (least loss / best price)
-                    price, df_pos, _ = fetch_data(f"{s}.SR")
-                    vwap_now = calc_vwap(df_pos) if df_pos is not None else None
-                    entry = positions[s].get("entry_price", 0)
-                    gain_pct = (price - entry) / entry if entry else 0
-
-                    exit_reason = ""
-                    exit_method = "market"
-
-                    if vwap_now and price >= vwap_now and gain_pct >= -0.01:
-                        # Price above VWAP and minimal loss - wait for better exit
-                        exit_reason = f"📊 Above VWAP ({price:.2f} >= {vwap_now:.2f}) - waiting for better exit until 14:50"
-                        tg_send(f"{s}: {exit_reason}")
-                        continue  # Skip this position for now
-                    elif vwap_now and price < vwap_now and gain_pct < 0:
-                        # Below VWAP with loss - exit NOW to prevent deeper loss
-                        exit_reason = f"📉 Below VWAP ({price:.2f} < {vwap_now:.2f}) - cutting loss at {gain_pct*100:.1f}%"
-                        exit_method = "market"
-                    elif gain_pct < -0.03:
-                        # Deep loss - exit immediately
-                        exit_reason = f"🛑 Deep loss {gain_pct*100:.1f}% - exiting now"
-                        exit_method = "market"
-                    else:
-                        # Small profit or breakeven - can wait until 14:50
-                        exit_reason = f"⏳ Small {gain_pct*100:.1f}% - monitoring until 14:50"
+            for s in open_syms:
+                price, df_pos, _ = fetch_data(f"{s}.SR")
+                vwap_now = calc_vwap(df_pos) if df_pos is not None else None
+                vwap_dir = calc_vwap_direction(df_pos, window=3) if df_pos is not None else 0
+                entry = positions[s].get("entry_price", 0)
+                gain_pct = (price - entry) / entry if entry else 0
+                
+                exit_reason = ""
+                
+                if gain_pct > 0:
+                    # In profit - take it immediately, don't gamble near close
+                    exit_reason = f"💰 Profit {gain_pct*100:.1f}% - taking profit before close"
+                    
+                elif abs(gain_pct) <= 0.001:
+                    # Breakeven - exit now, don't risk turning into loss
+                    exit_reason = f"⚖️ Breakeven - exiting to avoid loss near close"
+                    
+                elif gain_pct < -0.03:
+                    # Deep loss - exit immediately
+                    exit_reason = f"🛑 Deep loss {gain_pct*100:.1f}% - exiting now"
+                    
+                elif vwap_now and price < vwap_now:
+                    # Below VWAP with loss - check VWAP direction
+                    if vwap_dir > 0:
+                        # VWAP rising - aim for breakeven
+                        exit_reason = f"📈 VWAP recovering (dir={vwap_dir:.4f}) - aiming for breakeven from {gain_pct*100:.1f}%"
                         tg_send(f"{s}: {exit_reason}")
                         continue
-
-                    # Execute the exit
-                    auto_sell(s, positions[s].get("qty", "?"), f"Hard Close | {exit_reason}",
-                              trigger_basis=TRIGGER_HARD_CLOSE,
-                              trigger_detail=f"Hard close: {exit_reason}")
-
-                    # Block symbol for rest of day
-                    try:
-                        block_file = f"{BASE_DIR}/blocked_symbols.txt"
-                        blocked = set()
-                        if os.path.exists(block_file):
-                            with open(block_file) as f:
-                                blocked = set(line.strip() for line in f if line.strip())
-                        blocked.add(s)
-                        with open(block_file, "w") as f:
-                            f.write("\n".join(sorted(blocked)) + "\n")
-                    except Exception as e:
-                        log.error(f"Failed to update blocked_symbols.txt: {e}")
-
-            # Phase 2: At or after 14:50 - FORCE SELL ALL remaining
-            if now_time >= HARD_CLOSE_END:
-                positions = load_positions_cached()  # Re-load fresh state
-                remaining = [s for s, p in positions.items() if not p.get("closed")]
-                for s in remaining:
-                    qty = positions[s].get("qty", "?")
-                    price, _, _ = fetch_data(f"{s}.SR")
-                    entry = positions[s].get("entry_price", 0)
-                    gain_pct = (price - entry) / entry if entry else 0
-                    auto_sell(s, qty, f"⏰ HARD CLOSE 14:50 - Force market sell | {gain_pct*100:+.1f}%")
-                    log.info(f"HARD CLOSE forced sell: {s} qty={qty} at {price:.2f} ({gain_pct*100:+.1f}%)")
-
-        _alerted.add("hard_close")
-        log.info("Hard close alert processed")
-
+                    else:
+                        # VWAP flat or falling - exit now
+                        exit_reason = f"📉 Below VWAP ({price:.2f} < {vwap_now:.2f}), VWAP falling - cutting loss at {gain_pct*100:.1f}%"
+                        
+                elif vwap_now and price >= vwap_now and gain_pct < 0:
+                    # Above VWAP but still in loss - monitor
+                    if vwap_dir > 0:
+                        exit_reason = f"📊 Above VWAP ({price:.2f} >= {vwap_now:.2f}), recovering - monitoring for breakeven"
+                        tg_send(f"{s}: {exit_reason}")
+                        continue
+                    else:
+                        exit_reason = f"📊 Above VWAP ({price:.2f} >= {vwap_now:.2f}) but VWAP flat - exiting at {gain_pct*100:.1f}%"
+                
+                else:
+                    # Default: monitor
+                    exit_reason = f"⏳ {gain_pct*100:.1f}% - monitoring until 14:50"
+                    tg_send(f"{s}: {exit_reason}")
+                    continue
+                
+                auto_sell(s, positions[s].get("qty", "?"), f"Hard Close | {exit_reason}",
+                          trigger_basis=TRIGGER_HARD_CLOSE,
+                          trigger_detail=f"Hard close: {exit_reason}")
+                
+                try:
+                    block_file = f"{BASE_DIR}/blocked_symbols.txt"
+                    blocked = set()
+                    if os.path.exists(block_file):
+                        with open(block_file) as f:
+                            blocked = set(line.strip() for line in f if line.strip())
+                    blocked.add(s)
+                    with open(block_file, "w") as f:
+                        f.write("\n".join(sorted(blocked)) + "\n")
+                except Exception as e:
+                    log.error(f"Failed to update blocked_symbols.txt: {e}")
+        
+        _alerted.add("hard_close_p1")
+        log.info("Hard close Phase 1 (VWAP exits) processed")
+    
+    # Phase 2: 14:50+ - FORCE SELL ALL remaining
+    if now_time >= HARD_CLOSE_END and "hard_close_p2" not in _alerted:
+        positions = load_positions_cached()
+        remaining = [s for s, p in positions.items() if not p.get("closed")]
+        
+        if remaining:
+            tg_send(f"⏰ HARD CLOSE 14:50 - Force selling {len(remaining)} remaining position(s)")
+            for s in remaining:
+                qty = positions[s].get("qty", "?")
+                price, _, _ = fetch_data(f"{s}.SR")
+                entry = positions[s].get("entry_price", 0)
+                gain_pct = (price - entry) / entry if entry else 0
+                auto_sell(s, qty, f"⏰ HARD CLOSE 14:50 - Force market sell | {gain_pct*100:+.1f}%",
+                          trigger_basis=TRIGGER_HARD_CLOSE,
+                          trigger_detail="Hard close 14:50 forced exit")
+                log.info(f"HARD CLOSE forced sell: {s} qty={qty} at {price:.2f} ({gain_pct*100:.1f}%)")
+        
+        _alerted.add("hard_close_p2")
+        log.info("Hard close Phase 2 (force sell) processed")
+        
         # Create stand-down marker file (persists across restarts)
         try:
             stand_down_path = f"{BASE_DIR}/stand_down"
-            # Only create if not already exists (prevents overwriting timestamp)
             if not os.path.exists(stand_down_path):
                 with open(stand_down_path, "w") as f:
-                    f.write(f"STAND DOWN activated at {now.isoformat()}\n")
+                    f.write(f"STAND DOWN activated at {datetime.now(RIYADH).isoformat()}\n")
                     f.write("No new buys allowed until next session\n")
                     f.write("Remove this file before next trading day\n")
                 log.info("STAND DOWN mode activated - no new buys until tomorrow")
         except Exception as e:
             log.error(f"Failed to create stand_down marker: {e}")
-
-    positions = load_positions_cached()
-
-    for symbol, pos in positions.items():
-        prev       = _prev_positions.get(symbol, {})
-        was_closed = prev.get("closed", True)
-        is_closed  = pos.get("closed", False)
-
-        # ── Sell detected (open → closed) ─────────────────────────────────
-        if not was_closed and is_closed:
-            entry   = pos.get("entry_price", 0)
-            close_p = pos.get("close_price", 0)
-            qty     = pos.get("qty", "?")
-            pct     = (close_p - entry) / entry * 100 if entry else 0
-            done    = cycles_today.get(symbol, 0) + 1
-            cycles_today[symbol] = done
-
-            # Use dynamic win threshold from regime
-            regime_params = get_current_regime().get("params", {})
-            current_win_pct = regime_params.get("target_pct", 0.02)
-
-            if pct >= current_win_pct * 0.75:
-                consec_scratches[symbol] = 0
-                log.info(f"Sell detected (win): {symbol} exit={close_p:.2f} pct={pct:+.1f}% cycle={done}")
-                # Unlimited cycling - just check time and scratches
-                if now_time < time(14, 30) and consec_scratches.get(symbol, 0) < 2:
-                    # Before auto-rebuying same symbol, check if there's a better pick
-                    picks_all = load_picks_all()
-                    current_pick = next((p for p in picks_all if p["symbol"].replace(".SR", "") == symbol), None)
-                    current_score = current_pick.get("score", 0) if current_pick else 0
-
-                    # Find best available pick (not currently held)
-                    held_symbols = [s for s, p in positions.items() if not p.get("closed")]
-                    best_new = None
-                    for p in picks_all:
-                        sym = p["symbol"].replace(".SR", "")
-                        if sym not in held_symbols and sym != symbol:
-                            best_new = p
-                            break
-
-                    # Get regime-aware cycle switch threshold
-                    regime_name = get_current_regime().get("regime", "NEUTRAL")
-                    cs_thresh = CYCLE_SWITCH_THRESHOLDS.get(regime_name, 1.15)
-
-                    # Cycle switch: check if better pick available (regime-aware threshold)
-                    if best_new and best_new.get("score", 0) > current_score * cs_thresh:
-                        best_sym = best_new["symbol"]
-                        log.info(
-                            f"Cycle switch: {symbol}(score={current_score:.0f}) → "
-                            f"{best_sym}(score={best_new.get('score',0):.0f}) - better momentum"
-                        )
-                        tg_send(
-                            f"🔄 <b>Cycle Switch</b>\n"
-                            f"Win on {symbol} (+{pct:.1f}%), but {best_sym} has better momentum\n"
-                            f"Switching to {best_sym} (score {best_new.get('score',0):.0f} vs {current_score:.0f})"
-                        )
-                        _reset_symbol_alerts(best_sym.replace(".SR", ""))
-                        # Don't rebuy same symbol - let the entry logic pick up best_new
-                    else:
-                        # Recycle same symbol - check momentum first
-                        if current_pick:
-                            change_pct = current_pick.get("change_pct", 0)
-                            if change_pct <= 0:
-                                log.info(f"Cycle skip: {symbol} momentum dead (change_pct={change_pct:.2f}%) - no recycle")
-                                tg_send(f"⏸ {symbol}: Momentum cooled (change_pct={change_pct:.2f}%) - skipping recycle, will look for better pick")
-                                # Don't rebuy - let entry logic find other picks
-                            else:
-                                # Momentum positive - proceed with recycle
-                                price_now, df_now, _ = fetch_data(symbol)
-                                vwap_now   = calc_vwap(df_now) if df_now is not None else None
-                                above_vwap = bool(price_now and vwap_now and price_now > vwap_now)
-                                re_price   = price_now or close_p
-                                vwap_tag   = (
-                                    f" | VWAP {vwap_now:.2f} ✅" if above_vwap
-                                    else (f" | VWAP {vwap_now:.2f} ⚠️" if vwap_now else "")
-                                )
-                                # Get updated entry zone from latest picks
-                                entry_zone = current_pick.get("entry_zone", {}) if current_pick else {}
-                                log.info(f"Auto-cycling {symbol}: above_vwap={above_vwap} price={re_price:.2f}{vwap_tag} cycle={done+1} zone={entry_zone} change_pct={change_pct:.2f}%")
-                                _reset_symbol_alerts(symbol)
-                                auto_buy(symbol, qty, done + 1, 999, re_price, entry_zone,
-                                         trigger_basis=TRIGGER_CYCLE_RECYCLE,
-                                         trigger_detail=f"Cycle {done+1} recycle after win (+{pct:.1f}%)")
-                        else:
-                            # Symbol no longer in picks - skip recycle
-                            log.info(f"Cycle skip: {symbol} not in latest picks - no recycle")
-                            tg_send(f"⏸ {symbol}: Not in latest picks - skipping recycle")
-                else:
-                    reason = "after 14:30" if now_time >= time(14, 30) else "2 scratches"
-                    tg_send(f"✅ {symbol}: {done} cycles done - cycling stopped ({reason}).")
-            else:
-                consec_scratches[symbol] = consec_scratches.get(symbol, 0) + 1
-                log.info(f"Sell detected (scratch): {symbol} exit={close_p:.2f} pct={pct:+.1f}% scratch={consec_scratches[symbol]}")
-                if consec_scratches[symbol] >= 2:
-                    tg_send(f"⛔ {symbol}: 2 scratches in a row - cycling stopped for today")
-                    cycles_today[symbol] = 999
-
-        # ── New buy detected (closed → open) ──────────────────────────────
-        elif was_closed and not is_closed:
-            _reset_symbol_alerts(symbol)
-            log.info(f"Buy detected: {symbol} entry={pos.get('entry_price','?')}")
-
-    _prev_positions = {k: dict(v) for k, v in positions.items()}
-
 
 def slow_poll(regime: dict):
     """
@@ -1853,7 +1790,7 @@ def slow_poll(regime: dict):
     # HARD CLOSE BLOCK: After 14:45, block ALL new buys
     # Also check for stand_down file (persists across restarts)
     now_time = datetime.now(RIYADH).time()
-    hard_close_triggered = now_time >= HARD_CLOSE_TIME or "hard_close" in _alerted
+    hard_close_triggered = now_time >= HARD_CLOSE_TIME or "hard_close_p2" in _alerted
     stand_down_active = os.path.exists(f"{BASE_DIR}/stand_down")
 
     if stand_down_active:
@@ -1946,9 +1883,27 @@ def slow_poll(regime: dict):
             log.info(f"Max positions ({max_positions}) reached - skipping {base}")
             break
 
+        # ── Market Open Cooldown (10:00-10:15) ─────────────────────────────
+        # No entries in first 15 minutes - wide spreads, algorithm noise
+        if now_time < time(10, 15):
+            log.info(f"{base} skipped - market open cooldown (before 10:15)")
+            continue
+
         price, df, price_src = fetch_data(symbol)
         if price is None or df is None:
             continue
+
+        # ── Regime + VWAP Direction Filter ──────────────────────────────────
+        # In NEUTRAL/DEFENSIVE, only enter if VWAP is rising
+        if regime_name in ["NEUTRAL", "DEFENSIVE"]:
+            vwap_now = calc_vwap(df) if df is not None else None
+            if vwap_now:
+                vwap_dir = calc_vwap_direction(df, window=5)
+                if vwap_dir <= 0:
+                    log.info(f"{base} skipped - VWAP falling in {regime_name} regime (dir={vwap_dir:.4f})")
+                    continue
+                else:
+                    log.info(f"{base} VWAP rising in {regime_name} (dir={vwap_dir:.4f}) - allowing entry")
 
         e_hi = pick.get("entry_high", 0)
         e_lo = pick.get("entry_low", 0)

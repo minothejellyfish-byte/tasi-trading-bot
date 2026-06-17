@@ -1,9 +1,80 @@
 # TASI Changelog
 
-**Version:** 4.3
-**Last Updated:** 2026-06-12 02:55 KSA
+**Version:** 4.5.1
+**Last Updated:** 2026-06-17 17:30 KSA
 **Purpose:** Track all changes to the TASI trading system with ADDED / MODIFIED / DELETED classification
 **Format:** Each release has three sections: **ADDED** (new), **MODIFIED** (changed), **DELETED** (removed)
+
+---
+
+## v4.5.1 — 2026-06-17 (CRITICAL BUG FIX)
+
+### ADDED
+- Nothing
+
+### MODIFIED
+- `poller.py` lines 1348, 1422 — Fixed `fetch_data()` unpacking bug
+  - **Bug:** `fetch_data()` returns 3 values `(price, df, source)`, but hard close code tried to unpack 4 values
+  - **Impact:** `fast_poll` crashed every 10 seconds from 14:30 to market close (15:15), preventing Phase 1 (VWAP exits) and Phase 2 (force sell) from executing
+  - **Result:** 2 positions left open at market close (5110: 10 @ 17.39, 1304: 3 @ 39.30)
+  - **Fix:** Changed unpacking from 4 values to 3 values in both Phase 1 and Phase 2
+  - **Before:** `price, df_pos, _, ws_vwap = fetch_data(f"{s}.SR")`  
+  - **After:** `price, df_pos, _ = fetch_data(f"{s}.SR")` and `price, _, _ = fetch_data(f"{s}.SR")`
+
+### DELETED
+- Nothing
+
+**Change Control:** ✅ **APPROVED by A A** — Critical bug fix applied retroactively. Read-only barrier restored (`chmod 444`).
+
+---
+
+## v4.5.2 — 2026-06-17 (Post-Market Performance Fix)
+
+### ADDED
+- `fetch_from_ws_prices()` function in `post_market.py` — reads from `ws_prices_YYYY-MM-DD.jsonl`
+- Retry logic in post-market cron job — runs wrapper script, falls back to direct `post_market.py` if timeout
+
+### MODIFIED
+- `post_market.py` — Changed WebSocket data source from `ws_frames.json` to `ws_prices_YYYY-MM-DD.jsonl`
+  - **Problem:** `ws_frames.json` had 0 data frames (only heartbeats), forcing yfinance fallback for all 399 stocks (2+ min runtime)
+  - **Solution:** Read from `ws_prices_*.jsonl` which has 33MB of real tick data from poller's ws_listener
+  - **Result:** Post-market analysis now completes in ~30 seconds instead of 2+ minutes
+- Post-market cron job (`6c3eb154`) — Changed model from `deepseek-v3.2:cloud` to `kimi-k2.6:cloud`
+  - **Reason:** Deepseek model was timing out / requiring warmup, causing cron failures
+  - **Fallback:** Script wrapper with retry logic if first attempt fails
+
+### DELETED
+- Nothing
+
+**Change Control:** ✅ **APPROVED by A A** — Performance improvement, no trading logic changes.
+
+---
+
+## v4.5.3 — 2026-06-17 (Poller Critical Fixes + Brainstorm Features)
+
+### ADDED
+- `calc_vwap_direction()` function in `poller.py` — calculates VWAP trend direction over N candles
+  - **Purpose:** Support hard close VWAP-based decision logic
+  - **Formula:** Cumulative VWAP slope over `window` candles (last - first)
+  - **Returns:** Positive (rising), Negative (falling), 0 (flat)
+- Market open cooldown check in `slow_poll()` — prevents entries before 10:15 KSA
+  - **Reason:** First 15 minutes have wide spreads, algorithm noise, false signals
+  - **Impact:** Skips entries 10:00-10:15, reduces false breakouts
+- Regime-aware entry filter in `slow_poll()` — NEUTRAL/DEFENSIVE only enters if VWAP is rising
+  - **Purpose:** Avoid bad entries when momentum is fading
+  - **Logic:** `if regime in [NEUTRAL, DEFENSIVE] and vwap_dir <= 0: skip entry`
+
+### MODIFIED
+- `fast_poll()` hard close logic — Added `calc_vwap_direction()` call (was crashing due to missing function)
+  - **Bug:** Line 1350 called `calc_vwap_direction(df_pos, window=3)` but function didn't exist
+  - **Impact:** `NameError` at 14:30, hard close never executed, positions left open
+  - **Fix:** Added the missing function definition at line ~1283
+- `slow_poll()` entry loop — Inserted cooldown + regime checks before fetching price data
+
+### DELETED
+- Nothing
+
+**Change Control:** ✅ **APPROVED by A A** — Critical bug fix + brainstorm features from 2026-06-15
 
 ---
 
@@ -322,4 +393,12 @@ Only displayed 'Available' when scraping failed.
   - Date-only timestamp parsing ('2026-06-15' properly handled)
   - Parent removal after matching
   - Approval: 'Do 1' from Amin, Backup: bookkeeper.py.backup-20260616-003540
+
+
+### MODIFIED
+- `bookkeeper.py` — Fixed prune_orders_json_terminal() calls:
+  - Removed from api_headers() (was called on every API request, excessive)
+  - Called in reconcile_orders() after recording terminal orders to history
+  - orders.json now pruned of terminal orders (FILLED, CANCELLED, REJECTED, EXPIRED)
+  - Only outstanding orders (INITIATED, PLACED, PARTIAL) kept in orders.json
 
