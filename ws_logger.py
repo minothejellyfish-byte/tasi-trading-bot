@@ -9,7 +9,7 @@ from pathlib import Path
 
 BASE_DIR = Path("/home/mino/tasi-exec")
 
-def log_price(symbol: str, price: float, change: float, pchange: float, real: bool):
+def log_price(symbol: str, price: float, change: float, pchange: float, real: bool, vwap: float = None, volume: float = 0.0):
     """Log a price update to the daily file."""
     # Create daily file
     date_str = datetime.now().strftime("%Y-%m-%d")
@@ -24,6 +24,12 @@ def log_price(symbol: str, price: float, change: float, pchange: float, real: bo
         "pchange": pchange,
         "real": real,
     }
+    
+    # Add VWAP and volume if available
+    if vwap is not None:
+        entry["vwap"] = vwap
+    if volume:
+        entry["volume"] = volume
     
     try:
         with open(log_file, "a") as f:

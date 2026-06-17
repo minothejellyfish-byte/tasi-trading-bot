@@ -100,10 +100,118 @@ def wait_for_port(host, port, timeout=30):
     return False
 
 # WebSocket price cache - populated by background CDP listener thread.
-# Keys are base symbols (no .SR), values: {price, ts, change, pchange}
+# Keys are base symbols (no .SR), values: {price, ts, change, pchange, vwap, volume}
 _ws_price_cache: dict = {}
 _ws_cache_lock = threading.Lock()
 _ws_listener_thread: threading.Thread | None = None
+
+# ─── Incremental WebSocket VWAP State ──────────────────────────────────────
+# Per-symbol cumulative state for real-time VWAP calculation.
+# Structure: {symbol: {"cum_pv": float, "cum_weight": float, "ticks": int, "reset_time": float}}
+# Reset at market open (10:00) to avoid carryover from previous session.
+_incremental_vwap_state: dict = {}
+_INCREMENTAL_VWAP_MAX_AGE = 300.0  # seconds - max age to trust cached VWAP
+
+
+def _get_weighted_price(price: float, change: float, real: bool) -> tuple[float, float]:
+    """
+    Calculate typical price and weight for incremental VWAP.
+    
+    Weight formula: real(2x) * change(1+change*30)
+    - real=true: weight ×2 (actual market tick)
+    - real=false: weight ×1 (interpolated/filled)
+    - Larger price changes → higher weight (more significant trade)
+    
+    Returns: (typical_price, weight)
+    """
+    # Typical price is just the trade price (no H/L available in tick)
+    tp = float(price)
+    
+    # Base weight from real flag
+    real_multiplier = 2.0 if real else 1.0
+    
+    # Change multiplier: larger moves = more significant
+    change_multiplier = 1.0 + abs(float(change)) * 30.0
+    
+    weight = real_multiplier * max(change_multiplier, 0.1)
+    
+    return tp, weight
+
+
+def update_ws_vwap(symbol: str, price: float, change: float, real: bool, volume: float = 0.0) -> float | None:
+    """
+    Update incremental VWAP for a symbol from a websocket tick.
+    
+    Called on every websocket tick. Maintains cumulative state per symbol.
+    Resets state if market just opened (before 10:00) or if stale (>6h old).
+    
+    Returns: Current VWAP or None if insufficient data.
+    """
+    global _incremental_vwap_state
+    
+    now = time_mod.time()
+    
+    # Initialize or reset state
+    if symbol not in _incremental_vwap_state:
+        _incremental_vwap_state[symbol] = {
+            "cum_pv": 0.0,
+            "cum_weight": 0.0,
+            "ticks": 0,
+            "last_update": now,
+            "reset_time": now,
+        }
+    
+    state = _incremental_vwap_state[symbol]
+    
+    # Reset if state is stale (>6 hours - new trading day)
+    if now - state.get("reset_time", 0) > 21600:  # 6 hours
+        state = {
+            "cum_pv": 0.0,
+            "cum_weight": 0.0,
+            "ticks": 0,
+            "last_update": now,
+            "reset_time": now,
+        }
+        _incremental_vwap_state[symbol] = state
+    
+    # Calculate typical price and weight
+    tp, weight = _get_weighted_price(price, change, real)
+    
+    # Update cumulative state
+    state["cum_pv"] += tp * weight
+    state["cum_weight"] += weight
+    state["ticks"] += 1
+    state["last_update"] = now
+    
+    # Calculate current VWAP
+    if state["cum_weight"] > 0:
+        vwap = state["cum_pv"] / state["cum_weight"]
+        return vwap
+    
+    return None
+
+
+def get_ws_vwap(symbol: str, max_age_s: float = _INCREMENTAL_VWAP_MAX_AGE) -> float | None:
+    """
+    Get cached incremental VWAP for a symbol if recent enough.
+    
+    Returns: VWAP value or None if stale/missing.
+    """
+    global _incremental_vwap_state
+    
+    state = _incremental_vwap_state.get(symbol)
+    if not state:
+        return None
+    
+    now = time_mod.time()
+    if now - state.get("last_update", 0) > max_age_s:
+        return None  # Stale
+    
+    if state.get("cum_weight", 0) <= 0:
+        return None
+    
+    return state["cum_pv"] / state["cum_weight"]
+
 
 # Trade execution lock and time guard to prevent race conditions
 _trade_lock = threading.Lock()          # Global lock for trade execution
@@ -1153,20 +1261,29 @@ async def _ws_listener_loop():
                             if raw:
                                 approx = True
                         if raw:
+                            change_val = float(d.get("change",  0) or 0)
+                            pchange_val = float(d.get("pchange", 0) or 0)
+                            volume_val = float(d.get("tv", 0) or 0)
+                            is_real = not approx
+                            
+                            # Update incremental VWAP
+                            ws_vwap = update_ws_vwap(sym, float(raw), change_val, is_real, volume_val)
+                            
                             with _ws_cache_lock:
                                 entry = _ws_price_cache.get(sym, {})
                                 if not approx or not entry.get("real"):
                                     _ws_price_cache[sym] = {
                                         "price":   float(raw),
                                         "ts":      time_mod.time(),
-                                        "change":  float(d.get("change",  0) or 0),
-                                        "pchange": float(d.get("pchange", 0) or 0),
-                                        "real":    not approx,
-                                        "volume":  float(d.get("tv", 0) or 0),
+                                        "change":  change_val,
+                                        "pchange": pchange_val,
+                                        "real":    is_real,
+                                        "volume":  volume_val,
+                                        "vwap":    ws_vwap,
                                     }
                             try:
                                 from ws_logger import log_price
-                                log_price(sym, float(raw), float(d.get("change", 0) or 0), float(d.get("pchange", 0) or 0), not approx)
+                                log_price(sym, float(raw), change_val, pchange_val, is_real, ws_vwap, volume_val)
                             except Exception:
                                 pass
                 except Exception:
@@ -1236,9 +1353,10 @@ def _ws_price(symbol: str, max_age_s: float = 300.0) -> float | None:
 
 def fetch_data(symbol: str) -> tuple:
     """
-    Returns (latest_price, df_5m, price_source) or (None, None, None) on failure.
+    Returns (latest_price, df_5m, price_source, ws_vwap) or (None, None, None, None) on failure.
     Price priority: WS cache (real-time) → yfinance (15-min delay).
     df_5m always from yfinance (needed for VWAP/volume candles).
+    ws_vwap from incremental websocket calculation (real-time).
     """
     try:
         ticker_sym = symbol if "." in symbol else f"{symbol}.SR"
@@ -1249,21 +1367,23 @@ def fetch_data(symbol: str) -> tuple:
             df = yf.Ticker(ticker_sym).history(period="5d", interval="5m")
         if df.empty:
             log.warning(f"fetch_data {symbol}: no data from yfinance")
-            return None, None, None
+            return None, None, None, None
 
         # 1. WS cache - real-time, zero network calls
         price = _ws_price(symbol)
+        ws_vwap = get_ws_vwap(symbol.replace(".SR", ""))
+        
         if price:
-            log.info(f"fetch_data {symbol}: WS price {price:.2f}")
-            return price, df, "websocket"
+            log.info(f"fetch_data {symbol}: WS price {price:.2f} VWAP={ws_vwap:.2f if ws_vwap else 'N/A'}")
+            return price, df, "websocket", ws_vwap
 
         # 2. yfinance delayed
         price = float(df["Close"].iloc[-1])
         log.warning(f"fetch_data {symbol}: WS cache miss - using yfinance delayed {price:.2f}")
-        return price, df, "yfinance"
+        return price, df, "yfinance", None
     except Exception as e:
         log.warning(f"fetch_data {symbol}: {e}")
-        return None, None, None
+        return None, None, None, None
 
 def calc_vwap(df: pd.DataFrame) -> float | None:
     try:
@@ -1364,8 +1484,8 @@ def fast_poll(regime: dict):
         if open_syms:
             tg_send(f"⏰ Hard Close Window (14:30-14:50) - {len(open_syms)} position(s) still open")
             for s in open_syms:
-                price, df_pos, _ = fetch_data(f"{s}.SR")
-                vwap_now = calc_vwap(df_pos) if df_pos is not None else None
+                price, df_pos, _, ws_vwap = fetch_data(f"{s}.SR")
+                vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df_pos) if df_pos is not None else None)
                 vwap_dir = calc_vwap_direction(df_pos, window=3) if df_pos is not None else 0
                 entry = positions[s].get("entry_price", 0)
                 gain_pct = (price - entry) / entry if entry else 0
@@ -1438,7 +1558,7 @@ def fast_poll(regime: dict):
             tg_send(f"⏰ HARD CLOSE 14:50 - Force selling {len(remaining)} remaining position(s)")
             for s in remaining:
                 qty = positions[s].get("qty", "?")
-                price, _, _ = fetch_data(f"{s}.SR")
+                price, _, _, _ = fetch_data(f"{s}.SR")
                 entry = positions[s].get("entry_price", 0)
                 gain_pct = (price - entry) / entry if entry else 0
                 auto_sell(s, qty, f"⏰ HARD CLOSE 14:50 - Force market sell | {gain_pct*100:+.1f}%",
@@ -1526,7 +1646,8 @@ def slow_poll(regime: dict):
         if pos.get("closed"):
             continue
 
-        price, df_pos, _ = fetch_data(symbol)
+        price, df_pos, _, ws_vwap = fetch_data(symbol)
+        vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df_pos) if df_pos is not None else None)
         if price is None:
             continue
 
@@ -1733,7 +1854,7 @@ def slow_poll(regime: dict):
             if best_new and best_new.get("score", 0) > current_score * pu_thresh:
                 # New pick is 30%+ better score — check if it's IN ZONE before selling
                 bn_sym = best_new['symbol'].replace(".SR", "")
-                bn_price, _, _ = fetch_data(best_new['symbol'])
+                bn_price, _, _, _ = fetch_data(best_new['symbol'])
                 bn_zone = best_new.get("entry_zone", None)
                 
                 # CRITICAL: Only upgrade if new pick is IN ENTRY ZONE
@@ -1745,7 +1866,7 @@ def slow_poll(regime: dict):
                         continue  # Skip this upgrade — new pick not in zone
                 
                 # Zone check passed — proceed with upgrade
-                current_price, _, _ = fetch_data(f"{current_sym}.SR")
+                current_price, _, _, _ = fetch_data(f"{current_sym}.SR")
                 current_pos = positions[current_sym]
                 entry = current_pos.get("entry_price", 0)
                 qty = current_pos.get("qty", "?")
@@ -1812,7 +1933,7 @@ def slow_poll(regime: dict):
 
         # Fetch current price for zone check
         try:
-            price, _, _ = fetch_data(sym)
+            price, _, _, _ = fetch_data(sym)
             if price is None:
                 return raw_score * 0.5
         except:
@@ -1837,7 +1958,7 @@ def slow_poll(regime: dict):
         sym = pick.get("symbol", "")
         if e_lo > 0 and e_hi > 0 and sym:
             try:
-                price, _, _ = fetch_data(sym)
+                price, _, _, _ = fetch_data(sym)
                 if price and e_lo <= price <= e_hi:
                     in_zone_count += 1
                 elif price and price <= e_hi * 1.02:
@@ -1889,14 +2010,14 @@ def slow_poll(regime: dict):
             log.info(f"{base} skipped - market open cooldown (before 10:15)")
             continue
 
-        price, df, price_src = fetch_data(symbol)
+        price, df, price_src, ws_vwap = fetch_data(symbol)
         if price is None or df is None:
             continue
 
         # ── Regime + VWAP Direction Filter ──────────────────────────────────
         # In NEUTRAL/DEFENSIVE, only enter if VWAP is rising
         if regime_name in ["NEUTRAL", "DEFENSIVE"]:
-            vwap_now = calc_vwap(df) if df is not None else None
+            vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df) if df is not None else None)
             if vwap_now:
                 vwap_dir = calc_vwap_direction(df, window=5)
                 if vwap_dir <= 0:

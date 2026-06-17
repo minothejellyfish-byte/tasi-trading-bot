@@ -402,3 +402,40 @@ Only displayed 'Available' when scraping failed.
   - orders.json now pruned of terminal orders (FILLED, CANCELLED, REJECTED, EXPIRED)
   - Only outstanding orders (INITIATED, PLACED, PARTIAL) kept in orders.json
 
+## v4.5.4 — 2026-06-17 (WebSocket Incremental VWAP System)
+
+### ADDED
+- Incremental WebSocket VWAP calculation in `poller.py`
+  - `_incremental_vwap_state` — per-symbol cumulative state (cum_pv, cum_weight, ticks)
+  - `update_ws_vwap()` — updates VWAP on every websocket tick
+  - `get_ws_vwap()` — retrieves cached VWAP if recent (< 300s)
+  - `fetch_data()` — now returns `(price, df, source, ws_vwap)` with real-time VWAP
+  - Weight formula: `real(2x) * change(1+change*30)` (larger real moves = higher weight)
+- VWAP and volume fields in `ws_prices.jsonl` via `ws_logger.py`
+  - `log_price()` now accepts `vwap` and `volume` parameters
+  - WebSocket listener passes VWAP and volume to logger
+
+### MODIFIED
+- `fetch_data()` — returns 4 values instead of 3, with `ws_vwap` as 4th value
+- All `fetch_data()` callers updated to unpack 4 values:
+  - `fast_poll()` hard close — uses `ws_vwap` first, yfinance fallback
+  - `slow_poll()` entry logic — uses `ws_vwap` for regime filter
+  - Position sync, zone checks, price checks — all updated
+- Hard close logic — `vwap_now = ws_vwap if ws_vwap is not None else calc_vwap(df)`
+- Entry regime filter — `vwap_now = ws_vwap if ws_vwap is not None else calc_vwap(df)`
+
+### REMOVED
+- yfinance as PRIMARY VWAP source — now only used as fallback when websocket VWAP unavailable
+- 15-minute delayed VWAP from yfinance — no longer used for real-time decisions
+
+### ARCHITECTURE
+```
+Primary:    WebSocket tick → update_ws_vwap() → _incremental_vwap_state → get_ws_vwap()
+Fallback 1: ws_prices.jsonl → build 1-min candles → calculate VWAP
+Fallback 2: yfinance 5m OHLCV → calc_vwap() (15-min delayed, last resort)
+Final:      Targets and time constraints (no VWAP available)
+```
+
+**Change Control:** ✅ **APPROVED by A A** — Critical feature implementation per brainstorm-2026-06-15
+
+---
