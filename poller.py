@@ -1349,6 +1349,96 @@ def _ws_price(symbol: str, max_age_s: float = 300.0) -> float | None:
                 return entry["price"]
     return None
 
+# ─── Tick-Based VWAP Fallback ────────────────────────────────────────────────
+
+def _calculate_tick_based_vwap(symbol: str) -> float | None:
+    """
+    Calculate VWAP from websocket ticks stored in ws_prices_YYYY-MM-DD.jsonl.
+    
+    Fallback when incremental VWAP state is not available.
+    Builds 1-minute candles from tick data and calculates VWAP.
+    Uses tick count as volume proxy.
+    
+    Returns: VWAP value or None if insufficient data.
+    """
+    try:
+        from datetime import datetime, timedelta
+        import json
+        
+        date_str = datetime.now(RIYADH).strftime('%Y-%m-%d')
+        filename = f'{BASE_DIR}/ws_prices_{date_str}.jsonl'
+        
+        if not os.path.exists(filename):
+            return None
+        
+        # Load ticks for this symbol
+        ticks = []
+        with open(filename, 'r') as f:
+            for line in f:
+                try:
+                    d = json.loads(line.strip())
+                    if d.get('symbol') == symbol:
+                        dt = datetime.fromisoformat(d['time'].replace('Z', '+00:00'))
+                        dt = dt.replace(tzinfo=pytz.UTC).astimezone(RIYADH)
+                        ticks.append({
+                            'ts': dt,
+                            'price': float(d['price']),
+                            'real': d.get('real', True)
+                        })
+                except:
+                    continue
+        
+        if not ticks:
+            return None
+        
+        # Sort by time
+        ticks.sort(key=lambda x: x['ts'])
+        
+        # Build 1-minute candles
+        candles = {}
+        for tick in ticks:
+            minute = tick['ts'].replace(second=0, microsecond=0)
+            price = tick['price']
+            real = tick['real']
+            
+            if minute not in candles:
+                candles[minute] = {
+                    'open': price, 'high': price, 'low': price, 'close': price,
+                    'volume': 1, 'real_volume': 2 if real else 1  # Real ticks count more
+                }
+            else:
+                c = candles[minute]
+                c['high'] = max(c['high'], price)
+                c['low'] = min(c['low'], price)
+                c['close'] = price
+                c['volume'] += 1
+                c['real_volume'] += 2 if real else 1
+        
+        if not candles:
+            return None
+        
+        # Calculate VWAP from candles
+        # VWAP = sum(typical_price * volume) / sum(volume)
+        total_pv = 0.0
+        total_vol = 0.0
+        
+        for minute, c in sorted(candles.items()):
+            tp = (c['high'] + c['low'] + c['close']) / 3  # Typical price
+            vol = c['real_volume']  # Weighted volume (real ticks count more)
+            total_pv += tp * vol
+            total_vol += vol
+        
+        if total_vol > 0:
+            vwap = total_pv / total_vol
+            log.info(f"Tick-based VWAP for {symbol}: {vwap:.2f} ({len(candles)} candles, {len(ticks)} ticks)")
+            return vwap
+        
+        return None
+    except Exception as e:
+        log.warning(f"Tick-based VWAP calculation failed for {symbol}: {e}")
+        return None
+
+
 # ─── Market data ──────────────────────────────────────────────────────────────
 
 def fetch_data(symbol: str) -> tuple:
@@ -1400,12 +1490,13 @@ def calc_vwap(df: pd.DataFrame) -> float | None:
 def calc_vwap_direction(df: pd.DataFrame, window: int = 5) -> float:
     """
     Calculate VWAP trend direction over last N candles.
+    Uses yfinance data for direction only, NOT for VWAP value.
     Positive = rising, Negative = falling, 0 = flat.
     """
     try:
         if len(df) < 2:
             return 0.0
-        # Calculate VWAP for each candle in window
+        # Calculate VWAP for each candle in window (using yfinance data for trend only)
         df_copy = df.tail(window).copy()
         df_copy["tp"] = (df_copy["High"] + df_copy["Low"] + df_copy["Close"]) / 3
         cumvol = df_copy["Volume"].cumsum()
@@ -1414,6 +1505,15 @@ def calc_vwap_direction(df: pd.DataFrame, window: int = 5) -> float:
         return float(vwaps.iloc[-1] - vwaps.iloc[0]) if len(vwaps) >= 2 else 0.0
     except Exception:
         return 0.0
+
+# ─── calc_vwap NOTE ──────────────────────────────────────────────────────────
+# calc_vwap() below uses yfinance OHLCV data. This is ONLY used for:
+# 1. VWAP direction calculation (trend, not absolute value)
+# 2. As a last-resort fallback when both websocket VWAP methods fail
+# For real-time VWAP decisions, always use:
+#   - Primary: get_ws_vwap() - websocket incremental
+#   - Secondary: _calculate_tick_based_vwap() - from ws_prices.jsonl
+#   - Never: calc_vwap() for real-time decisions (15-min delayed)
 
 def check_vwap_reclaim(df: pd.DataFrame, vwap: float) -> bool:
     if len(df) < 2:
@@ -1485,7 +1585,13 @@ def fast_poll(regime: dict):
             tg_send(f"⏰ Hard Close Window (14:30-14:50) - {len(open_syms)} position(s) still open")
             for s in open_syms:
                 price, df_pos, _, ws_vwap = fetch_data(f"{s}.SR")
-                vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df_pos) if df_pos is not None else None)
+                # Primary: WebSocket incremental VWAP
+                vwap_now = ws_vwap
+                # Fallback: Calculate from websocket ticks if incremental not available
+                if vwap_now is None:
+                    vwap_now = _calculate_tick_based_vwap(s)
+                
+                # Direction calculation (uses yfinance df as last resort for trend)
                 vwap_dir = calc_vwap_direction(df_pos, window=3) if df_pos is not None else 0
                 entry = positions[s].get("entry_price", 0)
                 gain_pct = (price - entry) / entry if entry else 0
@@ -1647,7 +1753,11 @@ def slow_poll(regime: dict):
             continue
 
         price, df_pos, _, ws_vwap = fetch_data(symbol)
-        vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df_pos) if df_pos is not None else None)
+        # Primary: WebSocket incremental VWAP
+        vwap_now = ws_vwap
+        # Fallback: Tick-based VWAP from ws_prices
+        if vwap_now is None:
+            vwap_now = _calculate_tick_based_vwap(symbol.replace(".SR", ""))
         if price is None:
             continue
 
@@ -2017,9 +2127,18 @@ def slow_poll(regime: dict):
         # ── Regime + VWAP Direction Filter ──────────────────────────────────
         # In NEUTRAL/DEFENSIVE, only enter if VWAP is rising
         if regime_name in ["NEUTRAL", "DEFENSIVE"]:
-            vwap_now = ws_vwap if ws_vwap is not None else (calc_vwap(df) if df is not None else None)
-            if vwap_now:
-                vwap_dir = calc_vwap_direction(df, window=5)
+            # Primary: WebSocket incremental VWAP
+            vwap_now = ws_vwap
+            # Fallback: Calculate from websocket ticks
+            if vwap_now is None:
+                vwap_now = _calculate_tick_based_vwap(base)
+            
+            # Final fallback: Use targets/time constraints (no VWAP entry filter)
+            if vwap_now is None:
+                log.info(f"{base} No VWAP available - using targets/time constraints only")
+            else:
+                # Use yfinance df for direction only (not for VWAP value)
+                vwap_dir = calc_vwap_direction(df, window=5) if df is not None else 0
                 if vwap_dir <= 0:
                     log.info(f"{base} skipped - VWAP falling in {regime_name} regime (dir={vwap_dir:.4f})")
                     continue
