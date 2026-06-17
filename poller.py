@@ -1621,17 +1621,36 @@ def calc_vwap_direction(df: pd.DataFrame, window: int = 5) -> float:
 #   - Never: calc_vwap() for real-time decisions (15-min delayed)
 
 def check_vwap_reclaim(df: pd.DataFrame, vwap: float) -> bool:
+    """
+    Check if price is reclaiming VWAP with volume confirmation.
+    Uses 1-minute candles from websocket data for more accurate timing.
+    Falls back to 5-min yfinance data if 1-min not available.
+    """
     if len(df) < 2:
         return False
-    prev_close = float(df["Close"].iloc[-2])
-    curr_close = float(df["Close"].iloc[-1])
-    avg_vol    = float(df["Volume"].mean())
-    curr_vol   = float(df["Volume"].iloc[-1])
-
+    
+    # Try 1-min candles first for more accurate entry timing
+    now = datetime.now(RIYADH)
+    date_str = now.strftime('%Y-%m-%d')
+    candles_1m = build_1min_candles(df.index[0].strftime('%Y-%m-%d') if hasattr(df.index[0], 'strftime') else date_str)
+    
+    if candles_1m is not None and len(candles_1m) >= 2:
+        # Use last 2 candles from 1-min data
+        recent = candles_1m.tail(2)
+        prev_close = float(recent["Close"].iloc[0])
+        curr_close = float(recent["Close"].iloc[-1])
+        avg_vol = float(candles_1m["Volume"].mean())
+        curr_vol = float(recent["Volume"].iloc[-1])
+    else:
+        # Fallback to 5-min data
+        prev_close = float(df["Close"].iloc[-2])
+        curr_close = float(df["Close"].iloc[-1])
+        avg_vol = float(df["Volume"].mean())
+        curr_vol = float(df["Volume"].iloc[-1])
+    
     # Relaxed volume threshold (0.5 instead of 0.8) for midday choppy markets
-    # Original: curr_vol > avg_vol * 0.8
     volume_ok = curr_vol > avg_vol * 0.5
-
+    
     return prev_close < vwap < curr_close and volume_ok
 
 def check_breakout(df: pd.DataFrame) -> bool:
@@ -2313,7 +2332,9 @@ def slow_poll(regime: dict):
                     log.info(f"Gap-up entry: {base} price={price:.2f} zone={e_lo}-{e_hi} tier={tier} pos={position_idx}/{max_positions} size={use_pct}")
 
         # ── VWAP reclaim entry ──────────────────────────────────────────────
-        vwap = calc_vwap(df)
+        # Use WebSocket incremental VWAP first, fallback to yfinance
+        ws_vwap = get_ws_vwap(base)
+        vwap = ws_vwap if ws_vwap is not None else calc_vwap(df)
         key_vwap = f"{base}_vwap_entry"
         if vwap and check_vwap_reclaim(df, vwap) and key_vwap not in _alerted:
             # Check position limit again
