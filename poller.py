@@ -1611,6 +1611,42 @@ def calc_vwap_direction(df: pd.DataFrame, window: int = 5) -> float:
     except Exception:
         return 0.0
 
+# ─── Dynamic Time Stop Helper ───────────────────────────────────────────────
+
+def _time_stop_triggered(entry_time: datetime, regime: str, now: datetime) -> bool:
+    """
+    Check if dynamic time stop should trigger based on entry time and regime.
+    
+    TRENDING: No time stop (return False always)
+    NEUTRAL: Before 10:30 -> 12:00, 10:30-12:00 -> 14:00, After 12:00 -> 14:30
+    DEFENSIVE: Before 10:30 -> 11:30, 10:30-12:00 -> 13:00, After 12:00 -> 14:00
+    """
+    if regime == "TRENDING":
+        return False  # No time stops in trending markets
+    
+    if entry_time is None:
+        return False
+    
+    hour = entry_time.hour
+    minute = entry_time.minute
+    
+    if regime == "NEUTRAL":
+        if hour < 10 or (hour == 10 and minute < 30):
+            stop_time = entry_time.replace(hour=12, minute=0)
+        elif hour < 12:
+            stop_time = entry_time.replace(hour=14, minute=0)
+        else:
+            stop_time = entry_time.replace(hour=14, minute=30)
+    else:  # DEFENSIVE
+        if hour < 10 or (hour == 10 and minute < 30):
+            stop_time = entry_time.replace(hour=11, minute=30)
+        elif hour < 12:
+            stop_time = entry_time.replace(hour=13, minute=0)
+        else:
+            stop_time = entry_time.replace(hour=14, minute=0)
+    
+    return now >= stop_time
+
 # ─── calc_vwap NOTE ──────────────────────────────────────────────────────────
 # calc_vwap() below uses yfinance OHLCV data. This is ONLY used for:
 # 1. VWAP direction calculation (trend, not absolute value)
@@ -1955,14 +1991,14 @@ def slow_poll(regime: dict):
             _alerted.add(key_trail)
             log.info(f"Trail stop: {symbol} peak={peak:.2f} now={price:.2f}")
 
-        elif (mins_held >= time_stop_mins and gain_pct <= -time_stop_pct
-              and key_time_stop not in _alerted):
+        elif (gain_pct <= -time_stop_pct and key_time_stop not in _alerted and
+              _time_stop_triggered(entry_time, regime, now)):
             auto_sell(symbol, qty,
                       f"⏱ Time stop | Held {int(mins_held)} min | Entry: {entry:.2f} | Now: {price:.2f} ({gain_pct*100:.1f}%)",
                       trigger_basis=TRIGGER_TIME_STOP,
-                      trigger_detail=f"Time stop: held {int(mins_held)}min, gain={gain_pct*100:.1f}% (threshold: <{time_stop_pct*100:.1f}% after {time_stop_mins}min)")
+                      trigger_detail=f"Time stop: held {int(mins_held)}min, gain={gain_pct*100:.1f}% (regime: {regime})")
             _alerted.add(key_time_stop)
-            log.info(f"Time stop: {symbol} held={int(mins_held)}min gain={gain_pct*100:.1f}%")
+            log.info(f"Time stop: {symbol} held={int(mins_held)}min gain={gain_pct*100:.1f}% regime={regime}")
 
         # ── v4.1: VWAP breakdown exit (ALL positions, not just vwap_reclaim signals) ──
         # v4.4: Combined recovery logic — min hold + breakeven hold + recovery probability
