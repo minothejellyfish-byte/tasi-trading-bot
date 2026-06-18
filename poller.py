@@ -1908,6 +1908,9 @@ def slow_poll(regime: dict):
             except Exception:
                 pass
 
+        # Minimum hold time for trail stops (to avoid spread noise)
+        MIN_HOLD_MINS = 15
+
         key_stop      = f"{symbol}_hard_stop"
         key_trail     = f"{symbol}_trail"
         key_time_stop = f"{symbol}_time_stop"
@@ -1944,11 +1947,11 @@ def slow_poll(regime: dict):
             _alerted.add(key_target)
             log.info(f"Target +{int(win_pct*100)}%: {symbol} gain={gain_pct*100:.1f}% (qty=1, no tiers)")
 
-        elif peak_pct >= trail_trigger and drop_from_peak >= trail_stop_pct and key_trail not in _alerted:
+        elif drop_from_peak >= trail_stop_pct and mins_held >= MIN_HOLD_MINS and key_trail not in _alerted:
             auto_sell(symbol, qty,
                       f"📉 Trailing stop | Peak: {peak:.2f} (+{peak_pct*100:.1f}%) | Now: {price:.2f} (-{drop_from_peak*100:.1f}% from peak)",
                       trigger_basis=TRIGGER_TRAILING_STOP,
-                      trigger_detail=f"Trail stop: peak={peak:.2f} ({peak_pct*100:.1f}%), drop={drop_from_peak*100:.1f}% (threshold: {trail_stop_pct*100:.1f}%)")
+                      trigger_detail=f"Trail stop: peak={peak:.2f} ({peak_pct*100:.1f}%), drop={drop_from_peak*100:.1f}% (threshold: {trail_stop_pct*100:.1f}%) [fixed: entry-based]")
             _alerted.add(key_trail)
             log.info(f"Trail stop: {symbol} peak={peak:.2f} now={price:.2f}")
 
