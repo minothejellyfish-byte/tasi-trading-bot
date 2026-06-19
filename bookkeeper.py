@@ -290,14 +290,14 @@ def scrape_dashboard_cash(tokens: dict = None) -> dict:
                     for i, line in enumerate(lines):
                         ll = line.lower()
                         if "grand total" in ll and i + 1 < len(lines):
-                            m = re.search(r'(\d+\.\d{2})', lines[i + 1])
-                            if m: cash_data["grand_total"] = float(m.group(1))
+                            m = re.search(r'(\d{1,3}(?:,\d{3})*\.\d{2})', lines[i + 1])
+                            if m: cash_data["grand_total"] = float(m.group(1).replace(',', ''))
                         elif "money transfer" in ll and i + 1 < len(lines):
-                            m = re.search(r'(\d+\.\d{2})', lines[i + 1])
-                            if m: cash_data["money_transfer"] = float(m.group(1))
+                            m = re.search(r'(\d{1,3}(?:,\d{3})*\.\d{2})', lines[i + 1])
+                            if m: cash_data["money_transfer"] = float(m.group(1).replace(',', ''))
                         elif "total cash" in ll and i + 1 < len(lines):
-                            m = re.search(r'(\d+\.\d{2})', lines[i + 1])
-                            if m: cash_data["cash_accounts"] = float(m.group(1))
+                            m = re.search(r'(\d{1,3}(?:,\d{3})*\.\d{2})', lines[i + 1])
+                            if m: cash_data["cash_accounts"] = float(m.group(1).replace(',', ''))
                     
                     return {"success": True, **cash_data, "source": "dashboard"}
             return {"success": False, "error": "Dashboard tab not found"}
@@ -647,12 +647,12 @@ def reconcile_orders() -> dict:
             
             for api_oid, api_data in api_order_map.items():
 
-            # For orders with id "?", Derayah may split into multiple child orders
-            # Find ALL matching children that sum to parent qty
-            matched_children = []
-            remaining_qty = local_qty
-            best_time_diff = float('inf')
-            best_match = None
+                # For orders with id "?", Derayah may split into multiple child orders
+                # Find ALL matching children that sum to parent qty
+                matched_children = []
+                remaining_qty = local_qty
+                best_time_diff = float('inf')
+                best_match = None
         
             for api_oid, api_data in api_order_map.items():
                 if api_data["our_status"] == STATUS_FILLED:
