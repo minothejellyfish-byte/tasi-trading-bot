@@ -24,7 +24,8 @@ RIYADH = pytz.timezone("Asia/Riyadh")
 BASE_DIR = Path("/home/mino/tasi-exec")
 SHARIA_FILE = BASE_DIR / "sharia_list.json"
 PICKS_FILE = BASE_DIR / "picks.json"
-WS_FRAMES_FILE = BASE_DIR / "ws_frames.json"
+WS_PRICES_FILE = BASE_DIR / f"ws_prices_{datetime.now(RIYADH).strftime('%Y-%m-%d')}.jsonl"
+WS_FRAMES_FILE = BASE_DIR / "ws_frames.json"  # Deprecated: kept for compatibility
 CACHE_FILE = BASE_DIR / "pm_cache.json"
 SYSTEM_REF = Path("/home/mino/.openclaw-mino/workspace/TASI_SYSTEM_REFERENCE.md")
 
@@ -113,40 +114,53 @@ def save_cache(data: dict):
         json.dump({"date": today, "data": data}, f)
 
 
-def fetch_from_ws_frames(symbol: str, date_str: str) -> dict | None:
+def fetch_from_ws_prices(symbol: str, date_str: str) -> dict | None:
     """
-    Fetch OHLCV from WebSocket price frames captured during trading.
+    Fetch OHLCV from WebSocket price data logged by poller ws_listener.
     Returns dict with open, high, low, close, volume or None.
     """
     try:
-        with open(WS_FRAMES_FILE) as f:
-            ws_data = json.load(f)
-        
-        # ws_frames.json structure: { "frames": [{ "timestamp": "...", "symbol": "1010", "price": 45.2, "volume": 1000 }, ...] }
-        frames = ws_data.get("frames", [])
-        
-        # Filter frames for this symbol and date
-        symbol_frames = [
-            f for f in frames 
-            if f.get("symbol") == symbol.replace(".SR", "")
-            and date_str in f.get("timestamp", "")
-        ]
-        
-        if not symbol_frames:
+        ws_file = BASE_DIR / f"ws_prices_{date_str}.jsonl"
+        if not ws_file.exists():
             return None
         
-        prices = [f["price"] for f in symbol_frames]
-        volumes = [f.get("volume", 0) for f in symbol_frames]
+        # Filter lines for this symbol
+        symbol_lines = []
+        with open(ws_file) as f:
+            for line in f:
+                try:
+                    d = json.loads(line)
+                    if d.get("symbol") == symbol.replace(".SR", ""):
+                        symbol_lines.append(d)
+                except:
+                    continue
         
+        if not symbol_lines:
+            return None
+        
+        # Sort by timestamp
+        symbol_lines.sort(key=lambda x: x.get("ts", 0))
+        
+        prices = [d["price"] for d in symbol_lines]
+        # Volume not tracked in ws_prices, use 0
         return {
             "open": prices[0],
             "high": max(prices),
             "low": min(prices),
             "close": prices[-1],
-            "volume": sum(volumes),
+            "volume": 0,  # ws_prices doesn't track volume
         }
     except Exception:
         return None
+
+
+# Keep old function for backward compatibility
+def fetch_from_ws_frames(symbol: str, date_str: str) -> dict | None:
+    """
+    DEPRECATED: Use fetch_from_ws_prices instead.
+    ws_frames.json is no longer populated with price data.
+    """
+    return fetch_from_ws_prices(symbol, date_str)
 
 
 def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
@@ -158,8 +172,8 @@ def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
     if symbol in cache:
         return symbol, cache[symbol]
     
-    # Fallback 1: WebSocket frames (real-time captured data)
-    ws_data = fetch_from_ws_frames(symbol, date_str)
+    # Fallback 1: WebSocket prices (real-time captured data from poller)
+    ws_data = fetch_from_ws_prices(symbol, date_str)
     if ws_data:
         result = {
             "symbol": symbol,
@@ -885,9 +899,11 @@ def generate_report(date_str: str, pick_analysis: list, performances: list,
         for ta in trade_analysis:
             if ta.get("has_trade"):
                 emoji = "🟢" if ta.get("actual_pnl", 0) > 0 else "🔴"
+                buy_price = ta.get('buy_price')
+                buy_str = f"{buy_price:.2f}" if buy_price is not None else "N/A"
                 report.append(
                     f"{emoji} <b>{ta['symbol']}</b> | "
-                    f"Entry: {ta['buy_price']:.2f} → Exit: {ta.get('sell_price', 'N/A')} | "
+                    f"Entry: {buy_str} → Exit: {ta.get('sell_price', 'N/A')} | "
                     f"P&L: {ta.get('actual_pnl', 0):+.2f} | "
                     f"Hold: {ta.get('hold_time_min', 0)}min"
                 )

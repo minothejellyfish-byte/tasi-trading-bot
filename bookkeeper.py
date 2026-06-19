@@ -386,7 +386,13 @@ def quick_refresh() -> dict:
     
     Capital: from dashboard scraping (Grand Total, Money Transfer)
     Positions/Orders: from Derayah API
+    Orders.json: pruned of terminal orders
     """
+    # ── 0. Prune terminal orders from orders.json ─────────────────────
+    prune_result = prune_orders_json_terminal()
+    if prune_result.get("pruned", 0) > 0:
+        print(f"[{_now()}] Pruned {prune_result['pruned']} terminal orders from orders.json")
+    
     # ── 1. Get capital from dashboard scrape ──────────────────────────
     scrape = scrape_dashboard_cash()
     
@@ -579,7 +585,7 @@ def reconcile_orders() -> dict:
             "symbol": str(o.get("symbol", "")).replace(".SR", ""),
             "side": "BUY" if o.get("side") == 1 else "SELL",
             "qty": o.get("quantity", 0),
-            "price": o.get("price", 0),
+            "price": o.get("averagePrice") if o.get("status") == 12 and o.get("averagePrice") else o.get("price", 0),
             "type": "MARKET" if o.get("price", 0) == 0 else "LIMIT",
             "order_date": o.get("orderDate") or o.get("orderDateTime"),
         }
@@ -847,11 +853,11 @@ def reconcile_orders() -> dict:
                     from history_io import read_order_history
                     existing = read_order_history(last_n_orders=50, days=1)
                     
-                    # Create unique key
-                    unique_key = f"{oid}_{o.get('symbol', '')}_{o.get('side', '')}_{o.get('price', 0)}"
+                    # Create unique key (WITHOUT price — to allow retroactive price corrections)
+                    unique_key = f"{oid}_{o.get('symbol', '')}_{o.get('side', '')}_{o.get('qty', 0)}"
                     is_duplicate = False
                     for row in existing:
-                        row_key = f"{row.get('order_id', '')}_{row.get('symbol', '')}_{row.get('side', '')}_{row.get('price', 0)}"
+                        row_key = f"{row.get('order_id', '')}_{row.get('symbol', '')}_{row.get('side', '')}_{row.get('qty', 0)}"
                         if row_key == unique_key and row.get('date') == today:
                             is_duplicate = True
                             skipped += 1
@@ -864,7 +870,7 @@ def reconcile_orders() -> dict:
                             "symbol": o.get("symbol", ""),
                             "side": o.get("side", ""),
                             "qty": o.get("qty", 0),
-                            "price": o.get("price", 0),
+                            "price": o.get("averagePrice") if o.get("status") == 12 and o.get("averagePrice") else o.get("price", 0),
                             "type": o.get("type", ""),
                             "status": _status_name(o.get("status", 0)),
                             "initiated_by": o.get("initiated_by", "derayah-direct"),
@@ -940,6 +946,8 @@ def record_daily_pnl(date_str: str = None, notes: str = "") -> dict:
     # Auto-detect deposits/withdrawals (>= 100 SAR threshold)
     deposits = 0.0
     withdrawals = 0.0
+    correction = 0.0
+    
     if abs(account_change) >= 100:
         # Significant capital movement detected
         if account_change > 0:
@@ -949,8 +957,24 @@ def record_daily_pnl(date_str: str = None, notes: str = "") -> dict:
             withdrawals = abs(account_change)
             notes = f"Withdrawal detected: -{withdrawals:.2f} SAR. {notes}"
     else:
-        # Small change = trading variance, use calculated PnL
-        pass
+        # Small change = trading variance or rounding
+        # Check if there's a discrepancy between calculated and actual capital
+        expected_total = previous_total + realized_pnl + deposits - withdrawals
+        discrepancy = round(total - expected_total, 2)
+        
+        if abs(discrepancy) >= 0.01 and abs(discrepancy) < 100:
+            # Rounding correction — adjust PnL to match actual capital
+            correction = discrepancy
+            realized_pnl = round(realized_pnl + correction, 2)
+            notes = f"Capital reconciliation: corrected PnL by {correction:+.2f} SAR (rounding). {notes}"
+        elif abs(discrepancy) >= 100:
+            # Large discrepancy — likely a fund/withdrawal that wasn't detected
+            if discrepancy > 0:
+                deposits = discrepancy
+                notes = f"Fund/Deposit detected: +{deposits:.2f} SAR. {notes}"
+            else:
+                withdrawals = abs(discrepancy)
+                notes = f"Withdrawal detected: -{withdrawals:.2f} SAR. {notes}"
 
     append_daily_pnl(
         date=date_str,
@@ -1150,37 +1174,153 @@ def calculate_fees(trade_value: float) -> dict:
         "total": round(total, 2),
     }
 
-def get_daily_pnl(date_str: str = None) -> dict:
-    """Calculate P&L for a specific date using FIFO matching from order_history.csv."""
+def get_daily_pnl(date_str: str = None, use_full_fifo: bool = True) -> dict:
+    """
+    Calculate P&L for a specific date using FIFO matching from order_history.csv.
+    
+    If use_full_fifo=True (default): Sells are matched against ALL previous buys
+    across all dates, not just same-day buys. This is proper FIFO accounting where
+    realized PnL is counted on the sell date.
+    
+    If use_full_fifo=False: Only matches same-day buys and sells (round-trip only).
+    """
     if date_str is None:
         date_str = _today()
     
-    # Read from order_history.csv (reliable source)
+    from history_io import read_order_history
+    
+    # Read all orders (not just last 1000, we need full history for FIFO)
+    orders = read_order_history(last_n_orders=999999, days=9999)
+    
+    # Normalize date format: date_str is YYYY-MM-DD, CSV uses MM-DD
+    target_date = date_str
+    if len(date_str) == 10 and date_str.count("-") == 2:
+        target_date = date_str[5:]  # Extract MM-DD
+    
+    # Deduplicate and sort by date/time for proper FIFO
+    seen_ids = set()
+    all_orders = []
+    for o in orders:
+        if o.get("status") == "FILLED":
+            oid = o.get("order_id", "")
+            if oid and oid.startswith("TEST"):
+                continue
+            if oid and oid not in seen_ids:
+                seen_ids.add(oid)
+                all_orders.append(o)
+            elif not oid:
+                all_orders.append(o)
+    
+    # Sort by date then time for proper FIFO ordering
+    all_orders.sort(key=lambda x: (x.get("date", ""), x.get("time", "")))
+    
+    # Build FIFO queues for all buys up to and including target date
+    # For sells ON the target date, match against ALL previous buys
+    symbol_buys = defaultdict(list)  # Running buy queues per symbol
+    
+    pnl_data = {
+        "date": date_str,
+        "realized_pnl": 0,
+        "fees": 0,
+        "gross_pnl": 0,
+        "trades": [],
+    }
+    
+    for o in all_orders:
+        sym = o.get("symbol", "")
+        side = o.get("side", "")
+        qty = int(o.get("qty", 0))
+        price = float(o.get("price", 0))
+        order_date = o.get("date", "")
+        
+        if side == "BUY":
+            # Add to running buy queue (for future sells)
+            symbol_buys[sym].append({"qty": qty, "price": price, "date": order_date})
+        
+        elif side == "SELL":
+            if use_full_fifo and order_date == target_date:
+                # Match this sell against ALL previous buys in FIFO order
+                sell_qty = qty
+                sell_price = price
+                
+                buy_queue = symbol_buys[sym]
+                
+                while sell_qty > 0 and buy_queue:
+                    buy = buy_queue[0]
+                    buy_qty = buy["qty"]
+                    buy_price = buy["price"]
+                    
+                    matched = min(sell_qty, buy_qty)
+                    gross = matched * (sell_price - buy_price)
+                    
+                    # Estimate fees (0.0575% commission + VAT)
+                    trade_value = matched * sell_price
+                    commission = trade_value * 0.0005
+                    vat = commission * 0.15
+                    fees = commission + vat
+                    
+                    net = gross - fees
+                    
+                    pnl_data["realized_pnl"] += net
+                    pnl_data["gross_pnl"] += gross
+                    pnl_data["fees"] += fees
+                    
+                    pnl_data["trades"].append({
+                        "symbol": sym,
+                        "qty": matched,
+                        "buy_price": buy_price,
+                        "sell_price": sell_price,
+                        "gross": round(gross, 2),
+                        "fees": round(fees, 2),
+                        "net": round(net, 2),
+                    })
+                    
+                    sell_qty -= matched
+                    buy["qty"] -= matched
+                    if buy["qty"] <= 0:
+                        buy_queue.pop(0)
+            
+            elif not use_full_fifo and order_date == target_date:
+                # Only match against same-day buys (legacy behavior)
+                # Build fresh queues for just this day
+                pass  # Will implement below
+    
+    # If not using full FIFO, fall back to old same-day-only behavior
+    if not use_full_fifo:
+        return _get_daily_pnl_legacy(date_str)
+    
+    pnl_data["realized_pnl"] = round(pnl_data["realized_pnl"], 2)
+    pnl_data["gross_pnl"] = round(pnl_data["gross_pnl"], 2)
+    pnl_data["fees"] = round(pnl_data["fees"], 2)
+    
+    return pnl_data
+
+
+def _get_daily_pnl_legacy(date_str: str = None) -> dict:
+    """Legacy same-day-only PnL calculation (for backward compatibility)."""
+    if date_str is None:
+        date_str = _today()
+    
     from history_io import read_order_history
     orders = read_order_history(last_n_orders=1000, days=1)
     
-    # Normalize date format: date_str is YYYY-MM-DD, CSV uses MM-DD
     search_date = date_str
     if len(date_str) == 10 and date_str.count("-") == 2:
-        search_date = date_str[5:]  # Extract MM-DD
+        search_date = date_str[5:]
     
-    # Deduplicate by order_id (bookkeeper may append duplicates)
-    # Also filter out test orders
     seen_ids = set()
     day_orders = []
     for o in orders:
         if o.get("date") == search_date and o.get("status") == "FILLED":
             oid = o.get("order_id", "")
-            # Skip test orders
             if oid and oid.startswith("TEST"):
                 continue
             if oid and oid not in seen_ids:
                 seen_ids.add(oid)
                 day_orders.append(o)
             elif not oid:
-                day_orders.append(o)  # Include orders without ID
+                day_orders.append(o)
     
-    # Separate buys and sells by symbol
     buys = defaultdict(list)
     sells = defaultdict(list)
     
@@ -1219,7 +1359,6 @@ def get_daily_pnl(date_str: str = None) -> dict:
                 matched = min(sell_qty, buy_qty)
                 gross = matched * (sell_price - buy_price)
                 
-                # Estimate fees (0.0575% commission + VAT)
                 trade_value = matched * sell_price
                 commission = trade_value * 0.0005
                 vat = commission * 0.15

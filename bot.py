@@ -1470,7 +1470,7 @@ async def handle_hiscap_command(update, context):
             return
         
         lines = ["💰 <b>Historical Capital (Last 10 Trading Days)</b>", ""]
-        lines.append("<code>Date       | Start    | End      | PnL      | PnL%   | Trades</code>")
+        lines.append("<code>Date       | Capital  | Trading  | +/-      | %      | Tx</code>")
         lines.append("<code>-----------+----------+----------+----------+--------+-------</code>")
         
         total_pnl = 0.0
@@ -1480,24 +1480,34 @@ async def handle_hiscap_command(update, context):
         for row in rows:
             date_str = row.get("date", "?")
             total = float(row.get("total", 0) or 0)
-            pnl = float(row.get("pnl", 0) or 0)
+            pnl = float(row.get("pnl", 0) or 0)  # Trading PnL only
             trades = row.get("trades", 0)
+            deposits = float(row.get("deposits", 0) or 0)
+            withdrawals = float(row.get("withdrawals", 0) or 0)
             
-            # Calculate actual capital-based PnL
+            # Calculate account value change (includes deposits/withdrawals)
             if prev_total is not None:
-                day_pnl = round(total - prev_total, 2)
+                account_change = round(total - prev_total, 2)
                 start_str = f"{prev_total:.2f}"
-                pnl_pct = (day_pnl / prev_total) * 100 if prev_total != 0 else 0
+                # PnL% based on TRADING PnL only, not account change
+                pnl_pct = (pnl / prev_total) * 100 if prev_total != 0 else 0
             else:
-                day_pnl = pnl  # First day, use stored PnL
+                account_change = pnl
                 start_str = "N/A"
-                # For first day, use default starting capital of 1000 to calculate PnL%
                 pnl_pct = (pnl / 1000) * 100 if pnl != 0 else 0
             
-            total_pnl += day_pnl
+            total_pnl += pnl  # Sum trading PnL, not account change
             
-            emoji = "🟢" if day_pnl >= 0 else "🔴"
-            lines.append(f"<code>{date_str} | {start_str:<8} | {total:>8.2f} | {day_pnl:>+8.2f} | {pnl_pct:>+6.2f}% | {trades:>5}</code> {emoji}")
+            emoji = "🟢" if pnl >= 0 else "🔴"
+            
+            # Build +/- column: trading PnL with fund/withdraw indicators
+            plus_minus = ""
+            if deposits > 0:
+                plus_minus += f" +{deposits:.0f}💰"
+            if withdrawals > 0:
+                plus_minus += f" -{withdrawals:.0f}🏧"
+            
+            lines.append(f"<code>{date_str} | {total:>8.2f} | {pnl:>+8.2f} | {plus_minus:<8} | {pnl_pct:>+5.2f}% | {trades:>5}</code> {emoji}")
             
             prev_total = total
         
@@ -1511,7 +1521,7 @@ async def handle_hiscap_command(update, context):
                 total_pnl_pct = (total_pnl / first_total) * 100
             else:
                 total_pnl_pct = 0
-            lines.append(f"<code>           |          |          | {total_pnl:>+8.2f} | {total_pnl_pct:>+6.2f}% |       </code> {emoji} <b>Total</b>")
+            lines.append(f"<code>           |          | {total_pnl:>+8.2f} |          | {total_pnl_pct:>+5.2f}% |       </code> {emoji} <b>Total Trading PnL</b>")
         
         await update.message.reply_text("\n".join(lines), parse_mode=ParseMode.HTML)
     except Exception as e:
