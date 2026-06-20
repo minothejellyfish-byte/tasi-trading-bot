@@ -2448,6 +2448,18 @@ def slow_poll(regime: dict):
             else:
                 log.info(f"{base} liquidity_ratio={liq_ratio:.2f} >= {liq_min} — buy pressure confirmed")
 
+        # v4.7b: Spread filter entry gate (Phase 2)
+        if r_params.get("enable_spread_filter", False):
+            cache = _ws_price_cache.get(base, {})
+            spread = cache.get("spread_pct", 0.0)
+            max_spread = r_params.get("max_spread_pct", 1.0)
+            
+            if spread > max_spread:
+                log.info(f"{base} ENTRY BLOCKED: spread={spread:.2f}% > max={max_spread}% — poor execution quality")
+                continue  # Skip entry
+            else:
+                log.info(f"{base} spread={spread:.2f}% <= {max_spread}% — execution quality acceptable")
+
         e_hi = pick.get("entry_high", 0)
         e_lo = pick.get("entry_low", 0)
         if e_hi == 0 or e_lo == 0:

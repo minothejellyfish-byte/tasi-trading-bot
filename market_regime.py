@@ -40,7 +40,7 @@ REGIME_PARAMS = {
         "liquidity_exit_confirm": 0.5, # Below = confirmed breakdown
         "liquidity_hold_min":  1.5,    # Above = hold despite breakdown
         # v4.7b: Spread filter parameters
-        "enable_spread_filter": False,  # Phase 1: log-only
+        "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
         "max_spread_pct":      1.5,    # Lenient — momentum stocks often wider
     },
     "NEUTRAL":   {
@@ -60,8 +60,8 @@ REGIME_PARAMS = {
         "liquidity_exit_confirm": 0.5,
         "liquidity_hold_min":  1.5,
         # v4.7b: Spread filter parameters
-        "enable_spread_filter": False,  # Phase 1: log-only
-        "max_spread_pct":      1.0,    # Standard — normal market conditions,
+        "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
+        "max_spread_pct":      1.0,    # Standard — normal market conditions
     },
     "DEFENSIVE": {
         "strategy":         "B",
@@ -80,7 +80,7 @@ REGIME_PARAMS = {
         "liquidity_exit_confirm": 0.6,  # Tighter — faster exit
         "liquidity_hold_min":  1.6,    # Need stronger confirmation to hold
         # v4.7b: Spread filter parameters
-        "enable_spread_filter": False,  # Phase 1: log-only
+        "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
         "max_spread_pct":      0.5,    # Strict — only enter in liquid markets
     },
 }
