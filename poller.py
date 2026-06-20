@@ -105,6 +105,9 @@ _ws_price_cache: dict = {}
 _ws_cache_lock = threading.Lock()
 _ws_listener_thread: threading.Thread | None = None
 
+# v4.9: Position upgrade tracking — prevent duplicate buys per cycle
+_upgrade_target_this_cycle: str | None = None
+
 # ─── Incremental WebSocket VWAP State ──────────────────────────────────────
 # Per-symbol cumulative state for real-time VWAP calculation.
 # Structure: {symbol: {"cum_pv": float, "cum_weight": float, "ticks": int, "reset_time": float}}
@@ -1753,6 +1756,105 @@ def _reset_symbol_alerts(symbol: str):
         _alerted.discard(symbol + suffix)
         _alerted.discard(symbol.replace(".SR", "") + suffix)
 
+
+# v4.9: Position drop score calculation for upgrade prioritization
+def _calculate_drop_score(symbol: str, pos: dict, price: float, df, regime_params: dict, picks_all: list) -> float:
+    """
+    Calculate drop score — lower = weaker position, candidate for upgrade.
+    Components:
+    - PnL (30%): Current gain/loss
+    - Recovery (25%): Candle recovery score + liquidity
+    - Profit rate (20%): Progress toward target vs time held
+    - Momentum (15%): Score vs best available picks
+    - Liquidity (10%): Current bid/ask ratio
+    """
+    entry = pos.get("entry_price", 0)
+    entry_time = pos.get("entry_time")
+    
+    # PnL component (30%)
+    if entry and price and entry > 0:
+        pnl_pct = (price - entry) / entry
+        pnl_score = 50 + pnl_pct * 1000  # 0% = 50, +5% = 100, -5% = 0
+        pnl_score = max(0, min(100, pnl_score))
+    else:
+        pnl_score = 50
+    
+    # Recovery component (25%)
+    recovery_score = 50  # default neutral
+    if df is not None and len(df) >= 10:
+        try:
+            recent = df.tail(10)
+            closes = [float(c) for c in recent["Close"]]
+            rising = sum(1 for i in range(1, len(closes)) if closes[i] > closes[i-1])
+            recovery_prob = rising / (len(closes) - 1) if len(closes) > 1 else 0.5
+            recovery_score = recovery_prob * 100
+        except:
+            pass
+    
+    # Profit rate component (20%)
+    target_pct = regime_params.get("target_pct", 0.02)
+    if entry_time and entry and price:
+        try:
+            et = datetime.fromisoformat(entry_time)
+            if et.tzinfo is None:
+                et = et.replace(tzinfo=RIYADH)
+            mins_held = (datetime.now(RIYADH) - et).total_seconds() / 60
+            pnl_pct = (price - entry) / entry
+            progress = pnl_pct / target_pct if target_pct else 0
+            time_efficiency = progress / max(mins_held / 60, 0.5)
+            profit_rate_score = max(0, min(100, 50 + time_efficiency * 50))
+        except:
+            profit_rate_score = 50
+    else:
+        profit_rate_score = 50
+    
+    # Momentum component (15%)
+    current_pick = next((p for p in picks_all if p["symbol"].replace(".SR", "") == symbol.replace(".SR", "")), None)
+    current_score = current_pick.get("score", 0) if current_pick else 0
+    best_score = max((p.get("score", 0) for p in picks_all), default=current_score)
+    momentum_score = (current_score / max(best_score, 1)) * 100
+    
+    # Liquidity component (10%)
+    cache = _ws_price_cache.get(symbol.replace(".SR", ""), {})
+    liq_ratio = cache.get("liquidity_ratio", 1.0)
+    liquidity_score = min(100, liq_ratio * 50)
+    
+    # Weighted composite
+    drop_score = (
+        pnl_score * 0.30 +
+        recovery_score * 0.25 +
+        profit_rate_score * 0.20 +
+        momentum_score * 0.15 +
+        liquidity_score * 0.10
+    )
+    
+    return drop_score
+
+
+# v4.9: Capital-based qty calculation for upgrades
+def _calculate_upgrade_qty(symbol: str, price: float, capital: dict, position_pct: float) -> int:
+    """
+    Calculate qty for upgrade based on position_pct of total capital.
+    Validates against available cash.
+    """
+    total_capital = capital.get("grand_total", 0)
+    available = capital.get("money_transfer", 0)
+    
+    if total_capital <= 0 or price <= 0:
+        return 1
+    
+    target_value = total_capital * position_pct
+    qty = max(1, int(target_value / price))
+    
+    # Validate against available cash (95% buffer)
+    order_value = qty * price
+    if order_value > available * 0.95:
+        qty = max(1, int((available * 0.95) / price))
+        log.info(f"v4.9 capital: {symbol} qty reduced to {qty} due to cash limit (available={available:.0f}, needed={order_value:.0f})")
+    
+    return qty
+
+
 def fast_poll(regime: dict):
     """
     Runs every 10 seconds - pure file I/O, no network.
@@ -2233,12 +2335,35 @@ def slow_poll(regime: dict):
     open_count = sum(1 for p in positions.values() if not p.get("closed"))
     max_positions = r_params.get("max_positions", 3)
 
-    # ── POSITION UPGRADE LOGIC ─────────────────────────────────────────────
+    # ── v4.9: POSITION UPGRADE LOGIC — REDESIGNED ──────────────────────────
     # If we have open positions AND max slots filled, evaluate upgrades
+    # Phase 1: Reset deduplication tracker at start of slow_poll
+    global _upgrade_target_this_cycle
+    _upgrade_target_this_cycle = None
+    
     if open_count >= max_positions:
-        # Check if any current pick is significantly worse than new top picks
-        current_symbols = [s for s, p in positions.items() if not p.get("closed")]
-        for current_sym in current_symbols:
+        # v4.9: Sort current positions by drop score (weakest first)
+        open_positions_list = [
+            (s, p) for s, p in positions.items() if not p.get("closed")
+        ]
+        
+        # Calculate drop score for each open position
+        scored_positions = []
+        for sym, pos in open_positions_list:
+            price, df_pos, _, _ = fetch_data(f"{sym}.SR")
+            if price:
+                drop_score = _calculate_drop_score(sym, pos, price, df_pos, r_params, picks_all)
+                scored_positions.append((sym, pos, drop_score))
+                log.info(f"v4.9 drop score: {sym} = {drop_score:.1f}")
+            else:
+                scored_positions.append((sym, pos, 50.0))  # default neutral
+        
+        # Sort by drop score ascending — weakest first
+        scored_positions.sort(key=lambda x: x[2])
+        
+        # Only evaluate upgrade for the WEAKEST position
+        if scored_positions:
+            current_sym, current_pos, drop_score = scored_positions[0]
             current_pick = next((p for p in picks_all if p["symbol"].replace(".SR", "") == current_sym), None)
             current_score = current_pick.get("score", 0) if current_pick else 0
             
@@ -2246,7 +2371,7 @@ def slow_poll(regime: dict):
             best_new = None
             for p in picks_all:
                 sym = p["symbol"].replace(".SR", "")
-                if sym not in current_symbols:
+                if sym not in [s for s, _, _ in scored_positions]:
                     best_new = p
                     break
             
@@ -2258,75 +2383,106 @@ def slow_poll(regime: dict):
                 bn_sym = best_new['symbol'].replace(".SR", "")
                 bn_price, bn_df, _, bn_vwap = fetch_data(best_new['symbol'])
                 
-                # FIX 1: Use entry_low/entry_high from root level (not entry_zone object)
-                e_lo = best_new.get("entry_low", 0)
-                e_hi = best_new.get("entry_high", 0)
-                
-                # CRITICAL: Only upgrade if new pick is IN ENTRY ZONE
-                if e_lo and e_hi and bn_price:
-                    if bn_price < e_lo or bn_price > e_hi:
-                        log.info(f"Position upgrade BLOCKED: {best_new['symbol']} score is better but OUTSIDE zone [{e_lo:.2f}-{e_hi:.2f}], price={bn_price:.2f}")
-                        continue  # Skip this upgrade — new pick not in zone
-                
-                # FIX 2: VWAP direction check for NEUTRAL/DEFENSIVE regimes
-                if regime_name in ["NEUTRAL", "DEFENSIVE"] and bn_df is not None:
-                    vwap_dir = calc_vwap_direction(bn_df, window=5)
-                    if vwap_dir <= 0:
-                        log.info(f"Position upgrade BLOCKED: {best_new['symbol']} VWAP falling in {regime_name} regime (dir={vwap_dir:.4f})")
-                        continue  # Skip — don't upgrade into falling momentum
-                
-                # v4.7: Liquidity direction gate for position upgrade (Phase 3)
-                if r_params.get("enable_liquidity", False):
-                    cache = _ws_price_cache.get(bn_sym, {})
-                    liq_ratio = cache.get("liquidity_ratio", 1.0)
-                    liq_min = r_params.get("liquidity_entry_min", 1.2)
-                    if liq_ratio < liq_min:
-                        log.info(f"Position upgrade BLOCKED: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} < {liq_min} — insufficient buy pressure for upgrade")
-                        continue  # Skip upgrade
-                    else:
-                        log.info(f"Position upgrade: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} >= {liq_min} — buy pressure confirmed")
-                
-                # Zone check passed — proceed with upgrade
-                current_price, _, _, _ = fetch_data(f"{current_sym}.SR")
-                current_pos = positions[current_sym]
-                entry = current_pos.get("entry_price", 0)
-                qty = current_pos.get("qty", "?")
-                
-                if current_price and entry:
-                    gain_pct = (current_price - entry) / entry
+                # v4.9: Deduplication — skip if already upgrading to this symbol this cycle
+                if _upgrade_target_this_cycle == bn_sym:
+                    log.info(f"v4.9 dedup: {current_sym} skipped — {bn_sym} already targeted this cycle")
+                else:
+                    # FIX 1: Use entry_low/entry_high from root level (not entry_zone object)
+                    e_lo = best_new.get("entry_low", 0)
+                    e_hi = best_new.get("entry_high", 0)
                     
-                    # Only switch if current position is NOT deep underwater
-                    if gain_pct >= -0.02:  # Don't switch if down >2%
-                        log.info(
-                            f"Position upgrade: {current_sym}(score={current_score:.0f}) → "
-                            f"{best_new['symbol']}(score={best_new.get('score',0):.0f}). "
-                            f"Current P&L: {gain_pct*100:+.1f}%"
-                        )
-                        tg_send(
-                            f"🔄 <b>Position Upgrade</b>\n"
-                            f"Closing {current_sym} (score {current_score:.0f}, P&L {gain_pct*100:+.1f}%)\n"
-                            f"Opening {best_new['symbol']} (score {best_new.get('score',0):.0f})\n"
-                            f"New pick has {best_new.get('score',0)/max(current_score,1):.1f}x momentum"
-                        )
-                        auto_sell(current_sym, qty, 
-                                  f"🔄 Position upgrade — switching to better momentum pick")
-                        open_count -= 1  # Free up slot
+                    # CRITICAL: Only upgrade if new pick is IN ENTRY ZONE
+                    zone_passed = True
+                    if e_lo and e_hi and bn_price:
+                        if bn_price < e_lo or bn_price > e_hi:
+                            log.info(f"Position upgrade BLOCKED: {best_new['symbol']} score is better but OUTSIDE zone [{e_lo:.2f}-{e_hi:.2f}], price={bn_price:.2f}")
+                            zone_passed = False
+                    
+                    if zone_passed:
+                        # FIX 2: VWAP direction check for NEUTRAL/DEFENSIVE regimes
+                        vwap_passed = True
+                        if regime_name in ["NEUTRAL", "DEFENSIVE"] and bn_df is not None:
+                            vwap_dir = calc_vwap_direction(bn_df, window=5)
+                            if vwap_dir <= 0:
+                                log.info(f"Position upgrade BLOCKED: {best_new['symbol']} VWAP falling in {regime_name} regime (dir={vwap_dir:.4f})")
+                                vwap_passed = False
                         
-                        # FIX 3: Immediately buy the new pick (guaranteed)
-                        if bn_price and e_lo and e_hi and e_lo <= bn_price <= e_hi:
-                            auto_buy(best_new['symbol'], qty, cycle_n=1, max_cyc=max_cycles,
-                                    price=bn_price, price_source="position_upgrade",
-                                    entry_zone={"e_lo": e_lo, "e_hi": e_hi},
-                                    trigger_basis=TRIGGER_POSITION_UPGRADE,
-                                    trigger_detail=f"Position upgrade from {current_sym}")
-                            open_count += 1  # Track new position
-                            log.info(f"Position upgrade complete: Sold {current_sym}, bought {best_new['symbol']} @ {bn_price:.2f}")
-                        else:
-                            log.warning(f"Position upgrade: Sold {current_sym} but {best_new['symbol']} no longer in zone, skipping buy")
-                        
-                        # Clear alert for new pick so it can trigger immediately
-                        best_sym = best_new["symbol"].replace(".SR", "")
-                        _reset_symbol_alerts(best_sym)
+                        if vwap_passed:
+                            # v4.7: Liquidity direction gate for position upgrade (Phase 3)
+                            liq_passed = True
+                            if r_params.get("enable_liquidity", False):
+                                cache = _ws_price_cache.get(bn_sym, {})
+                                liq_ratio = cache.get("liquidity_ratio", 1.0)
+                                liq_min = r_params.get("liquidity_entry_min", 1.2)
+                                if liq_ratio < liq_min:
+                                    log.info(f"Position upgrade BLOCKED: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} < {liq_min} — insufficient buy pressure for upgrade")
+                                    liq_passed = False
+                                else:
+                                    log.info(f"Position upgrade: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} >= {liq_min} — buy pressure confirmed")
+                            
+                            if liq_passed:
+                                # Zone/VWAP/liquidity all passed — proceed with upgrade
+                                current_price, _, _, _ = fetch_data(f"{current_sym}.SR")
+                                entry = current_pos.get("entry_price", 0)
+                                old_qty = current_pos.get("qty", "?")
+                                
+                                if current_price and entry:
+                                    gain_pct = (current_price - entry) / entry
+                                    
+                                    # Only switch if current position is NOT deep underwater
+                                    if gain_pct >= -0.02:  # Don't switch if down >2%
+                                        log.info(
+                                            f"Position upgrade: {current_sym}(score={current_score:.0f}, drop={drop_score:.1f}) → "
+                                            f"{best_new['symbol']}(score={best_new.get('score',0):.0f}). "
+                                            f"Current P&L: {gain_pct*100:+.1f}%"
+                                        )
+                                        tg_send(
+                                            f"🔄 <b>Position Upgrade</b>\n"
+                                            f"Closing {current_sym} (score {current_score:.0f}, P&L {gain_pct*100:+.1f}%, drop {drop_score:.1f})\n"
+                                            f"Opening {best_new['symbol']} (score {best_new.get('score',0):.0f})\n"
+                                            f"New pick has {best_new.get('score',0)/max(current_score,1):.1f}x momentum"
+                                        )
+                                        
+                                        # v4.9: Capital-based qty calculation
+                                        capital = load_capital()
+                                        new_qty = _calculate_upgrade_qty(
+                                            best_new['symbol'], bn_price, capital, position_pct
+                                        )
+                                        
+                                        auto_sell(current_sym, old_qty, 
+                                                  f"🔄 Position upgrade — switching to better momentum pick")
+                                        open_count -= 1  # Free up slot
+                                        
+                                        # Mark as targeted this cycle (deduplication)
+                                        _upgrade_target_this_cycle = bn_sym
+                                        
+                                        # FIX 3: Immediately buy the new pick (guaranteed if in zone)
+                                        if bn_price and e_lo and e_hi and e_lo <= bn_price <= e_hi:
+                                            # v4.9: Cash validation
+                                            available = capital.get("money_transfer", 0)
+                                            order_value = new_qty * bn_price
+                                            
+                                            if order_value > available * 0.95:
+                                                new_qty = max(1, int((available * 0.95) / bn_price))
+                                                log.info(f"v4.9 cash: {bn_sym} qty reduced to {new_qty} due to limit")
+                                            
+                                            if new_qty >= 1:
+                                                auto_buy(best_new['symbol'], new_qty, cycle_n=1, max_cyc=max_cycles,
+                                                        price=bn_price, price_source="position_upgrade",
+                                                        entry_zone={"e_lo": e_lo, "e_hi": e_hi},
+                                                        trigger_basis=TRIGGER_POSITION_UPGRADE,
+                                                        trigger_detail=f"Position upgrade from {current_sym}")
+                                                open_count += 1  # Track new position
+                                                log.info(f"v4.9 upgrade complete: Sold {current_sym}, bought {bn_sym} qty={new_qty} @ {bn_price:.2f}")
+                                            else:
+                                                log.warning(f"v4.9 upgrade: Insufficient cash for {bn_sym} after reduction")
+                                        else:
+                                            log.warning(f"Position upgrade: Sold {current_sym} but {best_new['symbol']} no longer in zone, skipping buy")
+                                        
+                                        # Clear alert for new pick so it can trigger immediately
+                                        _reset_symbol_alerts(bn_sym)
+                                    else:
+                                        log.info(f"Position upgrade BLOCKED: {current_sym} down {gain_pct*100:.1f}% > 2%, not switching underwater position")
 
     # ── Entry signals for picks ─────────────────────────────────────────────
     # Use smaller size for positions beyond the first 2 (in TRENDING)

@@ -48,6 +48,8 @@ REGIME_PARAMS = {
         "small_weight_threshold": 0.15,
         "large_scale_factor": 0.75,
         "small_scale_factor": 1.25,
+        # v4.9: Position upgrade redesign
+        "enable_upgrade_redesign": True,
     },
     "NEUTRAL":   {
         "strategy":         "B",
@@ -100,6 +102,8 @@ REGIME_PARAMS = {
         "small_weight_threshold": 0.15,
         "large_scale_factor": 0.70,  # Stricter in DEFENSIVE
         "small_scale_factor": 1.25,
+        # v4.9: Position upgrade redesign
+        "enable_upgrade_redesign": True,
     },
 }
 
