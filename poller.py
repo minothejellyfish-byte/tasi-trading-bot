@@ -1832,6 +1832,65 @@ def _calculate_drop_score(symbol: str, pos: dict, price: float, df, regime_param
 
 
 # v4.9: Capital-based qty calculation for upgrades
+# v4.10: Dynamic ratio-based position sizing
+def _calculate_dynamic_qty(symbol: str, price: float, regime_params: dict, positions: dict) -> int:
+    """
+    Calculate qty using dynamic ratio allocation.
+    
+    Formula:
+    - available = current cash (includes recycled profits)
+    - deployed = total - available
+    - target_total = deployment_target * total_capital
+    - remaining = target_total - deployed
+    - slots_remaining = max_positions - open_count
+    - next_value = remaining / slots_remaining
+    - qty = next_value / price
+    
+    Capped at available * 0.95 (cash buffer)
+    """
+    capital = load_capital()
+    total_capital = capital.get("grand_total", 0)
+    available = capital.get("money_transfer", 0)
+    
+    if total_capital <= 0 or price <= 0 or available <= 0:
+        return 0
+    
+    open_count = sum(1 for p in positions.values() if not p.get("closed"))
+    max_positions = regime_params.get("max_positions", 3)
+    slots_remaining = max_positions - open_count
+    
+    if slots_remaining <= 0:
+        return 0  # Full
+    
+    # Calculate deployment target
+    deployment_target = regime_params.get("deployment_target", 0.90)
+    target_total = total_capital * deployment_target
+    
+    # Already deployed
+    deployed = total_capital - available
+    
+    # Remaining to deploy
+    remaining = target_total - deployed
+    
+    if remaining <= 0:
+        log.info(f"v4.10: {symbol} deployment target reached ({deployed:.0f}/{target_total:.0f}), skipping")
+        return 0
+    
+    # Dynamic size for next slot
+    next_value = remaining / slots_remaining
+    
+    # Cap at available cash (95% buffer)
+    next_value = min(next_value, available * 0.95)
+    
+    qty = max(1, int(next_value / price))
+    
+    log.info(f"v4.10 dynamic: {symbol} price={price:.2f} "
+             f"target={deployment_target:.0%} deployed={deployed:.0f} remaining={remaining:.0f} "
+             f"slots={slots_remaining} next_value={next_value:.0f} qty={qty}")
+    
+    return qty
+
+
 def _calculate_upgrade_qty(symbol: str, price: float, capital: dict, position_pct: float) -> int:
     """
     Calculate qty for upgrade based on position_pct of total capital.

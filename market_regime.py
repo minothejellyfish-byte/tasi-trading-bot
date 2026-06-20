@@ -50,6 +50,9 @@ REGIME_PARAMS = {
         "small_scale_factor": 1.25,
         # v4.9: Position upgrade redesign
         "enable_upgrade_redesign": True,
+        # v4.10: Dynamic ratio allocation
+        "enable_dynamic_allocation": True,
+        "deployment_target": 0.95,  # Target 95% capital deployed
     },
     "NEUTRAL":   {
         "strategy":         "B",
@@ -76,6 +79,11 @@ REGIME_PARAMS = {
         "small_weight_threshold": 0.15,
         "large_scale_factor": 0.75,
         "small_scale_factor": 1.25,
+        # v4.9: Position upgrade redesign
+        "enable_upgrade_redesign": True,
+        # v4.10: Dynamic ratio allocation
+        "enable_dynamic_allocation": True,
+        "deployment_target": 0.90,  # Target 90% capital deployed
     },
     "DEFENSIVE": {
         "strategy":         "B",
@@ -104,6 +112,9 @@ REGIME_PARAMS = {
         "small_scale_factor": 1.25,
         # v4.9: Position upgrade redesign
         "enable_upgrade_redesign": True,
+        # v4.10: Dynamic ratio allocation
+        "enable_dynamic_allocation": True,
+        "deployment_target": 0.80,  # Target 80% capital deployed
     },
 }
 
