@@ -253,7 +253,8 @@ REGIME_CONFIRM_MINS = 60  # minutes to confirm regime change
 HARD_CLOSE_START = time(14, 30)  # v4.1: Start watching for VWAP exit
 HARD_CLOSE_END   = time(14, 50)  # v4.1: Final market sell deadline
 HARD_CLOSE_TIME  = time(14, 50)   # v4.1: Final deadline - must match HARD_CLOSE_END
-ENTRY_CUTOFF     = time(13, 30)  # no new entries after this - too close to hard close
+ENTRY_CUTOFF     = time(14, 30)  # v4.11: No new buys after 14:30 - prevents late-day trap
+NO_NEW_BUY_TIME  = time(14, 30)  # v4.11: Hard cutoff for all entries
 MARKET_OPEN      = time(10, 0)
 MARKET_CLOSE     = time(15, 30)
 
@@ -2556,6 +2557,16 @@ def slow_poll(regime: dict):
     except Exception:
         pass
 
+    # v4.11: NO NEW BUYS after 14:30 — prevents late-day trap
+    # Stand-down only affects entries, not exits
+    if now_time >= NO_NEW_BUY_TIME:
+        log.info("NO NEW BUY mode active (after 14:30) - entry signals blocked, exits still active")
+        # Don't return — allow exit monitoring to continue
+        # Set flag that entry logic checks
+        no_new_buys = True
+    else:
+        no_new_buys = False
+
     # HARD CLOSE BLOCK: After 14:45, block ALL new buys
     # Also check for stand_down file (persists across restarts)
     now_time = datetime.now(RIYADH).time()
@@ -2637,6 +2648,29 @@ def slow_poll(regime: dict):
         if hard_close_triggered:
             log.info(f"HARD CLOSE ACTIVE - blocking all entry signals for {base}")
             continue
+
+        # v4.11: NO NEW BUYS after 14:30 — prevents late-day trap
+        if now_time >= NO_NEW_BUY_TIME:
+            log.info(f"NO NEW BUYS after 14:30 - blocking entry for {base}")
+            continue
+
+        # v4.11: Check evaluator action (if present)
+        eval_action = pick.get("evaluator_action", "KEEP")
+        eval_score = pick.get("evaluator_score", pick.get("score", 0))
+        eval_note = pick.get("evaluator_note", "")
+        
+        if eval_action == "SCRATCH":
+            log.info(f"{base} skipped - evaluator scratched: {eval_note}")
+            continue
+        elif eval_action == "STALE":
+            effective_score = pick.get("score", 0) * 0.7
+            log.info(f"{base} stale - score reduced from {pick.get('score')} to {effective_score:.1f}: {eval_note}")
+        elif eval_action == "TRENDING":
+            log.info(f"{base} trending above zone - skipping entry, watching for pullback: {eval_note}")
+            continue
+        elif eval_action == "RECOVERING":
+            log.info(f"{base} recovering below zone - keeping, watching: {eval_note}")
+        # KEEP: proceed normally
 
         # Skip blocked symbols (prevent re-buy)
         if base in blocked_symbols:

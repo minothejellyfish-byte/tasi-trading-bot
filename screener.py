@@ -482,6 +482,44 @@ def score_stock(ticker: str, mode: str = "premarket") -> dict | None:
                 premarket_change = round((today_open - yesterday_close) / yesterday_close * 100, 2)
                 log.info(f"{ticker}: premarket gap {premarket_change:.1f}%")
 
+        # v4.11: Calculate momentum slope from intraday data if available
+        momentum_slope = 0.0
+        try:
+            # Try to get 1-day 5m data for intraday slope
+            df_intraday = yf.download(ticker, period="1d", interval="5m", progress=False)
+            if df_intraday is not None and len(df_intraday) >= 5:
+                closes = df_intraday["Close"].tail(10).values.flatten()
+                if len(closes) >= 5:
+                    x = np.arange(len(closes))
+                    slope, _ = np.polyfit(x, closes, 1)
+                    mean_price = np.mean(closes)
+                    if mean_price > 0:
+                        momentum_slope = (slope / mean_price) * 100
+                        log.info(f"{ticker} momentum slope: {momentum_slope:.3f}%/5min")
+        except Exception as e:
+            log.debug(f"{ticker} intraday slope calc failed: {e}")
+
+        # v4.11: Adjust score by momentum direction
+        if momentum_slope > 0.05:
+            score += 20  # Accelerating
+            log.info(f"{ticker} score boosted +20 for accelerating momentum")
+        elif momentum_slope < -0.05:
+            score -= 30  # Decelerating
+            log.info(f"{ticker} score penalized -30 for decelerating momentum")
+        
+        # v4.11: Volume trend confirmation
+        if len(df) >= 10:
+            vol_recent = df["Volume"].tail(5).mean()
+            vol_older = df["Volume"].iloc[-10:-5].mean()
+            if vol_older > 0:
+                vol_trend = (vol_recent - vol_older) / vol_older
+                if vol_trend > 0.2:
+                    score += 15
+                    log.info(f"{ticker} score boosted +15 for volume confirmation")
+                elif vol_trend < -0.2:
+                    score -= 15
+                    log.info(f"{ticker} score penalized -15 for volume divergence")
+
         # v4.1: Entry zone with gap detection and market order support
         yesterday_range = prev_high - prev_low
         
@@ -523,6 +561,27 @@ def score_stock(ticker: str, mode: str = "premarket") -> dict | None:
                 entry_high = round(prev_high * 1.002, 2)
             stop_loss = round(close * 0.93, 2)
             order_note = None
+
+        # v4.11: WebSocket metrics validation (pre-market only if WS data available)
+        ws_metrics = get_ws_metrics(ticker.replace(".SR", ""))
+        if ws_metrics:
+            trades_5min = ws_metrics.get("trades_5min", 999)
+            liquidity_ratio = ws_metrics.get("liquidity_ratio", 1.0)
+            spread_pct = ws_metrics.get("spread_pct", 0.0)
+            
+            if trades_5min < 5:
+                log.info(f"{ticker} REJECTED - insufficient market activity (trades_5min={trades_5min})")
+                return {"blocked": True, "reason": f"Insufficient trades: {trades_5min} in 5min"}
+            
+            if liquidity_ratio < 0.8:
+                log.info(f"{ticker} REJECTED - selling pressure dominant (liq_ratio={liquidity_ratio:.2f})")
+                return {"blocked": True, "reason": f"Selling pressure: liq={liquidity_ratio:.2f}"}
+            
+            if spread_pct > 2.0:
+                log.info(f"{ticker} REJECTED - poor execution quality (spread={spread_pct:.2f}%)")
+                return {"blocked": True, "reason": f"Wide spread: {spread_pct:.2f}%"}
+            
+            log.info(f"{ticker} WS validated: trades={trades_5min}, liq={liquidity_ratio:.2f}, spread={spread_pct:.2f}%")
 
         # Pre-market momentum filter (mode-aware)
         pm = check_premarket_momentum(ticker, mode=mode)
@@ -602,6 +661,47 @@ def format_pick(rank: int, r: dict) -> str:
         f"{prob_line}\n"
         f"Score: {_v('score')}"
     )
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
+def get_ws_metrics(symbol):
+    """
+    v4.11: Read WebSocket metrics from ws_prices jsonl file.
+    Returns dict with trades_5min, liquidity_ratio, spread_pct.
+    """
+    from datetime import date
+    date_str = date.today().isoformat()
+    ws_file = Path("/home/mino/tasi-exec") / f"ws_prices_{date_str}.jsonl"
+    
+    if not ws_file.exists():
+        return {}
+    
+    metrics = {
+        "trades_5min": 0,
+        "liquidity_ratio": 1.0,
+        "spread_pct": 0.0,
+        "net_flow": 0.0,
+    }
+    
+    cutoff = datetime.now().timestamp() - 300  # Last 5 minutes
+    
+    try:
+        with open(ws_file) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get("symbol") == symbol and entry.get("ts", 0) > cutoff:
+                        metrics["trades_5min"] += 1
+                        metrics["liquidity_ratio"] = entry.get("liquidity_ratio", 1.0)
+                        metrics["spread_pct"] = entry.get("spread_pct", 0.0)
+                        metrics["net_flow"] = entry.get("net_flow", 0.0)
+                except:
+                    continue
+    except Exception as e:
+        log.debug(f"get_ws_metrics {symbol}: {e}")
+    
+    return metrics
+
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
