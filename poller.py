@@ -1989,13 +1989,45 @@ def slow_poll(regime: dict):
 
         qty = pos.get("qty", "?")
 
+        # ── v4.8: Position weight risk scaling ──────────────────────────────
+        # Calculate position weight as % of deployed capital
+        position_value = qty * entry if qty != "?" and entry else 0
+        deployed_capital = sum(
+            p.get("qty", 0) * p.get("entry_price", 0)
+            for s, p in positions.items() if not p.get("closed") and s != symbol
+        )
+        deployed_capital += position_value  # include current position
+        position_weight = position_value / deployed_capital if deployed_capital > 0 else 0.25
+        
+        # Determine scale factor based on weight
+        if r_params.get("enable_weight_scaling", False):
+            large_thresh = r_params.get("large_weight_threshold", 0.30)
+            small_thresh = r_params.get("small_weight_threshold", 0.15)
+            large_scale = r_params.get("large_scale_factor", 0.75)
+            small_scale = r_params.get("small_scale_factor", 1.25)
+            
+            if position_weight > large_thresh:
+                weight_scale = large_scale
+                weight_cat = "LARGE"
+            elif position_weight < small_thresh:
+                weight_scale = small_scale
+                weight_cat = "SMALL"
+            else:
+                weight_scale = 1.0
+                weight_cat = "MEDIUM"
+            
+            log.info(f"v4.8 weight: {symbol} weight={position_weight:.1%} ({weight_cat}) scale={weight_scale}")
+        else:
+            weight_scale = 1.0
+            weight_cat = "DISABLED"
+
         # ── Dynamic regime-based exit thresholds ────────────────────────────
         regime_params = get_current_regime().get("params", {})
         win_pct         = regime_params.get("target_pct", 0.02)
-        hard_stop_pct   = regime_params.get("hard_stop", 0.07)
+        hard_stop_pct   = regime_params.get("hard_stop", 0.07) * weight_scale
         trail_trigger   = regime_params.get("trail_trigger", 0.02)
-        trail_stop_pct  = regime_params.get("trail_stop", 0.03)
-        time_stop_pct   = regime_params.get("time_stop_pct", 0.01)
+        trail_stop_pct  = regime_params.get("trail_stop", 0.03) * weight_scale
+        time_stop_pct   = regime_params.get("time_stop_pct", 0.01) * weight_scale
         time_stop_mins  = regime_params.get("time_stop_mins", 30)
 
         if gain_pct <= -hard_stop_pct and key_stop not in _alerted:

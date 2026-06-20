@@ -42,6 +42,12 @@ REGIME_PARAMS = {
         # v4.7b: Spread filter parameters
         "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
         "max_spread_pct":      1.5,    # Lenient — momentum stocks often wider
+        # v4.8: Position weight scaling parameters
+        "enable_weight_scaling": True,
+        "large_weight_threshold": 0.30,
+        "small_weight_threshold": 0.15,
+        "large_scale_factor": 0.75,
+        "small_scale_factor": 1.25,
     },
     "NEUTRAL":   {
         "strategy":         "B",
@@ -62,6 +68,12 @@ REGIME_PARAMS = {
         # v4.7b: Spread filter parameters
         "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
         "max_spread_pct":      1.0,    # Standard — normal market conditions
+        # v4.8: Position weight scaling parameters
+        "enable_weight_scaling": True,
+        "large_weight_threshold": 0.30,
+        "small_weight_threshold": 0.15,
+        "large_scale_factor": 0.75,
+        "small_scale_factor": 1.25,
     },
     "DEFENSIVE": {
         "strategy":         "B",
@@ -82,6 +94,12 @@ REGIME_PARAMS = {
         # v4.7b: Spread filter parameters
         "enable_spread_filter": True,   # Phase 2: enabled — spread filter now active
         "max_spread_pct":      0.5,    # Strict — only enter in liquid markets
+        # v4.8: Position weight scaling parameters
+        "enable_weight_scaling": True,
+        "large_weight_threshold": 0.30,
+        "small_weight_threshold": 0.15,
+        "large_scale_factor": 0.70,  # Stricter in DEFENSIVE
+        "small_scale_factor": 1.25,
     },
 }
 
