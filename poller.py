@@ -1266,9 +1266,20 @@ async def _ws_listener_loop():
                             volume_val = float(d.get("tv", 0) or 0)
                             is_real = not approx
                             
+                            # ── v4.7: Liquidity Direction — parse raw fields ──
+                            bid_vol   = float(d.get("bidvolume", 0) or 0)
+                            ask_vol   = float(d.get("askvolume", 0) or 0)
+                            tbv       = float(d.get("tbv", 0) or 0)
+                            tav       = float(d.get("tav", 0) or 0)
+
+                            # Calculate ratios (safe division)
+                            liq_ratio   = bid_vol / ask_vol if ask_vol > 0 else 1.0
+                            net_flow    = (bid_vol - ask_vol) / (bid_vol + ask_vol) if (bid_vol + ask_vol) > 0 else 0.0
+                            depth_ratio = tbv / tav if tav > 0 else 1.0
+
                             # Update incremental VWAP
                             ws_vwap = update_ws_vwap(sym, float(raw), change_val, is_real, volume_val)
-                            
+
                             with _ws_cache_lock:
                                 entry = _ws_price_cache.get(sym, {})
                                 if not approx or not entry.get("real"):
@@ -1280,10 +1291,19 @@ async def _ws_listener_loop():
                                         "real":    is_real,
                                         "volume":  volume_val,
                                         "vwap":    ws_vwap,
+                                        # v4.7 liquidity fields
+                                        "bidvolume":   bid_vol,
+                                        "askvolume":   ask_vol,
+                                        "tbv":         tbv,
+                                        "tav":         tav,
+                                        "liquidity_ratio":  liq_ratio,
+                                        "net_flow":         net_flow,
+                                        "total_depth_ratio": depth_ratio,
                                     }
                             try:
                                 from ws_logger import log_price
-                                log_price(sym, float(raw), change_val, pchange_val, is_real, ws_vwap, volume_val)
+                                log_price(sym, float(raw), change_val, pchange_val, is_real, ws_vwap, volume_val,
+                                          bid_vol, ask_vol, tbv, tav, liq_ratio, net_flow, depth_ratio)
                             except Exception:
                                 pass
                 except Exception:
@@ -2041,6 +2061,18 @@ def slow_poll(regime: dict):
                         
                         # Weighted recovery score (adjusted threshold for 1-min)
                         recovery_score = recovery_prob * vol_strength
+                        
+                        # v4.7: Liquidity direction boost/penalty for recovery (Phase 3)
+                        if r_params.get("enable_liquidity", False):
+                            cache = _ws_price_cache.get(symbol.replace(".SR", ""), {})
+                            nf = cache.get("net_flow", 0.0)
+                            if nf > 0.3:
+                                recovery_score += 0.15
+                                log.info(f"VWAP breakdown: {symbol} recovery BOOST (net_flow={nf:.2f} > 0.3)")
+                            elif nf < -0.3:
+                                recovery_score -= 0.15
+                                log.info(f"VWAP breakdown: {symbol} recovery PENALTY (net_flow={nf:.2f} < -0.3)")
+                        
                         is_recovering = recovery_score > 0.60  # Adjusted from 0.66
                         
                         log.info(f"VWAP breakdown: {symbol} 1-min recovery: {len(recent_candles)} candles, score={recovery_score:.2f} (threshold: 0.60), rising={rising}/{total}")
@@ -2057,6 +2089,18 @@ def slow_poll(regime: dict):
                             avg_vol = float(df_pos["Volume"].mean()) if "Volume" in df_pos else 1
                             vol_strength = min(recent_vol / avg_vol, 1.5) if avg_vol > 0 else 1.0
                             recovery_score = recovery_prob * vol_strength
+                            
+                            # v4.7: Liquidity direction boost/penalty for 5-min fallback recovery
+                            if r_params.get("enable_liquidity", False):
+                                cache = _ws_price_cache.get(symbol.replace(".SR", ""), {})
+                                nf = cache.get("net_flow", 0.0)
+                                if nf > 0.3:
+                                    recovery_score += 0.15
+                                    log.info(f"VWAP breakdown: {symbol} 5-min recovery BOOST (net_flow={nf:.2f} > 0.3)")
+                                elif nf < -0.3:
+                                    recovery_score -= 0.15
+                                    log.info(f"VWAP breakdown: {symbol} 5-min recovery PENALTY (net_flow={nf:.2f} < -0.3)")
+                            
                             is_recovering = recovery_score > 0.66
                             log.info(f"VWAP breakdown: {symbol} 5-min fallback recovery: score={recovery_score:.2f} (threshold: 0.66), rising={rising}/{total}")
                         else:
@@ -2069,6 +2113,20 @@ def slow_poll(regime: dict):
                     if loss_pct > 0 and loss_pct < 0.03 and is_recovering:
                         log.info(f"VWAP breakdown: {symbol} price={price:.2f} vwap={vwap_now:.2f} gain={gain_pct*100:.1f}% — BREAKEVEN HOLD (loss={loss_pct*100:.1f}% < 3%, recovery_score={recovery_score:.2f} > 0.66, rising={rising}/{total})")
                         continue  # Skip sell, re-evaluate next cycle
+                    
+                    # v4.7: Liquidity direction confirmation (Phase 3)
+                    # Only act if liquidity data is available and enabled
+                    if r_params.get("enable_liquidity", False):
+                        cache = _ws_price_cache.get(symbol.replace(".SR", ""), {})
+                        liq_ratio = cache.get("liquidity_ratio", 1.0)
+                        
+                        if liq_ratio < r_params.get("liquidity_exit_confirm", 0.5):
+                            # Sellers dominant — confirmed breakdown
+                            log.info(f"VWAP breakdown CONFIRMED: {symbol} liquidity_ratio={liq_ratio:.2f} < {r_params.get('liquidity_exit_confirm', 0.5)} — heavy selling pressure")
+                        elif liq_ratio > r_params.get("liquidity_hold_min", 1.5):
+                            # Buyers absorbing — hold
+                            log.info(f"VWAP breakdown HOLD: {symbol} liquidity_ratio={liq_ratio:.2f} > {r_params.get('liquidity_hold_min', 1.5)} — buyers absorbing, skip sell")
+                            continue  # Skip sell, re-evaluate next cycle
                     
                     # SELL — genuine breakdown
                     if gain_pct > 0:
@@ -2172,6 +2230,17 @@ def slow_poll(regime: dict):
                     if vwap_dir <= 0:
                         log.info(f"Position upgrade BLOCKED: {best_new['symbol']} VWAP falling in {regime_name} regime (dir={vwap_dir:.4f})")
                         continue  # Skip — don't upgrade into falling momentum
+                
+                # v4.7: Liquidity direction gate for position upgrade (Phase 3)
+                if r_params.get("enable_liquidity", False):
+                    cache = _ws_price_cache.get(bn_sym, {})
+                    liq_ratio = cache.get("liquidity_ratio", 1.0)
+                    liq_min = r_params.get("liquidity_entry_min", 1.2)
+                    if liq_ratio < liq_min:
+                        log.info(f"Position upgrade BLOCKED: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} < {liq_min} — insufficient buy pressure for upgrade")
+                        continue  # Skip upgrade
+                    else:
+                        log.info(f"Position upgrade: {best_new['symbol']} liquidity_ratio={liq_ratio:.2f} >= {liq_min} — buy pressure confirmed")
                 
                 # Zone check passed — proceed with upgrade
                 current_price, _, _, _ = fetch_data(f"{current_sym}.SR")
@@ -2354,6 +2423,18 @@ def slow_poll(regime: dict):
                     continue
                 else:
                     log.info(f"{base} VWAP rising in {regime_name} (dir={vwap_dir:.4f}) - allowing entry")
+
+        # v4.7: Liquidity direction entry filter (Phase 3)
+        if r_params.get("enable_liquidity", False):
+            cache = _ws_price_cache.get(base, {})
+            liq_ratio = cache.get("liquidity_ratio", 1.0)
+            liq_min = r_params.get("liquidity_entry_min", 1.2)
+            
+            if liq_ratio < liq_min:
+                log.info(f"{base} ENTRY BLOCKED: liquidity_ratio={liq_ratio:.2f} < min={liq_min} — insufficient buy pressure")
+                continue  # Skip entry
+            else:
+                log.info(f"{base} liquidity_ratio={liq_ratio:.2f} >= {liq_min} — buy pressure confirmed")
 
         e_hi = pick.get("entry_high", 0)
         e_lo = pick.get("entry_low", 0)

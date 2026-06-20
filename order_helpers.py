@@ -106,6 +106,8 @@ TRIGGER_SCRATCH_SELL     = "scratch_sell"     # Momentum cycling (non-winner)
 TRIGGER_MANUAL_COMMAND   = "manual_command"   # /BUY /SELL from Telegram
 TRIGGER_HARD_CLOSE       = "hard_close"       # End of day forced close
 TRIGGER_BLOCK_REMOVAL    = "block_removal"    # Stand-down or block removal
+TRIGGER_LIQUIDITY_EXIT   = "liquidity_exit"   # v4.7: Liquidity-confirmed breakdown exit
+TRIGGER_LIQUIDITY_HOLD   = "liquidity_hold"   # v4.7: Liquidity held position despite breakdown
 TRIGGER_UNKNOWN          = "unknown"          # Could not determine trigger
 
 # Human-readable trigger descriptions
@@ -127,6 +129,8 @@ TRIGGER_DESCRIPTIONS = {
     TRIGGER_MANUAL_COMMAND:   "Manual Telegram command",
     TRIGGER_HARD_CLOSE:       "End of day hard close",
     TRIGGER_BLOCK_REMOVAL:    "Block removal",
+    TRIGGER_LIQUIDITY_EXIT:   "Liquidity-confirmed breakdown exit",
+    TRIGGER_LIQUIDITY_HOLD:   "Liquidity hold (breakdown overridden)",
     TRIGGER_UNKNOWN:          "Unknown trigger",
 }
 

@@ -34,6 +34,11 @@ REGIME_PARAMS = {
         "hard_stop":        0.07,    # -7% hard stop
         "time_stop_mins":   30,      # 30 min time stop
         "time_stop_pct":    0.01,    # -1% after 30min
+        # v4.7: Liquidity direction parameters
+        "enable_liquidity":    True,   # Phase 3: enabled — liquidity direction now active
+        "liquidity_entry_min": 1.1,    # Lower bar — momentum already present
+        "liquidity_exit_confirm": 0.5, # Below = confirmed breakdown
+        "liquidity_hold_min":  1.5,    # Above = hold despite breakdown
     },
     "NEUTRAL":   {
         "strategy":         "B",
@@ -46,6 +51,11 @@ REGIME_PARAMS = {
         "hard_stop":        0.05,    # -5% hard stop (tighter)
         "time_stop_mins":   30,
         "time_stop_pct":    0.01,
+        # v4.7: Liquidity direction parameters
+        "enable_liquidity":    True,   # Phase 3: enabled — liquidity direction now active
+        "liquidity_entry_min": 1.2,    # Standard confirmation
+        "liquidity_exit_confirm": 0.5,
+        "liquidity_hold_min":  1.5,
     },
     "DEFENSIVE": {
         "strategy":         "B",
@@ -58,6 +68,11 @@ REGIME_PARAMS = {
         "hard_stop":        0.04,    # -4% hard stop (tight)
         "time_stop_mins":   20,      # 20 min time stop (faster)
         "time_stop_pct":    0.005,   # -0.5% after 20min
+        # v4.7: Liquidity direction parameters (strictest)
+        "enable_liquidity":    True,   # Phase 3: enabled — strictest regime
+        "liquidity_entry_min": 1.3,    # Higher bar — only enter with clear pressure
+        "liquidity_exit_confirm": 0.6,  # Tighter — faster exit
+        "liquidity_hold_min":  1.6,    # Need stronger confirmation to hold
     },
 }
 
