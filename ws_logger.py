@@ -2,6 +2,7 @@
 """
 WS Price Logger - Saves TickerChart WebSocket prices to file.
 v4.7: Added liquidity direction fields (bidvolume, askvolume, tbv, tav, ratios)
+v4.7b: Added spread_pct logging
 """
 import json
 import time
@@ -15,7 +16,8 @@ def log_price(symbol: str, price: float, change: float, pchange: float, real: bo
               bidvolume: float = 0.0, askvolume: float = 0.0,
               tbv: float = 0.0, tav: float = 0.0,
               liquidity_ratio: float = 1.0, net_flow: float = 0.0,
-              total_depth_ratio: float = 1.0):
+              total_depth_ratio: float = 1.0,
+              spread_pct: float = 0.0):
     """Log a price update to the daily file."""
     # Create daily file
     date_str = datetime.now().strftime("%Y-%m-%d")
@@ -50,6 +52,10 @@ def log_price(symbol: str, price: float, change: float, pchange: float, real: bo
         entry["net_flow"] = round(net_flow, 4)
     if total_depth_ratio != 1.0:
         entry["total_depth_ratio"] = round(total_depth_ratio, 4)
+
+    # v4.7b: Spread percentage
+    if spread_pct != 0.0:
+        entry["spread_pct"] = round(spread_pct, 4)
 
     try:
         with open(log_file, "a") as f:

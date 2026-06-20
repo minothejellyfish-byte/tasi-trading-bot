@@ -39,6 +39,9 @@ REGIME_PARAMS = {
         "liquidity_entry_min": 1.1,    # Lower bar — momentum already present
         "liquidity_exit_confirm": 0.5, # Below = confirmed breakdown
         "liquidity_hold_min":  1.5,    # Above = hold despite breakdown
+        # v4.7b: Spread filter parameters
+        "enable_spread_filter": False,  # Phase 1: log-only
+        "max_spread_pct":      1.5,    # Lenient — momentum stocks often wider
     },
     "NEUTRAL":   {
         "strategy":         "B",
@@ -56,6 +59,9 @@ REGIME_PARAMS = {
         "liquidity_entry_min": 1.2,    # Standard confirmation
         "liquidity_exit_confirm": 0.5,
         "liquidity_hold_min":  1.5,
+        # v4.7b: Spread filter parameters
+        "enable_spread_filter": False,  # Phase 1: log-only
+        "max_spread_pct":      1.0,    # Standard — normal market conditions,
     },
     "DEFENSIVE": {
         "strategy":         "B",
@@ -73,6 +79,9 @@ REGIME_PARAMS = {
         "liquidity_entry_min": 1.3,    # Higher bar — only enter with clear pressure
         "liquidity_exit_confirm": 0.6,  # Tighter — faster exit
         "liquidity_hold_min":  1.6,    # Need stronger confirmation to hold
+        # v4.7b: Spread filter parameters
+        "enable_spread_filter": False,  # Phase 1: log-only
+        "max_spread_pct":      0.5,    # Strict — only enter in liquid markets
     },
 }
 

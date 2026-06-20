@@ -1272,6 +1272,15 @@ async def _ws_listener_loop():
                             tbv       = float(d.get("tbv", 0) or 0)
                             tav       = float(d.get("tav", 0) or 0)
 
+                            # v4.7b: Spread calculation from bid/ask
+                            bid_price = float(d.get("bidprice", 0) or 0)
+                            ask_price = float(d.get("askprice", 0) or 0)
+                            if bid_price > 0 and ask_price > 0:
+                                mid_price = (bid_price + ask_price) / 2
+                                spread_pct = (ask_price - bid_price) / mid_price * 100 if mid_price > 0 else 0.0
+                            else:
+                                spread_pct = 0.0
+
                             # Calculate ratios (safe division)
                             liq_ratio   = bid_vol / ask_vol if ask_vol > 0 else 1.0
                             net_flow    = (bid_vol - ask_vol) / (bid_vol + ask_vol) if (bid_vol + ask_vol) > 0 else 0.0
@@ -1299,11 +1308,14 @@ async def _ws_listener_loop():
                                         "liquidity_ratio":  liq_ratio,
                                         "net_flow":         net_flow,
                                         "total_depth_ratio": depth_ratio,
+                                        # v4.7b spread field
+                                        "spread_pct":       round(spread_pct, 4),
                                     }
                             try:
                                 from ws_logger import log_price
                                 log_price(sym, float(raw), change_val, pchange_val, is_real, ws_vwap, volume_val,
-                                          bid_vol, ask_vol, tbv, tav, liq_ratio, net_flow, depth_ratio)
+                                          bid_vol, ask_vol, tbv, tav, liq_ratio, net_flow, depth_ratio,
+                                          spread_pct)
                             except Exception:
                                 pass
                 except Exception:
