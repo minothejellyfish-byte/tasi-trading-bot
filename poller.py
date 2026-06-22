@@ -2686,10 +2686,10 @@ def slow_poll(regime: dict):
             log.info(f"Max positions ({max_positions}) reached - skipping {base}")
             break
 
-        # ── Market Open Cooldown (10:00-10:10) ─────────────────────────────
-        # Reduced from 15 min to 10 min — 15 min too long, stocks move out of zone
-        if now_time < time(10, 10):
-            log.info(f"{base} skipped - market open cooldown (before 10:10)")
+        # ── Market Open Cooldown (10:00-10:15) ─────────────────────────────
+        # Extended from 10 min to 15 min — WS data needs more time to stabilize
+        if now_time < time(10, 15):
+            log.info(f"{base} skipped - market open cooldown (before 10:15)")
             continue
 
         price, df, price_src, ws_vwap = fetch_data(symbol)

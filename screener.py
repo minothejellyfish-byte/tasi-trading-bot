@@ -482,44 +482,6 @@ def score_stock(ticker: str, mode: str = "premarket") -> dict | None:
                 premarket_change = round((today_open - yesterday_close) / yesterday_close * 100, 2)
                 log.info(f"{ticker}: premarket gap {premarket_change:.1f}%")
 
-        # v4.11: Calculate momentum slope from intraday data if available
-        momentum_slope = 0.0
-        try:
-            # Try to get 1-day 5m data for intraday slope
-            df_intraday = yf.download(ticker, period="1d", interval="5m", progress=False)
-            if df_intraday is not None and len(df_intraday) >= 5:
-                closes = df_intraday["Close"].tail(10).values.flatten()
-                if len(closes) >= 5:
-                    x = np.arange(len(closes))
-                    slope, _ = np.polyfit(x, closes, 1)
-                    mean_price = np.mean(closes)
-                    if mean_price > 0:
-                        momentum_slope = (slope / mean_price) * 100
-                        log.info(f"{ticker} momentum slope: {momentum_slope:.3f}%/5min")
-        except Exception as e:
-            log.debug(f"{ticker} intraday slope calc failed: {e}")
-
-        # v4.11: Adjust score by momentum direction
-        if momentum_slope > 0.05:
-            score += 20  # Accelerating
-            log.info(f"{ticker} score boosted +20 for accelerating momentum")
-        elif momentum_slope < -0.05:
-            score -= 30  # Decelerating
-            log.info(f"{ticker} score penalized -30 for decelerating momentum")
-        
-        # v4.11: Volume trend confirmation
-        if len(df) >= 10:
-            vol_recent = df["Volume"].tail(5).mean()
-            vol_older = df["Volume"].iloc[-10:-5].mean()
-            if vol_older > 0:
-                vol_trend = (vol_recent - vol_older) / vol_older
-                if vol_trend > 0.2:
-                    score += 15
-                    log.info(f"{ticker} score boosted +15 for volume confirmation")
-                elif vol_trend < -0.2:
-                    score -= 15
-                    log.info(f"{ticker} score penalized -15 for volume divergence")
-
         # v4.1: Entry zone with gap detection and market order support
         yesterday_range = prev_high - prev_low
         

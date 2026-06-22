@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 """
-Pick Evaluator — v4.11
-Runs every 30 min (10:15, 10:45, 11:15, 11:45, 12:15, 12:45, 13:15, 13:45, 14:15)
+Pick Evaluator — v4.12
+Runs every 30 min (10:10, 10:40, 11:10, 11:40, 12:10, 12:40, 13:10, 13:40, 14:10)
 Re-evaluates existing picks and adds evaluator_score, evaluator_action, evaluator_note.
 Overwrites picks.json with evaluation fields.
+
+v4.12 Changes:
+- Two-gate system: Gate 1 (Validation) + Gate 2 (Evaluate)
+- WS data as primary price source
+- Regime-aware thresholds
+- Reads all pick files (premarket + mid-screens)
+- Symmetric penalties
 """
 
 import json
@@ -16,14 +23,18 @@ from pathlib import Path
 
 import numpy as np
 import yfinance as yf
+import pandas as pd
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
 BASE_DIR     = Path("/home/mino/tasi-exec")
 PICKS_FILE   = BASE_DIR / "picks.json"
+PICKS_1030   = BASE_DIR / "picks_1030.json"
+PICKS_1200   = BASE_DIR / "picks_1200.json"
+PICKS_1330   = BASE_DIR / "picks_1330.json"
 LOG_FILE     = BASE_DIR / "evaluator.log"
 
-RIYADH = datetime.now().astimezone().tzinfo  # Use system tz
+RIYADH = datetime.now().astimezone().tzinfo
 
 logging.basicConfig(
     level=logging.INFO,
@@ -32,19 +43,54 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# ─── Regime Config ───────────────────────────────────────────────────────────
+
+REGIME_THRESHOLDS = {
+    "TRENDING": {
+        "momentum": 0.05,
+        "volume": 0.20,
+        "boost": 30,
+        "penalty": -30
+    },
+    "NEUTRAL": {
+        "momentum": 0.03,
+        "volume": 0.30,
+        "boost": 25,
+        "penalty": -25
+    },
+    "DEFENSIVE": {
+        "momentum": 0.02,
+        "volume": 0.40,
+        "boost": 20,
+        "penalty": -20
+    }
+}
+
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 
-def load_picks_all():
-    """Load all picks from picks.json."""
-    if not PICKS_FILE.exists():
+def load_picks_file(filepath):
+    """Load picks from a single file."""
+    if not filepath.exists():
         return []
     try:
-        with open(PICKS_FILE) as f:
+        with open(filepath) as f:
             data = json.load(f)
         return data.get("picks", [])
     except Exception as e:
-        log.error(f"Failed to load picks: {e}")
+        log.error(f"Failed to load {filepath}: {e}")
         return []
+
+
+def load_all_picks():
+    """Load all picks from all files. Later screens overwrite earlier ones."""
+    all_picks = {}
+    for filepath in [PICKS_FILE, PICKS_1030, PICKS_1200, PICKS_1330]:
+        picks = load_picks_file(filepath)
+        for p in picks:
+            sym = p.get("symbol", "")
+            if sym:
+                all_picks[sym] = p
+    return list(all_picks.values())
 
 
 def save_picks_atomic(picks):
@@ -63,36 +109,70 @@ def save_picks_atomic(picks):
     log.info(f"Saved {len(picks)} evaluated picks to {PICKS_FILE}")
 
 
+def get_ws_price(symbol):
+    """Fetch latest price from WS data."""
+    date_str = datetime.now().date().isoformat()
+    ws_file = BASE_DIR / f"ws_prices_{date_str}.jsonl"
+    if not ws_file.exists():
+        return None
+    
+    latest_price = None
+    latest_ts = 0
+    
+    try:
+        with open(ws_file) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get("symbol") == symbol:
+                        ts = entry.get("ts", 0)
+                        if ts > latest_ts:
+                            latest_ts = ts
+                            latest_price = entry.get("price")
+                except:
+                    continue
+    except Exception as e:
+        log.debug(f"get_ws_price {symbol}: {e}")
+    
+    return latest_price
+
+
 def fetch_data(symbol):
-    """Fetch current price and intraday df."""
+    """Fetch current price — WS primary, yfinance fallback."""
+    base = symbol.replace(".SR", "")
+    
+    # Try WS first
+    ws_price = get_ws_price(base)
+    if ws_price is not None:
+        return ws_price, None
+    
+    # Fallback to yfinance
     try:
         df = yf.download(symbol, period="1d", interval="5m", progress=False)
         if df is not None and not df.empty:
-            price = float(df["Close"].iloc[-1])
+            if isinstance(df.columns, pd.MultiIndex):
+                price = float(df[("Close", symbol)].iloc[-1])
+            else:
+                price = float(df["Close"].iloc[-1])
             return price, df
     except Exception as e:
         log.debug(f"fetch_data {symbol}: {e}")
+    
     return None, None
 
 
-def calc_momentum_slope(df):
-    """Calculate momentum slope from last 10 closes."""
-    if df is None or len(df) < 5:
-        return 0.0
+def classify_regime():
+    """Get current market regime."""
     try:
-        closes = df["Close"].tail(10).values
-        if len(closes) < 5:
-            return 0.0
-        x = np.arange(len(closes))
-        slope, _ = np.polyfit(x, closes, 1)
-        # Normalize: slope as % of mean price
-        mean_price = np.mean(closes)
-        if mean_price > 0:
-            return (slope / mean_price) * 100  # % per bar
-        return 0.0
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("market_regime", BASE_DIR / "market_regime.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        regime = mod.classify_regime()
+        return regime.get("regime", "NEUTRAL")
     except Exception as e:
-        log.debug(f"calc_momentum_slope error: {e}")
-        return 0.0
+        log.warning(f"Could not classify regime: {e}")
+        return "NEUTRAL"
 
 
 def get_ws_metrics(symbol):
@@ -128,26 +208,71 @@ def get_ws_metrics(symbol):
     return metrics
 
 
-def evaluate_pick(pick, price, df):
+# ─── Gate 1: Validation ──────────────────────────────────────────────────────
+
+def gate1_validate(pick, regime_name):
     """
-    Evaluate a single pick and return (action, score, note).
+    Gate 1: Validate pick with regime-aware thresholds.
+    Returns (pass: bool, adjusted_score: int, note: str)
+    """
+    symbol = pick.get("symbol", "")
+    base = symbol.replace(".SR", "")
+    original_score = pick.get("score", 0)
     
-    States:
-    - KEEP: Valid, in zone, momentum good
-    - STALE: In zone but momentum fading
-    - TRENDING: Above zone, strong momentum (don't chase)
-    - RECOVERING: Below zone but recovering
-    - SCRATCH: Fading, below zone, weak momentum
+    # Get WS metrics
+    ws = get_ws_metrics(base)
+    liq = ws.get("liquidity_ratio", 1.0)
+    
+    # Get regime thresholds
+    thresholds = REGIME_THRESHOLDS.get(regime_name, REGIME_THRESHOLDS["NEUTRAL"])
+    
+    # Calculate momentum from WS data if available
+    momentum = 0.0
+    if ws.get("last_price", 0) > 0:
+        # Use change_pct from pick as momentum proxy
+        pm = pick.get("pm_metrics", {})
+        change_pct = pm.get("change_pct", 0)
+        if change_pct is not None:
+            momentum = change_pct
+    
+    # Apply regime-aware adjustments
+    adjusted = original_score
+    
+    if momentum > thresholds["momentum"]:
+        adjusted += thresholds["boost"]
+        note = f"Momentum +{momentum:.2f}% > {thresholds['momentum']}% — boosted +{thresholds['boost']}"
+    elif momentum < -thresholds["momentum"]:
+        adjusted += thresholds["penalty"]
+        note = f"Momentum {momentum:.2f}% < -{thresholds['momentum']}% — penalized {thresholds['penalty']}"
+    else:
+        note = f"Momentum {momentum:.2f}% within ±{thresholds['momentum']}% — no change"
+    
+    # Liquidity check
+    if liq < 0.5:
+        adjusted += -10
+        note += f", liquidity {liq:.2f} < 0.5 — penalized -10"
+    
+    # Gate threshold
+    if adjusted < 50:
+        return False, adjusted, f"FAILED Gate 1: {note}, adjusted score {adjusted} < 50"
+    
+    return True, adjusted, f"PASSED Gate 1: {note}, adjusted score {adjusted}"
+
+
+# ─── Gate 2: Evaluate ──────────────────────────────────────────────────────
+
+def gate2_evaluate(pick, price):
+    """
+    Gate 2: Evaluate zone position and momentum.
+    Returns (action, score, note)
     """
     symbol = pick.get("symbol", "")
     e_lo = pick.get("entry_low", 0)
     e_hi = pick.get("entry_high", 0)
     
-    # Default
     if not price or not e_lo or not e_hi:
         return "KEEP", 50, "No data available"
     
-    # Zone position
     if e_lo <= price <= e_hi:
         zone = "IN_ZONE"
     elif price > e_hi:
@@ -155,49 +280,49 @@ def evaluate_pick(pick, price, df):
     else:
         zone = "BELOW"
     
-    # Momentum
-    slope = calc_momentum_slope(df)
+    # Use change_pct as momentum proxy
+    pm = pick.get("pm_metrics", {})
+    change_pct = pm.get("change_pct", 0) or 0
     
-    # WS metrics
-    base = symbol.replace(".SR", "")
-    ws = get_ws_metrics(base)
-    liq = ws.get("liquidity_ratio", 1.0)
-    
-    # Decision matrix
     if zone == "IN_ZONE":
-        if slope > 0.1 and liq > 1.0:
-            return "KEEP", 90, f"Valid: in zone, momentum +{slope:.2f}%, liquidity {liq:.2f}"
-        elif slope < -0.1:
-            return "STALE", 50, f"Stale: in zone but fading (momentum {slope:.2f}%, liquidity {liq:.2f})"
+        if change_pct > 2.0:
+            return "KEEP", 90, f"Valid: in zone, strong momentum +{change_pct:.1f}%"
+        elif change_pct > 0:
+            return "KEEP", 75, f"Stable: in zone, positive momentum +{change_pct:.1f}%"
+        elif change_pct > -2.0:
+            return "STALE", 50, f"Stale: in zone but fading ({change_pct:.1f}%)"
         else:
-            return "KEEP", 75, f"Stable: in zone, flat momentum {slope:.2f}%, liquidity {liq:.2f}"
+            return "SCRATCH", 20, f"Falling: in zone, negative momentum {change_pct:.1f}%"
     
     elif zone == "ABOVE":
-        if slope > 0.2 and liq > 1.5:
-            return "TRENDING", 70, f"Strong: above zone, momentum +{slope:.2f}%, liquidity {liq:.2f} — don't chase"
-        elif slope > 0:
-            return "TRENDING", 60, f"Rising: above zone, momentum +{slope:.2f}% — wait for pullback"
+        if change_pct > 3.0:
+            return "TRENDING", 70, f"Strong: above zone +{change_pct:.1f}% — don't chase"
+        elif change_pct > 0:
+            return "TRENDING", 60, f"Rising: above zone +{change_pct:.1f}% — wait for pullback"
         else:
-            return "STALE", 40, f"Saturated: above zone, fading momentum {slope:.2f}%"
+            return "STALE", 40, f"Saturated: above zone, fading momentum ({change_pct:.1f}%)"
     
-    elif zone == "BELOW":
-        if slope > 0.1 and price > e_lo * 0.98:
-            return "RECOVERING", 65, f"Recovering: below zone but rising (momentum +{slope:.2f}%, liquidity {liq:.2f})"
-        elif slope > 0:
-            return "RECOVERING", 55, f"Bounce: below zone, weak recovery (momentum +{slope:.2f}%)"
+    else:  # BELOW
+        if change_pct > 1.0:
+            return "RECOVERING", 65, f"Recovering: below zone but rising +{change_pct:.1f}%"
+        elif change_pct > -1.0:
+            return "RECOVERING", 55, f"Bounce: below zone, weak recovery ({change_pct:.1f}%)"
         else:
-            return "SCRATCH", 20, f"Falling: below zone, negative momentum {slope:.2f}%, liquidity {liq:.2f}"
-    
-    return "KEEP", 50, "Unknown state"
+            return "SCRATCH", 20, f"Falling: below zone, negative {change_pct:.1f}%"
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────
 
 def main():
     now = datetime.now()
-    log.info(f"Evaluator started at {now.strftime('%Y-%m-%d %H:%M')}")
+    log.info(f"Evaluator v4.12 started at {now.strftime('%Y-%m-%d %H:%M')}")
     
-    picks = load_picks_all()
+    # Get current regime
+    regime = classify_regime()
+    log.info(f"Market regime: {regime}")
+    
+    # Load all picks
+    picks = load_all_picks()
     if not picks:
         log.info("No picks to evaluate")
         return
@@ -210,22 +335,39 @@ def main():
         if not symbol:
             continue
         
-        price, df = fetch_data(symbol)
-        action, score, note = evaluate_pick(pick, price, df)
+        log.info(f"\n--- Evaluating {symbol} ---")
         
-        # Update pick with evaluator fields
+        # Gate 1: Validation
+        pass_gate1, adjusted_score, gate1_note = gate1_validate(pick, regime)
+        log.info(f"  Gate 1: {gate1_note}")
+        
+        if not pass_gate1:
+            # SCRATCH and remove
+            pick["evaluator_action"] = "SCRATCH"
+            pick["evaluator_score"] = 20
+            pick["evaluator_note"] = gate1_note
+            pick["evaluator_time"] = datetime.now().isoformat()
+            pick["evaluator_price"] = None
+            log.info(f"  → SCRATCHED (Gate 1 failed)")
+            continue
+        
+        # Gate 2: Evaluate
+        price, _ = fetch_data(symbol)
+        action, score, note = gate2_evaluate(pick, price)
+        
+        pick["adjusted_score"] = adjusted_score
         pick["evaluator_score"] = score
         pick["evaluator_action"] = action
         pick["evaluator_note"] = note
         pick["evaluator_time"] = datetime.now().isoformat()
         pick["evaluator_price"] = price
         
-        log.info(f"{symbol}: {action} (score={score}) — {note}")
+        log.info(f"  Gate 2: {action} (score={score}) — {note}")
         evaluated.append(pick)
     
     # Save back
     save_picks_atomic(evaluated)
-    log.info(f"Evaluation complete: {len(evaluated)} picks updated")
+    log.info(f"\nEvaluation complete: {len(evaluated)} picks kept, {len(picks) - len(evaluated)} scratched")
 
 
 if __name__ == "__main__":
