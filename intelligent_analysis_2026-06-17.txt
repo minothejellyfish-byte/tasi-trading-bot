@@ -1,0 +1,160 @@
+📊 <b>TASI Intelligent Post-Market Analysis</b>
+📅 2026-06-17 | 17:34 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 SUMMARY</b>
+• Total unique picks: 14
+• Positions taken: 4
+• Picks not entered: 10
+
+<b>⬇️ Gapped Below Zone (1)</b>
+  ❌ 6012: score=48.9, zone=13.81-14.47
+     → Opened 0.6% below zone (13.73 < 13.81)
+     💡 Opened -0.6% below zone (13.73 < 13.81)
+     📊 Day's high was +1.2% above open — never reclaimed zone
+     🔧 Reclaim entry: if price returns to 13.81 within 30 min, enter
+
+<b>🎯 In Zone (10)</b>
+  ❌ 2370: score=73.0, zone=32.02-32.71
+     → Opened in zone and traded through range 31.62–32.66
+     💡 In zone 32.02-32.71 but max positions (4/3) reached
+     📊 Price spent 93% of day in zone, range was 3.2%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <73)
+  ❌ 6050: score=67.4, zone=41.92-43.37
+     → Opened in zone and traded through range 41.70–42.74
+     💡 In zone 41.92-43.37 but max positions (4/3) reached
+     📊 Price spent 57% of day in zone, range was 2.5%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <67)
+  ❌ 4061: score=62.0, zone=10.98-11.25
+     → Opened in zone and traded through range 11.03–11.70
+     💡 In zone 10.98-11.25 but max positions (4/3) reached
+     📊 Price spent 81% of day in zone, range was 6.1%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <62)
+  ❌ 6017: score=50.7, zone=13.73-14.29
+     → Opened in zone and traded through range 13.92–14.42
+     💡 In zone 13.73-14.29 but max positions (4/3) reached
+     📊 Price spent 66% of day in zone, range was 3.6%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <51)
+  ❌ 2180: score=75.0, zone=29.99-30.91
+     → Opened in zone and traded through range 30.46–32.48
+     💡 In zone 29.99-30.91 but max positions (4/3) reached
+     📊 Price spent 49% of day in zone, range was 6.6%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <75)
+  ❌ 7201: score=43.3, zone=3.31-3.41
+     → Opened in zone and traded through range 3.31–3.43
+     💡 In zone 3.31-3.41 but max positions (4/3) reached
+     📊 Price spent 100% of day in zone, range was 3.6%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <43)
+  ❌ 4005: score=42.5, zone=106.99-112.72
+     → Opened in zone and traded through range 105.60–109.90
+     💡 In zone 106.99-112.72 but max positions (4/3) reached
+     📊 Price spent 51% of day in zone, range was 4.0%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <42)
+  ❌ 4194: score=42.4, zone=44.35-45.71
+     → Opened in zone and traded through range 44.84–46.92
+     💡 In zone 44.35-45.71 but max positions (4/3) reached
+     📊 Price spent 64% of day in zone, range was 4.6%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <42)
+  ❌ 8250: score=41.4, zone=29.30-30.26
+     → Opened in zone and traded through range 29.68–32.40
+     💡 In zone 29.30-30.26 but max positions (4/3) reached
+     📊 Price spent 60% of day in zone, range was 9.1%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <41)
+  ❌ 4070: score=32.5, zone=16.34-16.82
+     → Opened in zone and traded through range 16.48–17.01
+     💡 In zone 16.34-16.82 but max positions (4/3) reached
+     📊 Price spent 71% of day in zone, range was 3.2%
+     🔧 Increase max positions to 4 OR rotation: replace weakest position (score <32)
+
+<b>✅ Stayed In Zone (2)</b>
+  ❌ 4193: score=38.0, zone=14.04-14.80
+     → Entirely within zone 14.19–14.55
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 2190: score=33.1, zone=35.24-36.32
+     → Entirely within zone 35.40–36.18
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💼 TRADE PERFORMANCE</b>
+
+<b>5110</b> ❌ LOSS -2.8%
+  Entry:  17.39 × 10 shares = 173.90 SAR @ 12:06
+  Peak:   17.48 (+0.5%) @ 10:55 ← Day high
+  Best:   17.47 (+0.5%) @ hold ← While held
+  Sell:   16.91 (-2.8%) @ session end ← Actual
+  Total:  -4.80 SAR
+  Gap:   3.2% left while holding
+  Duration: Still open
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>6040</b> ❌ LOSS -3.0%
+  Entry:  6.75 × 0 shares = 0.00 SAR @ 10:00
+  Peak:   6.80 (+0.7%) @ 10:28 ← Day high
+  Best:   6.80 (+0.7%) @ 10:28 ← While held
+  Sell:   6.55 (-3.0%) @ 10:40 ← Actual
+  Total:  +0.00 SAR
+  Gap:   3.7% left while holding
+  Duration: 10:40
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>1304</b> ✅ PROFIT +0.2%
+  Entry:  39.30 × 3 shares = 117.91 SAR @ 14:17
+  Peak:   40.28 (+2.5%) @ 15:17 ← Day high
+  Best:   39.56 (+0.7%) @ hold ← While held
+  Sell:   39.38 (+0.2%) @ session end ← Actual
+  Total:  +0.23 SAR
+  Duration: Still open
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>8210</b> ⚪ BREAKEVEN -0.7%
+  Entry:  192.70 × 0 shares = 0.00 SAR @ 13:37
+  Peak:   195.10 (+1.2%) @ 10:15 ← Day high
+  Best:   192.70 (+0.0%) @ 13:45 ← While held
+  Sell:   191.40 (-0.7%) @ 14:32 ← Actual
+  Total:  +0.00 SAR
+  Gap:   0.7% left while holding
+  Duration: 14:32
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🧠 ANALYSIS & REASONING</b>
+
+<b>📊 Market Assessment:</b>
+  • 14 picks generated across all screens
+  • 4 positions taken (0 wins, 4 losses)
+  • 10 opportunities missed
+  • Average day range: 1.19 SAR
+
+<b>🎯 Entry Analysis:</b>
+  • 12 in-zone picks missed due to capacity constraints
+    → System had 4/16 positions open
+    → Suggestion: increase max_positions or implement rotation
+
+<b>💼 Exit Analysis:</b>
+  • 5110: ❌ LOSS -2.8% — sold 0.48 SAR below entry
+    → Could have sold 17.48 (+3.4% higher) during hold
+  • 6040: ❌ LOSS -3.0% — sold 0.20 SAR below entry
+    → Could have sold 6.80 (+3.8% higher) during hold
+  • 1304: ⚪ BREAKEVEN +0.2% — sold near entry
+    → Could have sold 40.28 (+2.3% higher) during hold
+  • 8210: ❌ LOSS -0.7% — sold 1.30 SAR below entry
+    → Could have sold 195.10 (+1.9% higher) during hold
+<b>📈 Overall Assessment:</b>
+  • Net result: -1.14 SAR (loss on the day)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 RECOMMENDATIONS</b>
+
+<b>🔴 CRITICAL:</b>
+1. Gap-down recovery: 1 picks opened below zone — add 'reclaim entry' when price returns to zone
+2. Position capacity: 12 in-zone picks missed due to max positions (4/3) — increase to 4 OR add position rotation logic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Intelligent Analysis by Mino 🪼</i>

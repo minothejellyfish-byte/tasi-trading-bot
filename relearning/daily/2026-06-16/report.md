@@ -1,0 +1,69 @@
+📊 <b>Post-Market Analysis: 2026-06-16</b>
+Market: TASI | Scanned: 399/399 stocks | Time: 15:36 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 Today's Picks Performance</b>
+
+⚠️ <b>1213</b> — No data available
+
+⚠️ <b>3030</b> — No data available
+
+⚠️ <b>6050</b> — No data available
+
+⚠️ <b>3020</b> — No data available
+
+⚠️ <b>4191</b> — No data available
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💰 Actual Trade Performance</b>
+
+• Total actual P&L: -4.40 SAR
+• Potential missed profit: 0.00 SAR
+
+🔴 <b>3020</b> | Entry: 26.26 → Exit: 26.1 | P&L: -1.72 | Hold: 15min
+🔴 <b>1213</b> | Entry: 23.86 → Exit: 23.68 | P&L: -2.90 | Hold: 15min
+🟢 <b>3030</b> | Entry: 33.48 → Exit: 33.56 | P&L: +0.42 | Hold: 20min
+🔴 <b>6050</b> | Entry: 42.80 → Exit: 42.78 | P&L: -0.20 | Hold: 21min
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🔍 Top 3 Missed Outside Picks</b>
+
+1. <b>8280.SR</b> | +9.4% | Vol: 542,579 | Why: Unknown - need screener logs
+2. <b>6040.SR</b> | +7.4% | Vol: 1,379,109 | Why: Unknown - need screener logs
+3. <b>8210.SR</b> | +7.0% | Vol: 243,475 | Why: Unknown - need screener logs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>📊 Market Breadth</b>
+
+• Total scanned: 399
+• Up: 132 | Down: 267 | Avg: -0.08%
+• Best: 9621.SR +15.2%
+• Worst: 9630.SR -1.0%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 Strategy Recommendations</b>
+
+• 🔴 LOSING TRADES: 3 trades with total loss of -4.82 SAR
+   → Cause: 1213, 6050, 3020 sold below entry
+   → Solution: Wider stop loss or better entry timing
+   → Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown
+• 🔍 3 missed opportunities (0 from our picks, 3 outside) — review entry/exit strategy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>📈 Session Summary</b>
+• Picks: 5
+• Best pick: N/A
+• Missed opportunities: 2
+• Data failures: 0/399
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Next session: Wednesday 2026-06-17 at 10:00 +03</i>

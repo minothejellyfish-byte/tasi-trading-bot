@@ -1,0 +1,148 @@
+📊 <b>TASI Intelligent Post-Market Analysis</b>
+📅 2026-06-15 | 15:35 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 SUMMARY</b>
+• Total unique picks: 13
+• Positions taken: 5
+• Picks not entered: 8
+
+<b>✅ Stayed In Zone (11)</b>
+  ❌ 6017: score=65.9, zone=13.18-13.76
+     → Entirely within zone 13.21–13.73
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 3030: score=62.8, zone=30.62-31.55
+     → Entirely within zone 31.14–31.38
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 1213: score=74.6, zone=21.66-22.44
+     → Entirely within zone 21.70–22.40
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 6050: score=63.2, zone=40.22-41.10
+     → Entirely within zone 40.30–41.02
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 8150: score=59.5, zone=6.48-7.03
+     → Entirely within zone 6.49–7.02
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 4264: score=42.8, zone=53.14-54.91
+     → Entirely within zone 53.25–54.80
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 4147: score=42.2, zone=7.70-7.94
+     → Entirely within zone 7.80–7.91
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 2190: score=48.1, zone=35.71-36.80
+     → Entirely within zone 35.84–36.56
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 6040: score=44.6, zone=6.14-6.33
+     → Entirely within zone 6.20–6.31
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 1202: score=40.8, zone=18.32-18.79
+     → Entirely within zone 18.36–18.75
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+  ❌ 4265: score=36.8, zone=24.02-24.76
+     → Entirely within zone 24.22–24.59
+     💡 Status: stayed_in_zone
+     🔧 Review poller logs for specific block reason
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💼 TRADE PERFORMANCE</b>
+
+<b>4191</b> ⚪ BREAKEVEN -0.5%
+  Entry:  45.82 × 0 shares = 0.00 SAR @ 10:25
+  Peak:   46.95 (+2.5%) @ 10:11 ← Day high
+  Best:   45.84 (+0.0%) @ 10:35 ← While held
+  Sell:   45.58 (-0.5%) @ 10:40 ← Actual
+  Total:  +0.00 SAR
+  Gap:   0.6% left while holding
+  Duration: 10:40
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>6019</b> ✅ PROFIT +1.4%
+  Entry:  22.74 × 0 shares = 0.00 SAR @ 14:27
+  Peak:   23.86 (+4.9%) @ 15:00 ← Day high
+  Best:   22.79 (+0.2%) @ 14:44 ← While held
+  Sell:   23.06 (+1.4%) @ 14:42 ← Actual
+  Total:  +0.00 SAR
+  Duration: 14:42
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>8020</b> ⚪ BREAKEVEN -1.0%
+  Entry:  9.64 × 0 shares = 0.00 SAR @ 10:10
+  Peak:   9.79 (+1.6%) @ 10:03 ← Day high
+  Best:   9.60 (+0.0%) @ 10:25 ← While held
+  Sell:   9.54 (-1.0%) @ 10:25 ← Actual
+  Total:  +0.00 SAR
+  Gap:   1.0% left while holding
+  Duration: 10:25
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>2381</b> ⚪ BREAKEVEN -0.9%
+  Entry:  93.60 × 0 shares = 0.00 SAR @ 12:11
+  Peak:   93.90 (+0.3%) @ 11:28 ← Day high
+  Best:   93.55 (+0.0%) @ 12:34 ← While held
+  Sell:   92.80 (-0.9%) @ 12:41 ← Actual
+  Total:  +0.00 SAR
+  Gap:   0.9% left while holding
+  Duration: 12:41
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+<b>2330</b> ✅ PROFIT +0.5%
+  Entry:  26.65 × 0 shares = 0.00 SAR @ 13:38
+  Peak:   27.24 (+2.2%) @ 10:01 ← Day high
+  Best:   27.08 (+1.6%) @ 14:12 ← While held
+  Sell:   26.78 (+0.5%) @ 14:52 ← Actual
+  Total:  +0.00 SAR
+  Gap:   1.1% left while holding
+  Duration: 14:52
+  Exit reason: Log error: cannot access local variable 'exit_reason' where it is not associated with a value
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🧠 ANALYSIS & REASONING</b>
+
+<b>📊 Market Assessment:</b>
+  • 13 picks generated across all screens
+  • 5 positions taken (0 wins, 5 losses)
+  • 8 opportunities missed
+  • Average day range: 0.46 SAR
+
+<b>🎯 Entry Analysis:</b>
+  • 11 in-zone picks missed due to capacity constraints
+    → System had 5/16 positions open
+    → Suggestion: increase max_positions or implement rotation
+
+<b>💼 Exit Analysis:</b>
+  • 4191: ❌ LOSS -0.5% — sold 0.24 SAR below entry
+    → Could have sold 46.95 (+3.0% higher) during hold
+  • 6019: ✅ PROFIT +1.4% — good exit above entry
+    → Could have sold 23.86 (+3.5% higher) during hold
+  • 8020: ❌ LOSS -1.0% — sold 0.10 SAR below entry
+    → Could have sold 9.79 (+2.6% higher) during hold
+  • 2381: ❌ LOSS -0.9% — sold 0.80 SAR below entry
+    → Could have sold 93.90 (+1.2% higher) during hold
+  • 2330: ⚪ BREAKEVEN +0.5% — sold near entry
+    → Could have sold 27.24 (+1.7% higher) during hold
+<b>📈 Overall Assessment:</b>
+  • Net result: -0.69 SAR (loss on the day)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 RECOMMENDATIONS</b>
+
+<b>🔴 CRITICAL:</b>
+1. Position capacity: 11 in-zone picks missed due to max positions (5/3) — increase to 4 OR add position rotation logic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Intelligent Analysis by Mino 🪼</i>

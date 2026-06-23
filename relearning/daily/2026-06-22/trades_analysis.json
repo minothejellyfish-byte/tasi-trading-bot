@@ -1,0 +1,12 @@
+[
+  {
+    "symbol": "8040",
+    "has_trade": true,
+    "buy_price": 9.19,
+    "sell_price": 9.25,
+    "ideal_entry_low": null,
+    "ideal_entry_high": null,
+    "actual_pnl": 1.9200000000000195,
+    "hold_time_min": 98
+  }
+]

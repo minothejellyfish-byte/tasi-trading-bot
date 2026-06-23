@@ -1,0 +1,26 @@
+{
+  "our_picks": [],
+  "outside_top3": [
+    {
+      "symbol": "9587.SR",
+      "max_move_pct": 9.090909090909092,
+      "change_pct": 1.8181800842285156,
+      "volume": 152920,
+      "why_missed": "Unknown - need screener logs"
+    },
+    {
+      "symbol": "8240.SR",
+      "max_move_pct": 8.873892287759217,
+      "change_pct": 7.368967527563513,
+      "volume": 1581860,
+      "why_missed": "Unknown - need screener logs"
+    },
+    {
+      "symbol": "8260.SR",
+      "max_move_pct": 8.838381344974582,
+      "change_pct": 6.565650240911134,
+      "volume": 1762770,
+      "why_missed": "Unknown - need screener logs"
+    }
+  ]
+}

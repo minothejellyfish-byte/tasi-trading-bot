@@ -1,0 +1,104 @@
+[
+  {
+    "symbol": "1213",
+    "score": 166.2,
+    "tier": "main",
+    "source": "",
+    "entry_low": 22.29,
+    "entry_high": 24.22,
+    "actual_exit": 23.68,
+    "exit_time": "11:56",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 23.86,
+    "entry_slippage_pct": null,
+    "actual_pnl": -2.899999999999996,
+    "hold_time_min": 15,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "3030",
+    "score": 162.5,
+    "tier": "main",
+    "source": "",
+    "entry_low": 31.22,
+    "entry_high": 33.75,
+    "actual_exit": 33.56,
+    "exit_time": "10:25",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 33.48,
+    "entry_slippage_pct": null,
+    "actual_pnl": 0.42000000000005405,
+    "hold_time_min": 20,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "6050",
+    "score": 157.7,
+    "tier": "main",
+    "source": "",
+    "entry_low": 40.81,
+    "entry_high": 42.84,
+    "actual_exit": 42.78,
+    "exit_time": "12:41",
+    "exit_trigger": "vwap_breakdown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 42.8,
+    "entry_slippage_pct": null,
+    "actual_pnl": -0.19999999999998808,
+    "hold_time_min": 21,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "3020",
+    "score": 149.5,
+    "tier": "main",
+    "source": "",
+    "entry_low": 25.31,
+    "entry_high": 26.5,
+    "actual_exit": 26.1,
+    "exit_time": "12:36",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 26.26,
+    "entry_slippage_pct": null,
+    "actual_pnl": -1.7200000000000015,
+    "hold_time_min": 15,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "4191",
+    "score": 140.5,
+    "tier": "main",
+    "source": "",
+    "entry_low": 42.91,
+    "entry_high": 45.79,
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  }
+]

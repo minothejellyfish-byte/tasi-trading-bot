@@ -1,0 +1,106 @@
+[
+  {
+    "symbol": "6040",
+    "score": 152.4,
+    "tier": "main",
+    "source": "",
+    "entry_low": 6.51,
+    "entry_high": 6.82,
+    "actual_exit": 6.67,
+    "exit_time": "10:41",
+    "exit_trigger": "time_stop",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 6.75,
+    "entry_slippage_pct": null,
+    "actual_pnl": -4.300000000000004,
+    "hold_time_min": 41,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "3030",
+    "score": 123.4,
+    "tier": "main",
+    "source": "",
+    "entry_low": 30.73,
+    "entry_high": 32.49,
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "1304",
+    "score": 118.2,
+    "tier": "main",
+    "source": "",
+    "entry_low": 39.26,
+    "entry_high": 40.52,
+    "actual_entry": 39.28,
+    "entry_time": "14:17",
+    "entry_trigger": "unknown",
+    "entry_slippage_pct": null,
+    "entry_vs_zone": "in_zone",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_exit": 39.6,
+    "actual_pnl": 0.7800000000000008,
+    "hold_time_min": -237,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "8210",
+    "score": 114.7,
+    "tier": "main",
+    "source": "",
+    "entry_low": 192.67,
+    "entry_high": 198.57,
+    "actual_exit": 190.7,
+    "exit_time": "14:32",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 192.7,
+    "entry_slippage_pct": null,
+    "actual_pnl": -2.2199999999999998,
+    "hold_time_min": 55,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "5110",
+    "score": 113.5,
+    "tier": "main",
+    "source": "",
+    "entry_low": 16.98,
+    "entry_high": 17.5,
+    "actual_entry": 17.39,
+    "entry_time": "12:06",
+    "entry_trigger": "vwap_reclaim",
+    "entry_slippage_pct": null,
+    "entry_vs_zone": "in_zone",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_exit": 17.37,
+    "actual_pnl": -0.3999999999999957,
+    "hold_time_min": -30,
+    "max_profit_if_held": null
+  }
+]

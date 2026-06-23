@@ -1,0 +1,19 @@
+{
+  "our_picks": [],
+  "outside_top3": [
+    {
+      "symbol": "8240.SR",
+      "max_move_pct": 8.873892287759217,
+      "change_pct": 7.368967527563513,
+      "volume": 1581860,
+      "why_missed": "Unknown - need screener logs"
+    },
+    {
+      "symbol": "8100.SR",
+      "max_move_pct": 4.09756171994093,
+      "change_pct": 2.9268311291206177,
+      "volume": 474092,
+      "why_missed": "Unknown - need screener logs"
+    }
+  ]
+}

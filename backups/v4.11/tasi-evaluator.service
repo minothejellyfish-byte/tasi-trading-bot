@@ -1,0 +1,13 @@
+[Unit]
+Description=TASI Pick Evaluator
+After=tasi-poller.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/mino/tasi-exec
+ExecStart=/usr/bin/python3 /home/mino/tasi-exec/evaluator.py
+StandardOutput=append:/home/mino/tasi-exec/evaluator.log
+StandardError=append:/home/mino/tasi-exec/evaluator.log
+
+[Install]
+WantedBy=default.target

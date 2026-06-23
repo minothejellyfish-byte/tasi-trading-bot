@@ -1,0 +1,166 @@
+[
+  {
+    "symbol": "1320",
+    "score": 117.7,
+    "tier": "main",
+    "source": "",
+    "entry_low": 55.27,
+    "entry_high": 57.42,
+    "open": 56.5,
+    "high": 57.400001525878906,
+    "low": 56.099998474121094,
+    "close": 56.70000076293945,
+    "volume": 161836,
+    "change_pct": 0.35398365122027103,
+    "max_intraday_pct": 1.5929230546529314,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 1.501716074038521,
+      "high_error_pct": -0.0348284119141335,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "actual_exit": 56.45,
+    "exit_time": "13:17",
+    "exit_trigger": "vwap_breakdown",
+    "exit_vs_hod_pct": 1.6550548791372304,
+    "exit_vs_vwap": -0.3970007763169679,
+    "exit_quality": "auto exit (1.7% from HOD)",
+    "exit_improvement": "Good exit timing",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "8240",
+    "score": 106.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 18.75,
+    "entry_high": 19.32,
+    "open": 19.270000457763672,
+    "high": 20.979999542236328,
+    "low": 19.239999771118164,
+    "close": 20.690000534057617,
+    "volume": 1581860,
+    "change_pct": 7.368967527563513,
+    "max_intraday_pct": 8.873892287759217,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 2.6133321126302085,
+      "high_error_pct": 8.592130135798797,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "5110",
+    "score": 106.7,
+    "tier": "main",
+    "source": "",
+    "entry_low": 16.74,
+    "entry_high": 17.25,
+    "open": 17.100000381469727,
+    "high": 17.170000076293945,
+    "low": 16.84000015258789,
+    "close": 17.0,
+    "volume": 570101,
+    "change_pct": -0.5847975394087778,
+    "max_intraday_pct": 0.4093549313605474,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 0.5973724766301803,
+      "high_error_pct": -0.463767673658288,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "actual_exit": 17.0,
+    "exit_time": "15:00",
+    "exit_trigger": "target_reached",
+    "exit_vs_hod_pct": 0.9900994498460068,
+    "exit_vs_vwap": -0.1615043449799122,
+    "exit_quality": "profit target hit (1.0% from HOD)",
+    "exit_improvement": "Good exit timing",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "1830",
+    "score": 97.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 82.22,
+    "entry_high": 84.74,
+    "open": 84.5,
+    "high": 84.9000015258789,
+    "low": 83.0,
+    "close": 83.05000305175781,
+    "volume": 105323,
+    "change_pct": -1.7159727198132395,
+    "max_intraday_pct": 0.4733745868389423,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 0.9486742884942851,
+      "high_error_pct": 0.18881463993263084,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "8100",
+    "score": 96.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 10.01,
+    "entry_high": 10.31,
+    "open": 10.25,
+    "high": 10.670000076293945,
+    "low": 10.020000457763672,
+    "close": 10.550000190734863,
+    "volume": 474092,
+    "change_pct": 2.9268311291206177,
+    "max_intraday_pct": 4.09756171994093,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 0.09990467296375713,
+      "high_error_pct": 3.4917563171090666,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  }
+]

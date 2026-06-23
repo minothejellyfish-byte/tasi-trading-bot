@@ -1,0 +1,45 @@
+{
+  "week": "2026-06-14_to_2026-06-18",
+  "generated": "2026-06-19T20:01:21.295902",
+  "results": {
+    "v3.2": {
+      "name": "v3.2 (Previous System)",
+      "num_picks": 30,
+      "hit_trades": 0,
+      "missed_trades": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0,
+      "trades": []
+    },
+    "v4.0": {
+      "name": "v4.0 (Current System)",
+      "num_picks": 30,
+      "hit_trades": 0,
+      "missed_trades": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0,
+      "trades": []
+    },
+    "v4.0+": {
+      "name": "v4.0+ (Optimized)",
+      "num_picks": 30,
+      "hit_trades": 0,
+      "missed_trades": 0,
+      "total_pnl": 0,
+      "win_rate": 0,
+      "avg_pnl": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "missed_opportunity": 0,
+      "trades": []
+    }
+  }
+}

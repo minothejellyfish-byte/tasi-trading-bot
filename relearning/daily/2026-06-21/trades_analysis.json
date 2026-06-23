@@ -1,0 +1,12 @@
+[
+  {
+    "symbol": "2380",
+    "has_trade": true,
+    "buy_price": 13.04,
+    "sell_price": 12.79,
+    "ideal_entry_low": null,
+    "ideal_entry_high": null,
+    "actual_pnl": -7.42,
+    "hold_time_min": 49
+  }
+]

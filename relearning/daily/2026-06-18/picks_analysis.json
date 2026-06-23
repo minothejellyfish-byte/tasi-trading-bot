@@ -1,0 +1,96 @@
+[
+  {
+    "symbol": "4019",
+    "score": 152.6,
+    "tier": "main",
+    "source": "",
+    "entry_low": 18.01,
+    "entry_high": 18.01,
+    "actual_exit": 17.38,
+    "exit_time": "14:30",
+    "exit_trigger": "hard_close",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 18.931,
+    "entry_slippage_pct": null,
+    "actual_pnl": -22.004000000000026,
+    "hold_time_min": 165,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "4017",
+    "score": 87.2,
+    "tier": "main",
+    "source": "",
+    "entry_low": 37.92,
+    "entry_high": 39.3,
+    "actual_exit": 38.24,
+    "exit_time": "14:50",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 38.54,
+    "entry_slippage_pct": null,
+    "actual_pnl": -2.40999999999998,
+    "hold_time_min": 168,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "6040",
+    "score": 85.4,
+    "tier": "main",
+    "source": "",
+    "entry_low": 6.65,
+    "entry_high": 6.86,
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "1180",
+    "score": 61.6,
+    "tier": "main",
+    "source": "",
+    "entry_low": 40.47,
+    "entry_high": 41.71,
+    "actual_exit": 41.18,
+    "exit_time": "11:55",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 41.28,
+    "entry_slippage_pct": null,
+    "actual_pnl": -0.4400000000000043,
+    "hold_time_min": 1,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "1211",
+    "score": 50.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 61.89,
+    "entry_high": 63.78,
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  }
+]

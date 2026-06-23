@@ -1,0 +1,117 @@
+*** Begin Patch ***
+--- bookkeeper.py.orig
++++ bookkeeper.py.fixed
+@@ -654,25 +654,79 @@
+             local_qty = local_o.get("qty", 0)
+             local_price = local_o.get("price", 0)
+             
++            # For orders with id "?", Derayah may split into child orders
++            # Find ALL matching children that sum to parent qty
++            matched_children = []
++            remaining_qty = local_qty
++            
++            # Collect potential matches
++            potential_matches = []
+             for api_oid, api_data in api_order_map.items():
+                 if api_data["our_status"] == STATUS_FILLED:
+-                    # Check symbol, side, qty, price match
++                    # Check symbol, side match
+                     if (api_data["symbol"] == local_symbol and 
+-                        api_data["side"] == local_side and 
+-                        api_data["qty"] == local_qty and
+-                        api_data["price"] == local_price):
+-                        # Check time window (±5 minutes)
++                        api_data["side"] == local_side):
++                        # Price tolerance for MARKET orders (price == 0.0)
++                        price_match = (api_data["price"] == local_price or local_price == 0.0)
++                        
++                        # Check time window (±5 minutes) or date-only
+                         api_time = api_data.get("order_date", "")
++                        time_match = False
+                         if api_time and local_time:
+                             try:
+                                 from datetime import datetime
+-                                # Parse times (handle ISO format)
+                                 local_dt = datetime.fromisoformat(local_time.replace('Z', '+00:00'))
+                                 api_dt = datetime.fromisoformat(api_time.replace('Z', '+00:00'))
+                                 time_diff = abs((api_dt - local_dt).total_seconds())
+-                                if time_diff <= 300:  # 5 minutes = 300 seconds
+-                                    matched_api_order = api_oid
+-                                    break
++                                if time_diff <= 300:
++                                    time_match = True
+                             except Exception:
+-                                # If time parsing fails, match anyway (fallback)
+.                                matched_api_order = api_oid
+-                                break
++                                # Date-only timestamp (e.g., "2026-06-15")
++                                # Check if same date
++                                try:
++                                    local_date = local_time.split('T')[0]
++                                    api_date = api_time.split('T')[0] if 'T' in api_time else api_time
++                                    if local_date == api_date:
++                                        time_match = True
++                                except:
++                                    time_match = True
++                        else:
++                            time_match = True
++                        
++                        if price_match and time_match:
++                            potential_matches.append((api_oid, api_data, api_time))
++            
++            # Sort by time proximity (closest first)
++            def time_score(api_time_str, local_time_str):
++                if not api_time_str or not local_time_str:
++                    return 999999
++                try:
++                    local_dt = datetime.fromisoformat(local_time_str.replace('Z', '+00:00'))
++                    api_dt = datetime.fromisoformat(api_time_str.replace('Z', '+00:00'))
++                    return abs((api_dt - local_dt).total_seconds())
++                except:
++                    return 999998
++            
++            potential_matches.sort(key=lambda x: time_score(x[2], local_time))
++            
++            # Match qty exactly or with multiple children
++            for api_oid, api_data, api_time in potential_matches:
++                if api_data["qty"] == remaining_qty:
++                    matched_children.append((api_oid, api_data))
++                    remaining_qty = 0
++                    break
++                elif api_data["qty"] <= remaining_qty:
++                    matched_children.append((api_oid, api_data))
++                    remaining_qty -= api_data["qty"]
++                    if remaining_qty <= 0:
++                        break
+            
++            # Process matched children
++            if matched_children and remaining_qty <= 0:
++                for child_oid, child_data in matched_children:
++                    new_orders[child_oid] = {
++                        "initiated_at": local_o.get("initiated_at") or child_data.get("order_date") or _now(),
++                        "initiated_by": local_o.get("initiated_by") or "derayah-direct",
++                        "trigger_basis": local_o.get("trigger_basis", "unknown"),
++                        "trigger_detail": local_o.get("trigger_detail") or "",
++                        "symbol": child_data["symbol"],
++                        "side": child_data["side"],
++                        "qty": child_data["qty"],
++                        "price": child_data["price"],
++                        "type": child_data["type"],
++                        "status": STATUS_FILLED,
++                        "updated_at": _now(),
++                        "matched_from_api": True,
++                        "original_order_id": oid,
++                    }
++                    transitions["status_changes"].append({
++                        "order_id": child_oid, "old": STATUS_INITIATED, "new": STATUS_FILLED,
++                        "symbol": local_o.get("symbol"), "side": local_o.get("side"),
++                        "qty": local_o.get("qty"), "price": local_o.get("price"),
++                    })
++                # Parent matched to children - don't add to new_orders
++                matched_api_order = matched_children[0][0] if matched_children else None
++            else:
++                matched_api_order = None
++                
+             if matched_api_order:
+                 # Found matching FILLED order — update with real order ID and FILLED status
+*** End Patch ***

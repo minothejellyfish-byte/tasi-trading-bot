@@ -1,0 +1,10 @@
+{
+  "week": "2026-W23",
+  "trading_days": 1,
+  "total_trades": 2,
+  "avg_win_rate": 50.0,
+  "avg_entry_slippage": 0.09245932161879433,
+  "avg_exit_vs_hod": 0.0,
+  "avg_hold_time": 88.0,
+  "avg_early_exit_rate": 50.0
+}

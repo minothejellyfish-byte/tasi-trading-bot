@@ -1,0 +1,9 @@
+{
+  "total_trades": 5,
+  "win_rate": 0.0,
+  "avg_entry_slippage_pct": 0,
+  "avg_exit_vs_hod_pct": 0,
+  "avg_hold_time_min": 104.0,
+  "early_exit_rate": 0.0,
+  "missed_entries": 2
+}

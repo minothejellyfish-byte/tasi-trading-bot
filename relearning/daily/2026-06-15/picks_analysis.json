@@ -1,0 +1,112 @@
+[
+  {
+    "symbol": "4191",
+    "score": 164.2,
+    "tier": "main",
+    "source": "",
+    "entry_low": 42.33,
+    "entry_high": 46.04,
+    "actual_exit": 45.62,
+    "exit_time": "10:40",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 45.82,
+    "entry_slippage_pct": null,
+    "actual_pnl": -0.5000000000000057,
+    "hold_time_min": 15,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "8020",
+    "score": 150.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 9.3,
+    "entry_high": 9.64,
+    "actual_exit": 9.54,
+    "exit_time": "10:25",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 9.64,
+    "entry_slippage_pct": null,
+    "actual_pnl": -1.6600000000000215,
+    "hold_time_min": 15,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "6019",
+    "score": 150.1,
+    "tier": "main",
+    "source": "",
+    "entry_low": 22.33,
+    "entry_high": 23.29,
+    "actual_exit": 22.74,
+    "exit_time": "14:42",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 22.74,
+    "entry_slippage_pct": null,
+    "actual_pnl": -0.24,
+    "hold_time_min": 15,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "2381",
+    "score": 138.8,
+    "tier": "main",
+    "source": "",
+    "entry_low": 90.05,
+    "entry_high": 93.73,
+    "actual_exit": 93.0,
+    "exit_time": "12:41",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 93.55,
+    "entry_slippage_pct": null,
+    "actual_pnl": -1.9699999999999913,
+    "hold_time_min": 28,
+    "max_profit_if_held": null
+  },
+  {
+    "symbol": "2330",
+    "score": 136.2,
+    "tier": "main",
+    "source": "",
+    "entry_low": 25.47,
+    "entry_high": 27.05,
+    "actual_exit": 26.86,
+    "exit_time": "14:53",
+    "exit_trigger": "unknown",
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    },
+    "actual_entry": 26.64,
+    "entry_slippage_pct": null,
+    "actual_pnl": 1.8999999999999888,
+    "hold_time_min": 75,
+    "max_profit_if_held": null
+  }
+]
