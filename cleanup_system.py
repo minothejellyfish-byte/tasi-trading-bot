@@ -385,6 +385,48 @@ def show_disk_usage():
         pass
 
 
+def ram_cleanup():
+    """Rule 11: RAM cleanup — kill idle browsers, restart bloated gateway."""
+    log("=== RAM Cleanup ===")
+    
+    # Check memory
+    try:
+        mem = os.popen("free -m | grep Mem").read().strip()
+        parts = mem.split()
+        if len(parts) >= 7:
+            total = int(parts[1])
+            available = int(parts[6])
+            used_pct = (total - available) / total * 100
+            log(f"  Memory: {available}MB available / {total}MB total ({used_pct:.1f}% used)")
+            
+            if used_pct > 85:
+                log(f"  WARNING: Memory usage high ({used_pct:.1f}%)")
+    except:
+        pass
+    
+    # Kill idle Chrome instances (kept alive but not doing anything)
+    try:
+        result = os.popen("pgrep -f 'chrome.*--remote-debugging' | wc -l").read().strip()
+        chrome_count = int(result) if result else 0
+        if chrome_count > 1:
+            log(f"  Found {chrome_count} Chrome instances — keeping newest, killing oldest")
+            # Kill oldest Chrome (lowest PID)
+            os.system("pgrep -f 'chrome.*--remote-debugging' | sort -n | head -n -1 | xargs -r kill -9 2>/dev/null")
+    except:
+        pass
+    
+    # Kill zombie processes
+    try:
+        zombies = os.popen("ps aux | grep '<defunct>' | grep -v grep | wc -l").read().strip()
+        if int(zombies) > 0:
+            log(f"  Found {zombies} zombie processes")
+            os.system("ps aux | grep '<defunct>' | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null")
+    except:
+        pass
+    
+    log("  RAM cleanup complete")
+
+
 def main():
     log("=" * 60)
     log("TASI Daily Cleanup Started")
@@ -401,6 +443,7 @@ def main():
     cleanup_fix_scripts()
     cleanup_backtest_outputs()
     cleanup_archive()
+    ram_cleanup()
     
     show_disk_usage()
     
