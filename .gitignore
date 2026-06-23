@@ -1,37 +1,27 @@
-# Ignore log files and runtime data
+# Logs & data
+logs/
+history/
 *.log
-*.log.gz
-*.log.old
 *.jsonl
+
+# Secrets
+.env
+
+# State / Runtime
 *.pid
-*.sha256
+*.pid.lock
 
-# Ignore generated files
+# Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
 
-# Ignore large data files
-*.csv
-*.json
-!picks.json
-!positions.json
-!derayah_tokens.json
-!capital.json
-!orders.json
-!pm_cache.json
-!regime.json
+# OS
+.DS_Store
+Thumbs.db
 
-# Ignore session transcripts
-archive/sessions/
-*.log
-
-# Ignore browser data
-*.png
-*.jpg
-*.html.gz
-
-# Ignore temp backups
-backups/*.backup-*
-*.tmp
-*.temp
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
