@@ -871,7 +871,7 @@ def generate_report(date_str: str, pick_analysis: list, performances: list,
         report.append(f"{len(gap_ups)} picks gapped above their entry zones at open:")
         for p in gap_ups:
             report.append(
-                f"• {p['symbol']}: opened {p['perf']['open']:.2f} > zone {p['entry_low']:.2f}–{p['entry_high']:.2f} "
+                f"• {p['symbol']}: opened {p.get('perf',{}).get('open',0):.2f} > zone {p['entry_low']:.2f}–{p['entry_high']:.2f} "
                 f"(+{p['gap_pct']:.1f}% gap)"
             )
         report.append("")
@@ -2029,7 +2029,7 @@ def generate_intelligent_report(date_str: str, all_picks: Dict[str, List[IntPick
     no_zone = [p for p in pick_lines if p['status'] == 'no_zone']
     
     if gap_above:
-        small_gaps = [p for p in gap_above if p.get('perf') and (p['perf']['open'] - float(p['zone'].split('-')[1])) / float(p['zone'].split('-')[1]) * 100 < 0.5]
+        small_gaps = [p for p in gap_above if p.get('perf') and (p.get('perf',{}).get('open',0) - float(p['zone'].split('-')[1])) / float(p['zone'].split('-')[1]) * 100 < 0.5]
         if small_gaps:
             critical.append(f"Gap-up chase: {len(small_gaps)} picks gapped <0.5% above zone — add chase entry with 1% stop below entry")
         large_gaps = [p for p in gap_above if p not in small_gaps]

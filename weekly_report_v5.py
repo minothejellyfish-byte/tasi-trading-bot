@@ -244,11 +244,16 @@ def simulate_trades(picks, system_params):
     trades = []
     
     for pick in picks:
-        symbol = pick["symbol"]
-        date_str = pick["date"]
-        entry_low = pick["entry_low"]
-        entry_high = pick["entry_high"]
-        score = pick["score"]
+        # Handle both 'symbol' and 'ticker' keys (archive uses 'ticker')
+        symbol = pick.get("symbol", pick.get("ticker"))
+        if not symbol:
+            continue
+        date_str = pick.get("date")
+        if not date_str:
+            continue
+        entry_low = pick.get("entry_low")
+        entry_high = pick.get("entry_high")
+        score = pick.get("score", 0)
         
         try:
             target_date = datetime.strptime(date_str, "%Y-%m-%d").date()

@@ -498,3 +498,77 @@ For direction/trend only:
 **Change Control:** ✅ **APPROVED by A A** — Performance improvement per brainstorm-2026-06-15
 
 ---
+
+## v4.6 — 2026-06-18 (VWAP Breakdown Exit — Regime-Aware + Direction Filter)
+
+### ADDED
+- `regime_name != "TRENDING"` guard on VWAP breakdown exit — disables exit in trending markets
+  - **Reason:** In TRENDING, temporary VWAP dips are pullbacks, not reversals. Trail stop handles risk.
+- `calc_vwap_direction()` check before VWAP breakdown sell — skips sell if VWAP is rising
+  - **Logic:** If `vwap_dir > 0` (rising), skip breakdown exit → momentum recovering
+  - **Log:** `"VWAP RISING (dir=X.XXXX), skip breakdown exit"`
+- Breakeven hold refinement — if loss < 3% and `is_recovering`, skip sell explicitly
+  - **Log:** `"BREAKEVEN HOLD (loss=X.X% < 3%, recovery_score=X.XX)"`
+
+### MODIFIED
+- VWAP breakdown minimum hold time unified to **15 minutes** for all regimes
+  - **Was:** 15 min default, then 10 min override for 1-min candles (inconsistent)
+  - **Now:** 15 min flat — no regime variation, no candle-type variation
+- Dead code removed — unreachable `log.info` after `continue` and duplicate `MIN_HOLD_MINS = 10`
+- Comment updated — `"v4.6: 15 min for ALL regimes (was 10 for 1-min candles)"`
+
+### REGIME MATRIX (VWAP Breakdown Exit)
+| Regime | VWAP Exit | Direction Filter | Min Hold |
+|--------|-----------|------------------|----------|
+| TRENDING | ❌ DISABLED | N/A | N/A |
+| NEUTRAL | ✅ Enabled | Skip if VWAP rising | 15 min |
+| DEFENSIVE | ✅ Enabled | Skip if VWAP rising | 15 min |
+
+### EXIT PARAMETERS (Complete System)
+| # | Parameter | Trigger | Description | Regime-Aware? |
+|---|-----------|---------|-------------|---------------|
+| 1 | Hard Stop | `hard_stop` | Fixed % loss from entry (-7% / -5% / -4%) | ✅ Yes |
+| 2 | Trailing Stop | `trail_stop` | % drop from peak after trigger | ✅ Yes |
+| 3 | Time Stop | `time_stop` | Exit if flat/loss after X min | ✅ Yes |
+| 4 | Target | `target_reached` | Full exit at +2% / +1.2% / +0.8% | ✅ Yes |
+| 5 | Tier 1 | `tier1` | Sell 50% at target (partial, qty > 1) | ✅ Yes |
+| 6 | VWAP Breakdown | `vwap_breakdown` | Exit if price < VWAP + not recovering | ✅ v4.6 |
+| 7 | Tier 2 | `tier2` | Sell 25% at 3× target | ✅ Yes |
+| 8 | Tier 3 | `tier3` | Sell final 25% at 5× target | ✅ Yes |
+| — | Hard Close | `hard_close` | Force sell at 14:50 (end of day) | ❌ Fixed time |
+| — | Scratch Sell | `scratch_sell` | Manual / cooldown recovery | ❌ Manual |
+| — | Position Upgrade | `position_upgrade` | Swap to better pick | ❌ Event-driven |
+
+### DELETED
+- Nothing
+
+**Change Control:** ✅ **APPROVED by A A** — Parameter 6 redesign per 2026-06-18 04:17 brainstorm
+
+### ADDED
+- `check_vwap_reclaim()` now uses 1-minute candles from websocket data
+  - Priority 1: `build_1min_candles()` from `ws_frames_raw.log`
+  - Priority 2: Falls back to 5-min yfinance candles
+  - More accurate entry timing with real-time data
+
+### MODIFIED
+- Entry VWAP calculation now uses `get_ws_vwap()` first
+  - Priority 1: WebSocket incremental VWAP (real-time)
+  - Priority 2: `calc_vwap(df)` from yfinance (15-min delayed)
+- Both entry and exit now use 1-min candles for VWAP decisions
+
+### ARCHITECTURE
+```
+Entry Logic:
+1. get_ws_vwap() — WebSocket incremental (real-time)
+2. check_vwap_reclaim() — Uses 1-min candles first
+3. Fallback: 5-min yfinance candles
+
+Exit Logic:
+1. get_ws_vwap() — WebSocket incremental (real-time)
+2. build_1min_candles() — 15 candles for recovery score
+3. Fallback: 5-min yfinance candles
+```
+
+**Change Control:** ✅ **APPROVED by A A** — Completes brainstorm-2026-06-15 item #4
+
+---

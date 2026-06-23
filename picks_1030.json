@@ -1,69 +1,69 @@
 {
-  "date": "2026-06-15",
+  "date": "2026-06-22",
   "mode": "midscreen1",
   "window": "10:00-10:30",
   "picks": [
     {
-      "symbol": "9411.SR",
-      "entry_high": 12.56,
-      "entry_low": 12.19,
-      "score": 70.7,
-      "pm_metrics": {
-        "change_pct": 6.84,
-        "range_pct": 10.0,
-        "ticks": 33
-      },
-      "tier": "midscreen",
-      "source": "midscreen1"
-    },
-    {
-      "symbol": "6017.SR",
-      "entry_high": 13.76,
-      "entry_low": 13.18,
+      "symbol": "4141.SR",
+      "entry_high": 21.16,
+      "entry_low": 20.53,
       "score": 65.9,
       "pm_metrics": {
         "change_pct": 4.09,
-        "range_pct": 4.74,
-        "ticks": 489
+        "range_pct": 4.95,
+        "ticks": 384
       },
       "tier": "midscreen",
       "source": "midscreen1"
     },
     {
-      "symbol": "3030.SR",
-      "entry_high": 31.55,
-      "entry_low": 30.62,
-      "score": 62.8,
+      "symbol": "1304.SR",
+      "entry_high": 41.61,
+      "entry_low": 40.38,
+      "score": 50.9,
       "pm_metrics": {
-        "change_pct": 3.78,
-        "range_pct": 3.9,
-        "ticks": 266
+        "change_pct": 2.59,
+        "range_pct": 3.17,
+        "ticks": 270
       },
       "tier": "midscreen",
       "source": "midscreen1"
     },
     {
-      "symbol": "1213.SR",
-      "entry_high": 22.44,
-      "entry_low": 21.66,
-      "score": 53.2,
+      "symbol": "8230.SR",
+      "entry_high": 60.32,
+      "entry_low": 57.38,
+      "score": 49.9,
       "pm_metrics": {
-        "change_pct": 2.87,
-        "range_pct": 2.96,
-        "ticks": 236
+        "change_pct": -2.99,
+        "range_pct": 7.63,
+        "ticks": 639
       },
       "tier": "midscreen",
       "source": "midscreen1"
     },
     {
-      "symbol": "6050.SR",
-      "entry_high": 41.1,
-      "entry_low": 40.22,
-      "score": 48.2,
+      "symbol": "1321.SR",
+      "entry_high": 225.25,
+      "entry_low": 218.66,
+      "score": 48.8,
       "pm_metrics": {
-        "change_pct": 2.32,
-        "range_pct": 3.16,
-        "ticks": 252
+        "change_pct": 2.38,
+        "range_pct": 3.24,
+        "ticks": 278
+      },
+      "tier": "midscreen",
+      "source": "midscreen1"
+    },
+    {
+      "symbol": "1201.SR",
+      "entry_high": 5.47,
+      "entry_low": 5.15,
+      "score": 45.4,
+      "pm_metrics": {
+        "change_pct": -2.8,
+        "range_pct": 3.36,
+        "ticks": 121
       },
       "tier": "midscreen",
       "source": "midscreen1"

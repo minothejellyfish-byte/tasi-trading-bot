@@ -281,7 +281,7 @@ def scrape_dashboard_cash(tokens: dict = None) -> dict:
             br = pw.chromium.connect_over_cdp("http://127.0.0.1:18801", timeout=5000)
             ctx = br.contexts[0]
             for page in ctx.pages:
-                if "derayah" in page.url.lower() and "dashboard" in page.url.lower():
+                if "derayah" in page.url.lower() and ("dashboard" in page.url.lower() or "trading-portfolio" in page.url.lower()):
                     page.wait_for_timeout(2000)
                     text = page.inner_text("body")
                     lines = [l.strip() for l in text.split('\n') if l.strip()]
