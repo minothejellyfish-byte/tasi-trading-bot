@@ -938,3 +938,136 @@
 2026-06-21T15:07:41+03:00 ocean autossh[4639]: starting ssh (count 16)
 2026-06-21T15:07:41+03:00 ocean autossh[4639]: ssh child pid is 75743
 2026-06-22T11:16:39+03:00 ocean autossh[75743]: channel 5: open failed: connect failed: No such host is known.
+2026-06-23T06:48:36+03:00 ocean systemd[4000]: Started socks-tunnel.service - SOCKS5 tunnel to Amin-PC (residential proxy).
+2026-06-23T06:48:36+03:00 ocean autossh[4126]: port set to 0, monitoring disabled
+2026-06-23T06:48:36+03:00 ocean autossh[4126]: starting ssh (count 1)
+2026-06-23T06:48:36+03:00 ocean autossh[4126]: ssh child pid is 4161
+2026-06-23T09:59:29+03:00 ocean autossh[4161]: Timeout, server 192.168.1.228 not responding.
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 2)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23343
+2026-06-23T09:59:29+03:00 ocean autossh[23343]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 3)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23344
+2026-06-23T09:59:29+03:00 ocean autossh[23344]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 4)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23345
+2026-06-23T09:59:29+03:00 ocean autossh[23345]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 5)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23346
+2026-06-23T09:59:29+03:00 ocean autossh[23346]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 6)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23347
+2026-06-23T09:59:29+03:00 ocean autossh[23347]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: starting ssh (count 7)
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh child pid is 23348
+2026-06-23T09:59:29+03:00 ocean autossh[23348]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:31+03:00 ocean autossh[4126]: starting ssh (count 8)
+2026-06-23T09:59:31+03:00 ocean autossh[4126]: ssh child pid is 23349
+2026-06-23T09:59:31+03:00 ocean autossh[23349]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:31+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:39+03:00 ocean autossh[4126]: starting ssh (count 9)
+2026-06-23T09:59:39+03:00 ocean autossh[4126]: ssh child pid is 23350
+2026-06-23T09:59:39+03:00 ocean autossh[23350]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:39+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T09:59:57+03:00 ocean autossh[4126]: starting ssh (count 10)
+2026-06-23T09:59:57+03:00 ocean autossh[4126]: ssh child pid is 23403
+2026-06-23T09:59:57+03:00 ocean autossh[23403]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T09:59:57+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:00:29+03:00 ocean autossh[4126]: starting ssh (count 11)
+2026-06-23T10:00:29+03:00 ocean autossh[4126]: ssh child pid is 23574
+2026-06-23T10:00:29+03:00 ocean autossh[23574]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:00:29+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:01:19+03:00 ocean autossh[4126]: starting ssh (count 12)
+2026-06-23T10:01:19+03:00 ocean autossh[4126]: ssh child pid is 23682
+2026-06-23T10:01:19+03:00 ocean autossh[23682]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:01:19+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:02:31+03:00 ocean autossh[4126]: starting ssh (count 13)
+2026-06-23T10:02:31+03:00 ocean autossh[4126]: ssh child pid is 23856
+2026-06-23T10:02:31+03:00 ocean autossh[23856]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:02:31+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:04:09+03:00 ocean autossh[4126]: starting ssh (count 14)
+2026-06-23T10:04:09+03:00 ocean autossh[4126]: ssh child pid is 24060
+2026-06-23T10:04:09+03:00 ocean autossh[24060]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:04:09+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:06:17+03:00 ocean autossh[4126]: starting ssh (count 15)
+2026-06-23T10:06:17+03:00 ocean autossh[4126]: ssh child pid is 24418
+2026-06-23T10:06:17+03:00 ocean autossh[24418]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:06:17+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:08:59+03:00 ocean autossh[4126]: starting ssh (count 16)
+2026-06-23T10:08:59+03:00 ocean autossh[4126]: ssh child pid is 24826
+2026-06-23T10:08:59+03:00 ocean autossh[24826]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:08:59+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:12:19+03:00 ocean autossh[4126]: starting ssh (count 17)
+2026-06-23T10:12:19+03:00 ocean autossh[4126]: ssh child pid is 25318
+2026-06-23T10:12:19+03:00 ocean autossh[25318]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:12:19+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:16:20+03:00 ocean autossh[4126]: starting ssh (count 18)
+2026-06-23T10:16:20+03:00 ocean autossh[4126]: ssh child pid is 25963
+2026-06-23T10:16:20+03:00 ocean autossh[25963]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:16:20+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:21:08+03:00 ocean autossh[4126]: starting ssh (count 19)
+2026-06-23T10:21:08+03:00 ocean autossh[4126]: ssh child pid is 26727
+2026-06-23T10:21:08+03:00 ocean autossh[26727]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:21:08+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:26:46+03:00 ocean autossh[4126]: starting ssh (count 20)
+2026-06-23T10:26:46+03:00 ocean autossh[4126]: ssh child pid is 27563
+2026-06-23T10:26:46+03:00 ocean autossh[27563]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:26:46+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:33:18+03:00 ocean autossh[4126]: starting ssh (count 21)
+2026-06-23T10:33:18+03:00 ocean autossh[4126]: ssh child pid is 28533
+2026-06-23T10:33:18+03:00 ocean autossh[28533]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:33:18+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:40:48+03:00 ocean autossh[4126]: starting ssh (count 22)
+2026-06-23T10:40:48+03:00 ocean autossh[4126]: ssh child pid is 29725
+2026-06-23T10:40:48+03:00 ocean autossh[29725]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:40:48+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:49:20+03:00 ocean autossh[4126]: starting ssh (count 23)
+2026-06-23T10:49:20+03:00 ocean autossh[4126]: ssh child pid is 30989
+2026-06-23T10:49:20+03:00 ocean autossh[30989]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:49:20+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T10:58:58+03:00 ocean autossh[4126]: starting ssh (count 24)
+2026-06-23T10:58:58+03:00 ocean autossh[4126]: ssh child pid is 32458
+2026-06-23T10:58:58+03:00 ocean autossh[32458]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T10:58:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:08:58+03:00 ocean autossh[4126]: starting ssh (count 25)
+2026-06-23T11:08:58+03:00 ocean autossh[4126]: ssh child pid is 33980
+2026-06-23T11:08:58+03:00 ocean autossh[33980]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:08:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:18:58+03:00 ocean autossh[4126]: starting ssh (count 26)
+2026-06-23T11:18:58+03:00 ocean autossh[4126]: ssh child pid is 35501
+2026-06-23T11:18:58+03:00 ocean autossh[35501]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:18:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:28:58+03:00 ocean autossh[4126]: starting ssh (count 27)
+2026-06-23T11:28:58+03:00 ocean autossh[4126]: ssh child pid is 37056
+2026-06-23T11:28:58+03:00 ocean autossh[37056]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:28:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:38:58+03:00 ocean autossh[4126]: starting ssh (count 28)
+2026-06-23T11:38:58+03:00 ocean autossh[4126]: ssh child pid is 38515
+2026-06-23T11:38:58+03:00 ocean autossh[38515]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:38:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:48:58+03:00 ocean autossh[4126]: starting ssh (count 29)
+2026-06-23T11:48:58+03:00 ocean autossh[4126]: ssh child pid is 40071
+2026-06-23T11:48:58+03:00 ocean autossh[40071]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:48:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T11:58:58+03:00 ocean autossh[4126]: starting ssh (count 30)
+2026-06-23T11:58:58+03:00 ocean autossh[4126]: ssh child pid is 41742
+2026-06-23T11:58:58+03:00 ocean autossh[41742]: ssh: connect to host 192.168.1.228 port 22: Network is unreachable
+2026-06-23T11:58:58+03:00 ocean autossh[4126]: ssh exited with error status 255; restarting ssh
+2026-06-23T12:08:58+03:00 ocean autossh[4126]: starting ssh (count 31)
+2026-06-23T12:08:58+03:00 ocean autossh[4126]: ssh child pid is 44170
+2026-06-23T12:21:31+03:00 ocean systemd[4500]: Started socks-tunnel.service - SOCKS5 tunnel to Amin-PC (residential proxy).
+2026-06-23T12:21:31+03:00 ocean autossh[4609]: port set to 0, monitoring disabled
+2026-06-23T12:21:31+03:00 ocean autossh[4609]: starting ssh (count 1)
+2026-06-23T12:21:31+03:00 ocean autossh[4609]: ssh child pid is 4638
+2026-06-23T14:42:52+03:00 ocean autossh[4638]: channel 10: open failed: connect failed: No such host is known.
+2026-06-23T14:46:33+03:00 ocean autossh[4638]: Timeout, server 192.168.1.228 not responding.
+2026-06-23T14:46:33+03:00 ocean autossh[4609]: ssh exited with error status 255; restarting ssh
+2026-06-23T14:46:33+03:00 ocean autossh[4609]: starting ssh (count 2)
+2026-06-23T14:46:33+03:00 ocean autossh[4609]: ssh child pid is 32902

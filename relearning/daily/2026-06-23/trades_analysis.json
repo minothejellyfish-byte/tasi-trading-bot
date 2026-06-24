@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "8310",
+    "has_trade": true,
+    "buy_price": 7.08,
+    "sell_price": 7.06,
+    "ideal_entry_low": null,
+    "ideal_entry_high": null,
+    "actual_pnl": -0.680000000000011,
+    "hold_time_min": 78
+  },
+  {
+    "symbol": "9404",
+    "has_trade": true,
+    "buy_price": 10.45,
+    "sell_price": 10.0,
+    "ideal_entry_low": null,
+    "ideal_entry_high": null,
+    "actual_pnl": -7.849999999999987,
+    "hold_time_min": 12
+  },
+  {
+    "symbol": "4141",
+    "has_trade": true,
+    "buy_price": 20.94,
+    "sell_price": 21.0,
+    "ideal_entry_low": null,
+    "ideal_entry_high": null,
+    "actual_pnl": 0.6099999999999783,
+    "hold_time_min": 114
+  }
+]

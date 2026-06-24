@@ -1,5 +1,5 @@
 {
-  "sessions_analyzed": 43,
+  "sessions_analyzed": 45,
   "recommendations_made": [
     "\u2705 Strategy performed well \u2014 no major gaps detected",
     "\u2705 Strategy performed well \u2014 no major gaps detected",
@@ -73,10 +73,18 @@
     "\ud83d\udd34 LOSING TRADES: 1 trades with total loss of -7.42 SAR\n   \u2192 Cause: 2380 sold below entry\n   \u2192 Solution: Wider stop loss or better entry timing\n   \u2192 Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown",
     "\ud83d\udd0d 2 missed opportunities (0 from our picks, 2 outside) \u2014 review entry/exit strategy.",
     "\ud83d\ude80 1/12 picks gapped above entry zones (avg +2.4%). 0 had small gaps (<0.5%) \u2014 consider chase entry with tight stop.",
-    "\ud83d\udd0d 4 missed opportunities (1 from our picks, 3 outside) \u2014 review entry/exit strategy."
+    "\ud83d\udd0d 4 missed opportunities (1 from our picks, 3 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udd34 LOSING TRADES: 2 trades with total loss of -8.53 SAR\n   \u2192 Cause: 8310, 9404 sold below entry\n   \u2192 Solution: Wider stop loss or better entry timing\n   \u2192 Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown",
+    "\ud83d\ude80 6/14 picks gapped above entry zones (avg +4.2%). 2 had small gaps (<0.5%) \u2014 consider chase entry with tight stop.",
+    "\ud83d\udd0d 6 missed opportunities (6 from our picks, 0 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udcc9 Weak breadth (27% stocks up) \u2014 defensive day.",
+    "\ud83d\udd34 LOSING TRADES: 2 trades with total loss of -8.53 SAR\n   \u2192 Cause: 9404, 8310 sold below entry\n   \u2192 Solution: Wider stop loss or better entry timing\n   \u2192 Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown",
+    "\ud83d\ude80 6/14 picks gapped above entry zones (avg +4.2%). 2 had small gaps (<0.5%) \u2014 consider chase entry with tight stop.",
+    "\ud83d\udd0d 6 missed opportunities (6 from our picks, 0 outside) \u2014 review entry/exit strategy.",
+    "\ud83d\udcc9 Weak breadth (27% stocks up) \u2014 defensive day."
   ],
   "recommendations_applied": [],
-  "missed_opportunities_avg": 5.159427996014538,
+  "missed_opportunities_avg": 5.234897862858338,
   "strategy_versions": [
     "v1.0"
   ]

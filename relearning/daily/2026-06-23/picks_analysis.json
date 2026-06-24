@@ -1,0 +1,416 @@
+[
+  {
+    "symbol": "6050.SR",
+    "score": 56.1,
+    "tier": "midscreen",
+    "source": "midscreen2",
+    "entry_low": 44.06,
+    "entry_high": 45.41,
+    "open": 53.7,
+    "high": 54.375,
+    "low": 53.35,
+    "close": 54.35,
+    "volume": 0,
+    "change_pct": 1.2104283054003697,
+    "max_intraday_pct": 1.2569832402234584,
+    "gap_status": "above",
+    "gap_pct": 18.255890772957514,
+    "zone_accuracy": {
+      "low_error_pct": 21.0848842487517,
+      "high_error_pct": 19.742347500550547,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "8040.SR",
+    "score": 55.4,
+    "tier": "midscreen",
+    "source": "midscreen2",
+    "entry_low": 8.75,
+    "entry_high": 9.02,
+    "open": 9.06,
+    "high": 9.08,
+    "low": 8.95,
+    "close": 8.96,
+    "volume": 0,
+    "change_pct": -1.1037527593818945,
+    "max_intraday_pct": 0.22075055187637496,
+    "gap_status": "above",
+    "gap_pct": 0.44345898004435613,
+    "zone_accuracy": {
+      "low_error_pct": 2.2857142857142776,
+      "high_error_pct": 0.6651884700665244,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "8310.SR",
+    "score": 50.3,
+    "tier": "midscreen",
+    "source": "midscreen2",
+    "entry_low": 6.89,
+    "entry_high": 7.16,
+    "open": 7.04,
+    "high": 7.13,
+    "low": 7.03,
+    "close": 7.04,
+    "volume": 0,
+    "change_pct": 0.0,
+    "max_intraday_pct": 1.2784090909090888,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 2.0319303338171344,
+      "high_error_pct": -0.4189944134078247,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4160.SR",
+    "score": 48.6,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 33.17,
+    "entry_high": 35.97,
+    "open": 34.04,
+    "high": 35.8,
+    "low": 33.9,
+    "close": 34.96,
+    "volume": 0,
+    "change_pct": 2.7027027027027075,
+    "max_intraday_pct": 5.170387779083425,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 2.2007838408200087,
+      "high_error_pct": -0.4726160689463489,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4141.SR",
+    "score": 65.9,
+    "tier": "midscreen",
+    "source": "midscreen1",
+    "entry_low": 20.53,
+    "entry_high": 21.16,
+    "open": 21.03,
+    "high": 21.2,
+    "low": 19.49,
+    "close": 20.9,
+    "volume": 0,
+    "change_pct": -0.6181645268663936,
+    "max_intraday_pct": 0.8083689966714128,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": false,
+    "zone_accuracy": {
+      "low_error_pct": -5.065757428153934,
+      "high_error_pct": 0.18903591682419257,
+      "zone_was_support": false,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "1304.SR",
+    "score": 37.3,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 42.04,
+    "entry_high": 43.33,
+    "open": 42.26,
+    "high": 42.9,
+    "low": 41.78,
+    "close": 42.36,
+    "volume": 0,
+    "change_pct": 0.23663038334122438,
+    "max_intraday_pct": 1.5144344533838159,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": -0.6184586108468078,
+      "high_error_pct": -0.9923840295407332,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "1321.SR",
+    "score": 48.8,
+    "tier": "midscreen",
+    "source": "midscreen1",
+    "entry_low": 218.66,
+    "entry_high": 225.25,
+    "open": 225.7,
+    "high": 248.3,
+    "low": 224.0,
+    "close": 224.0,
+    "volume": 0,
+    "change_pct": -0.7532122286220597,
+    "max_intraday_pct": 10.013291980505105,
+    "gap_status": "above",
+    "gap_pct": 0.19977802441730905,
+    "zone_accuracy": {
+      "low_error_pct": 2.4421476264520274,
+      "high_error_pct": 10.233074361820204,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4070.SR",
+    "score": 39.0,
+    "tier": "midscreen",
+    "source": "midscreen2",
+    "entry_low": 16.64,
+    "entry_high": 17.15,
+    "open": 17.0,
+    "high": 17.15,
+    "low": 16.0,
+    "close": 17.0,
+    "volume": 0,
+    "change_pct": 0.0,
+    "max_intraday_pct": 0.8823529411764622,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": -3.8461538461538494,
+      "high_error_pct": 0.0,
+      "zone_was_support": false,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4050.SR",
+    "score": 46.2,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 47.03,
+    "entry_high": 48.1,
+    "open": 47.3,
+    "high": 47.3,
+    "low": 46.56,
+    "close": 46.6,
+    "volume": 0,
+    "change_pct": -1.4799154334037965,
+    "max_intraday_pct": 0.0,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": -0.9993621092919389,
+      "high_error_pct": -1.663201663201672,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "2100.SR",
+    "score": 42.3,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 18.75,
+    "entry_high": 19.49,
+    "open": 19.8,
+    "high": 20.15,
+    "low": 19.72,
+    "close": 19.8,
+    "volume": 0,
+    "change_pct": 0.0,
+    "max_intraday_pct": 1.7676767676767569,
+    "gap_status": "above",
+    "gap_pct": 1.590559261159581,
+    "zone_accuracy": {
+      "low_error_pct": 5.173333333333327,
+      "high_error_pct": 3.3863519753719866,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "6040.SR",
+    "score": 40.2,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 6.64,
+    "entry_high": 6.98,
+    "open": 6.78,
+    "high": 6.88,
+    "low": 6.72,
+    "close": 6.79,
+    "volume": 0,
+    "change_pct": 0.14749262536872842,
+    "max_intraday_pct": 1.4749262536873105,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 1.204819277108435,
+      "high_error_pct": -1.432664756446999,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4230.SR",
+    "score": 38.1,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 21.71,
+    "entry_high": 22.37,
+    "open": 22.88,
+    "high": 23.22,
+    "low": 22.08,
+    "close": 22.11,
+    "volume": 0,
+    "change_pct": -3.3653846153846136,
+    "max_intraday_pct": 1.4860139860139854,
+    "gap_status": "above",
+    "gap_pct": 2.279839070183272,
+    "zone_accuracy": {
+      "low_error_pct": 1.7042837402118722,
+      "high_error_pct": 3.799731783638792,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "6013.SR",
+    "score": 49.2,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 93.96,
+    "entry_high": 96.44,
+    "open": 99.0,
+    "high": 104.0,
+    "low": 98.1,
+    "close": 100.1,
+    "volume": 0,
+    "change_pct": 1.1111111111111054,
+    "max_intraday_pct": 5.05050505050505,
+    "gap_status": "above",
+    "gap_pct": 2.654500207382831,
+    "zone_accuracy": {
+      "low_error_pct": 4.4061302681992345,
+      "high_error_pct": 7.839070924927419,
+      "zone_was_support": true,
+      "zone_was_resistance": false
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  },
+  {
+    "symbol": "4325.SR",
+    "score": 41.3,
+    "tier": "midscreen",
+    "source": "rescreen",
+    "entry_low": 16.72,
+    "entry_high": 17.06,
+    "open": 16.79,
+    "high": 17.15,
+    "low": 16.77,
+    "close": 16.8,
+    "volume": 0,
+    "change_pct": 0.05955926146516715,
+    "max_intraday_pct": 2.1441334127456786,
+    "gap_status": "in_zone",
+    "gap_pct": 0,
+    "touched_zone": true,
+    "zone_accuracy": {
+      "low_error_pct": 0.29904306220096116,
+      "high_error_pct": 0.5275498241500578,
+      "zone_was_support": true,
+      "zone_was_resistance": true
+    },
+    "pnl_attribution": {
+      "entry_quality": "neutral",
+      "exit_quality": "neutral",
+      "market_factor": "neutral",
+      "zone_quality": "neutral"
+    }
+  }
+]
