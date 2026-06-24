@@ -11,6 +11,7 @@ import logging
 import os
 import io
 import socket
+import concurrent.futures
 from datetime import datetime, timedelta
 
 import numpy as np
@@ -21,6 +22,26 @@ import mplfinance as mpf
 import requests
 from playwright.async_api import async_playwright
 import os
+
+# ─── yfinance timeout wrapper ──────────────────────────────────────────────
+YF_TIMEOUT = 15  # seconds per ticker
+
+def fetch_with_timeout(ticker, period="7d", interval="1m"):
+    """Fetch yfinance data with timeout to prevent hanging on unresponsive tickers."""
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(
+                yf.download, ticker,
+                period=period, interval=interval,
+                progress=False, auto_adjust=True
+            )
+            return future.result(timeout=YF_TIMEOUT)
+    except concurrent.futures.TimeoutError:
+        log.warning(f"{ticker}: yfinance TIMEOUT after {YF_TIMEOUT}s — skipping")
+        return None
+    except Exception as e:
+        log.warning(f"{ticker}: yfinance error: {e}")
+        return None
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -247,11 +268,11 @@ def check_premarket_momentum(ticker: str, mode: str = "premarket") -> dict | Non
 
     try:
         # Try intraday first; fallback to daily if Yahoo doesn't serve TADAWUL intraday
-        df = yf.download(ticker, period="7d", interval="1m", progress=False, auto_adjust=True)
+        df = fetch_with_timeout(ticker, period="7d", interval="1m")
         use_intraday = True
         if df is None or len(df) < 30:
             # Fallback to daily
-            df = yf.download(ticker, period="7d", progress=False, auto_adjust=True)
+            df = fetch_with_timeout(ticker, period="7d")
             use_intraday = False
         if df is None or len(df) < 2:
             return None
@@ -403,7 +424,7 @@ def score_stock(ticker: str, mode: str = "premarket") -> dict | None:
         return None
 
     try:
-        df = yf.download(ticker, period="30d", interval="1d", progress=False, auto_adjust=True)
+        df = fetch_with_timeout(ticker, period="30d", interval="1d")
         if df is None or len(df) < 10:
             return None
 
