@@ -2084,7 +2084,22 @@ def slow_poll(regime: dict):
     r_params     = regime.get("params", {})
     regime_name  = regime.get("regime", "NEUTRAL")
 
-    # ── Regime change confirmation logic ────────────────────────────────────
+    # v4.15: On startup, if regime file is stale (from yesterday), reclassify immediately
+    classified_at = regime.get("classified_at", "")
+    if classified_at:
+        try:
+            file_date = datetime.fromisoformat(classified_at).date()
+            today = now.date()
+            if file_date < today and _regime_confirmed is None:
+                # File is from yesterday and no regime confirmed yet
+                log.info(f"v4.15: Regime file stale ({file_date}) — reclassifying premarket")
+                from market_regime import classify_premarket
+                fresh_regime = classify_premarket()
+                regime_name = fresh_regime.get("regime", regime_name)
+                r_params = fresh_regime.get("params", r_params)
+                log.info(f"v4.15: Reclassified to {regime_name} at startup")
+        except Exception as e:
+            log.warning(f"v4.15: Could not reclassify regime: {e}")
     now = datetime.now(RIYADH)
 
     # Add current regime to history
