@@ -1027,7 +1027,12 @@ def prune_orders_json_terminal():
 def _announce_transitions(transitions: dict):
     """Send Telegram announcements for order status changes. Best-effort."""
     # INITIATED → REJECTED (Derayah never accepted)
+    # v4.15: Suppressed per A A — too noisy for manual sell orders at 0.0
     for t in transitions["initiated_to_rejected"]:
+        # Skip if price is 0.0 (manual sell without price)
+        if t.get('price', 0) == 0.0:
+            log.debug(f"Order {t['order_id']} REJECTED at price 0.0 — suppressed")
+            continue
         msg = (f"❌ <b>Order {t['order_id']} REJECTED</b>\n"
                f"{t['side']} {t['qty']}×{t['symbol']} @ {t['price']}\n"
                f"<i>Not seen in Derayah after 1 cycle (5 min)</i>")
