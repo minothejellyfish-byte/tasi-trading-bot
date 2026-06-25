@@ -11,6 +11,7 @@ import logging
 import os
 import io
 import socket
+import signal
 import concurrent.futures
 from datetime import datetime, timedelta
 
@@ -26,33 +27,34 @@ import os
 # ─── yfinance timeout wrapper ──────────────────────────────────────────────
 YF_TIMEOUT = 15  # seconds per ticker
 
+class _TimeoutException(Exception):
+    pass
+
+def _timeout_handler(signum, frame):
+    raise _TimeoutException("yfinance download timed out")
+
 def fetch_with_timeout(ticker, period="7d", interval="1m"):
-    """Fetch yfinance data with timeout to prevent hanging on unresponsive tickers."""
+    """Fetch yfinance data with timeout using signal alarm (no threads)."""
+    old_handler = signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(YF_TIMEOUT)
+    
     try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(
-                yf.download, ticker,
-                period=period, interval=interval,
-                progress=False, auto_adjust=True
-            )
-            return future.result(timeout=YF_TIMEOUT)
-    except concurrent.futures.TimeoutError:
+        result = yf.download(
+            ticker,
+            period=period, interval=interval,
+            progress=False, auto_adjust=True
+        )
+        signal.alarm(0)  # Cancel alarm
+        return result
+    except _TimeoutException:
         log.warning(f"{ticker}: yfinance TIMEOUT after {YF_TIMEOUT}s — skipping")
         return None
     except Exception as e:
+        signal.alarm(0)  # Cancel alarm
         log.warning(f"{ticker}: yfinance error: {e}")
         return None
     finally:
-        # Force thread cleanup to prevent resource exhaustion
-        import gc
-        gc.collect()
-
-def shutdown_executor():
-    """Call this when screener is done to clean up threads."""
-    global _SHARED_EXECUTOR
-    if _SHARED_EXECUTOR:
-        _SHARED_EXECUTOR.shutdown(wait=False)
-        _SHARED_EXECUTOR = None
+        signal.signal(signal.SIGALRM, old_handler)
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
