@@ -377,8 +377,42 @@ def check_premarket_momentum(ticker: str, mode: str = "premarket") -> dict | Non
             ATR_MIN, VOL_MIN, MOVE_MIN, RANGE_MIN = 0.02, 0.8, 1.0, 0.5
         elif mode == "rescreen":
             ATR_MIN, VOL_MIN, MOVE_MIN, RANGE_MIN = 0.02, 0.5, 0.5, 0.5
-        else:
-            ATR_MIN, VOL_MIN, MOVE_MIN, RANGE_MIN = 0.01, 0.3, 0.5, 0.5
+        
+        # v4.14: Forward-looking momentum filter for flat days
+        # When yesterday was flat (TASI range < 0.5%), use today's gap as proxy
+        forward_looking_passed = False
+        if mode == "premarket" and max_intraday < MOVE_MIN:
+            # Check if yesterday was a flat day for TASI
+            try:
+                tasi_ticker = "^TASI.SR"
+                tasi_df = yf.download(tasi_ticker, period="5d", interval="1d", progress=False, auto_adjust=True)
+                if tasi_df is not None and len(tasi_df) >= 2:
+                    tasi_df.columns = [c[0] if isinstance(c, tuple) else c for c in tasi_df.columns]
+                    tasi_yesterday = tasi_df.iloc[-2]
+                    tasi_range = (tasi_yesterday['High'] - tasi_yesterday['Low']) / tasi_yesterday['Open'] * 100
+                    
+                    if tasi_range < 0.5:  # Flat day
+                        # Get today's premarket data for this stock
+                        today_data = yf.download(ticker, period="2d", interval="1m", progress=False, auto_adjust=True)
+                        if today_data is not None and len(today_data) > 0:
+                            today_data.columns = [c[0] if isinstance(c, tuple) else c for c in today_data.columns]
+                            # Get last available price (premarket)
+                            last_price = float(today_data['Close'].iloc[-1])
+                            yesterday_close = float(df_target['Close'].iloc[-1])
+                            premarket_gap = (last_price - yesterday_close) / yesterday_close * 100
+                            
+                            if premarket_gap > 2.0:
+                                # Use a simple score proxy (will be refined by full scoring later)
+                                # For now, check if basic criteria are met
+                                forward_looking_passed = True
+                                log.info(f"{ticker} FORWARD-LOOKING momentum: gap={premarket_gap:.2f}% > 2% on flat TASI day (range={tasi_range:.2f}%), allowing through filter")
+            except Exception as e:
+                log.debug(f"{ticker} forward-looking momentum check failed: {e}")
+        
+        # v4.14: Apply forward-looking momentum if applicable
+        if forward_looking_passed:
+            log.info(f"{ticker} PASSING momentum filter via forward-looking path (flat day + gap > 2%)")
+            # Don't add fail reasons for MOVE — override it
 
         passed = True
         fail_reasons = []
@@ -388,9 +422,11 @@ def check_premarket_momentum(ticker: str, mode: str = "premarket") -> dict | Non
         if vol_ratio < VOL_MIN:
             passed = False
             fail_reasons.append(f"VOL={vol_ratio:.1f}<{VOL_MIN}")
-        if max_intraday < MOVE_MIN:
+        if max_intraday < MOVE_MIN and not forward_looking_passed:
             passed = False
             fail_reasons.append(f"MOVE={max_intraday:.2f}%<{MOVE_MIN}%")
+        elif forward_looking_passed:
+            log.info(f"{ticker} OVERRIDE: MOVE check skipped due to forward-looking momentum")
         if range_ratio < RANGE_MIN:
             passed = False
             fail_reasons.append(f"RANGE={range_ratio:.2f}<{RANGE_MIN}")
