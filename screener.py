@@ -69,6 +69,39 @@ EXCHANGE_URL  = "https://www.saudiexchange.sa"
 CDP_URL       = "http://127.0.0.1:18801"
 LOCK_FILE     = "/home/mino/tasi-exec/screener.lock"
 
+# ─── TASI flat day helper ────────────────────────────────────────────────────
+def get_yesterday_tasi_range():
+    """Get yesterday's TASI range from tracked data.
+    Returns (range_pct, is_flat) or (None, False) if data not available.
+    """
+    from pathlib import Path
+    from datetime import datetime, timedelta
+    
+    tasi_file = Path("/home/mino/tasi-exec/tasi_daily.json")
+    if not tasi_file.exists():
+        return None, False
+    
+    try:
+        with open(tasi_file) as f:
+            data = json.load(f)
+        
+        yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        
+        if yesterday in data:
+            values = data[yesterday]
+            high = values.get("high")
+            low = values.get("low")
+            open_price = values.get("open")
+            
+            if high and low and open_price and open_price > 0:
+                tasi_range = (high - low) / open_price * 100
+                is_flat = tasi_range < 0.5
+                return tasi_range, is_flat
+        
+        return None, False
+    except Exception:
+        return None, False
+
 def load_sharia_universe() -> list[str]:
     """Load Sharia-compliant main-market tickers from sharia_list.json."""
     if os.path.exists(SHARIA_FILE):
@@ -397,28 +430,24 @@ def check_premarket_momentum(ticker: str, mode: str = "premarket") -> dict | Non
         if mode == "premarket" and max_intraday < MOVE_MIN:
             # Check if yesterday was a flat day for TASI
             try:
-                tasi_ticker = "^TASI.SR"
-                tasi_df = yf.download(tasi_ticker, period="5d", interval="1d", progress=False, auto_adjust=True)
-                if tasi_df is not None and len(tasi_df) >= 2:
-                    tasi_df.columns = [c[0] if isinstance(c, tuple) else c for c in tasi_df.columns]
-                    tasi_yesterday = tasi_df.iloc[-2]
-                    tasi_range = (tasi_yesterday['High'] - tasi_yesterday['Low']) / tasi_yesterday['Open'] * 100
-                    
-                    if tasi_range < 0.5:  # Flat day
-                        # Get today's premarket data for this stock
-                        today_data = yf.download(ticker, period="2d", interval="1m", progress=False, auto_adjust=True)
-                        if today_data is not None and len(today_data) > 0:
-                            today_data.columns = [c[0] if isinstance(c, tuple) else c for c in today_data.columns]
-                            # Get last available price (premarket)
-                            last_price = float(today_data['Close'].iloc[-1])
-                            yesterday_close = float(df_target['Close'].iloc[-1])
-                            premarket_gap = (last_price - yesterday_close) / yesterday_close * 100
-                            
-                            if premarket_gap > 2.0:
-                                # Use a simple score proxy (will be refined by full scoring later)
-                                # For now, check if basic criteria are met
-                                forward_looking_passed = True
-                                log.info(f"{ticker} FORWARD-LOOKING momentum: gap={premarket_gap:.2f}% > 2% on flat TASI day (range={tasi_range:.2f}%), allowing through filter")
+                tasi_range, is_flat = get_yesterday_tasi_range()
+                if is_flat:
+                    # Get today's premarket data for this stock
+                    today_data = yf.download(ticker, period="2d", interval="1m", progress=False, auto_adjust=True)
+                    if today_data is not None and len(today_data) > 0:
+                        today_data.columns = [c[0] if isinstance(c, tuple) else c for c in today_data.columns]
+                        # Get last available price (premarket)
+                        last_price = float(today_data['Close'].iloc[-1])
+                        yesterday_close = float(df_target['Close'].iloc[-1])
+                        premarket_gap = (last_price - yesterday_close) / yesterday_close * 100
+                        
+                        if premarket_gap > 2.0:
+                            # Use a simple score proxy (will be refined by full scoring later)
+                            # For now, check if basic criteria are met
+                            forward_looking_passed = True
+                            log.info(f"{ticker} FORWARD-LOOKING momentum: gap={premarket_gap:.2f}% > 2% on flat TASI day (range={tasi_range:.2f}%), allowing through filter")
+                elif tasi_range is None:
+                    log.debug(f"{ticker} No TASI data available for forward-looking check")
             except Exception as e:
                 log.debug(f"{ticker} forward-looking momentum check failed: {e}")
         

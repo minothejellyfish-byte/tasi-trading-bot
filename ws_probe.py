@@ -130,6 +130,11 @@ async def run():
     raw_log.addHandler(raw_handler)
     raw_log.propagate = False
 
+    # ── TASI daily tracker ──────────────────────────────────────────────────────
+    tasi_tracker = {"high": None, "low": None, "open": None, "close": None, "date": datetime.now().strftime("%Y-%m-%d")}
+    TASI_TOPIC = "QO.TASI.TAD"
+    tasi_file = BASE_DIR / "tasi_daily.json"
+
     def on_ws_frame(params):
         nonlocal heartbeats, frame_counter
         frame_counter += 1
@@ -162,6 +167,24 @@ async def run():
             heartbeats += 1
             raw_frames.append({"n": frame_counter, "ts": ts, "type": "HB", "req": req_id, "data": d})
             return
+
+        # Track TASI high/low
+        if topic == TASI_TOPIC:
+            try:
+                last_price = float(d.get("last", 0))
+                if last_price > 0:
+                    if tasi_tracker["high"] is None or last_price > tasi_tracker["high"]:
+                        tasi_tracker["high"] = last_price
+                    if tasi_tracker["low"] is None or last_price < tasi_tracker["low"]:
+                        tasi_tracker["low"] = last_price
+                    # Set open on first trade
+                    if tasi_tracker["open"] is None:
+                        tasi_tracker["open"] = last_price
+                    # Update close (last seen price)
+                    tasi_tracker["close"] = last_price
+                    log.debug(f"TASI tracker: high={tasi_tracker['high']}, low={tasi_tracker['low']}, last={last_price}")
+            except Exception as e:
+                log.debug(f"TASI tracking error: {e}")
 
         # Record WS URL
         url = params.get("response", {}).get("url", "")
@@ -232,6 +255,35 @@ async def run():
         json.dump(result, f, indent=2, ensure_ascii=False)
     log.info(f"Saved {len(raw_frames)} frames → {OUT_FILE}")
     log.info(f"Raw frame log (every payload) → {BASE_DIR / 'ws_frames_raw.log'}")
+
+    # ── Save TASI daily tracker ─────────────────────────────────────────────────
+    if tasi_tracker["high"] is not None and tasi_tracker["low"] is not None:
+        try:
+            tasi_history = {}
+            if tasi_file.exists():
+                with open(tasi_file) as f:
+                    tasi_history = json.load(f)
+            
+            # Save today's data
+            tasi_history[tasi_tracker["date"]] = {
+                "open": tasi_tracker["open"],
+                "high": tasi_tracker["high"],
+                "low": tasi_tracker["low"],
+                "close": tasi_tracker["close"],
+                "date": tasi_tracker["date"]
+            }
+            
+            # Keep only last 30 days
+            dates = sorted(tasi_history.keys())
+            for old_date in dates[:-30]:
+                del tasi_history[old_date]
+            
+            with open(tasi_file, "w") as f:
+                json.dump(tasi_history, f, indent=2)
+            
+            log.info(f"TASI daily data saved: {tasi_tracker}")
+        except Exception as e:
+            log.error(f"Failed to save TASI tracker: {e}")
 
     # ── Telegram summary ───────────────────────────────────────────────────────
 
