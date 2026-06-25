@@ -164,11 +164,8 @@ def fetch_data(symbol):
 def classify_regime():
     """Get current market regime."""
     try:
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("market_regime", BASE_DIR / "market_regime.py")
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        regime = mod.classify_regime()
+        from market_regime import get_current_regime
+        regime = get_current_regime()
         return regime.get("regime", "NEUTRAL")
     except Exception as e:
         log.warning(f"Could not classify regime: {e}")
