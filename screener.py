@@ -42,6 +42,17 @@ def fetch_with_timeout(ticker, period="7d", interval="1m"):
     except Exception as e:
         log.warning(f"{ticker}: yfinance error: {e}")
         return None
+    finally:
+        # Force thread cleanup to prevent resource exhaustion
+        import gc
+        gc.collect()
+
+def shutdown_executor():
+    """Call this when screener is done to clean up threads."""
+    global _SHARED_EXECUTOR
+    if _SHARED_EXECUTOR:
+        _SHARED_EXECUTOR.shutdown(wait=False)
+        _SHARED_EXECUTOR = None
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
