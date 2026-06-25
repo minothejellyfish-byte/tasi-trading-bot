@@ -57,6 +57,9 @@ def log_price(symbol: str, price: float, change: float, pchange: float, real: bo
     if spread_pct != 0.0:
         entry["spread_pct"] = round(spread_pct, 4)
 
+    # v4.13: Log entry signal data for backtesting
+    entry["_v4_13"] = True  # Marker for volume gate processing
+
     try:
         with open(log_file, "a") as f:
             f.write(json.dumps(entry) + "\n")

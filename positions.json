@@ -348,16 +348,19 @@
   "8040": {
     "symbol": "8040",
     "entry_price": 8.98,
-    "qty": 28,
+    "qty": 0,
     "entry_time": "2026-06-24T10:55:39.963629+03:00",
-    "peak_price": 8.98,
-    "closed": false,
+    "peak_price": 9.28,
+    "closed": true,
     "price_source": "derayah-api",
     "signal": "auto",
     "order_id": "?",
     "commission": 0.13,
     "vat": 0.02,
-    "total_cost": 251.58
+    "total_cost": 251.58,
+    "close_time": "2026-06-24T13:26:54.443372+03:00",
+    "sync_note": "closed_by_bookkeeper",
+    "close_price": 0
   },
   "4141": {
     "symbol": "4141",
@@ -411,5 +414,34 @@
     "free_qty": 0,
     "cost": 167.29,
     "sync_note": "closed_by_derayah_sync"
+  },
+  "2100": {
+    "symbol": "2100",
+    "qty": 0,
+    "cost": 181.81,
+    "avg_price": 20.20111111111111,
+    "entry_price": 20.20111111111111,
+    "closed": true,
+    "entry_time": "2026-06-24T12:51:29.203583+03:00",
+    "price_source": "derayah-sync",
+    "signal": "sync",
+    "sync_note": "closed_by_bookkeeper",
+    "peak_price": 21.38,
+    "close_time": "2026-06-24T13:42:24.364752+03:00"
+  },
+  "8280": {
+    "symbol": "8280",
+    "qty": 0,
+    "cost": 183.55,
+    "avg_price": 12.236666666666668,
+    "entry_price": 12.236666666666668,
+    "closed": true,
+    "entry_time": "2026-06-24T13:46:53.097268+03:00",
+    "price_source": "derayah-sync",
+    "signal": "sync",
+    "sync_note": "closed_by_bookkeeper",
+    "peak_price": 12.28,
+    "close_time": "2026-06-24T14:37:30.295112+03:00",
+    "close_price": 0
   }
 }

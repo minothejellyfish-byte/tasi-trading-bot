@@ -1,69 +1,69 @@
 {
-  "date": "2026-06-23",
+  "date": "2026-06-24",
   "mode": "rescreen",
   "window": "12:00-13:30",
   "picks": [
     {
-      "symbol": "9404.SR",
-      "entry_high": 10.48,
-      "entry_low": 10.25,
-      "score": 53.8,
+      "symbol": "4270.SR",
+      "entry_high": 7.14,
+      "entry_low": 6.91,
+      "score": 48.5,
       "pm_metrics": {
-        "change_pct": -3.79,
-        "range_pct": 4.96,
-        "ticks": 43
+        "change_pct": 2.44,
+        "range_pct": 3.3,
+        "ticks": 206
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "6013.SR",
-      "entry_high": 96.44,
-      "entry_low": 93.96,
-      "score": 49.2,
+      "symbol": "4009.SR",
+      "entry_high": 31.94,
+      "entry_low": 30.99,
+      "score": 44.4,
       "pm_metrics": {
-        "change_pct": 2.42,
-        "range_pct": 5.96,
-        "ticks": 349
+        "change_pct": 2.3,
+        "range_pct": 2.3,
+        "ticks": 262
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "4160.SR",
-      "entry_high": 35.97,
-      "entry_low": 33.17,
-      "score": 48.6,
+      "symbol": "8280.SR",
+      "entry_high": 12.55,
+      "entry_low": 12.14,
+      "score": 42.1,
       "pm_metrics": {
-        "change_pct": 2.53,
-        "range_pct": 2.94,
-        "ticks": 184
+        "change_pct": 1.9,
+        "range_pct": 2.8,
+        "ticks": 204
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "4325.SR",
-      "entry_high": 17.06,
-      "entry_low": 16.72,
-      "score": 41.3,
+      "symbol": "7200.SR",
+      "entry_high": 221.64,
+      "entry_low": 209.58,
+      "score": 38.5,
       "pm_metrics": {
-        "change_pct": 2.0,
-        "range_pct": 2.26,
-        "ticks": 257
+        "change_pct": 1.88,
+        "range_pct": 2.35,
+        "ticks": 149
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "1304.SR",
-      "entry_high": 43.33,
-      "entry_low": 42.04,
-      "score": 37.3,
+      "symbol": "4148.SR",
+      "entry_high": 2.69,
+      "entry_low": 2.61,
+      "score": 37.0,
       "pm_metrics": {
-        "change_pct": 1.44,
-        "range_pct": 2.58,
-        "ticks": 288
+        "change_pct": 1.69,
+        "range_pct": 2.63,
+        "ticks": 97
       },
       "tier": "midscreen",
       "source": "rescreen"

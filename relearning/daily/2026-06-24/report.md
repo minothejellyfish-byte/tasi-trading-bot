@@ -1,0 +1,153 @@
+📊 <b>Post-Market Analysis: 2026-06-24</b>
+Market: TASI | Scanned: 385/399 stocks | Time: 16:06 +03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🎯 Today's Picks Performance</b>
+
+🟢 <b>6050.SR</b> [MIDSCREEN] | O:57.00 H:59.77(+4.9%) L:56.05 C:59.75(+4.8%) V:0
+   ⚠️ Gapped +25.5% above zone 44.06–45.41
+
+🟢 <b>8040.SR</b> [MIDSCREEN] | O:8.99 H:9.44(+5.0%) L:8.93 C:9.18(+2.1%) V:0
+   🎯 In zone 8.94–9.34 | ❌ Never touched
+
+🔴 <b>8310.SR</b> [MIDSCREEN] | O:7.08 H:7.11(+0.5%) L:6.91 C:6.91(-2.3%) V:0
+   🎯 In zone 6.89–7.16 | ✅ Touched
+
+🔴 <b>4160.SR</b> [MIDSCREEN] | O:35.12 H:35.40(+0.8%) L:34.40 C:34.52(-1.7%) V:0
+   🎯 In zone 33.17–35.97 | ✅ Touched
+
+🟢 <b>4141.SR</b> [MIDSCREEN] | O:21.14 H:21.80(+3.1%) L:20.91 C:21.41(+1.3%) V:0
+   🎯 In zone 20.86–21.67 | ✅ Touched
+
+🔴 <b>1304.SR</b> [MIDSCREEN] | O:42.17 H:42.68(+1.2%) L:40.82 C:41.00(-2.8%) V:0
+   🎯 In zone 42.04–43.33 | ✅ Touched
+
+🟢 <b>1321.SR</b> [MIDSCREEN] | O:225.00 H:229.20(+1.9%) L:223.30 C:225.90(+0.4%) V:0
+   🎯 In zone 218.66–225.25 | ✅ Touched
+
+🟢 <b>4070.SR</b> [MIDSCREEN] | O:17.01 H:17.44(+2.5%) L:16.80 C:17.08(+0.4%) V:0
+   🎯 In zone 16.64–17.15 | ✅ Touched
+
+🔴 <b>4050.SR</b> [MIDSCREEN] | O:46.70 H:46.74(+0.1%) L:46.02 C:46.02(-1.5%) V:0
+   ⚠️ Gapped -0.7% below zone
+
+🟢 <b>2100.SR</b> [MIDSCREEN] | O:19.74 H:21.79(+10.4%) L:19.50 C:21.78(+10.3%) V:0
+   🎯 In zone 19.46–20.19 | ✅ Touched
+
+🔴 <b>6040.SR</b> [MIDSCREEN] | O:6.78 H:6.88(+1.5%) L:6.60 C:6.75(-0.4%) V:0
+   🎯 In zone 6.64–6.98 | ✅ Touched
+
+🟢 <b>4230.SR</b> [MIDSCREEN] | O:22.28 H:22.80(+2.3%) L:22.06 C:22.46(+0.8%) V:0
+   🎯 In zone 21.71–22.37 | ✅ Touched
+
+🟢 <b>6013.SR</b> [MIDSCREEN] | O:100.00 H:103.50(+3.5%) L:98.20 C:100.70(+0.7%) V:0
+   ⚠️ Gapped +3.7% above zone 93.96–96.44
+
+🔴 <b>4325.SR</b> [MIDSCREEN] | O:18.48 H:18.49(+0.1%) L:18.25 C:18.48(+0.0%) V:0
+   ⚠️ Gapped +8.3% above zone 16.72–17.06
+
+🟢 <b>4322.SR</b> [MIDSCREEN] | O:12.30 H:13.11(+6.6%) L:12.24 C:12.50(+1.6%) V:0
+   ⚠️ Gapped +1.8% above zone 11.72–12.08
+
+🟢 <b>4100.SR</b> [MIDSCREEN] | O:88.90 H:94.60(+6.4%) L:88.85 C:90.50(+1.8%) V:0
+   ⚠️ Gapped +0.1% above zone 86.19–88.83
+
+🟢 <b>4146.SR</b> [MIDSCREEN] | O:16.01 H:17.09(+6.7%) L:16.01 C:16.98(+6.1%) V:0
+   🎯 In zone 15.67–16.15 | ✅ Touched
+
+⚠️ <b>TRMI.SR</b> [MIDSCREEN] — No data available
+
+🟢 <b>2030.SR</b> [MIDSCREEN] | O:45.64 H:49.68(+8.9%) L:45.40 C:49.04(+7.4%) V:0
+   🎯 In zone 45.27–47.03 | ✅ Touched
+
+🟢 <b>2382.SR</b> [MIDSCREEN] | O:18.33 H:18.94(+3.3%) L:18.25 C:18.66(+1.8%) V:0
+   🎯 In zone 18.08–18.71 | ✅ Touched
+
+🟢 <b>4270.SR</b> [MIDSCREEN] | O:6.96 H:7.25(+4.2%) L:6.92 C:7.09(+1.9%) V:0
+   🎯 In zone 6.91–7.14 | ✅ Touched
+
+🟢 <b>4009.SR</b> [MIDSCREEN] | O:31.64 H:32.82(+3.7%) L:31.54 C:32.76(+3.5%) V:0
+   🎯 In zone 30.99–31.94 | ✅ Touched
+
+🔴 <b>8280.SR</b> [MIDSCREEN] | O:12.35 H:12.40(+0.4%) L:12.05 C:12.10(-2.0%) V:0
+   🎯 In zone 12.14–12.55 | ✅ Touched
+
+🟢 <b>7200.SR</b> [MIDSCREEN] | O:213.40 H:217.30(+1.8%) L:212.00 C:216.20(+1.3%) V:0
+   🎯 In zone 209.58–221.64 | ✅ Touched
+
+🟢 <b>4148.SR</b> [MIDSCREEN] | O:2.64 H:2.72(+3.0%) L:2.64 C:2.68(+1.5%) V:0
+   🎯 In zone 2.61–2.69 | ✅ Touched
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>🚫 Why No Orders Were Placed</b>
+
+5 picks gapped above their entry zones at open:
+• 6050.SR: opened 0.00 > zone 44.06–45.41 (+25.5% gap)
+• 6013.SR: opened 0.00 > zone 93.96–96.44 (+3.7% gap)
+• 4325.SR: opened 0.00 > zone 16.72–17.06 (+8.3% gap)
+• 4322.SR: opened 0.00 > zone 11.72–12.08 (+1.8% gap)
+• 4100.SR: opened 0.00 > zone 86.19–88.83 (+0.1% gap)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💰 Actual Trade Performance</b>
+
+• Total actual P&L: +12.26 SAR
+• Potential missed profit: 0.00 SAR
+
+🔴 <b>8280</b> | Entry: 12.23 → Exit: 12.15 | P&L: -1.41 | Hold: 50min
+🟢 <b>2100</b> | Entry: 20.19 → Exit: 21.25 | P&L: +9.39 | Hold: 50min
+🟢 <b>8040</b> | Entry: 8.98 → Exit: 9.14 | P&L: +4.28 | Hold: 151min
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💰 Missed Profit from Our Picks (6)</b>
+
+1. <b>6050.SR</b> | Gapped above zone - no entry
+   💸 Missed: 14.37 SAR | Consider chase entry with tight stop if gap < 1%
+2. <b>6013.SR</b> | Gapped above zone - no entry
+   💸 Missed: 7.06 SAR | Consider chase entry with tight stop if gap < 1%
+3. <b>4100.SR</b> | Gapped above zone - no entry
+   💸 Missed: 5.77 SAR | Consider chase entry with tight stop if gap < 1%
+4. <b>4325.SR</b> | Gapped above zone - no entry
+   💸 Missed: 1.43 SAR | Consider chase entry with tight stop if gap < 1%
+5. <b>4322.SR</b> | Gapped above zone - no entry
+   💸 Missed: 1.03 SAR | Consider chase entry with tight stop if gap < 1%
+
+<b>🔍 Top 3 Missed Outside Picks</b>
+
+1. <b>9535.SR</b> | +3.7% | Vol: 676,230 | Why: Unknown - need screener logs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>📊 Market Breadth</b>
+
+• Total scanned: 385
+• Up: 194 | Down: 191 | Avg: +0.36%
+• Best: 2100.SR +10.4%
+• Worst: 2081.SR +0.0%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>💡 Strategy Recommendations</b>
+
+• 🔴 LOSING TRADES: 1 trades with total loss of -1.41 SAR
+   → Cause: 8280 sold below entry
+   → Solution: Wider stop loss or better entry timing
+   → Benefit: Reduce losses by 50% with -2% stop instead of VWAP breakdown
+• 🚀 5/25 picks gapped above entry zones (avg +7.9%). 1 had small gaps (<0.5%) — consider chase entry with tight stop.
+• 🔍 7 missed opportunities (6 from our picks, 1 outside) — review entry/exit strategy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<b>📈 Session Summary</b>
+• Picks: 25
+• Best pick: N/A
+• Missed opportunities: 2
+• Data failures: 14/399
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<i>Next session: Thursday 2026-06-25 at 10:00 +03</i>

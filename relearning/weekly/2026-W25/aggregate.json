@@ -1,10 +1,10 @@
 {
   "week": "2026-W25",
-  "trading_days": 7,
-  "total_trades": 24,
-  "avg_win_rate": 36.19047619047619,
-  "avg_entry_slippage": 0.013208474516970619,
+  "trading_days": 8,
+  "total_trades": 27,
+  "avg_win_rate": 40.0,
+  "avg_entry_slippage": 0.011557415202349292,
   "avg_exit_vs_hod": 0.0,
-  "avg_hold_time": 51.800000000000004,
-  "avg_early_exit_rate": 7.142857142857143
+  "avg_hold_time": 55.78333333333333,
+  "avg_early_exit_rate": 6.25
 }

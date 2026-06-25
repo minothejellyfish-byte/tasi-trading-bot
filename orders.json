@@ -1,15 +1,1 @@
-{
-  "141": {
-    "initiated_at": "2026-06-24T00:00:00",
-    "initiated_by": "derayah-direct",
-    "trigger_basis": "unknown",
-    "trigger_detail": "",
-    "symbol": "8040",
-    "side": "BUY",
-    "qty": 28,
-    "price": 8.98,
-    "type": "LIMIT",
-    "status": 3,
-    "updated_at": "2026-06-24T11:12:40.470416+03:00"
-  }
-}
+{}

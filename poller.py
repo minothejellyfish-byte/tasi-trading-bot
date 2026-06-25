@@ -221,6 +221,34 @@ _trade_lock = threading.Lock()          # Global lock for trade execution
 _last_trade_time: dict = {}             # {symbol: timestamp} - prevent re-trade within 30s
 _MIN_TRADE_INTERVAL = 30                # Minimum seconds between trades for same symbol
 
+# v4.13: Price history for volume gate direction check (1-minute rolling)
+_price_history: dict[str, list[tuple[float, float]]] = {}  # symbol -> [(timestamp, price), ...]
+_PRICE_HISTORY_MAX_AGE = 120  # keep 2 minutes of history
+
+def _update_price_history(symbol: str, price: float):
+    """Track price history for volume gate direction checks."""
+    now = time_mod.time()
+    hist = _price_history.get(symbol, [])
+    # Remove old entries
+    hist = [(t, p) for t, p in hist if (now - t) < _PRICE_HISTORY_MAX_AGE]
+    hist.append((now, price))
+    _price_history[symbol] = hist
+
+def _get_price_1min_ago(symbol: str) -> float | None:
+    """Get price from ~1 minute ago for direction check."""
+    now = time_mod.time()
+    hist = _price_history.get(symbol, [])
+    # Find price closest to 60 seconds ago
+    target_time = now - 60
+    closest = None
+    closest_diff = float('inf')
+    for t, p in hist:
+        diff = abs(t - target_time)
+        if diff < closest_diff:
+            closest_diff = diff
+            closest = p
+    return closest
+
 FAST_INTERVAL   = 10           # seconds - position state watch (no network)
 SLOW_INTERVAL   = 300          # seconds - price fetch + entry signals (yfinance)
 # NOTE: Target/stop parameters now loaded from regime.json dynamically
@@ -1315,6 +1343,8 @@ async def _ws_listener_loop():
                                         # v4.7b spread field
                                         "spread_pct":       round(spread_pct, 4),
                                     }
+                                    # v4.13: Update price history for direction gate
+                                    _update_price_history(sym, float(raw))
                             try:
                                 from ws_logger import log_price
                                 log_price(sym, float(raw), change_val, pchange_val, is_real, ws_vwap, volume_val,
@@ -2740,6 +2770,42 @@ def slow_poll(regime: dict):
                 continue  # Skip entry
             else:
                 log.info(f"{base} spread={spread:.2f}% <= {max_spread}% — execution quality acceptable")
+
+        # v4.13: Volume-based entry gates (NEW)
+        # Gate 1: Liquidity Ratio >= 1.5 (tightened from v4.7's 1.1/1.2/1.3)
+        cache = _ws_price_cache.get(base, {})
+        liq_ratio = cache.get("liquidity_ratio", 1.0)
+        if liq_ratio < 1.5:
+            log.info(f"{base} ENTRY BLOCKED: liquidity_ratio={liq_ratio:.2f} < 1.5 — insufficient buy pressure (v4.13)")
+            continue  # Skip entry
+        else:
+            log.info(f"{base} liquidity_ratio={liq_ratio:.2f} >= 1.5 — buy pressure confirmed (v4.13)")
+
+        # Gate 2: Net Flow > 0 (money flowing IN)
+        net_flow = cache.get("net_flow", 0.0)
+        if net_flow <= 0:
+            log.info(f"{base} ENTRY BLOCKED: net_flow={net_flow:.2f} <= 0 — selling pressure detected (v4.13)")
+            continue  # Skip entry
+        else:
+            log.info(f"{base} net_flow={net_flow:.2f} > 0 — buying pressure confirmed (v4.13)")
+
+        # Gate 3: Price Rising (don't catch falling knives)
+        price_1min_ago = _get_price_1min_ago(base)
+        if price_1min_ago is not None and price <= price_1min_ago:
+            log.info(f"{base} ENTRY BLOCKED: price {price:.2f} <= {price_1min_ago:.2f} (1min ago) — falling into zone (v4.13)")
+            continue  # Skip entry
+        elif price_1min_ago is not None:
+            log.info(f"{base} price rising {price_1min_ago:.2f} -> {price:.2f} — upward momentum confirmed (v4.13)")
+        else:
+            log.info(f"{base} price history unavailable — skipping direction check (v4.13)")
+
+        # Gate 4: Spread < 2% (avoid illiquid traps)
+        spread = cache.get("spread_pct", 0.0)
+        if spread >= 2.0:
+            log.info(f"{base} ENTRY BLOCKED: spread={spread:.2f}% >= 2% — illiquid, wide bid-ask (v4.13)")
+            continue  # Skip entry
+        else:
+            log.info(f"{base} spread={spread:.2f}% < 2% — liquidity acceptable (v4.13)")
 
         e_hi = pick.get("entry_high", 0)
         e_lo = pick.get("entry_low", 0)

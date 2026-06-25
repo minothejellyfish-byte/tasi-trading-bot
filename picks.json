@@ -1,7 +1,7 @@
 {
   "date": "2026-06-24",
   "mode": "evaluated",
-  "evaluated_at": "2026-06-24T11:10:22.166812",
+  "evaluated_at": "2026-06-24T14:41:10.826802",
   "picks": [
     {
       "symbol": "6050.SR",
@@ -19,27 +19,27 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +3.1% \u2014 don't chase",
-      "evaluator_time": "2026-06-24T11:10:05.277937",
-      "evaluator_price": 57.9
+      "evaluator_time": "2026-06-24T14:40:08.117565",
+      "evaluator_price": 59.75
     },
     {
       "symbol": "8040.SR",
-      "entry_high": 9.02,
-      "entry_low": 8.75,
-      "score": 55.4,
+      "entry_high": 9.34,
+      "entry_low": 8.94,
+      "score": 50.4,
       "pm_metrics": {
-        "change_pct": 3.23,
-        "range_pct": 3.67,
-        "ticks": 155
+        "change_pct": 2.9,
+        "range_pct": 3.45,
+        "ticks": 73
       },
       "tier": "midscreen",
       "source": "midscreen2",
-      "adjusted_score": 80.4,
+      "adjusted_score": 75.4,
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
-      "evaluator_note": "Valid: in zone, strong momentum +3.2%",
-      "evaluator_time": "2026-06-24T11:10:06.849556",
-      "evaluator_price": 8.96
+      "evaluator_note": "Valid: in zone, strong momentum +2.9%",
+      "evaluator_time": "2026-06-24T14:40:10.679362",
+      "evaluator_price": 9.16
     },
     {
       "symbol": "8310.SR",
@@ -57,8 +57,8 @@
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +2.6%",
-      "evaluator_time": "2026-06-24T11:10:08.093738",
-      "evaluator_price": 7.0
+      "evaluator_time": "2026-06-24T14:40:13.318122",
+      "evaluator_price": 6.94
     },
     {
       "symbol": "4160.SR",
@@ -72,31 +72,31 @@
       },
       "tier": "midscreen",
       "source": "rescreen",
-      "adjusted_score": 73.6,
+      "adjusted_score": 63.599999999999994,
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +2.5%",
-      "evaluator_time": "2026-06-24T11:10:09.328629",
-      "evaluator_price": 34.74
+      "evaluator_time": "2026-06-24T14:40:15.832410",
+      "evaluator_price": 34.72
     },
     {
       "symbol": "4141.SR",
-      "entry_high": 21.16,
-      "entry_low": 20.53,
-      "score": 65.9,
+      "entry_high": 21.67,
+      "entry_low": 20.86,
+      "score": 44.1,
       "pm_metrics": {
-        "change_pct": 4.09,
-        "range_pct": 4.95,
-        "ticks": 384
+        "change_pct": 2.17,
+        "range_pct": 2.6,
+        "ticks": 218
       },
       "tier": "midscreen",
-      "source": "midscreen1",
-      "adjusted_score": 90.9,
-      "evaluator_score": 70,
-      "evaluator_action": "TRENDING",
-      "evaluator_note": "Strong: above zone +4.1% \u2014 don't chase",
-      "evaluator_time": "2026-06-24T11:10:10.192020",
-      "evaluator_price": 21.37
+      "source": "midscreen2",
+      "adjusted_score": 59.099999999999994,
+      "evaluator_score": 90,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Valid: in zone, strong momentum +2.2%",
+      "evaluator_time": "2026-06-24T14:40:18.236990",
+      "evaluator_price": 21.44
     },
     {
       "symbol": "1304.SR",
@@ -110,12 +110,12 @@
       },
       "tier": "midscreen",
       "source": "rescreen",
-      "adjusted_score": 52.3,
-      "evaluator_score": 75,
-      "evaluator_action": "KEEP",
-      "evaluator_note": "Stable: in zone, positive momentum +1.4%",
-      "evaluator_time": "2026-06-24T11:10:11.040708",
-      "evaluator_price": 42.28
+      "adjusted_score": 62.3,
+      "evaluator_score": 65,
+      "evaluator_action": "RECOVERING",
+      "evaluator_note": "Recovering: below zone but rising +1.4%",
+      "evaluator_time": "2026-06-24T14:40:20.934342",
+      "evaluator_price": 41.34
     },
     {
       "symbol": "1321.SR",
@@ -129,12 +129,12 @@
       },
       "tier": "midscreen",
       "source": "midscreen1",
-      "adjusted_score": 73.8,
-      "evaluator_score": 60,
-      "evaluator_action": "TRENDING",
-      "evaluator_note": "Rising: above zone +2.4% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-24T11:10:11.881703",
-      "evaluator_price": 228.3
+      "adjusted_score": 63.8,
+      "evaluator_score": 90,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Valid: in zone, strong momentum +2.4%",
+      "evaluator_time": "2026-06-24T14:40:24.110134",
+      "evaluator_price": 223.6
     },
     {
       "symbol": "4070.SR",
@@ -152,8 +152,8 @@
       "evaluator_score": 75,
       "evaluator_action": "KEEP",
       "evaluator_note": "Stable: in zone, positive momentum +1.7%",
-      "evaluator_time": "2026-06-24T11:10:12.887854",
-      "evaluator_price": 16.96
+      "evaluator_time": "2026-06-24T14:40:26.984992",
+      "evaluator_price": 16.98
     },
     {
       "symbol": "4050.SR",
@@ -167,31 +167,31 @@
       },
       "tier": "midscreen",
       "source": "rescreen",
-      "adjusted_score": 61.2,
+      "adjusted_score": 71.2,
       "evaluator_score": 65,
       "evaluator_action": "RECOVERING",
       "evaluator_note": "Recovering: below zone but rising +2.1%",
-      "evaluator_time": "2026-06-24T11:10:13.843705",
-      "evaluator_price": 46.66
+      "evaluator_time": "2026-06-24T14:40:29.456029",
+      "evaluator_price": 46.24
     },
     {
       "symbol": "2100.SR",
-      "entry_high": 19.49,
-      "entry_low": 18.75,
-      "score": 42.3,
+      "entry_high": 20.19,
+      "entry_low": 19.46,
+      "score": 58.5,
       "pm_metrics": {
-        "change_pct": 1.73,
-        "range_pct": 3.94,
-        "ticks": 300
+        "change_pct": 3.35,
+        "range_pct": 4.32,
+        "ticks": 248
       },
       "tier": "midscreen",
-      "source": "rescreen",
-      "adjusted_score": 67.3,
-      "evaluator_score": 60,
+      "source": "midscreen2",
+      "adjusted_score": 83.5,
+      "evaluator_score": 70,
       "evaluator_action": "TRENDING",
-      "evaluator_note": "Rising: above zone +1.7% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-24T11:10:14.710589",
-      "evaluator_price": 19.57
+      "evaluator_note": "Strong: above zone +3.4% \u2014 don't chase",
+      "evaluator_time": "2026-06-24T14:40:32.160096",
+      "evaluator_price": 21.7
     },
     {
       "symbol": "6040.SR",
@@ -205,12 +205,12 @@
       },
       "tier": "midscreen",
       "source": "rescreen",
-      "adjusted_score": 65.2,
+      "adjusted_score": 55.2,
       "evaluator_score": 75,
       "evaluator_action": "KEEP",
       "evaluator_note": "Stable: in zone, positive momentum +1.5%",
-      "evaluator_time": "2026-06-24T11:10:15.623742",
-      "evaluator_price": 6.67
+      "evaluator_time": "2026-06-24T14:40:34.761051",
+      "evaluator_price": 6.75
     },
     {
       "symbol": "4230.SR",
@@ -225,11 +225,11 @@
       "tier": "midscreen",
       "source": "rescreen",
       "adjusted_score": 63.1,
-      "evaluator_score": 75,
-      "evaluator_action": "KEEP",
-      "evaluator_note": "Stable: in zone, positive momentum +1.8%",
-      "evaluator_time": "2026-06-24T11:10:16.428995",
-      "evaluator_price": 22.22
+      "evaluator_score": 60,
+      "evaluator_action": "TRENDING",
+      "evaluator_note": "Rising: above zone +1.8% \u2014 wait for pullback",
+      "evaluator_time": "2026-06-24T14:40:37.221318",
+      "evaluator_price": 22.54
     },
     {
       "symbol": "6013.SR",
@@ -243,12 +243,12 @@
       },
       "tier": "midscreen",
       "source": "rescreen",
-      "adjusted_score": 74.2,
+      "adjusted_score": 64.2,
       "evaluator_score": 60,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Rising: above zone +2.4% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-24T11:10:17.231375",
-      "evaluator_price": 101.7
+      "evaluator_time": "2026-06-24T14:40:39.808503",
+      "evaluator_price": 100.8
     },
     {
       "symbol": "4325.SR",
@@ -266,7 +266,7 @@
       "evaluator_score": 60,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Rising: above zone +2.0% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-24T11:10:18.041981",
+      "evaluator_time": "2026-06-24T14:40:42.273440",
       "evaluator_price": 18.48
     },
     {
@@ -285,8 +285,8 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +4.5% \u2014 don't chase",
-      "evaluator_time": "2026-06-24T11:10:18.869714",
-      "evaluator_price": 12.62
+      "evaluator_time": "2026-06-24T14:40:44.835275",
+      "evaluator_price": 12.53
     },
     {
       "symbol": "4100.SR",
@@ -304,8 +304,8 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +4.4% \u2014 don't chase",
-      "evaluator_time": "2026-06-24T11:10:19.680169",
-      "evaluator_price": 91.75
+      "evaluator_time": "2026-06-24T14:40:47.407427",
+      "evaluator_price": 90.4
     },
     {
       "symbol": "4146.SR",
@@ -323,8 +323,8 @@
       "evaluator_score": 60,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Rising: above zone +2.8% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-24T11:10:20.491309",
-      "evaluator_price": 16.57
+      "evaluator_time": "2026-06-24T14:40:49.844125",
+      "evaluator_price": 16.89
     },
     {
       "symbol": "TRMI.SR",
@@ -342,8 +342,141 @@
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +2.4%",
-      "evaluator_time": "2026-06-24T11:10:21.295651",
-      "evaluator_price": 3050.31
+      "evaluator_time": "2026-06-24T14:40:52.292391",
+      "evaluator_price": 3038.89
+    },
+    {
+      "symbol": "2030.SR",
+      "entry_high": 47.03,
+      "entry_low": 45.27,
+      "score": 65.4,
+      "pm_metrics": {
+        "change_pct": 4.04,
+        "range_pct": 4.36,
+        "ticks": 360
+      },
+      "tier": "midscreen",
+      "source": "midscreen2",
+      "adjusted_score": 90.4,
+      "evaluator_score": 70,
+      "evaluator_action": "TRENDING",
+      "evaluator_note": "Strong: above zone +4.0% \u2014 don't chase",
+      "evaluator_time": "2026-06-24T14:40:54.797974",
+      "evaluator_price": 48.82
+    },
+    {
+      "symbol": "2382.SR",
+      "entry_high": 18.71,
+      "entry_low": 18.08,
+      "score": 47.4,
+      "pm_metrics": {
+        "change_pct": 2.35,
+        "range_pct": 2.79,
+        "ticks": 328
+      },
+      "tier": "midscreen",
+      "source": "midscreen2",
+      "adjusted_score": 62.400000000000006,
+      "evaluator_score": 60,
+      "evaluator_action": "TRENDING",
+      "evaluator_note": "Rising: above zone +2.4% \u2014 wait for pullback",
+      "evaluator_time": "2026-06-24T14:40:57.289482",
+      "evaluator_price": 18.74
+    },
+    {
+      "symbol": "4270.SR",
+      "entry_high": 7.14,
+      "entry_low": 6.91,
+      "score": 48.5,
+      "pm_metrics": {
+        "change_pct": 2.44,
+        "range_pct": 3.3,
+        "ticks": 206
+      },
+      "tier": "midscreen",
+      "source": "rescreen",
+      "adjusted_score": 73.5,
+      "evaluator_score": 90,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Valid: in zone, strong momentum +2.4%",
+      "evaluator_time": "2026-06-24T14:40:59.723471",
+      "evaluator_price": 7.12
+    },
+    {
+      "symbol": "4009.SR",
+      "entry_high": 31.94,
+      "entry_low": 30.99,
+      "score": 44.4,
+      "pm_metrics": {
+        "change_pct": 2.3,
+        "range_pct": 2.3,
+        "ticks": 262
+      },
+      "tier": "midscreen",
+      "source": "rescreen",
+      "adjusted_score": 69.4,
+      "evaluator_score": 60,
+      "evaluator_action": "TRENDING",
+      "evaluator_note": "Rising: above zone +2.3% \u2014 wait for pullback",
+      "evaluator_time": "2026-06-24T14:41:02.176946",
+      "evaluator_price": 32.4
+    },
+    {
+      "symbol": "8280.SR",
+      "entry_high": 12.55,
+      "entry_low": 12.14,
+      "score": 42.1,
+      "pm_metrics": {
+        "change_pct": 1.9,
+        "range_pct": 2.8,
+        "ticks": 204
+      },
+      "tier": "midscreen",
+      "source": "rescreen",
+      "adjusted_score": 67.1,
+      "evaluator_score": 75,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Stable: in zone, positive momentum +1.9%",
+      "evaluator_time": "2026-06-24T14:41:04.642922",
+      "evaluator_price": 12.22
+    },
+    {
+      "symbol": "7200.SR",
+      "entry_high": 221.64,
+      "entry_low": 209.58,
+      "score": 38.5,
+      "pm_metrics": {
+        "change_pct": 1.88,
+        "range_pct": 2.35,
+        "ticks": 149
+      },
+      "tier": "midscreen",
+      "source": "rescreen",
+      "adjusted_score": 63.5,
+      "evaluator_score": 75,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Stable: in zone, positive momentum +1.9%",
+      "evaluator_time": "2026-06-24T14:41:07.131007",
+      "evaluator_price": 216.0
+    },
+    {
+      "symbol": "4148.SR",
+      "entry_high": 2.69,
+      "entry_low": 2.61,
+      "score": 37.0,
+      "pm_metrics": {
+        "change_pct": 1.69,
+        "range_pct": 2.63,
+        "ticks": 97
+      },
+      "tier": "midscreen",
+      "source": "rescreen",
+      "adjusted_score": 62.0,
+      "evaluator_score": 75,
+      "evaluator_action": "KEEP",
+      "evaluator_note": "Stable: in zone, positive momentum +1.7%",
+      "evaluator_time": "2026-06-24T14:41:09.590983",
+      "evaluator_price": 2.68
     }
   ]
 }

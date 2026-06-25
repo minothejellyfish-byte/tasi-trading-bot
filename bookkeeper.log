@@ -10552,3 +10552,1127 @@ Bookkeeper result: {'available_capital': 1030.25, 'updated_at': '2026-06-24T11:0
 [2026-06-24T11:12:40.073449+03:00] Capital synced: grand_total=1029.55, money_transfer=778.67, equity=251.58 (source: derayah-dashboard-scrape)
 [2026-06-24T11:12:40.475121+03:00] History: recorded 0 new orders, skipped 1 duplicates
 Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:12:40.071058+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1029.55, 'securities_value': 251.58, 'invested': 251.58, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1029.55, 'money_transfer': 778.67, 'cash_accounts': 251.58}, 'equity': 251.58, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 1030.25}
+[2026-06-24T11:17:36.964441+03:00] Pruned 1 terminal orders from orders.json
+[2026-06-24T11:17:39.550073+03:00] Dashboard scrape OK: grand_total=1029.55, money_transfer=778.67
+[2026-06-24T11:17:39.744123+03:00] Capital synced: grand_total=1029.55, money_transfer=778.67, equity=251.58 (source: derayah-dashboard-scrape)
+[2026-06-24T11:17:40.122698+03:00] History: recorded 0 new orders, skipped 1 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:17:39.743586+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1029.55, 'securities_value': 251.58, 'invested': 251.58, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1029.55, 'money_transfer': 778.67, 'cash_accounts': 251.58}, 'equity': 251.58, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 1030.25}
+[2026-06-24T11:22:38.044003+03:00] Pruned 1 terminal orders from orders.json
+[2026-06-24T11:22:40.647781+03:00] Dashboard scrape OK: grand_total=1029.55, money_transfer=778.67
+[2026-06-24T11:22:40.872638+03:00] Capital synced: grand_total=1029.55, money_transfer=778.67, equity=251.58 (source: derayah-dashboard-scrape)
+[2026-06-24T11:22:41.271271+03:00] History: recorded 0 new orders, skipped 1 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:22:40.870920+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1029.55, 'securities_value': 251.58, 'invested': 251.58, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1029.55, 'money_transfer': 778.67, 'cash_accounts': 251.58}, 'equity': 251.58, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 1030.25}
+[2026-06-24T11:27:37.708505+03:00] Pruned 1 terminal orders from orders.json
+[2026-06-24T11:27:40.301592+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:27:40.529964+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=251.58 (source: derayah-dashboard-scrape)
+[2026-06-24T11:27:40.909361+03:00] History: recorded 0 new orders, skipped 1 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:27:40.529165+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 251.58, 'invested': 251.58, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 251.58}, 'equity': 251.58, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 1030.25}
+[2026-06-24T11:32:37.780656+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T11:32:40.380773+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:32:40.631160+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=125.79 (source: derayah-dashboard-scrape)
+[2026-06-24T11:32:41.022011+03:00] History: recorded 0 new orders, skipped 2 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:32:40.629054+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 125.79, 'invested': 125.79, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 125.79}, 'equity': 125.79, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 904.46}
+[2026-06-24T11:37:37.431382+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T11:37:40.029603+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:37:40.259628+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T11:37:40.680284+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:37:40.257998+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 877.5}
+[2026-06-24T11:42:37.656135+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T11:42:40.298638+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:42:40.510642+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T11:42:40.896245+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:42:40.509890+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 877.5}
+[2026-06-24T11:47:38.058579+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T11:47:40.674620+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:47:40.891391+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T11:47:41.337464+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:47:40.890560+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 877.5}
+[2026-06-24T11:52:39.422929+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T11:52:42.025836+03:00] Dashboard scrape OK: grand_total=1031.23, money_transfer=778.67
+[2026-06-24T11:52:42.254933+03:00] Capital synced: grand_total=1031.23, money_transfer=778.67, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T11:52:42.665470+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 778.67, 'updated_at': '2026-06-24T11:52:42.253296+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1031.23, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 778.67, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1031.23, 'money_transfer': 778.67, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 778.67, 'total_3bucket': 877.5}
+[2026-06-24T11:57:41.756841+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T11:57:44.363715+03:00] Dashboard scrape OK: grand_total=1033.47, money_transfer=932.82
+[2026-06-24T11:57:44.555406+03:00] Capital synced: grand_total=1033.47, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T11:57:44.994017+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T11:57:44.554578+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.47, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.47, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 932.82, 'total_3bucket': 1031.65}
+[2026-06-24T12:02:46.939161+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:02:49.554781+03:00] Dashboard scrape OK: grand_total=1033.47, money_transfer=932.82
+[2026-06-24T12:02:49.770495+03:00] Capital synced: grand_total=1033.47, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:02:50.185791+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:02:49.769409+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.47, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.47, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 932.82, 'total_3bucket': 1031.65}
+[2026-06-24T12:07:37.785474+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:07:40.435050+03:00] Dashboard scrape OK: grand_total=1033.47, money_transfer=932.82
+[2026-06-24T12:07:40.685494+03:00] Capital synced: grand_total=1033.47, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:07:41.090384+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:07:40.683755+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.47, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.47, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 0, 'cash_3bucket': 932.82, 'total_3bucket': 1031.65}
+[2026-06-24T12:12:37.832149+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T12:12:40.458243+03:00] Dashboard scrape OK: grand_total=1033.47, money_transfer=932.82
+[2026-06-24T12:12:40.684152+03:00] Capital synced: grand_total=1033.47, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:12:41.064166+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:12:40.683188+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.47, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.47, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:17:37.986123+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:17:40.584733+03:00] Dashboard scrape OK: grand_total=1033.47, money_transfer=932.82
+[2026-06-24T12:17:40.803719+03:00] Capital synced: grand_total=1033.47, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:17:41.179009+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:17:40.802971+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.47, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.47, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:22:37.086444+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:22:39.700741+03:00] Dashboard scrape OK: grand_total=1034.9, money_transfer=932.82
+[2026-06-24T12:22:39.949524+03:00] Capital synced: grand_total=1034.9, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:22:40.363904+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:22:39.948469+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.9, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.9, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:27:36.763031+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:27:39.365780+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:27:39.569516+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:27:39.960481+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:27:39.568050+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:32:38.632668+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:32:41.255534+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:32:41.473734+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:32:41.908846+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:32:41.473050+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:37:38.699657+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:37:41.313869+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:37:41.530843+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:37:41.947597+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:37:41.530052+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:42:38.912693+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:42:41.517419+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:42:41.713407+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:42:42.126259+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:42:41.711580+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+[2026-06-24T12:47:37.518739+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:47:40.135963+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:47:40.406897+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=98.83 (source: derayah-dashboard-scrape)
+[2026-06-24T12:47:40.837533+03:00] History: recorded 0 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:47:40.405571+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 98.83, 'invested': 98.83, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 98.83}, 'equity': 98.83, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1213.36}
+2026-06-24 12:52:41,229 INFO [_tg_send] Message delivered to -5235925419
+[2026-06-24T12:52:37.617322+03:00] Pruned 3 terminal orders from orders.json
+[2026-06-24T12:52:40.242800+03:00] Dashboard scrape OK: grand_total=1034.35, money_transfer=932.82
+[2026-06-24T12:52:40.468044+03:00] Capital synced: grand_total=1034.35, money_transfer=932.82, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T12:52:41.239637+03:00] History: recorded 1 new orders, skipped 3 duplicates
+Bookkeeper result: {'available_capital': 932.82, 'updated_at': '2026-06-24T12:52:40.467172+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.35, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 932.82, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.35, 'money_transfer': 932.82, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 181.71, 'cash_3bucket': 932.82, 'total_3bucket': 1395.17}
+[2026-06-24T12:57:37.848918+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T12:57:40.486589+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T12:57:40.724315+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T12:57:41.127906+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T12:57:40.723587+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:02:38.238275+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T13:02:40.860275+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T13:02:41.060553+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T13:02:41.433674+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:02:41.058909+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:07:38.271331+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T13:07:40.898868+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T13:07:41.130596+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T13:07:41.537008+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:07:41.129473+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:12:37.839920+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T13:12:40.451044+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T13:12:40.646405+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T13:12:41.055747+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:12:40.644536+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:17:37.415944+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T13:17:40.034132+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T13:17:40.271617+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T13:17:40.652497+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:17:40.270052+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:22:39.118949+03:00] Pruned 4 terminal orders from orders.json
+[2026-06-24T13:22:41.732445+03:00] Dashboard scrape OK: grand_total=1033.68, money_transfer=751.01
+[2026-06-24T13:22:41.946589+03:00] Capital synced: grand_total=1033.68, money_transfer=751.01, equity=280.64 (source: derayah-dashboard-scrape)
+[2026-06-24T13:22:42.334906+03:00] History: recorded 0 new orders, skipped 4 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:22:41.945090+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1033.68, 'securities_value': 280.64, 'invested': 280.64, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1033.68, 'money_transfer': 751.01, 'cash_accounts': 280.64}, 'equity': 280.64, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 1031.65}
+[2026-06-24T13:27:37.872043+03:00] Pruned 5 terminal orders from orders.json
+[2026-06-24T13:27:40.499853+03:00] Dashboard scrape OK: grand_total=1034.25, money_transfer=751.01
+[2026-06-24T13:27:40.703414+03:00] Capital synced: grand_total=1034.25, money_transfer=751.01, equity=181.81 (source: derayah-dashboard-scrape)
+[2026-06-24T13:27:41.127683+03:00] History: recorded 0 new orders, skipped 5 duplicates
+Bookkeeper result: {'available_capital': 751.01, 'updated_at': '2026-06-24T13:27:40.702082+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.25, 'securities_value': 181.81, 'invested': 181.81, 'money_transfer': 751.01, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.25, 'money_transfer': 751.01, 'cash_accounts': 181.81}, 'equity': 181.81, 'booked': 0, 'cash_3bucket': 751.01, 'total_3bucket': 932.82}
+[2026-06-24T13:32:38.662300+03:00] Pruned 7 terminal orders from orders.json
+[2026-06-24T13:32:41.283833+03:00] Dashboard scrape OK: grand_total=1034.19, money_transfer=851.49
+[2026-06-24T13:32:41.479033+03:00] Capital synced: grand_total=1034.19, money_transfer=851.49, equity=101.01 (source: derayah-dashboard-scrape)
+[2026-06-24T13:32:41.879066+03:00] History: recorded 0 new orders, skipped 6 duplicates
+Bookkeeper result: {'available_capital': 851.49, 'updated_at': '2026-06-24T13:32:41.477242+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.19, 'securities_value': 101.01, 'invested': 101.01, 'money_transfer': 851.49, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.19, 'money_transfer': 851.49, 'cash_accounts': 101.01}, 'equity': 101.01, 'booked': 0, 'cash_3bucket': 851.49, 'total_3bucket': 952.5}
+[2026-06-24T13:37:42.679130+03:00] Pruned 8 terminal orders from orders.json
+[2026-06-24T13:37:45.281029+03:00] Dashboard scrape OK: grand_total=1034.19, money_transfer=851.49
+[2026-06-24T13:37:45.508272+03:00] Capital synced: grand_total=1034.19, money_transfer=851.49, equity=80.81 (source: derayah-dashboard-scrape)
+[2026-06-24T13:37:45.915927+03:00] History: recorded 0 new orders, skipped 7 duplicates
+Bookkeeper result: {'available_capital': 851.49, 'updated_at': '2026-06-24T13:37:45.507415+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.19, 'securities_value': 80.81, 'invested': 80.81, 'money_transfer': 851.49, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.19, 'money_transfer': 851.49, 'cash_accounts': 80.81}, 'equity': 80.81, 'booked': 0, 'cash_3bucket': 851.49, 'total_3bucket': 932.3}
+[2026-06-24T13:42:41.437731+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T13:42:44.088129+03:00] Dashboard scrape OK: grand_total=1034.19, money_transfer=851.49
+[2026-06-24T13:42:44.284578+03:00] Capital synced: grand_total=1034.19, money_transfer=851.49, equity=182.70000000000005 (source: derayah-dashboard-scrape)
+[2026-06-24T13:42:44.683808+03:00] History: recorded 0 new orders, skipped 8 duplicates
+Bookkeeper result: {'available_capital': 851.49, 'updated_at': '2026-06-24T13:42:44.282842+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.19, 'securities_value': 182.7, 'invested': 182.7, 'money_transfer': 851.49, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.19, 'money_transfer': 851.49, 'cash_accounts': 182.7}, 'equity': 182.7, 'booked': 183.45, 'cash_3bucket': 851.49, 'total_3bucket': 1217.64}
+2026-06-24 13:47:42,320 INFO [_tg_send] Message delivered to -5235925419
+[2026-06-24T13:47:38.704539+03:00] Pruned 8 terminal orders from orders.json
+[2026-06-24T13:47:41.332949+03:00] Dashboard scrape OK: grand_total=1034.19, money_transfer=851.49
+[2026-06-24T13:47:41.558038+03:00] Capital synced: grand_total=1034.19, money_transfer=851.49, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T13:47:42.336188+03:00] History: recorded 1 new orders, skipped 8 duplicates
+Bookkeeper result: {'available_capital': 851.49, 'updated_at': '2026-06-24T13:47:41.557347+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.19, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 851.49, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.19, 'money_transfer': 851.49, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 183.45, 'cash_3bucket': 851.49, 'total_3bucket': 1218.49}
+[2026-06-24T13:52:37.988401+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T13:52:40.630290+03:00] Dashboard scrape OK: grand_total=1034.19, money_transfer=851.49
+[2026-06-24T13:52:40.861577+03:00] Capital synced: grand_total=1034.19, money_transfer=851.49, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T13:52:41.291365+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 851.49, 'updated_at': '2026-06-24T13:52:40.860741+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1034.19, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 851.49, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1034.19, 'money_transfer': 851.49, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 851.49, 'total_3bucket': 1035.04}
+[2026-06-24T13:57:38.660367+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T13:57:41.310045+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T13:57:41.504191+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T13:57:41.907521+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T13:57:41.502430+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:02:39.383083+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:02:41.997116+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T14:02:42.261759+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:02:42.661584+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:02:42.260733+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:07:38.106145+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:07:40.779317+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T14:07:41.001521+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:07:41.444405+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:07:41.000568+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:12:38.815524+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:12:41.440444+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T14:12:41.639139+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:12:42.036263+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:12:41.638496+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:17:39.413597+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:17:42.092284+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T14:17:42.326688+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:17:42.772027+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:17:42.325908+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:22:38.725681+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:22:41.370915+03:00] Dashboard scrape OK: grand_total=1038.57, money_transfer=855.57
+[2026-06-24T14:22:41.571769+03:00] Capital synced: grand_total=1038.57, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:22:42.010612+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:22:41.571040+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1038.57, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1038.57, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:27:38.712081+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:27:41.358114+03:00] Dashboard scrape OK: grand_total=1037.52, money_transfer=855.57
+[2026-06-24T14:27:41.600203+03:00] Capital synced: grand_total=1037.52, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:27:42.035982+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:27:41.599548+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.52, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.52, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:32:38.935188+03:00] Pruned 9 terminal orders from orders.json
+[2026-06-24T14:32:41.591183+03:00] Dashboard scrape OK: grand_total=1037.52, money_transfer=855.57
+[2026-06-24T14:32:41.776727+03:00] Capital synced: grand_total=1037.52, money_transfer=855.57, equity=183.55 (source: derayah-dashboard-scrape)
+[2026-06-24T14:32:42.156124+03:00] History: recorded 0 new orders, skipped 9 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:32:41.775541+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.52, 'securities_value': 183.55, 'invested': 183.55, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.52, 'money_transfer': 855.57, 'cash_accounts': 183.55}, 'equity': 183.55, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1039.12}
+[2026-06-24T14:37:38.048146+03:00] Pruned 11 terminal orders from orders.json
+[2026-06-24T14:37:40.681947+03:00] Dashboard scrape OK: grand_total=1037.52, money_transfer=855.57
+[2026-06-24T14:37:41.134965+03:00] Capital synced: grand_total=1037.52, money_transfer=855.57, equity=181.94999999999993 (source: derayah-dashboard-scrape)
+[2026-06-24T14:37:41.891774+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 855.57, 'updated_at': '2026-06-24T14:37:41.134111+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.52, 'securities_value': 181.95, 'invested': 181.95, 'money_transfer': 855.57, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.52, 'money_transfer': 855.57, 'cash_accounts': 181.95}, 'equity': 181.95, 'booked': 0, 'cash_3bucket': 855.57, 'total_3bucket': 1037.52}
+[2026-06-24T14:42:38.436206+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T14:42:41.062755+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T14:42:41.248174+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T14:42:41.632941+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T14:42:41.246979+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T14:47:38.817763+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T14:47:41.472104+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T14:47:41.719247+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T14:47:42.141284+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T14:47:41.718593+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T14:52:39.571519+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T14:52:42.261492+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T14:52:42.485458+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T14:52:42.873254+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T14:52:42.483710+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T14:57:39.247539+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T14:57:41.891932+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T14:57:42.129948+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T14:57:42.537912+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T14:57:42.128454+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:02:39.334496+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:02:41.959945+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:02:42.196755+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:02:42.595863+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:02:42.195826+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:07:39.531939+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:07:42.201789+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:07:42.428281+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:07:42.827666+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:07:42.427606+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:12:39.265190+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:12:41.914123+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:12:42.142817+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:12:42.551097+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:12:42.141853+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:17:38.695677+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:17:41.324827+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:17:41.544387+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:17:41.946966+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:17:41.543110+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:22:38.643454+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:22:41.264978+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:22:41.451496+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:22:41.856625+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:22:41.450892+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:27:39.386592+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:27:42.005079+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:27:42.226578+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:27:42.617840+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:27:42.224719+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:32:40.794954+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:32:43.368846+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:32:43.591416+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:32:43.978965+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:32:43.590275+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:40:07.609948+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:40:10.386607+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:40:10.640084+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:40:11.314079+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:40:10.638834+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:45:37.750558+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:45:40.342947+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:45:40.598609+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:45:41.021615+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:45:40.597056+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T15:51:38.009776+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T15:51:40.656723+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T15:51:40.875219+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T15:51:41.297127+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T15:51:40.874660+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:01:43.796031+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:01:46.695253+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:01:47.022192+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:01:47.502977+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:01:47.018231+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:06:39.633871+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:06:42.502118+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:06:42.743501+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:06:43.165070+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:06:42.742820+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:11:38.576623+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:11:41.188084+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:11:41.397773+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:11:41.798549+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:11:41.397029+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:16:38.905540+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:16:41.500205+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:16:41.739510+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:16:42.163369+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:16:41.738248+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:21:46.252216+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:21:48.912917+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:21:49.178131+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:21:49.614891+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:21:49.177323+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:26:45.721689+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:26:48.311107+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:26:48.511776+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:26:48.887398+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:26:48.510099+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:31:46.201886+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:31:48.943691+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:31:49.166899+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:31:49.559999+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:31:49.166048+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:36:46.456608+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:36:49.075078+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:36:49.285598+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:36:49.714825+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:36:49.284652+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:41:45.913138+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:41:48.583008+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:41:48.777257+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:41:49.226780+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:41:48.776463+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:46:44.769362+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:46:47.441522+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:46:47.751450+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:46:48.219902+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:46:47.749956+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:51:46.732943+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:51:49.371986+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:51:49.573686+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:51:49.980832+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:51:49.572311+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T16:56:45.488178+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T16:56:48.145780+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T16:56:48.394651+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T16:56:48.858551+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T16:56:48.393916+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:01:46.527225+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:01:49.196234+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:01:49.453510+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:01:49.923898+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:01:49.451955+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:07:10.202674+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:07:13.004601+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:07:13.228444+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:07:13.654464+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:07:13.227757+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:12:11.190652+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:12:13.833684+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:12:14.039356+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:12:14.459049+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:12:14.038598+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:17:11.528219+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:17:14.157245+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:17:14.373617+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:17:14.766549+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:17:14.371951+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:22:11.595108+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:22:14.273688+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:22:14.518010+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:22:14.948842+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:22:14.517265+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:27:10.878597+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:27:13.615918+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:27:13.842700+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:27:14.266380+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:27:13.841148+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:32:11.293464+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:32:14.052522+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:32:14.266765+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:32:14.719988+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:32:14.265700+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:37:10.502745+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:37:13.189151+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:37:13.393531+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:37:13.811602+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:37:13.392591+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:42:10.211887+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:42:12.866159+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:42:13.061112+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:42:13.466154+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:42:13.060283+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:47:10.965281+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:47:13.740200+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:47:13.974613+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:47:14.381913+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:47:13.973640+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:52:11.609767+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:52:14.252134+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:52:14.478836+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:52:14.909865+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:52:14.477791+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T17:57:10.045589+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T17:57:12.717774+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T17:57:12.917585+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T17:57:13.353101+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T17:57:12.916694+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:02:15.526332+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:02:18.159275+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:02:18.398387+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:02:18.839732+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:02:18.397616+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:07:10.908026+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:07:13.671774+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:07:13.870925+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:07:14.345428+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:07:13.869989+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:12:16.773695+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:12:19.445429+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:12:19.648124+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:12:20.130608+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:12:19.647502+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:17:11.573358+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:17:14.254261+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:17:14.487920+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:17:14.906564+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:17:14.486171+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:22:11.706774+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:22:14.440525+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:22:14.669457+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:22:15.114911+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:22:14.668681+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:27:11.073182+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:27:13.777971+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:27:14.007179+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:27:14.403916+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:27:14.006589+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:32:11.272969+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:32:13.974523+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:32:14.206907+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:32:14.637327+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:32:14.205029+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:37:10.217128+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:37:12.885236+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:37:13.092042+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:37:13.488251+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:37:13.091367+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:42:10.086704+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:42:12.755491+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:42:12.964010+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:42:13.353374+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:42:12.962163+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:47:10.382034+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:47:13.047757+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:47:13.290438+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:47:13.730144+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:47:13.288593+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:52:12.038023+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:52:14.722674+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:52:14.974325+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:52:15.399870+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:52:14.973680+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T18:57:13.976926+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T18:57:16.640997+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T18:57:16.872660+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T18:57:17.289489+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T18:57:16.871525+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:02:10.943871+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:02:13.671909+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:02:13.873898+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:02:14.278051+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:02:13.873097+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:07:12.324987+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:07:15.038842+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:07:15.254139+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:07:15.696606+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:07:15.253543+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:12:12.574550+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:12:15.230209+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:12:15.416533+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:12:15.851149+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:12:15.415689+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:17:12.539666+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:17:15.200063+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:17:15.418231+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:17:15.861014+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:17:15.417589+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:22:10.876955+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:22:13.592245+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:22:13.796741+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:22:14.257075+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:22:13.795808+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:27:11.171039+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:27:13.851311+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:27:14.053444+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:27:14.491066+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:27:14.052863+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:32:11.367606+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:32:14.031047+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:32:14.239306+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:32:14.645872+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:32:14.237464+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:37:11.345467+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:37:14.033206+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:37:14.232959+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:37:14.662329+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:37:14.232079+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:42:11.651394+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:42:14.358751+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:42:14.591475+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:42:15.003018+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:42:14.590815+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:47:11.302056+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:47:13.970326+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:47:14.183665+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:47:14.666742+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:47:14.182252+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:52:11.314203+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:52:13.997892+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:52:14.207456+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:52:14.614879+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:52:14.205579+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T19:57:14.668587+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T19:57:17.326731+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T19:57:17.516299+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T19:57:17.930112+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T19:57:17.515746+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:02:12.437314+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:02:15.160916+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:02:15.380375+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:02:15.802593+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:02:15.379712+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:07:11.536649+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:07:14.272325+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:07:14.486712+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:07:14.947231+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:07:14.485722+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:12:10.989618+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:12:13.701816+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:12:13.892548+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:12:14.311993+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:12:13.891754+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:17:11.615938+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:17:14.307480+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:17:14.543494+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:17:14.984401+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:17:14.541745+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:22:11.866463+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:22:14.576039+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:22:14.765183+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:22:15.215046+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:22:14.764499+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:27:11.718827+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:27:14.444507+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:27:14.643687+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:27:15.039112+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:27:14.642969+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:32:12.105175+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:32:14.901092+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:32:15.100663+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:32:15.492669+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:32:15.099295+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:37:11.206082+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:37:13.883169+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:37:14.121439+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:37:14.532511+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:37:14.119575+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:42:12.557959+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:42:15.262839+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:42:15.493077+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:42:15.893735+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:42:15.492302+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:47:12.684820+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:47:15.351953+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:47:15.604654+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:47:16.023415+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:47:15.602742+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:52:14.650564+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:52:17.304200+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:52:17.522007+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:52:17.912140+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:52:17.521316+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T20:57:13.660303+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T20:57:16.332985+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T20:57:16.558496+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T20:57:16.946523+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T20:57:16.556950+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:02:15.038862+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:02:17.757810+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:02:17.995282+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:02:18.410004+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:02:17.994629+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:07:11.695317+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:07:14.401827+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:07:14.604221+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:07:14.982804+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:07:14.602224+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:12:13.226734+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:12:15.947374+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:12:16.183823+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:12:16.620584+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:12:16.182134+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:17:13.129740+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:17:15.864654+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:17:16.070534+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:17:16.446607+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:17:16.069939+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:22:12.735827+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:22:15.426264+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:22:15.657615+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:22:16.057644+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:22:15.656027+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:27:16.268846+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:27:18.963162+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:27:19.202470+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:27:19.634718+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:27:19.201459+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:32:12.151314+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:32:14.827870+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:32:15.020869+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:32:15.435996+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:32:15.019812+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:37:11.999580+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:37:14.781953+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:37:14.988275+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:37:15.375847+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:37:14.986597+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:42:12.809178+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:42:15.486885+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:42:15.704691+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:42:16.134014+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:42:15.704055+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:47:14.063823+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:47:16.740984+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:47:16.969889+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:47:17.390719+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:47:16.969010+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:52:12.006830+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:52:14.877313+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:52:15.104154+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:52:15.519601+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:52:15.103505+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T21:57:12.142814+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T21:57:14.829591+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T21:57:15.071773+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T21:57:15.490102+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T21:57:15.070423+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:02:13.418557+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:02:16.147702+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:02:16.500472+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:02:16.946852+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:02:16.498662+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:07:12.931154+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:07:15.662333+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:07:15.912580+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:07:16.310393+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:07:15.911377+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:12:12.578890+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:12:15.258874+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:12:15.464501+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:12:15.863908+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:12:15.462868+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:17:12.937483+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:17:15.636523+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:17:15.854523+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:17:16.296665+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:17:15.852784+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:22:15.761593+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:22:18.441299+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:22:18.631845+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:22:19.043498+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:22:18.630142+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:27:12.467181+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:27:15.327485+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:27:15.550851+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:27:16.002057+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:27:15.549821+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:32:13.668532+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:32:16.361576+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:32:16.584537+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:32:16.966634+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:32:16.582595+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:37:11.586650+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:37:14.268243+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:37:14.571144+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:37:14.978245+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:37:14.570496+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:42:29.485657+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:42:32.320326+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:42:32.571549+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:42:33.041519+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:42:32.570457+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:47:12.428240+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:47:15.117667+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:47:15.311822+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:47:15.714833+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:47:15.311058+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:52:12.526321+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:52:15.241910+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:52:15.456393+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:52:15.920569+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:52:15.455587+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T22:57:12.300545+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T22:57:14.993561+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T22:57:15.274463+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T22:57:15.701746+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T22:57:15.272536+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:02:13.761937+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:02:16.455612+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:02:16.692123+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:02:17.107921+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:02:16.691200+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:07:13.835697+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:07:16.569468+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:07:16.773554+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:07:17.245220+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:07:16.772804+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:12:13.187916+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:12:15.912469+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:12:16.115967+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:12:16.560371+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:12:16.115141+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:17:12.392431+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:17:15.095901+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:17:15.343646+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:17:15.822464+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:17:15.341693+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:22:12.953894+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:22:15.666541+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:22:15.966870+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:22:16.365997+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:22:15.966126+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:27:12.213473+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:27:14.900175+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:27:15.126632+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:27:15.573815+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:27:15.126042+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:32:13.174731+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:32:15.875751+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:32:16.085461+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:32:16.483056+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:32:16.083682+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:37:12.761489+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:37:15.540856+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:37:15.766793+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:37:16.150053+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:37:15.765888+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:42:13.234693+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:42:15.946825+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:42:16.189096+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:42:16.579082+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:42:16.188452+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:47:12.184448+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:47:14.892895+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:47:15.114778+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:47:15.505826+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:47:15.113518+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:52:12.517996+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:52:15.242840+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:52:15.444654+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:52:15.876161+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:52:15.442627+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-24T23:57:12.989390+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-24T23:57:15.690505+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-24T23:57:15.924333+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+[2026-06-24T23:57:16.393252+03:00] History: recorded 0 new orders, skipped 10 duplicates
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-24T23:57:15.923630+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:02:13.818261+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:02:16.541572+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:02:16.770796+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:02:16.770053+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:07:13.275372+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:07:16.028524+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:07:16.273082+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:07:16.272219+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:12:12.386904+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:12:15.095773+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:12:15.322647+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:12:15.321979+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:17:12.982138+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:17:15.698039+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:17:15.932605+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:17:15.931759+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:22:12.659138+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:22:15.393243+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:22:15.709973+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:22:15.709067+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:27:12.931302+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:27:15.682895+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:27:15.903173+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:27:15.901988+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:32:13.905661+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:32:16.652440+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:32:16.892415+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:32:16.891566+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:37:22.133189+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:37:25.056489+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:37:25.262514+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:37:25.261471+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:42:11.739118+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:42:14.531042+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:42:14.758561+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:42:14.757722+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:47:12.963042+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:47:15.707004+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:47:15.936022+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:47:15.935124+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:52:12.986712+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:52:15.735173+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:52:16.014736+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:52:16.013633+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T00:57:13.890067+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T00:57:16.632938+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T00:57:16.833214+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T00:57:16.831849+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:02:13.275135+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:02:15.990108+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:02:16.210461+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:02:16.209524+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:07:13.522008+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:07:16.248912+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:07:16.439525+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:07:16.438716+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:12:13.386300+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:12:16.215466+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:12:16.455698+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:12:16.454203+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:17:13.599379+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:17:16.365598+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:17:16.588534+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:17:16.587033+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:22:13.254109+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:22:15.981688+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:22:16.209225+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:22:16.208581+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:27:12.891252+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:27:15.741834+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:27:15.995460+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:27:15.993876+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:32:13.639869+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:32:16.421167+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:32:16.663758+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:32:16.662105+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:37:12.801684+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:37:15.536948+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:37:15.758440+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:37:15.756548+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:42:13.840207+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:42:16.577043+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:42:16.806656+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:42:16.805919+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:47:13.258237+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:47:16.032864+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:47:16.247071+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:47:16.245164+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:52:13.704923+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:52:16.481792+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:52:16.713199+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:52:16.711332+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T01:57:13.543447+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T01:57:16.287140+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T01:57:16.533592+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T01:57:16.532989+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:02:14.092084+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:02:16.929742+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:02:17.186891+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:02:17.186003+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:07:13.199799+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:07:15.930173+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:07:16.175599+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:07:16.174485+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:12:13.392625+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:12:16.145743+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:12:16.362087+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:12:16.360236+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:17:33.408516+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:17:36.135082+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:17:36.415991+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:17:36.415180+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:22:14.119437+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:22:16.854690+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:22:17.073032+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:22:17.071881+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:27:16.751002+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:27:19.502452+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:27:19.727628+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:27:19.726186+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:32:13.312925+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:32:16.030632+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:32:16.300627+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:32:16.299693+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:37:13.628196+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:37:16.361331+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:37:16.656532+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:37:16.655673+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:42:14.052954+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:42:16.853598+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:42:17.086809+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:42:17.086004+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:47:13.736416+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:47:16.485448+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:47:16.709436+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:47:16.708850+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:52:13.603559+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:52:16.360501+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:52:16.567448+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:52:16.566036+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T02:57:13.301118+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T02:57:16.058125+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T02:57:16.276374+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T02:57:16.275752+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:02:14.232408+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:02:16.987909+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:02:17.206751+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:02:17.205938+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:07:15.067487+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:07:17.823325+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:07:18.059099+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:07:18.058086+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:12:15.193247+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:12:18.120318+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:12:18.338141+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:12:18.337499+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:17:13.981406+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:17:16.754312+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:17:16.970426+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:17:16.968463+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:22:13.830317+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:22:16.592775+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:22:16.821096+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:22:16.819162+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:27:13.739850+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:27:16.517898+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:27:16.809832+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:27:16.807981+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:32:14.042936+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:32:16.669393+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:32:16.901955+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:32:16.901214+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:37:14.427136+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:37:17.054739+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:37:17.257940+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:37:17.256381+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:42:14.275423+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:42:16.852039+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:42:17.054430+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:42:17.053772+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:47:13.377025+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:47:15.954436+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:47:16.176119+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:47:16.175466+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:52:13.772579+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:52:16.370896+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:52:16.576660+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:52:16.576001+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T03:57:14.138506+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T03:57:16.728698+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T03:57:16.972209+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T03:57:16.970369+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:02:22.716623+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:02:25.293267+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:02:25.539226+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:02:25.538547+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:07:14.671700+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:07:17.252415+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:07:17.525820+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:07:17.524163+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:12:15.217696+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:12:17.809390+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:12:18.032035+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:12:18.031448+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:17:13.980164+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:17:16.604437+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:17:16.863140+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:17:16.862591+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:22:16.145068+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:22:18.755690+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:22:18.971483+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:22:18.970475+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:27:14.123412+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:27:16.747533+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:27:17.042484+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:27:17.041712+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:32:13.825041+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:32:16.416807+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:32:16.621790+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:32:16.620066+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:37:14.450991+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:37:17.080374+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:37:17.291563+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:37:17.289936+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:42:14.017478+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:42:16.624191+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:42:16.875093+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:42:16.874532+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:47:17.456191+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:47:20.084117+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:47:20.440519+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:47:20.438587+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:52:18.225161+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:52:20.852475+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:52:22.310279+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:52:22.309443+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T04:57:14.006387+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T04:57:16.619399+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T04:57:16.837639+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T04:57:16.837007+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:02:14.340135+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:02:16.953184+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:02:17.192701+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:02:17.191906+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:07:13.789594+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:07:16.387679+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:07:16.603576+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:07:16.602801+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:12:14.795129+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:12:17.442268+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:12:17.703701+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:12:17.702215+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:17:15.182321+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:17:17.798756+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:17:18.013636+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:17:18.012086+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:22:13.945513+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:22:16.561115+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:22:16.788454+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:22:16.787705+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:27:14.868740+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:27:17.543387+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:27:18.050277+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:27:18.048406+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:32:14.188582+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:32:16.797303+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:32:17.003265+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:32:17.001628+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:37:14.259652+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:37:16.867781+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:37:17.092310+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:37:17.090443+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:42:14.234186+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:42:16.845535+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:42:17.082450+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:42:17.081633+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:47:14.216429+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:47:16.958180+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:47:17.172049+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:47:17.170306+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:52:14.658811+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:52:17.332746+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:52:17.573562+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:52:17.571920+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T05:57:17.589274+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T05:57:20.289018+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T05:57:20.517537+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T05:57:20.515768+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:02:20.628597+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:02:23.233101+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:02:23.422772+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:02:23.422176+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:07:15.068778+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:07:17.696527+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:07:17.903713+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:07:17.903065+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:12:15.137711+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:12:17.790278+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:12:18.068506+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:12:18.067157+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:17:15.554328+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:17:18.233411+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:17:18.457110+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:17:18.456572+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:22:14.869661+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:22:17.557501+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:22:17.805967+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:22:17.804824+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:27:14.210202+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:27:17.244710+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:27:17.431751+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:27:17.430593+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:32:14.708119+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:32:17.422066+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:32:17.638158+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:32:17.636520+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:37:15.757138+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:37:18.460459+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:37:18.777845+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:37:18.776770+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:42:14.828168+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:42:17.476116+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:42:17.705300+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:42:17.704203+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:47:15.419100+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:47:18.051931+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:47:18.278264+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:47:18.277706+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:52:15.337996+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:52:18.112758+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:52:18.330894+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:52:18.330315+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T06:57:14.935756+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T06:57:17.571510+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T06:57:17.763815+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T06:57:17.762730+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:02:16.217698+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:02:18.949008+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:02:19.165650+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:02:19.164876+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:07:15.555322+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:07:18.179183+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:07:18.444768+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:07:18.443535+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:12:15.302486+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:12:17.946703+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:12:18.149206+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:12:18.148418+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:17:15.552081+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:17:18.201140+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:17:18.413615+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:17:18.412065+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:22:15.306430+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:22:17.954214+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:22:18.160813+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:22:18.159513+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:27:15.035677+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:27:17.729448+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:27:18.001150+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:27:18.000130+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:32:15.090304+03:00] Pruned 10 terminal orders from orders.json
+[2026-06-25T07:32:17.761161+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:32:17.963501+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:32:17.962828+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}
+[2026-06-25T07:37:19.185480+03:00] Dashboard scrape OK: grand_total=1037.72, money_transfer=1037.72
+[2026-06-25T07:37:19.392316+03:00] Capital synced: grand_total=1037.72, money_transfer=1037.72, equity=0.0 (source: derayah-dashboard-scrape)
+Bookkeeper result: {'available_capital': 1037.72, 'updated_at': '2026-06-25T07:37:19.391674+03:00', 'source': 'derayah-dashboard-scrape', 'grand_total': 1037.72, 'securities_value': 0.0, 'invested': 0.0, 'money_transfer': 1037.72, 'total_fees': 0, 'cash_breakdown': {'total_cash': 1037.72, 'money_transfer': 1037.72, 'cash_accounts': 0.0}, 'equity': 0.0, 'booked': 0, 'cash_3bucket': 1037.72, 'total_3bucket': 1037.72}

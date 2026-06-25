@@ -22,6 +22,13 @@ import logging
 
 RIYADH = pytz.timezone("Asia/Riyadh")
 BASE_DIR = Path("/home/mino/tasi-exec")
+
+# Known delisted / no-data tickers — skip immediately instead of wasting retry time
+SKIP_TICKERS = {
+    "2001.SR", "2210.SR", "9300.SR", "9530.SR", "9533.SR",
+    "9536.SR", "9537.SR", "9539.SR", "9542.SR", "9546.SR",
+    "9553.SR", "9555.SR", "9558.SR", "9561.SR",
+}
 SHARIA_FILE = BASE_DIR / "sharia_list.json"
 PICKS_FILE = BASE_DIR / "picks.json"
 WS_PRICES_FILE = BASE_DIR / f"ws_prices_{datetime.now(RIYADH).strftime('%Y-%m-%d')}.jsonl"
@@ -168,6 +175,10 @@ def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
     Fetch stock data with retry and fallback to WebSocket frames.
     Priority: cache → ws_frames → yfinance
     """
+    # Immediate skip for known delisted / no-data tickers
+    if symbol in SKIP_TICKERS:
+        return symbol, None
+
     # Check cache first
     if symbol in cache:
         return symbol, cache[symbol]
@@ -199,8 +210,10 @@ def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
             
             if df.empty:
                 if attempt == 4:
+                    # Add to skip list after confirmed failure to speed future runs
+                    SKIP_TICKERS.add(symbol)
                     return symbol, None
-                time.sleep(2 ** attempt)  # 1s, 2s, 4s, 8s
+                time.sleep(min(2 ** attempt, 4))  # cap at 4s
                 continue
 
             open_p = float(df["Open"].iloc[0])
@@ -230,6 +243,10 @@ def fetch_one(symbol: str, cache: dict, date_str: str) -> tuple:
     
     return symbol, None
     """Fetch a single stock with caching."""
+    # Immediate skip for known delisted / no-data tickers
+    if symbol in SKIP_TICKERS:
+        return symbol, None
+
     # Check cache first
     if symbol in cache:
         return symbol, cache[symbol]
