@@ -8,13 +8,67 @@ Pre-market: classify_premarket() — called from screener.py at ~09:50
 Intraday:   classify_intraday()  — called from poller.py every 30 min
 """
 
+import csv
 import json
 import logging
 import os
 from datetime import datetime
+from pathlib import Path
 
 import requests
 import yfinance as yf
+
+# ─── Saudi Exchange TASI data helpers ────────────────────────────────────────
+
+def get_tasi_data_saudi(csv_path='/tmp/tasi_latest.csv'):
+    """Fetch TASI data from Saudi Exchange CSV (same-day data)."""
+    if not Path(csv_path).exists():
+        return None
+    try:
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+        if not rows:
+            return None
+        return {
+            'dates': [datetime.strptime(r['date'], '%Y/%m/%d') for r in rows],
+            'open': [float(r['open']) for r in rows],
+            'high': [float(r['high']) for r in rows],
+            'low': [float(r['low']) for r in rows],
+            'close': [float(r['close']) for r in rows],
+            'volume': [int(r['volume']) for r in rows],
+        }
+    except Exception as e:
+        log.warning(f"Failed to read Saudi Exchange TASI data: {e}")
+        return None
+
+
+def get_tasi_data_with_fallback():
+    """Try Saudi Exchange first, fall back to yfinance."""
+    saudi_data = get_tasi_data_saudi()
+    if saudi_data:
+        log.info(f"Using Saudi Exchange TASI data ({len(saudi_data['close'])} days)")
+        return saudi_data
+    
+    # Fallback to yfinance
+    log.info("Saudi Exchange data unavailable, falling back to yfinance")
+    try:
+        tasi_df = yf.download("^TASI", period="15d", interval="1d",
+                               progress=False, auto_adjust=True)
+        if tasi_df is not None and not tasi_df.empty:
+            tasi_df.columns = [c[0] if isinstance(c, tuple) else c for c in tasi_df.columns]
+            tasi_df = tasi_df.dropna(subset=["Close"])
+            return {
+                'dates': list(tasi_df.index),
+                'open': list(tasi_df["Open"]),
+                'high': list(tasi_df["High"]),
+                'low': list(tasi_df["Low"]),
+                'close': list(tasi_df["Close"]),
+                'volume': list(tasi_df["Volume"]),
+            }
+    except Exception as e:
+        log.warning(f"yfinance fallback failed: {e}")
+    return None
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -183,64 +237,55 @@ def notify_regime_change(old_regime: str, new_regime: str, reason: str):
 def classify_premarket() -> dict:
     """
     Download daily TASI + Brent data and classify today's regime before open.
+    Uses Saudi Exchange data first, falls back to yfinance.
     Writes regime.json and returns the regime dict.
     """
-    try:
-        tasi_df = yf.download("EWS", period="15d", interval="1d",
-                               progress=False, auto_adjust=True)
-        oil_df  = yf.download("BZ=F",  period="5d",  interval="1d",
-                               progress=False, auto_adjust=True)
-
-        # Flatten multi-level columns if present
-        if tasi_df is not None and not tasi_df.empty:
-            tasi_df.columns = [c[0] if isinstance(c, tuple) else c for c in tasi_df.columns]
-            tasi_df = tasi_df.dropna(subset=["Close"])
-        if oil_df is not None and not oil_df.empty:
-            oil_df.columns  = [c[0] if isinstance(c, tuple) else c for c in oil_df.columns]
-            oil_df = oil_df.dropna(subset=["Close"])
-
-        if tasi_df is None or len(tasi_df) < 5:
-            log.warning("classify_premarket: insufficient TASI data — defaulting to NEUTRAL")
-            result = dict(_NEUTRAL_DEFAULT)
-            result["classified_at"] = datetime.now().isoformat()
-            _write_regime_file(result)
-            return result
-
-    except Exception as e:
-        log.warning(f"classify_premarket download failed: {e} — defaulting to NEUTRAL")
+    
+    # ── Try Saudi Exchange first ───────────────────────────────────────────────
+    tasi_data = get_tasi_data_with_fallback()
+    
+    if tasi_data is None or len(tasi_data['close']) < 5:
+        log.warning("classify_premarket: insufficient TASI data — defaulting to NEUTRAL")
         result = dict(_NEUTRAL_DEFAULT)
         result["classified_at"] = datetime.now().isoformat()
         _write_regime_file(result)
         return result
 
-    # ── Debug: show what yfinance returned ───────────────────────────────────
-    print(f"[DEBUG] ^TASI rows: {len(tasi_df)} | last 3 dates: {list(tasi_df.index[-3:])}")
-    print(f"[DEBUG] ^TASI last close: {tasi_df['Close'].iloc[-1]:.2f} | prev close: {tasi_df['Close'].iloc[-2]:.2f}")
+    # ── Debug: show data source ────────────────────────────────────────────────
+    is_saudi = get_tasi_data_saudi() is not None
+    source = "Saudi Exchange" if is_saudi else "yfinance"
+    print(f"[DEBUG] TASI source: {source} | rows: {len(tasi_data['close'])} | last 3 dates: {tasi_data['dates'][:3]}")
+    print(f"[DEBUG] TASI last close: {tasi_data['close'][0]:.2f} | prev close: {tasi_data['close'][1]:.2f}")
 
     # ── Compute signals ───────────────────────────────────────────────────────
-
-    tasi_close = tasi_df["Close"]
-
-    last_close  = float(tasi_close.iloc[-1])
-    prev_close  = float(tasi_close.iloc[-2])
-    sma5        = float(tasi_close.rolling(5).mean().iloc[-1])
-    sma10       = float(tasi_close.rolling(10).mean().iloc[-1]) if len(tasi_close) >= 10 else sma5
+    closes = tasi_data['close']
+    
+    last_close  = float(closes[0])
+    prev_close  = float(closes[1])
+    sma5        = float(sum(closes[:5]) / 5) if len(closes) >= 5 else last_close
+    sma10       = float(sum(closes[:10]) / 10) if len(closes) >= 10 else sma5
 
     tasi_momentum    = (last_close - sma5) / sma5 * 100
-    # Use Close-to-Close return (avoids unreliable Open prices from yfinance)
     tasi_yesterday   = (last_close - prev_close) / prev_close * 100 if prev_close else 0
     tasi_above_sma10 = last_close > sma10
 
-    # 5-day return: close[-1] vs close[-6]
-    if len(tasi_close) >= 6:
-        tasi_5d_return = float((tasi_close.iloc[-1] - tasi_close.iloc[-6]) / tasi_close.iloc[-6] * 100)
+    # 5-day return: close[0] vs close[5]
+    if len(closes) >= 6:
+        tasi_5d_return = float((closes[0] - closes[5]) / closes[5] * 100)
     else:
         tasi_5d_return = 0.0
 
+    # Oil data (still from yfinance)
     oil_2d = 0.0
-    if oil_df is not None and len(oil_df) >= 2:
-        oil_close = oil_df["Close"]
-        oil_2d = float((oil_close.iloc[-1] - oil_close.iloc[-2]) / oil_close.iloc[-2] * 100)
+    try:
+        oil_df = yf.download("BZ=F", period="5d", interval="1d",
+                              progress=False, auto_adjust=True)
+        if oil_df is not None and len(oil_df) >= 2:
+            oil_df.columns = [c[0] if isinstance(c, tuple) else c for c in oil_df.columns]
+            oil_close = oil_df["Close"]
+            oil_2d = float((oil_close.iloc[-1] - oil_close.iloc[-2]) / oil_close.iloc[-2] * 100)
+    except Exception as e:
+        log.warning(f"Oil data fetch failed: {e}")
 
     # ── Score ─────────────────────────────────────────────────────────────────
 

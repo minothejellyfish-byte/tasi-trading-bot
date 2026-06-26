@@ -71,36 +71,58 @@ LOCK_FILE     = "/home/mino/tasi-exec/screener.lock"
 
 # ─── TASI flat day helper ────────────────────────────────────────────────────
 def get_yesterday_tasi_range():
-    """Get yesterday's TASI range from tracked data.
+    """Get yesterday's TASI range from Saudi Exchange or tracked data.
     Returns (range_pct, is_flat) or (None, False) if data not available.
     """
     from pathlib import Path
+    import csv
     from datetime import datetime, timedelta
     
-    tasi_file = Path("/home/mino/tasi-exec/tasi_daily.json")
-    if not tasi_file.exists():
-        return None, False
-    
-    try:
-        with open(tasi_file) as f:
-            data = json.load(f)
-        
-        yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-        
-        if yesterday in data:
-            values = data[yesterday]
-            high = values.get("high")
-            low = values.get("low")
-            open_price = values.get("open")
+    # Try Saudi Exchange data first
+    saudi_csv = Path("/tmp/tasi_latest.csv")
+    if saudi_csv.exists():
+        try:
+            with open(saudi_csv, 'r') as f:
+                reader = csv.DictReader(f)
+                rows = list(reader)
             
-            if high and low and open_price and open_price > 0:
-                tasi_range = (high - low) / open_price * 100
-                is_flat = tasi_range < 0.5
-                return tasi_range, is_flat
-        
-        return None, False
-    except Exception:
-        return None, False
+            if len(rows) >= 2:
+                # rows[0] is today, rows[1] is yesterday
+                yesterday_row = rows[1]
+                high = float(yesterday_row['high'])
+                low = float(yesterday_row['low'])
+                open_price = float(yesterday_row['open'])
+                
+                if high and low and open_price and open_price > 0:
+                    tasi_range = (high - low) / open_price * 100
+                    is_flat = tasi_range < 0.5
+                    return tasi_range, is_flat
+        except Exception:
+            pass
+    
+    # Fallback to legacy JSON
+    tasi_file = Path("/home/mino/tasi-exec/tasi_daily.json")
+    if tasi_file.exists():
+        try:
+            with open(tasi_file) as f:
+                data = json.load(f)
+            
+            yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+            
+            if yesterday in data:
+                values = data[yesterday]
+                high = values.get("high")
+                low = values.get("low")
+                open_price = values.get("open")
+                
+                if high and low and open_price and open_price > 0:
+                    tasi_range = (high - low) / open_price * 100
+                    is_flat = tasi_range < 0.5
+                    return tasi_range, is_flat
+        except Exception:
+            pass
+    
+    return None, False
 
 def load_sharia_universe() -> list[str]:
     """Load Sharia-compliant main-market tickers from sharia_list.json."""
