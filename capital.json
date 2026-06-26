@@ -1,10 +1,19 @@
 {
   "available_capital": 1037.72,
-  "updated_at": "2026-06-26T13:47:27.121180+03:00",
-  "source": "derayah-api-fallback",
+  "updated_at": "2026-06-27T01:20:07.276376+03:00",
+  "source": "derayah-dashboard-scrape",
   "grand_total": 1037.72,
-  "securities_value": 0,
-  "invested": 0,
+  "securities_value": 0.0,
+  "invested": 0.0,
   "money_transfer": 1037.72,
-  "total_fees": 0
+  "total_fees": 0,
+  "cash_breakdown": {
+    "total_cash": 1037.72,
+    "money_transfer": 1037.72,
+    "cash_accounts": 0.0
+  },
+  "equity": 0.0,
+  "booked": 0,
+  "cash_3bucket": 1037.72,
+  "total_3bucket": 1037.72
 }

@@ -1,7 +1,7 @@
 {
   "date": "2026-06-26",
   "mode": "evaluated",
-  "evaluated_at": "2026-06-26T13:45:21.156777",
+  "evaluated_at": "2026-06-26T14:15:34.653119",
   "picks": [
     {
       "symbol": "6050.SR",
@@ -19,7 +19,7 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +3.1% \u2014 don't chase",
-      "evaluator_time": "2026-06-26T13:45:16.624993",
+      "evaluator_time": "2026-06-26T14:15:29.725871",
       "evaluator_price": 59.150001525878906
     },
     {
@@ -38,7 +38,7 @@
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +2.9%",
-      "evaluator_time": "2026-06-26T13:45:17.000827",
+      "evaluator_time": "2026-06-26T14:15:30.096051",
       "evaluator_price": 9.050000190734863
     },
     {
@@ -57,7 +57,7 @@
       "evaluator_score": 65,
       "evaluator_action": "RECOVERING",
       "evaluator_note": "Recovering: below zone but rising +2.6%",
-      "evaluator_time": "2026-06-26T13:45:17.344963",
+      "evaluator_time": "2026-06-26T14:15:30.449778",
       "evaluator_price": 6.800000190734863
     },
     {
@@ -76,7 +76,7 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +5.2% \u2014 don't chase",
-      "evaluator_time": "2026-06-26T13:45:17.689285",
+      "evaluator_time": "2026-06-26T14:15:30.806132",
       "evaluator_price": 35.91999816894531
     },
     {
@@ -95,7 +95,7 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +4.5% \u2014 don't chase",
-      "evaluator_time": "2026-06-26T13:45:18.056159",
+      "evaluator_time": "2026-06-26T14:15:31.123719",
       "evaluator_price": 12.319999694824219
     },
     {
@@ -114,7 +114,7 @@
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +4.4%",
-      "evaluator_time": "2026-06-26T13:45:18.436124",
+      "evaluator_time": "2026-06-26T14:15:31.477848",
       "evaluator_price": 86.9000015258789
     },
     {
@@ -133,7 +133,7 @@
       "evaluator_score": 60,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Rising: above zone +2.8% \u2014 wait for pullback",
-      "evaluator_time": "2026-06-26T13:45:18.773744",
+      "evaluator_time": "2026-06-26T14:15:32.217837",
       "evaluator_price": 16.6200008392334
     },
     {
@@ -152,7 +152,7 @@
       "evaluator_score": 90,
       "evaluator_action": "KEEP",
       "evaluator_note": "Valid: in zone, strong momentum +4.0%",
-      "evaluator_time": "2026-06-26T13:45:19.119740",
+      "evaluator_time": "2026-06-26T14:15:32.582789",
       "evaluator_price": 46.720001220703125
     },
     {
@@ -171,7 +171,7 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +6.4% \u2014 don't chase",
-      "evaluator_time": "2026-06-26T13:45:19.538805",
+      "evaluator_time": "2026-06-26T14:15:32.995393",
       "evaluator_price": 25.440000534057617
     },
     {
@@ -190,7 +190,7 @@
       "evaluator_score": 70,
       "evaluator_action": "TRENDING",
       "evaluator_note": "Strong: above zone +5.4% \u2014 don't chase",
-      "evaluator_time": "2026-06-26T13:45:19.883480",
+      "evaluator_time": "2026-06-26T14:15:33.474200",
       "evaluator_price": 3.4100000858306885
     },
     {
@@ -209,7 +209,7 @@
       "evaluator_score": 20,
       "evaluator_action": "SCRATCH",
       "evaluator_note": "Falling: below zone, negative -4.2%",
-      "evaluator_time": "2026-06-26T13:45:20.398914",
+      "evaluator_time": "2026-06-26T14:15:33.805643",
       "evaluator_price": 21.200000762939453
     },
     {
@@ -228,7 +228,7 @@
       "evaluator_score": 20,
       "evaluator_action": "SCRATCH",
       "evaluator_note": "Falling: below zone, negative -3.3%",
-      "evaluator_time": "2026-06-26T13:45:20.757630",
+      "evaluator_time": "2026-06-26T14:15:34.192193",
       "evaluator_price": 17.719999313354492
     },
     {
@@ -247,7 +247,7 @@
       "evaluator_score": 20,
       "evaluator_action": "SCRATCH",
       "evaluator_note": "Falling: below zone, negative -3.3%",
-      "evaluator_time": "2026-06-26T13:45:21.155472",
+      "evaluator_time": "2026-06-26T14:15:34.651861",
       "evaluator_price": 12.010000228881836
     }
   ]
