@@ -1,0 +1,3 @@
+*/5 9-16 * * 0-4 /home/mino/tasi-exec/derayah_refresh_cron.sh >> /home/mino/tasi-exec/refresh_cron.log 2>&1
+0 9 * * 0-4 /home/mino/tasi-exec/cleanup_stand_down.sh >> /home/mino/tasi-exec/cleanup.log 2>&1
+0 * * * * cd /home/mino/tasi-exec && ./.integrity_monitor.sh >> /tmp/integrity_check.log 2>&1
