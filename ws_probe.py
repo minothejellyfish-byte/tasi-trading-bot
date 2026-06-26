@@ -135,6 +135,10 @@ async def run():
     TASI_TOPIC = "QO.TASI.TAD"
     tasi_file = BASE_DIR / "tasi_daily.json"
 
+    # ── Per-stock daily tracker ─────────────────────────────────────────────────
+    stock_tracker = {}  # {symbol: {"high": ..., "low": ..., "open": ..., "close": ...}}
+    stock_file = BASE_DIR / "stock_daily.json"
+
     def on_ws_frame(params):
         nonlocal heartbeats, frame_counter
         frame_counter += 1
@@ -185,6 +189,28 @@ async def run():
                     log.debug(f"TASI tracker: high={tasi_tracker['high']}, low={tasi_tracker['low']}, last={last_price}")
             except Exception as e:
                 log.debug(f"TASI tracking error: {e}")
+
+        # Track per-stock high/low
+        if topic.startswith("QO.") and topic != TASI_TOPIC:
+            try:
+                symbol = topic.split(".")[1]  # QO.2190.TAD → 2190
+                last_price = float(d.get("last", 0))
+                if last_price > 0 and symbol.isdigit():
+                    if symbol not in stock_tracker:
+                        stock_tracker[symbol] = {
+                            "high": None, "low": None, "open": None, "close": None,
+                            "date": datetime.now().strftime("%Y-%m-%d")
+                        }
+                    st = stock_tracker[symbol]
+                    if st["high"] is None or last_price > st["high"]:
+                        st["high"] = last_price
+                    if st["low"] is None or last_price < st["low"]:
+                        st["low"] = last_price
+                    if st["open"] is None:
+                        st["open"] = last_price
+                    st["close"] = last_price
+            except Exception as e:
+                log.debug(f"Stock tracking error: {e}")
 
         # Record WS URL
         url = params.get("response", {}).get("url", "")
@@ -284,6 +310,39 @@ async def run():
             log.info(f"TASI daily data saved: {tasi_tracker}")
         except Exception as e:
             log.error(f"Failed to save TASI tracker: {e}")
+
+    # ── Save per-stock daily tracker ────────────────────────────────────────────
+    if stock_tracker:
+        try:
+            stock_history = {}
+            if stock_file.exists():
+                with open(stock_file) as f:
+                    stock_history = json.load(f)
+            
+            today = datetime.now().strftime("%Y-%m-%d")
+            if today not in stock_history:
+                stock_history[today] = {}
+            
+            for symbol, st in stock_tracker.items():
+                if st["high"] is not None and st["low"] is not None:
+                    stock_history[today][symbol] = {
+                        "open": st["open"],
+                        "high": st["high"],
+                        "low": st["low"],
+                        "close": st["close"]
+                    }
+            
+            # Keep only last 30 days
+            dates = sorted(stock_history.keys())
+            for old_date in dates[:-30]:
+                del stock_history[old_date]
+            
+            with open(stock_file, "w") as f:
+                json.dump(stock_history, f, indent=2)
+            
+            log.info(f"Stock daily data saved: {len(stock_tracker)} stocks")
+        except Exception as e:
+            log.error(f"Failed to save stock tracker: {e}")
 
     # ── Telegram summary ───────────────────────────────────────────────────────
 

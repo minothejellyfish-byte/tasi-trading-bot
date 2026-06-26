@@ -96,6 +96,33 @@ def score_intraday(bar: dict) -> float:
     return score
 
 
+def get_prev_day_data(symbol: str) -> dict | None:
+    """Get previous day's high/low/close from WS tracked stock_daily.json."""
+    from datetime import datetime, timedelta
+    
+    stock_file = BASE_DIR / "stock_daily.json"
+    if not stock_file.exists():
+        return None
+    
+    try:
+        with open(stock_file) as f:
+            data = json.load(f)
+        
+        yesterday = (datetime.now(RIYADH) - timedelta(days=1)).strftime("%Y-%m-%d")
+        if yesterday in data and symbol in data[yesterday]:
+            day_data = data[yesterday][symbol]
+            return {
+                "high": float(day_data["high"]),
+                "low": float(day_data["low"]),
+                "close": float(day_data["close"]),
+                "open": float(day_data.get("open", day_data["low"])),
+            }
+    except Exception as e:
+        log.warning(f"stock_daily.json read failed for {symbol}: {e}")
+    
+    return None
+
+
 def run_midscreen(mode: str = "midscreen1", picks_file: str = None, top_n: int = 5) -> dict:
     """
     Run mid-screen using websocket data.
@@ -145,30 +172,38 @@ def run_midscreen(mode: str = "midscreen1", picks_file: str = None, top_n: int =
     scored.sort(key=lambda x: x["score"], reverse=True)
     top = scored[:top_n]
 
-    # Get entry zones from yesterday's daily data
+    # Get entry zones from yesterday's daily data (WS tracked first, yfinance fallback)
     picks = []
     for bar in top:
         sym = bar["symbol"]
         try:
-            ticker = yf.Ticker(f"{sym}.SR")
-            # Try 2 days first, fallback to 1 day if insufficient
-            df = ticker.history(period="2d", interval="1d")
-            if len(df) >= 2:
-                prev_high = float(df["High"].iloc[-2])
-                prev_low = float(df["Low"].iloc[-2])
-                prev_close = float(df["Close"].iloc[-2])
-            elif len(df) == 1:
-                # Fallback: use 1 day of data
-                prev_high = float(df["High"].iloc[-1])
-                prev_low = float(df["Low"].iloc[-1])
-                prev_close = float(df["Close"].iloc[-1])
-                log.warning(f"[{mode}] {sym}: only 1 day data available, using last bar")
+            # Try WS tracked data first
+            prev = get_prev_day_data(sym)
+            if prev:
+                prev_high = prev["high"]
+                prev_low = prev["low"]
+                prev_close = prev["close"]
+                log.info(f"[{mode}] {sym}: using WS tracked prev-day data")
             else:
-                # No data - derive from websocket bars
-                prev_high = bar["high"]
-                prev_low = bar["low"]
-                prev_close = bar["close"]
-                log.warning(f"[{mode}] {sym}: no yfinance data, using websocket bar")
+                # Fallback to yfinance
+                ticker = yf.Ticker(f"{sym}.SR")
+                df = ticker.history(period="2d", interval="1d")
+                if len(df) >= 2:
+                    prev_high = float(df["High"].iloc[-2])
+                    prev_low = float(df["Low"].iloc[-2])
+                    prev_close = float(df["Close"].iloc[-2])
+                    log.info(f"[{mode}] {sym}: using yfinance prev-day data")
+                elif len(df) == 1:
+                    prev_high = float(df["High"].iloc[-1])
+                    prev_low = float(df["Low"].iloc[-1])
+                    prev_close = float(df["Close"].iloc[-1])
+                    log.warning(f"[{mode}] {sym}: only 1 day yfinance data")
+                else:
+                    # No data - derive from websocket bars
+                    prev_high = bar["high"]
+                    prev_low = bar["low"]
+                    prev_close = bar["close"]
+                    log.warning(f"[{mode}] {sym}: no prev-day data, using same-day bar")
             
             if prev_close >= prev_high * 0.99:
                 # v4.1: Wider entry zone (close * 0.98)
