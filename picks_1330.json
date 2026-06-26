@@ -1,69 +1,69 @@
 {
-  "date": "2026-06-24",
+  "date": "2026-06-25",
   "mode": "rescreen",
   "window": "12:00-13:30",
   "picks": [
     {
-      "symbol": "4270.SR",
-      "entry_high": 7.14,
-      "entry_low": 6.91,
-      "score": 48.5,
+      "symbol": "2100.SR",
+      "entry_high": 22.0,
+      "entry_low": 21.34,
+      "score": 62.1,
       "pm_metrics": {
-        "change_pct": 2.44,
-        "range_pct": 3.3,
-        "ticks": 206
+        "change_pct": -4.21,
+        "range_pct": 6.05,
+        "ticks": 708
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "4009.SR",
-      "entry_high": 31.94,
-      "entry_low": 30.99,
-      "score": 44.4,
+      "symbol": "7205.SR",
+      "entry_high": 12.64,
+      "entry_low": 12.26,
+      "score": 53.0,
       "pm_metrics": {
-        "change_pct": 2.3,
-        "range_pct": 2.3,
-        "ticks": 262
+        "change_pct": -3.3,
+        "range_pct": 3.71,
+        "ticks": 688
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "8280.SR",
-      "entry_high": 12.55,
-      "entry_low": 12.14,
-      "score": 42.1,
+      "symbol": "8050.SR",
+      "entry_high": 8.14,
+      "entry_low": 7.9,
+      "score": 46.0,
       "pm_metrics": {
-        "change_pct": 1.9,
-        "range_pct": 2.8,
-        "ticks": 204
+        "change_pct": 2.1,
+        "range_pct": 5.07,
+        "ticks": 308
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "7200.SR",
-      "entry_high": 221.64,
-      "entry_low": 209.58,
-      "score": 38.5,
+      "symbol": "6013.SR",
+      "entry_high": 103.71,
+      "entry_low": 98.0,
+      "score": 39.0,
       "pm_metrics": {
-        "change_pct": 1.88,
-        "range_pct": 2.35,
-        "ticks": 149
+        "change_pct": -1.99,
+        "range_pct": 3.11,
+        "ticks": 209
       },
       "tier": "midscreen",
       "source": "rescreen"
     },
     {
-      "symbol": "4148.SR",
-      "entry_high": 2.69,
-      "entry_low": 2.61,
-      "score": 37.0,
+      "symbol": "2310.SR",
+      "entry_high": 14.17,
+      "entry_low": 13.75,
+      "score": 37.4,
       "pm_metrics": {
-        "change_pct": 1.69,
-        "range_pct": 2.63,
-        "ticks": 97
+        "change_pct": 1.49,
+        "range_pct": 2.5,
+        "ticks": 810
       },
       "tier": "midscreen",
       "source": "rescreen"

@@ -1,0 +1,96 @@
+{
+  "our_picks": [
+    {
+      "symbol": "6050.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 33.450781766130824,
+      "potential_entry": 45.41,
+      "actual_high": 63.35,
+      "missed_profit": 17.940000000000005,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "1321.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 0.5327413984461659,
+      "potential_entry": 225.25,
+      "actual_high": 230.0,
+      "missed_profit": 4.75,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "2030.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 4.188815649585369,
+      "potential_entry": 47.03,
+      "actual_high": 49.0,
+      "missed_profit": 1.9699999999999989,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "4009.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 3.6318096430807767,
+      "potential_entry": 31.94,
+      "actual_high": 33.7,
+      "missed_profit": 1.7600000000000016,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "4100.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 1.3171225937183404,
+      "potential_entry": 88.83,
+      "actual_high": 90.05,
+      "missed_profit": 1.2199999999999989,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "4146.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 5.077399380804955,
+      "potential_entry": 16.15,
+      "actual_high": 17.15,
+      "missed_profit": 1.0,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "4322.SR",
+      "reason": "Gapped above zone - no entry",
+      "gap_pct": 2.6490066225165587,
+      "potential_entry": 12.08,
+      "actual_high": 12.55,
+      "missed_profit": 0.47000000000000064,
+      "recommendation": "Consider chase entry with tight stop if gap < 1%"
+    },
+    {
+      "symbol": "4050.SR",
+      "reason": "Zone too high - price opened below",
+      "gap_pct": -2.1900914310014907,
+      "recommendation": "Adjust zone calculation or use VWAP-based zones"
+    }
+  ],
+  "outside_top3": [
+    {
+      "symbol": "9545.SR",
+      "max_move_pct": 5.479446686014497,
+      "change_pct": -1.7612553862301563,
+      "volume": 117230,
+      "why_missed": "Unknown - need screener logs"
+    },
+    {
+      "symbol": "9587.SR",
+      "max_move_pct": 5.109492861930496,
+      "change_pct": 0.0,
+      "volume": 132520,
+      "why_missed": "Low pre-market momentum"
+    },
+    {
+      "symbol": "9535.SR",
+      "max_move_pct": 4.428039995199957,
+      "change_pct": 2.2140199975999786,
+      "volume": 447049,
+      "why_missed": "Unknown - need screener logs"
+    }
+  ]
+}

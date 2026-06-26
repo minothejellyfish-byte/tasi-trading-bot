@@ -26,12 +26,13 @@
     "enable_dynamic_allocation": true,
     "deployment_target": 0.8
   },
-  "score": -2,
-  "reason": "Session return 0.27%, above_vwap=False \u2014 no override, keeping DEFENSIVE.",
-  "session_return": 0.271,
-  "vwap": 29.671,
-  "above_vwap": false,
-  "big_move": false,
-  "classified_at": "2026-06-24T15:01:04.605886",
-  "source": "intraday"
+  "score": -4,
+  "reason": "Score -4: TASI momentum -0.83% below SMA5 (-1) | Yesterday -0.67% C-to-C (bearish day, -2) | 5d return -1.69% (weak trend penalty, -1) | Oil +1.93% 2-day (+1) | TASI below SMA10 (10933.2 < 11070.5, -1)",
+  "tasi_momentum": -0.829,
+  "tasi_yesterday": -0.668,
+  "tasi_5d_return": -1.69,
+  "oil_2d": 1.926,
+  "tasi_above_sma10": false,
+  "classified_at": "2026-06-26T03:15:41.713097",
+  "source": "premarket"
 }
