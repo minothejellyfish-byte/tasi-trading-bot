@@ -44,30 +44,59 @@ def get_tasi_data_saudi(csv_path='/tmp/tasi_latest.csv'):
 
 
 def get_tasi_data_with_fallback():
-    """Try Saudi Exchange first, fall back to yfinance."""
+    """Try Saudi Exchange first, fall back to WS tracked tasi_daily.json."""
     saudi_data = get_tasi_data_saudi()
     if saudi_data:
         log.info(f"Using Saudi Exchange TASI data ({len(saudi_data['close'])} days)")
         return saudi_data
     
-    # Fallback to yfinance
-    log.info("Saudi Exchange data unavailable, falling back to yfinance")
+    # Fallback to WS tracked data (tasi_daily.json)
+    log.info("Saudi Exchange data unavailable, falling back to WS tracked tasi_daily.json")
     try:
-        tasi_df = yf.download("^TASI", period="15d", interval="1d",
-                               progress=False, auto_adjust=True)
-        if tasi_df is not None and not tasi_df.empty:
-            tasi_df.columns = [c[0] if isinstance(c, tuple) else c for c in tasi_df.columns]
-            tasi_df = tasi_df.dropna(subset=["Close"])
-            return {
-                'dates': list(tasi_df.index),
-                'open': list(tasi_df["Open"]),
-                'high': list(tasi_df["High"]),
-                'low': list(tasi_df["Low"]),
-                'close': list(tasi_df["Close"]),
-                'volume': list(tasi_df["Volume"]),
-            }
+        from pathlib import Path
+        from datetime import datetime, timedelta
+        
+        tasi_file = Path("/home/mino/tasi-exec/tasi_daily.json")
+        if tasi_file.exists():
+            with open(tasi_file) as f:
+                data = json.load(f)
+            
+            # Need at least a few days of data
+            if len(data) >= 5:
+                # Sort dates descending (newest first)
+                sorted_dates = sorted(data.keys(), reverse=True)
+                
+                dates = []
+                opens = []
+                highs = []
+                lows = []
+                closes = []
+                volumes = []
+                
+                for date_str in sorted_dates:
+                    day_data = data[date_str]
+                    if all(k in day_data for k in ["open", "high", "low", "close"]):
+                        dates.append(datetime.strptime(date_str, "%Y-%m-%d"))
+                        opens.append(float(day_data["open"]))
+                        highs.append(float(day_data["high"]))
+                        lows.append(float(day_data["low"]))
+                        closes.append(float(day_data["close"]))
+                        volumes.append(float(day_data.get("volume", 0)))
+                
+                if len(closes) >= 5:
+                    log.info(f"Using WS tracked TASI data ({len(closes)} days)")
+                    return {
+                        'dates': dates,
+                        'open': opens,
+                        'high': highs,
+                        'low': lows,
+                        'close': closes,
+                        'volume': volumes,
+                    }
+        
+        log.warning("tasi_daily.json insufficient or not found")
     except Exception as e:
-        log.warning(f"yfinance fallback failed: {e}")
+        log.warning(f"WS tracked fallback failed: {e}")
     return None
 
 # ─── Config ──────────────────────────────────────────────────────────────────
